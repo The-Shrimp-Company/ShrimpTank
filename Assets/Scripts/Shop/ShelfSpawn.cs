@@ -116,7 +116,7 @@ public class ShelfSpawn : MonoBehaviour
         {
             if (Money.instance.WithdrawMoney(10))
             {
-                _destinationTank.SpawnShrimp();
+                _destinationTank.SpawnShrimp(TraitSet.None);
             }
         }
     }

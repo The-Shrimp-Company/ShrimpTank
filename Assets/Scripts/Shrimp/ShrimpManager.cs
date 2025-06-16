@@ -83,11 +83,6 @@ public class ShrimpManager : MonoBehaviour
         s.tailFan = geneManager.TraitGene(geneManager.bodyPartInheritance, 0, parentA.tailFan, parentB.tailFan, geneManager.bodyPartCanMutate);
         s.legs = geneManager.TraitGene(geneManager.bodyPartInheritance, 0, parentA.legs, parentB.legs, geneManager.bodyPartCanMutate);
 
-        s.fightHistory = 0;
-        s.breedingHistory = 0;
-        s.illnessHistory = 0;
-        s.moltHistory = 0;
-
         geneManager.ApplyStatModifiers(s);
 
         return s;
@@ -141,10 +136,58 @@ public class ShrimpManager : MonoBehaviour
         t.activeGene.ID = "L";
         s.legs = geneManager.TraitGene(InheritanceType.WeightedRandom, 0, t, t, false);
 
-        s.fightHistory = 0;
-        s.breedingHistory = 0;
-        s.illnessHistory = 0;
-        s.moltHistory = 0;
+        geneManager.ApplyStatModifiers(s);
+
+        return s;
+    }
+
+
+    public ShrimpStats CreatePureBreedShrimp(TraitSet set, bool adultAge)
+    {
+        ShrimpStats s = new ShrimpStats();
+
+        s.name = GenerateShrimpName();
+        s.gender = geneManager.RandomGender();
+        if (adultAge)
+            s.birthTime = TimeManager.instance.CalculateBirthTimeFromAge(geneManager.IntGene(InheritanceType.FullRandom, Mathf.RoundToInt((maxShrimpAge - (1 + minAgeForAShrimpBeingBought)) * 0.9f), 0, 0, false) + Random.value + minAgeForAShrimpBeingBought);
+        else s.birthTime = TimeManager.instance.CalculateBirthTimeFromAge(geneManager.IntGene(InheritanceType.FullRandom, Mathf.RoundToInt((maxShrimpAge - 1) * 0.9f), 0, 0, false) + Random.value);
+
+        s.temperament = geneManager.IntGene(InheritanceType.FullRandom, maxShrimpTemperament, 0, 0, false);
+        s.geneticSize = geneManager.IntGene(InheritanceType.FullRandom, maxGeneticShrimpSize, 0, 0, false);
+        s.hunger = 100;
+        s.illnessLevel = 0;
+
+        s.salineLevel = 50;
+        s.immunity = 0;
+        s.metabolism = geneManager.IntGene(InheritanceType.FullRandom, 30, 0, 0, false);
+        s.filtration = 0;
+        s.temperaturePreference = 50;
+
+        Trait t = new Trait();
+        t.activeGene.ID = "C";
+        s.primaryColour = geneManager.TraitGene(InheritanceType.WeightedRandom, 0, t, t, false);
+        s.secondaryColour = geneManager.TraitGene(InheritanceType.WeightedRandom, 0, t, t, false);
+
+        t.activeGene.ID = "P";
+        s.pattern = geneManager.TraitGene(InheritanceType.WeightedRandom, 0, t, t, false);
+
+        t.activeGene.ID = "B";
+        s.body = geneManager.TraitFromSet(t, set);
+
+        t.activeGene.ID = "H";
+        s.head = geneManager.TraitFromSet(t, set);
+
+        t.activeGene.ID = "E";
+        s.eyes = geneManager.TraitFromSet(t, set);
+
+        t.activeGene.ID = "T";
+        s.tail = geneManager.TraitFromSet(t, set);
+
+        t.activeGene.ID = "F";
+        s.tailFan = geneManager.TraitFromSet(t, set);
+
+        t.activeGene.ID = "L";
+        s.legs = geneManager.TraitFromSet(t, set);
 
         geneManager.ApplyStatModifiers(s);
 
@@ -197,11 +240,6 @@ public class ShrimpManager : MonoBehaviour
         t.activeGene.ID = "L";
         s.legs = geneManager.TraitGene(InheritanceType.RandomInStore, 0, t, t, false);
 
-        s.fightHistory = 0;
-        s.breedingHistory = 0;
-        s.illnessHistory = 0;
-        s.moltHistory = 0;
-
         geneManager.ApplyStatModifiers(s);
 
         return s;
@@ -230,11 +268,6 @@ public class ShrimpManager : MonoBehaviour
         s.tail = geneManager.GlobalGeneToTrait(geneManager.GetGlobalGene(geneManager.tailSOs[0].ID));
         s.tailFan = geneManager.GlobalGeneToTrait(geneManager.GetGlobalGene(geneManager.tailFanSOs[0].ID));
         s.legs = geneManager.GlobalGeneToTrait(geneManager.GetGlobalGene(geneManager.legsSOs[0].ID));
-
-        s.fightHistory = 0;
-        s.breedingHistory = 0;
-        s.illnessHistory = 0;
-        s.moltHistory = 0;
 
         return s;
     }

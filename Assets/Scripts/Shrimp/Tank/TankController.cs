@@ -106,7 +106,7 @@ public class TankController : MonoBehaviour
         {
             for (int i = 0; i < 10; i++)
             {
-                SpawnRandomShrimp();
+                SpawnShrimp();
             }
         }
 
@@ -292,12 +292,13 @@ public class TankController : MonoBehaviour
     }
 
 
-    private void SpawnRandomShrimp()
+    public void SpawnShrimp(TraitSet set = TraitSet.None)  // No trait set will spawn a random shrimp
     {
         GameObject newShrimp = Instantiate(ShrimpManager.instance.shrimpPrefab, GetRandomTankPosition(), Quaternion.identity);
         Shrimp s = newShrimp.GetComponent<Shrimp>();
 
-        s.stats = ShrimpManager.instance.CreateRandomShrimp(false);
+        if (set == TraitSet.None) s.stats = ShrimpManager.instance.CreateRandomShrimp(false);
+        else s.stats = ShrimpManager.instance.CreatePureBreedShrimp(set, false);
         s.ChangeTank(this);
         newShrimp.name = s.stats.name;
         newShrimp.transform.parent = shrimpParent;
@@ -309,11 +310,6 @@ public class TankController : MonoBehaviour
         CheckMostShrimpInTank();
     }
 
-
-    public void SpawnShrimp()
-    {
-        SpawnRandomShrimp();
-    }
 
     public void SpawnShrimp(ShrimpStats s, bool gameLoading = false)
     {

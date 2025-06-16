@@ -24,9 +24,16 @@ public class DebugController : MonoBehaviour
     float oldAutosaveTime;
 
 
+    public static DebugCommand<float> GIVE_MONEY;
     public static DebugCommand<float> SET_MONEY;
+    public static DebugCommand<float> GIVE_REPUTATION;
+    public static DebugCommand<float> SET_REPUTATION;
 
-    public static DebugCommand SPAWN_SHRIMP;
+    public static DebugCommand<int> SPAWN_RANDOM;
+    public static DebugCommand<int> SPAWN_CHERRY;
+    public static DebugCommand<int> SPAWN_CARIDID;
+    public static DebugCommand<int> SPAWN_NYLON;
+    public static DebugCommand<int> SPAWN_ANOMALIS;
 
     public static DebugCommand HELP;
 
@@ -45,22 +52,80 @@ public class DebugController : MonoBehaviour
         #endif
 
 
+
+        GIVE_MONEY = new DebugCommand<float>("give_money", "Gives or removes money", "give_money", (x) =>
+        {
+            if (Money.instance != null) Money.instance.AddMoney(x);
+            else Debug.LogError("SET_MONEY Command failed");
+        });
+
         SET_MONEY = new DebugCommand<float>("set_money", "Sets your money", "set_money", (x) =>
         {
             if (Money.instance != null) Money.instance.SetMoney(x);
             else Debug.LogError("SET_MONEY Command failed");
         });
 
+        GIVE_REPUTATION = new DebugCommand<float>("give_reputation", "Gives or removes store reputation", "give_reputation", (x) =>
+        {
+            Reputation.AddReputation(x);
+        });
 
-        SPAWN_SHRIMP = new DebugCommand("spawn_shrimp", "Spawns a random shrimp in the destination tank", "spawn_shrimp", () =>
+        SET_REPUTATION = new DebugCommand<float>("set_reputation", "Sets your store reputation", "set_reputation", (x) =>
+        {
+            Reputation.SetReputation(x);
+        });
+
+
+
+
+
+        SPAWN_RANDOM = new DebugCommand<int>("spawn_random", "Spawns random shrimp in the destination tank", "spawn_random", (x) =>
         {
             ShelfSpawn shelf = GameObject.Find("Shelving").GetComponent<ShelfSpawn>();
             if (shelf)
-            {
-                shelf.GetDestinationTank().SpawnShrimp();
-            }
-            else Debug.LogError("SPAWN_SHRIMP Command failed");
+                for (int i = 0; i < x; i++)
+                    shelf.GetDestinationTank().SpawnShrimp(TraitSet.None);
+            else Debug.LogError("SPAWN_RANDOM Command failed");
         });
+
+        SPAWN_CHERRY = new DebugCommand<int>("spawn_cherry", "Spawns cherry shrimp in the destination tank", "spawn_cherry", (x) =>
+        {
+            ShelfSpawn shelf = GameObject.Find("Shelving").GetComponent<ShelfSpawn>();
+            if (shelf)
+                for (int i = 0; i < x; i++)
+                    shelf.GetDestinationTank().SpawnShrimp(TraitSet.Cherry);
+            else Debug.LogError("SPAWN_CHERRY Command failed");
+        });
+
+        SPAWN_NYLON = new DebugCommand<int>("spawn_nylon", "Spawns nylon shrimp in the destination tank", "spawn_nylon", (x) =>
+        {
+            ShelfSpawn shelf = GameObject.Find("Shelving").GetComponent<ShelfSpawn>();
+            if (shelf)
+                for (int i = 0; i < x; i++)
+                    shelf.GetDestinationTank().SpawnShrimp(TraitSet.Nylon);
+            else Debug.LogError("SPAWN_NYLON Command failed");
+        });
+
+        SPAWN_ANOMALIS = new DebugCommand<int>("spawn_anomalis", "Spawns anomalis shrimp in the destination tank", "spawn_anomalis", (x) =>
+        {
+            ShelfSpawn shelf = GameObject.Find("Shelving").GetComponent<ShelfSpawn>();
+            if (shelf)
+                for (int i = 0; i < x; i++)
+                    shelf.GetDestinationTank().SpawnShrimp(TraitSet.Anomalis);
+            else Debug.LogError("SPAWN_ANOMALIS Command failed");
+        });
+
+        SPAWN_CARIDID = new DebugCommand<int>("spawn_caridid", "Spawns caridid shrimp in the destination tank", "spawn_caridid", (x) =>
+        {
+            ShelfSpawn shelf = GameObject.Find("Shelving").GetComponent<ShelfSpawn>();
+            if (shelf)
+                for (int i = 0; i < x; i++)
+                    shelf.GetDestinationTank().SpawnShrimp(TraitSet.Caridid);
+            else Debug.LogError("SPAWN_CARIDID Command failed");
+        });
+
+
+
 
 
         HELP = new DebugCommand("help", "Shows a list of commands", "help", () =>
@@ -73,9 +138,16 @@ public class DebugController : MonoBehaviour
 
         commandList = new List<object>
         {
+            GIVE_MONEY,
             SET_MONEY,
+            GIVE_REPUTATION,
+            SET_REPUTATION,
 
-            SPAWN_SHRIMP,
+            SPAWN_RANDOM,
+            SPAWN_CHERRY,
+            SPAWN_CARIDID,
+            SPAWN_NYLON,
+            SPAWN_ANOMALIS,
 
             HELP,
         };
@@ -153,7 +225,7 @@ public class DebugController : MonoBehaviour
                     if (command as DebugCommand<int> != null) labelParameter = " <int>";
                     if (command as DebugCommand<float> != null) labelParameter = " <float>";
 
-                    string label = $"{command.commandFormat}{labelParameter} - {command.commandDescription}";
+                    string label = $"{command.commandFormat}{labelParameter}  -  {command.commandDescription}";
 
                     Rect labelRect = new Rect(5, 20 * i, viewport.width - 100, 20);
                     GUI.Label(labelRect, label);
