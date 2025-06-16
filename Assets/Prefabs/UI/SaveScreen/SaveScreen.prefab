@@ -201,8 +201,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8986444441810471884}
   m_HandleRect: {fileID: 6187992125951271730}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 1
+  m_Value: 1.0000029
+  m_Size: 0.6600886
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -445,6 +445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shelves: {fileID: 0}
+  locksPlayerMovement: 1
   saveFileButtons:
   - {fileID: 6272205325039421562}
   - {fileID: 7777064066275695917}
@@ -1515,6 +1516,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1640127080372861192, guid: 194586de8cbd0274b847037a679f8169,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1640127080372861192, guid: 194586de8cbd0274b847037a679f8169,
+        type: 3}
+      propertyPath: m_AnimationTriggers.m_SelectedTrigger
+      value: Selected
       objectReference: {fileID: 0}
     - target: {fileID: 6369540728205777497, guid: 194586de8cbd0274b847037a679f8169,
         type: 3}

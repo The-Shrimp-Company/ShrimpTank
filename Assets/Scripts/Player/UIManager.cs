@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Device;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder;
 
@@ -49,6 +50,11 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         _tabletStack.Push(TabletView);
+    }
+
+    private void Update()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void OpenScreen(ScreenView newScreen)
