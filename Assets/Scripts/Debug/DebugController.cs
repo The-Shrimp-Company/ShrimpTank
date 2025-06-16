@@ -10,8 +10,8 @@ public class DebugController : MonoBehaviour
 {
     bool canShow;
     bool showConsole;
-    bool showHelp;
-    static bool showStats;
+    bool showHelp = true;
+    static bool showStats = false;
     string input;
     Vector2 helpScroll;
     Vector2 statsScroll;
@@ -38,6 +38,9 @@ public class DebugController : MonoBehaviour
     public static DebugCommand OPEN_SAVE_FOLDER;
 
     public static DebugCommand HELP;
+    public static DebugCommand STATS;
+
+    public static DebugCommand Spacer;
 
     public List<object> commandList;
 
@@ -139,7 +142,14 @@ public class DebugController : MonoBehaviour
 
         HELP = new DebugCommand("help", "Shows a list of commands", "help", () =>
         {
-            showHelp = !showHelp;
+            showHelp = true;
+            showStats = false;
+        });
+
+        STATS = new DebugCommand("stats", "Shows a selection of game stats", "stats", () =>
+        {
+            showStats = true;
+            showHelp = false;
         });
 
 
@@ -147,10 +157,17 @@ public class DebugController : MonoBehaviour
 
         commandList = new List<object>
         {
+            HELP,
+            STATS,
+
+            Spacer,
+
             GIVE_MONEY,
             SET_MONEY,
             GIVE_REPUTATION,
             SET_REPUTATION,
+
+            Spacer,
 
             SPAWN_RANDOM,
             SPAWN_CHERRY,
@@ -158,9 +175,9 @@ public class DebugController : MonoBehaviour
             SPAWN_NYLON,
             SPAWN_ANOMALIS,
 
-            OPEN_SAVE_FOLDER,
+            Spacer,
 
-            HELP,
+            OPEN_SAVE_FOLDER,
         };
     }
 
@@ -170,7 +187,6 @@ public class DebugController : MonoBehaviour
         if (canShow)
         {
             showConsole = !showConsole;
-            showStats = !showStats;
 
 
             SaveController saveController = GameObject.Find("Save Controller").GetComponent<SaveController>();
@@ -220,35 +236,9 @@ public class DebugController : MonoBehaviour
         float y = 0f;
         if (showConsole)
         {
-            // Help Box
-            if (showHelp)
-            {
-                GUI.Box(new Rect(0, y, Screen.width, 125), "");
-
-                Rect viewport = new Rect(0, 0, Screen.width - 30, 20 * commandList.Count);
-                helpScroll = GUI.BeginScrollView(new Rect(0, y + 5f, Screen.width, 115), helpScroll, viewport);
-
-                for (int i = 0; i < commandList.Count; i++)
-                {
-                    DebugCommandBase command = commandList[i] as DebugCommandBase;
-
-                    string labelParameter = "";
-                    if (command as DebugCommand<int> != null) labelParameter = " <int>";
-                    if (command as DebugCommand<float> != null) labelParameter = " <float>";
-
-                    string label = $"{command.commandFormat}{labelParameter}  -  {command.commandDescription}";
-
-                    Rect labelRect = new Rect(5, 20 * i, viewport.width - 100, 20);
-                    GUI.Label(labelRect, label);
-                }
-
-                GUI.EndScrollView();
-                y += 125;
-            }
-
-
             //Command Bar
             GUI.Box(new Rect(0, y, Screen.width, 30), "");
+
 
             // Input Field
             GUI.SetNextControlName("Console");
@@ -257,37 +247,67 @@ public class DebugController : MonoBehaviour
             GUI.FocusControl("Console");
 
             y += 30;
-        }
 
-        if (showStats)
-        {
-            string saveData = JsonUtility.ToJson(SaveManager.CurrentSaveData);
-            if (saveData != null)
+
+            // Help Box
+            if (showHelp)
             {
-                saveData = saveData.Replace(",", "\n");
-                saveData = saveData.Replace(":", " - ");
-                saveData = saveData.Replace("{", "");
-                saveData = saveData.Replace("}", "");
-                saveData = saveData.Replace("\"", "");
-                saveData = saveData.Replace("playerPosition - ", "");
-                saveData = saveData.Replace("playerStats - ", "");
-                saveData = saveData.Replace("gameSettings - ", "");
-                saveData = saveData.Replace("inventoryItems - ", "");
-                saveData = saveData.Replace("inventoryQuantities - ", "");
+                GUI.Box(new Rect(0, y, 600, Screen.height - y), "");
+
+                Rect viewport = new Rect(0, 0, 600 - 30, 20 * commandList.Count);
+                helpScroll = GUI.BeginScrollView(new Rect(0, y + 5f, 600, Screen.height - y - 10), helpScroll, viewport);
+
+                for (int i = 0; i < commandList.Count; i++)
+                {
+                    if (commandList[i] != null)
+                    {
+                        DebugCommandBase command = commandList[i] as DebugCommandBase;
+
+                        string labelParameter = "";
+                        if (command as DebugCommand<int> != null) labelParameter = " <int>";
+                        if (command as DebugCommand<float> != null) labelParameter = " <float>";
+
+                        string label = $"{command.commandFormat}{labelParameter}  -  {command.commandDescription}";
+
+                        Rect labelRect = new Rect(5, 20 * i, viewport.width - 100, 20);
+                        GUI.Label(labelRect, label);
+                    }
+                }
+
+                GUI.EndScrollView();
+                y += 100;
             }
 
-            GUI.backgroundColor = new Color(1, 1, 1, 0.5f);
-            GUI.Box(new Rect(0, y, 250, Screen.height - y), "");
-            Rect viewport = new Rect(0, y, 250, Screen.height * 2);
-            statsScroll = GUI.BeginScrollView(new Rect(0, y, 250, Screen.height - y), statsScroll, viewport);
 
-            Rect labelRect = new Rect(5, y + 5, viewport.width - 10, viewport.height);
-            GUI.Label(labelRect, saveData);
+            // Stats Box
+            if (showStats)
+            {
+                string saveData = JsonUtility.ToJson(SaveManager.CurrentSaveData);
+                if (saveData != null)
+                {
+                    saveData = saveData.Replace(",", "\n");
+                    saveData = saveData.Replace(":", " - ");
+                    saveData = saveData.Replace("{", "");
+                    saveData = saveData.Replace("}", "");
+                    saveData = saveData.Replace("\"", "");
+                    saveData = saveData.Replace("playerPosition - ", "");
+                    saveData = saveData.Replace("playerStats - ", "");
+                    saveData = saveData.Replace("gameSettings - ", "");
+                    saveData = saveData.Replace("inventoryItems - ", "");
+                    saveData = saveData.Replace("inventoryQuantities - ", "");
+                }
 
-            GUI.EndScrollView();
+                //GUI.backgroundColor = new Color(1, 1, 1, 0.5f);
+                GUI.Box(new Rect(0, y, 300, Screen.height - y), "");
+                Rect viewport = new Rect(0, y, 270, Screen.height * 2);
+                statsScroll = GUI.BeginScrollView(new Rect(0, y + 5, 300, Screen.height - y - 10), statsScroll, viewport);
+
+                Rect labelRect = new Rect(5, y + 5, viewport.width - 10, viewport.height);
+                GUI.Label(labelRect, saveData);
+
+                GUI.EndScrollView();
+            }
         }
-
-
     }
 
 
@@ -297,25 +317,28 @@ public class DebugController : MonoBehaviour
 
         for (int i = 0; i < commandList.Count; i++)
         {
-            DebugCommandBase commandBase = commandList[i] as DebugCommandBase;
-            if (input.Contains(commandBase.commandID))
+            if (commandList[i] != null)
             {
-                if (commandList[i] as DebugCommand != null)
+                DebugCommandBase commandBase = commandList[i] as DebugCommandBase;
+                if (input.Contains(commandBase.commandID))
                 {
-                    (commandList[i] as DebugCommand).Invoke();
+                    if (commandList[i] as DebugCommand != null)
+                    {
+                        (commandList[i] as DebugCommand).Invoke();
+                    }
+                    else if (commandList[i] as DebugCommand<int> != null)
+                    {
+                        (commandList[i] as DebugCommand<int>).Invoke(int.Parse(properties[1]));
+                    }
+                    else if (commandList[i] as DebugCommand<float> != null)
+                    {
+                        (commandList[i] as DebugCommand<float>).Invoke(float.Parse(properties[1]));
+                    }
+                    //else if (commandList[i] as DebugCommand<string> != null)
+                    //{
+                    //    (commandList[i] as DebugCommand<string>).Invoke(string.Parse(properties[1]));
+                    //}
                 }
-                else if (commandList[i] as DebugCommand<int> != null)
-                {
-                    (commandList[i] as DebugCommand<int>).Invoke(int.Parse(properties[1]));
-                }
-                else if (commandList[i] as DebugCommand<float> != null)
-                {
-                    (commandList[i] as DebugCommand<float>).Invoke(float.Parse(properties[1]));
-                }
-                //else if (commandList[i] as DebugCommand<string> != null)
-                //{
-                //    (commandList[i] as DebugCommand<string>).Invoke(string.Parse(properties[1]));
-                //}
             }
         }
     }
