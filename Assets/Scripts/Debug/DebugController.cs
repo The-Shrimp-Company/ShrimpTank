@@ -35,6 +35,8 @@ public class DebugController : MonoBehaviour
     public static DebugCommand<int> SPAWN_NYLON;
     public static DebugCommand<int> SPAWN_ANOMALIS;
 
+    public static DebugCommand OPEN_SAVE_FOLDER;
+
     public static DebugCommand HELP;
 
     public List<object> commandList;
@@ -128,6 +130,13 @@ public class DebugController : MonoBehaviour
 
 
 
+        OPEN_SAVE_FOLDER = new DebugCommand("open_save_folder", "Opens the folder containing your game saves in the file explorer", "open_save_folder", () =>
+        {
+            SaveManager.OpenSaveFolder();
+        });
+
+
+
         HELP = new DebugCommand("help", "Shows a list of commands", "help", () =>
         {
             showHelp = !showHelp;
@@ -148,6 +157,8 @@ public class DebugController : MonoBehaviour
             SPAWN_CARIDID,
             SPAWN_NYLON,
             SPAWN_ANOMALIS,
+
+            OPEN_SAVE_FOLDER,
 
             HELP,
         };
@@ -212,10 +223,10 @@ public class DebugController : MonoBehaviour
             // Help Box
             if (showHelp)
             {
-                GUI.Box(new Rect(0, y, Screen.width, 100), "");
+                GUI.Box(new Rect(0, y, Screen.width, 125), "");
 
                 Rect viewport = new Rect(0, 0, Screen.width - 30, 20 * commandList.Count);
-                helpScroll = GUI.BeginScrollView(new Rect(0, y + 5f, Screen.width, 90), helpScroll, viewport);
+                helpScroll = GUI.BeginScrollView(new Rect(0, y + 5f, Screen.width, 115), helpScroll, viewport);
 
                 for (int i = 0; i < commandList.Count; i++)
                 {
@@ -232,7 +243,7 @@ public class DebugController : MonoBehaviour
                 }
 
                 GUI.EndScrollView();
-                y += 100;
+                y += 125;
             }
 
 

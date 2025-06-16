@@ -205,6 +205,13 @@ namespace SaveLoadSystem
         }
 
 
+        public static void OpenSaveFolder()
+        {
+            string dir = Application.persistentDataPath + directory;
+            System.Diagnostics.Process.Start(dir);
+        }
+
+
         public static DateTime GetSaveLastPlayedDate(string _fileName)
         {
             DateTime dt;
