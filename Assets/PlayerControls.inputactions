@@ -1453,6 +1453,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ScrollDebug",
+                    "type": "Value",
+                    "id": "66a019b3-8d5b-403e-bd31-1745aff6e263",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -1477,6 +1486,39 @@
                     "action": "ReturnDebug",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "e69ff036-3202-46b9-8ee4-765149d24ce5",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ScrollDebug",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Up",
+                    "id": "9a9d3ae2-56f6-4471-881e-5d930af474ad",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "K&M",
+                    "action": "ScrollDebug",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Down",
+                    "id": "e0c1606e-dc76-4b6c-bb93-4c645656d57d",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "K&M",
+                    "action": "ScrollDebug",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

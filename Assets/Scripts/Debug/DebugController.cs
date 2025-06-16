@@ -1,3 +1,4 @@
+using SaveLoadSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -10,13 +11,17 @@ public class DebugController : MonoBehaviour
     bool canShow;
     bool showConsole;
     bool showHelp;
-    bool showStats;
+    static bool showStats;
     string input;
     Vector2 helpScroll;
     Vector2 statsScroll;
 
+    float scrollSpeed = 5;
+    float autosaveTime = 1;
+
     PlayerInput playerInput;
     string oldActionMap;
+    float oldAutosaveTime;
 
 
     public static DebugCommand<float> SET_MONEY;
@@ -85,15 +90,20 @@ public class DebugController : MonoBehaviour
             showStats = !showStats;
 
 
+            SaveController saveController = GameObject.Find("Save Controller").GetComponent<SaveController>();
+
             if (showConsole)  // Opening menu
             {
                 oldActionMap = playerInput.currentActionMap.name;
                 playerInput.SwitchCurrentActionMap("Debug");
+
+                if (saveController) oldAutosaveTime = saveController.autosaveTime;
+                if (saveController) saveController.autosaveTime = autosaveTime;
             }
             else  // Closing menu
             {
                 playerInput.SwitchCurrentActionMap(oldActionMap);
-                oldActionMap = null;
+                if (saveController) saveController.autosaveTime = oldAutosaveTime;
             }
         }
     }
@@ -105,6 +115,19 @@ public class DebugController : MonoBehaviour
         {
             HandleInput();
             input = "";
+        }
+    }
+
+
+    public void OnScrollDebug(InputValue value)
+    {
+        if (showHelp)
+        {
+            helpScroll.y += value.Get<Vector2>().y * scrollSpeed;
+        }
+        if (showStats)
+        {
+            statsScroll.y += value.Get<Vector2>().y * scrollSpeed;
         }
     }
 
@@ -143,28 +166,45 @@ public class DebugController : MonoBehaviour
 
             //Command Bar
             GUI.Box(new Rect(0, y, Screen.width, 30), "");
-            GUI.backgroundColor = new Color(0, 0, 0, 0);
 
             // Input Field
             GUI.SetNextControlName("Console");
             input = GUI.TextField(new Rect(10f, y + 5f, Screen.width - 20f, 20f), input);
             if (input != null) input = input.Replace("/", "");
             GUI.FocusControl("Console");
+
+            y += 30;
         }
 
         if (showStats)
         {
-            GUI.Box(new Rect(0, y, 100, Screen.height - y), "");
+            string saveData = JsonUtility.ToJson(SaveManager.CurrentSaveData);
+            if (saveData != null)
+            {
+                saveData = saveData.Replace(",", "\n");
+                saveData = saveData.Replace(":", " - ");
+                saveData = saveData.Replace("{", "");
+                saveData = saveData.Replace("}", "");
+                saveData = saveData.Replace("\"", "");
+                saveData = saveData.Replace("playerPosition - ", "");
+                saveData = saveData.Replace("playerStats - ", "");
+                saveData = saveData.Replace("gameSettings - ", "");
+                saveData = saveData.Replace("inventoryItems - ", "");
+                saveData = saveData.Replace("inventoryQuantities - ", "");
+            }
 
-            Rect viewport = new Rect(0, 0, Screen.width - 30, 20 * commandList.Count);
-            statsScroll = GUI.BeginScrollView(new Rect(0, y + 5f, Screen.width, 90), statsScroll, viewport);
+            GUI.backgroundColor = new Color(1, 1, 1, 0.5f);
+            GUI.Box(new Rect(0, y, 250, Screen.height - y), "");
+            Rect viewport = new Rect(0, y, 250, Screen.height * 2);
+            statsScroll = GUI.BeginScrollView(new Rect(0, y, 250, Screen.height - y), statsScroll, viewport);
 
-
-
-
+            Rect labelRect = new Rect(5, y + 5, viewport.width - 10, viewport.height);
+            GUI.Label(labelRect, saveData);
 
             GUI.EndScrollView();
         }
+
+
     }
 
 
