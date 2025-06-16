@@ -7,10 +7,13 @@ using UnityEngine.TextCore.Text;
 
 public class DebugController : MonoBehaviour
 {
+    bool canShow;
     bool showConsole;
     bool showHelp;
+    bool showStats;
     string input;
     Vector2 helpScroll;
+    Vector2 statsScroll;
 
     PlayerInput playerInput;
     string oldActionMap;
@@ -29,6 +32,13 @@ public class DebugController : MonoBehaviour
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
+
+        if (Debug.isDebugBuild) canShow = true;
+
+        #if UNITY_EDITOR
+        canShow = true;
+        #endif
+
 
         SET_MONEY = new DebugCommand<float>("set_money", "Sets your money", "set_money", (x) =>
         {
@@ -69,18 +79,22 @@ public class DebugController : MonoBehaviour
 
     public void OnToggleDebug(InputValue value)
     {
-        showConsole = !showConsole;
+        if (canShow)
+        {
+            showConsole = !showConsole;
+            showStats = !showStats;
 
 
-        if (showConsole)  // Opening menu
-        {
-            oldActionMap = playerInput.currentActionMap.name;
-            playerInput.SwitchCurrentActionMap("Debug");
-        }
-        else  // Closing menu
-        {
-            playerInput.SwitchCurrentActionMap(oldActionMap);
-            oldActionMap = null;
+            if (showConsole)  // Opening menu
+            {
+                oldActionMap = playerInput.currentActionMap.name;
+                playerInput.SwitchCurrentActionMap("Debug");
+            }
+            else  // Closing menu
+            {
+                playerInput.SwitchCurrentActionMap(oldActionMap);
+                oldActionMap = null;
+            }
         }
     }
 
@@ -97,41 +111,60 @@ public class DebugController : MonoBehaviour
 
     private void OnGUI()
     {
-        if (!showConsole) { return; }
-
         float y = 0f;
-
-        if (showHelp)
+        if (showConsole)
         {
-            GUI.Box(new Rect(0, y, Screen.width, 100), "");
-
-            Rect viewport = new Rect(0, 0, Screen.width - 30, 20 * commandList.Count);
-            helpScroll = GUI.BeginScrollView(new Rect(0, y + 5f, Screen.width, 90), helpScroll, viewport);
-
-            for (int i = 0; i < commandList.Count; i++)
+            // Help Box
+            if (showHelp)
             {
-                DebugCommandBase command = commandList[i] as DebugCommandBase;
+                GUI.Box(new Rect(0, y, Screen.width, 100), "");
 
-                string labelParameter = "";
-                if (command as DebugCommand<int> != null) labelParameter = " <int>";
-                if (command as DebugCommand<float> != null) labelParameter = " <float>";
+                Rect viewport = new Rect(0, 0, Screen.width - 30, 20 * commandList.Count);
+                helpScroll = GUI.BeginScrollView(new Rect(0, y + 5f, Screen.width, 90), helpScroll, viewport);
 
-                string label = $"{command.commandFormat}{labelParameter} - {command.commandDescription}";
+                for (int i = 0; i < commandList.Count; i++)
+                {
+                    DebugCommandBase command = commandList[i] as DebugCommandBase;
 
-                Rect labelRect = new Rect(5, 20 * i, viewport.width - 100, 20);
-                GUI.Label(labelRect, label);
+                    string labelParameter = "";
+                    if (command as DebugCommand<int> != null) labelParameter = " <int>";
+                    if (command as DebugCommand<float> != null) labelParameter = " <float>";
+
+                    string label = $"{command.commandFormat}{labelParameter} - {command.commandDescription}";
+
+                    Rect labelRect = new Rect(5, 20 * i, viewport.width - 100, 20);
+                    GUI.Label(labelRect, label);
+                }
+
+                GUI.EndScrollView();
+                y += 100;
             }
 
-            GUI.EndScrollView();
-            y += 100;
+
+            //Command Bar
+            GUI.Box(new Rect(0, y, Screen.width, 30), "");
+            GUI.backgroundColor = new Color(0, 0, 0, 0);
+
+            // Input Field
+            GUI.SetNextControlName("Console");
+            input = GUI.TextField(new Rect(10f, y + 5f, Screen.width - 20f, 20f), input);
+            if (input != null) input = input.Replace("/", "");
+            GUI.FocusControl("Console");
         }
 
-        GUI.Box(new Rect(0, y, Screen.width, 30), "");
-        GUI.backgroundColor = new Color(0, 0, 0, 0);
+        if (showStats)
+        {
+            GUI.Box(new Rect(0, y, 100, Screen.height - y), "");
 
-        GUI.SetNextControlName("Console");
-        input = GUI.TextField(new Rect(10f, y + 5f, Screen.width - 20f, 20f), input);
-        GUI.FocusControl("Console");
+            Rect viewport = new Rect(0, 0, Screen.width - 30, 20 * commandList.Count);
+            statsScroll = GUI.BeginScrollView(new Rect(0, y + 5f, Screen.width, 90), statsScroll, viewport);
+
+
+
+
+
+            GUI.EndScrollView();
+        }
     }
 
 
