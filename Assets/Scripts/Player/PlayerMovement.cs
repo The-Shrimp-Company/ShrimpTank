@@ -29,14 +29,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        // If the player is in a menu that stops their movement
-        if (UIManager.instance.GetScreen() /* && UIManager.instance.GetScreen().locksPlayerMovement */)  
+        if (UIManager.instance.GetScreen())  
         {
             move = Vector2.zero;
         }
 
 
         CC.SimpleMove(transform.TransformVector(move.x, 0, move.y));
+        //GetComponent<Rigidbody>().MovePosition(transform.position + transform.TransformVector(new Vector3(move.x, 0, move.y)));
 
         if (move != Vector2.zero) PlayerStats.stats.timeSpentMoving += Time.deltaTime;
     }

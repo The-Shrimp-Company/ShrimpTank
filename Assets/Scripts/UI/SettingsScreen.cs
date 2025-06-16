@@ -48,4 +48,10 @@ public class SettingsScreen : ScreenView
 
         PlayerPrefs.SetFloat("Volume", value.value);
     }
+
+    public void FOVChange(Slider value)
+    {
+        PlayerPrefs.SetFloat("FOV", value.value);
+        Camera.main.fieldOfView = value.value;
+    }
 }

@@ -52,7 +52,14 @@ public class CameraControls : MonoBehaviour
 
         cameraTransform.position = new Vector3(cameraTransform.position.x, 2.3f, cameraTransform.position.z);
         _look = Vector2.zero;
-
+        if(_rotX > 360)
+        {
+            _rotX -= 360;
+        }
+        else if(_rotX < -360)
+        {
+            _rotX += 360;
+        }
     }
 
     
