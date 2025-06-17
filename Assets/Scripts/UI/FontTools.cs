@@ -11,6 +11,6 @@ static public class FontTools
         Rect textRect = text.GetComponent<RectTransform>().rect;
         int textLength = text.text.Length;
         //Debug.Log(textRect.width);
-        text.fontSize = textRect.width / textLength > textRect.height ? textRect.height : textRect.width / textLength;
+        //text.fontSize = textRect.width / textLength > textRect.height ? textRect.height : textRect.width / textLength;
     }
 }

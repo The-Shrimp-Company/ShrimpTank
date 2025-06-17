@@ -62,7 +62,7 @@ public class CustomerManager : MonoBehaviour
         }
         openSaleCoolDownCount += Time.deltaTime;
 
-        if(Random.Range(0, 1000) == 1 && requests.Count < 5 && coolDown < 0)
+        if(Random.Range(0, 1000) == 1 && requests.Count < 5 && coolDown < 0 && ShrimpManager.instance.allShrimp.Count > 5)
         {
             coolDown = 300;
             MakeRequest();

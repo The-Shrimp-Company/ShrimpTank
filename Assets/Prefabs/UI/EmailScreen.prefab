@@ -737,6 +737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shelves: {fileID: 0}
+  locksPlayerMovement: 1
   ShrimpSelection: {fileID: 3093139862595895030, guid: c9e95d232b06a83438616767e032f474,
     type: 3}
   window: {fileID: 6956252619107560016}
