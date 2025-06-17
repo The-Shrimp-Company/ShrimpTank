@@ -40,6 +40,9 @@ public class DebugController : MonoBehaviour
     public static DebugCommand<int> SPAWN_NYLON;
     public static DebugCommand<int> SPAWN_ANOMALIS;
 
+    public static DebugCommand<float> WALK_SPEED;
+    public static DebugCommand<float> GAME_SPEED;
+
     public static DebugCommand NEW_GAME;
     public static DebugCommand RELOAD;
     public static DebugCommand<string> SAVE_GAME;
@@ -47,8 +50,13 @@ public class DebugController : MonoBehaviour
     public static DebugCommand OPEN_SAVE_FOLDER;
     public static DebugCommand<float> SET_AUTOSAVE_DELAY;
 
+    public static DebugCommand MAIN_MENU;
+    public static DebugCommand FORCE_CLOSE;
 
     public static DebugCommand Spacer;
+
+
+
 
     public List<object> commandList;
 
@@ -60,7 +68,7 @@ public class DebugController : MonoBehaviour
 
         if (Debug.isDebugBuild) canShow = true;
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         canShow = true;
 #endif
 
@@ -106,104 +114,100 @@ public class DebugController : MonoBehaviour
 
 
 
-        SPAWN_RANDOM = new DebugCommand<int>("spawn_random", "Spawns random shrimp in the destination tank", "spawn_random", (x) =>
+        ShelfSpawn shelf = null;
+        if (GameObject.Find("Shelving")) shelf = GameObject.Find("Shelving").GetComponent<ShelfSpawn>();
+        if (shelf)
         {
-            ShelfSpawn shelf = GameObject.Find("Shelving").GetComponent<ShelfSpawn>();
-            if (shelf)
+            SPAWN_RANDOM = new DebugCommand<int>("spawn_random", "Spawns random shrimp in the destination tank", "spawn_random", (x) =>
+            {
                 for (int i = 0; i < x; i++)
                     shelf.GetDestinationTank().SpawnShrimp(TraitSet.None);
-            else Debug.LogError("SPAWN_RANDOM Command failed");
-        });
+            });
 
-        SPAWN_CHERRY = new DebugCommand<int>("spawn_cherry", "Spawns cherry shrimp in the destination tank", "spawn_cherry", (x) =>
-        {
-            ShelfSpawn shelf = GameObject.Find("Shelving").GetComponent<ShelfSpawn>();
-            if (shelf)
+            SPAWN_CHERRY = new DebugCommand<int>("spawn_cherry", "Spawns cherry shrimp in the destination tank", "spawn_cherry", (x) =>
+            {
                 for (int i = 0; i < x; i++)
                     shelf.GetDestinationTank().SpawnShrimp(TraitSet.Cherry);
-            else Debug.LogError("SPAWN_CHERRY Command failed");
-        });
+            });
 
-        SPAWN_NYLON = new DebugCommand<int>("spawn_nylon", "Spawns nylon shrimp in the destination tank", "spawn_nylon", (x) =>
-        {
-            ShelfSpawn shelf = GameObject.Find("Shelving").GetComponent<ShelfSpawn>();
-            if (shelf)
+            SPAWN_NYLON = new DebugCommand<int>("spawn_nylon", "Spawns nylon shrimp in the destination tank", "spawn_nylon", (x) =>
+            {
                 for (int i = 0; i < x; i++)
                     shelf.GetDestinationTank().SpawnShrimp(TraitSet.Nylon);
-            else Debug.LogError("SPAWN_NYLON Command failed");
-        });
+            });
 
-        SPAWN_ANOMALIS = new DebugCommand<int>("spawn_anomalis", "Spawns anomalis shrimp in the destination tank", "spawn_anomalis", (x) =>
-        {
-            ShelfSpawn shelf = GameObject.Find("Shelving").GetComponent<ShelfSpawn>();
-            if (shelf)
+            SPAWN_ANOMALIS = new DebugCommand<int>("spawn_anomalis", "Spawns anomalis shrimp in the destination tank", "spawn_anomalis", (x) =>
+            {
                 for (int i = 0; i < x; i++)
                     shelf.GetDestinationTank().SpawnShrimp(TraitSet.Anomalis);
-            else Debug.LogError("SPAWN_ANOMALIS Command failed");
-        });
+            });
 
-        SPAWN_CARIDID = new DebugCommand<int>("spawn_caridid", "Spawns caridid shrimp in the destination tank", "spawn_caridid", (x) =>
-        {
-            ShelfSpawn shelf = GameObject.Find("Shelving").GetComponent<ShelfSpawn>();
-            if (shelf)
+            SPAWN_CARIDID = new DebugCommand<int>("spawn_caridid", "Spawns caridid shrimp in the destination tank", "spawn_caridid", (x) =>
+            {
                 for (int i = 0; i < x; i++)
                     shelf.GetDestinationTank().SpawnShrimp(TraitSet.Caridid);
-            else Debug.LogError("SPAWN_CARIDID Command failed");
+            });
+        }
+
+
+
+
+
+        PlayerMovement movement = null;
+        if (GameObject.Find("Player")) movement = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        if (movement)
+        {
+            WALK_SPEED = new DebugCommand<float>("walk_speed", "Change the player's walk speed (Default is " + movement.Speed + ")", "walk_speed", (x) =>
+            {
+                movement.Speed = x;
+            });
+        }
+
+        GAME_SPEED = new DebugCommand<float>("game_speed", "Change the speed at which the game runs", "game_speed", (x) =>
+        {
+            Time.timeScale = x;
         });
 
 
 
 
 
-        NEW_GAME = new DebugCommand("new_game", "Resets everything and starts a new game", "new_game", () =>
+        SaveController saveController = null;
+        if (GameObject.Find("Save Controller")) saveController = GameObject.Find("Save Controller").GetComponent<SaveController>();
+        if (saveController)
         {
-            SaveController saveController = GameObject.Find("Save Controller").GetComponent<SaveController>();
-            if (saveController)
+            NEW_GAME = new DebugCommand("new_game", "Resets everything and starts a new game", "new_game", () =>
             {
                 saveController.SaveGame("Autosave");
                 SaveManager.currentSaveFile = null;
                 SaveManager.gameInitialized = false;
                 SaveManager.startNewGame = true;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
-            else Debug.LogError("NEW_GAME Command failed");
-        });
+            });
 
-        RELOAD = new DebugCommand("reload", "Loads the last autosave, can be used if there is a bug preventing gameplay", "reload", () =>
-        {
-            SaveController saveController = GameObject.Find("Save Controller").GetComponent<SaveController>();
-            if (saveController)
+            RELOAD = new DebugCommand("reload", "Loads the last autosave, can be used if there is a bug preventing gameplay", "reload", () =>
             {
                 saveController.SaveGame("Autosave");
                 SaveManager.currentSaveFile = "Autosave";
                 SaveManager.gameInitialized = false;
                 SaveManager.startNewGame = false;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
-            else Debug.LogError("RELOAD Command failed");
-        });
+            });
 
-        SAVE_GAME = new DebugCommand<string>("save_game", "Saves the game to this file, any name can be entered so you can have more files", "save_game", (x) =>
-        {
-            SaveController saveController = GameObject.Find("Save Controller").GetComponent<SaveController>();
-            if (saveController)
+            SAVE_GAME = new DebugCommand<string>("save_game", "Saves the game to this file, any name can be entered so you can have more files", "save_game", (x) =>
+            {
                 saveController.SaveGame(x);
-            else Debug.LogError("SAVE_GAME Command failed");
-        });
+            });
 
-        LOAD_GAME = new DebugCommand<string>("load_game", "Loads the game from this file (Default files are named like 'SaveFile1')", "load_game", (x) =>
-        {
-            SaveController saveController = GameObject.Find("Save Controller").GetComponent<SaveController>();
-            if (saveController)
+            LOAD_GAME = new DebugCommand<string>("load_game", "Loads the game from this file (Default files are named like 'SaveFile1')", "load_game", (x) =>
             {
                 saveController.SaveGame("Autosave");
                 SaveManager.currentSaveFile = x;
                 SaveManager.gameInitialized = false;
                 SaveManager.startNewGame = false;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
-            else Debug.LogError("LOAD_GAME Command failed");
-        });
+            });
+        }
 
         OPEN_SAVE_FOLDER = new DebugCommand("open_save_folder", "Opens the folder containing your game saves in the file explorer", "open_save_folder", () =>
         {
@@ -213,6 +217,29 @@ public class DebugController : MonoBehaviour
         SET_AUTOSAVE_DELAY = new DebugCommand<float>("set_autosave_delay", "Changes the rate at which the game is autosaved", "set_autosave_delay", (x) =>
         {
             oldAutosaveTime = x;
+        });
+
+
+
+
+
+        if (saveController)
+        {
+            MAIN_MENU = new DebugCommand("main_menu", "Return to the main menu", "main_menu", () =>
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                saveController.SaveGame("Autosave");
+                SaveManager.currentSaveFile = null;
+                SaveManager.gameInitialized = false;
+                SaveManager.startNewGame = false;
+                SceneManager.LoadScene(0);
+            });
+        }
+
+        FORCE_CLOSE = new DebugCommand("force_close", "Close the game", "force_close", () =>
+        {
+            Application.Quit();
         });
 
 
@@ -244,12 +271,22 @@ public class DebugController : MonoBehaviour
 
             Spacer,
 
+            WALK_SPEED,
+            GAME_SPEED,
+
+            Spacer,
+
             NEW_GAME,
             RELOAD,
             SAVE_GAME,
             LOAD_GAME,
             OPEN_SAVE_FOLDER,
             SET_AUTOSAVE_DELAY,
+
+            Spacer,
+
+            MAIN_MENU,
+            FORCE_CLOSE,
         };
     }
 
