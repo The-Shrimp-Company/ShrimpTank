@@ -9,6 +9,8 @@ public class EmailContentBlock : ContentBlock
     [SerializeField] private TextMeshProUGUI title, subjectLine;
     [SerializeField] private GameObject fullEmail;
 
+    private EmailContentWindow window;
+
     private GameObject _fullEmail;
     
     private Email _email;
@@ -18,12 +20,11 @@ public class EmailContentBlock : ContentBlock
     {
         if (!EmailManager.instance.emails.Contains(_email))
         {
-            Debug.Log("aaaa");
             Destroy(transform.parent.gameObject);
         }
     }
 
-    public void SetEmail(Email email)
+    public void SetEmail(Email email, EmailContentWindow newWindow)
     {
         _email = email;
         title.text = _email.title;
@@ -31,19 +32,12 @@ public class EmailContentBlock : ContentBlock
         FontTools.SizeFont(title);
         FontTools.SizeFont(subjectLine);
         subjectLine.fontSize *= 0.8f;
+        window = newWindow;
     }
 
     public void Click()
     {
-        if (_fullEmail == null)
-        {
-            _fullEmail = Instantiate(fullEmail, transform.parent.transform);
-            _fullEmail.GetComponent<FullEmail>().SetEmail(_email);
-        }
-        else
-        {
-            Destroy(_fullEmail);
-        }
+        window.OpenEmail(fullEmail, _email);
     }
 
     public bool isImportant()

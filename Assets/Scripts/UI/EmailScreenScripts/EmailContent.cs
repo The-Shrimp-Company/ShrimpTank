@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class EmailContent : ContentPopulation
 {
+    public EmailContentWindow window;
+
     // Start is called before the first frame update
     void Start()
     {
         foreach (Email email in EmailManager.instance.emails)
         {
             ContentBlock block = Instantiate(contentBlock, transform).transform.GetChild(0).GetComponent<ContentBlock>();
-            block.GetComponent<EmailContentBlock>().SetEmail(email);
+            block.GetComponent<EmailContentBlock>().SetEmail(email, window);
             contentBlocks.Add(block);
         }
     }

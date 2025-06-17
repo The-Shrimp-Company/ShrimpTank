@@ -17,6 +17,7 @@ public class Alan : NPC
         {
             Email email = new Email();
             email.important = true;
+            email.title = "Alan";
             email.subjectLine = "My name is ALAN";
             email.mainText = "I have an offer for you~!";
             email.CreateEmailButton("press here for FRIENDS", () =>
@@ -36,6 +37,7 @@ public class Alan : NPC
         {
             Email email = new Email();
             email.subjectLine = "I'm glad you said yes!";
+            email.title = "Alan";
             email.mainText = "Have some money!";
             email.CreateEmailButton("Press here for MONEY", () =>
             {
@@ -49,6 +51,7 @@ public class Alan : NPC
         {
             Email email = new Email();
             email.subjectLine = "WHY????!!!??!!?! :(";
+            email.title = "Alan";
             email.mainText = "Sad Now :(";
             email.CreateEmailButton("Continue to disapoint", () =>
             {
