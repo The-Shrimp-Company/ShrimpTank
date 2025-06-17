@@ -16,7 +16,7 @@ namespace SaveLoadSystem
 
         private const bool createBackupFile = true;  // Whether the game should create extra backup save files incase something goes wrong
         private const bool getLastPlayedTimeInUTC = false;  // Whether the last played time for a save file should be shown in universal standard time
-        private const bool debugSaving = false;  // Whether the saving and loading should output extra messages
+        private const bool debugSaving = true;  // Whether the saving and loading should output extra messages
         private const bool copyPathToClipboard = false;  // Whether the path to the save file should be copied to your clipboard when the game saves
 
         public static bool startNewGame = true;  // Whether the game should start a new file on load
@@ -80,7 +80,7 @@ namespace SaveLoadSystem
                 GUIUtility.systemCopyBuffer = file;  // Copies the path to your clipboard
 
 
-            if (debugSaving) Debug.Log("Game Saved to " + file);
+            if (debugSaving && _fileName != "Autosave") Debug.Log("Game Saved to " + file);
             
 
             return true;  // Success

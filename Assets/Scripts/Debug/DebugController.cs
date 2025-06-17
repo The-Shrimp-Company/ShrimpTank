@@ -1,9 +1,11 @@
 using SaveLoadSystem;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.Text;
 
 public class DebugController : MonoBehaviour
@@ -24,6 +26,9 @@ public class DebugController : MonoBehaviour
     float oldAutosaveTime;
 
 
+    public static DebugCommand HELP;
+    public static DebugCommand STATS;
+
     public static DebugCommand<float> GIVE_MONEY;
     public static DebugCommand<float> SET_MONEY;
     public static DebugCommand<float> GIVE_REPUTATION;
@@ -35,10 +40,13 @@ public class DebugController : MonoBehaviour
     public static DebugCommand<int> SPAWN_NYLON;
     public static DebugCommand<int> SPAWN_ANOMALIS;
 
+    public static DebugCommand NEW_GAME;
+    public static DebugCommand RELOAD;
+    public static DebugCommand<string> SAVE_GAME;
+    public static DebugCommand<string> LOAD_GAME;
     public static DebugCommand OPEN_SAVE_FOLDER;
+    public static DebugCommand<float> SET_AUTOSAVE_DELAY;
 
-    public static DebugCommand HELP;
-    public static DebugCommand STATS;
 
     public static DebugCommand Spacer;
 
@@ -54,7 +62,21 @@ public class DebugController : MonoBehaviour
 
         #if UNITY_EDITOR
         canShow = true;
-        #endif
+#endif
+
+
+
+        HELP = new DebugCommand("help", "Shows a list of commands", "help", () =>
+        {
+            showHelp = true;
+            showStats = false;
+        });
+
+        STATS = new DebugCommand("stats", "Shows a selection of game stats", "stats", () =>
+        {
+            showStats = true;
+            showHelp = false;
+        });
 
 
 
@@ -133,24 +155,69 @@ public class DebugController : MonoBehaviour
 
 
 
+        NEW_GAME = new DebugCommand("new_game", "Resets everything and starts a new game", "new_game", () =>
+        {
+            SaveController saveController = GameObject.Find("Save Controller").GetComponent<SaveController>();
+            if (saveController)
+            {
+                saveController.SaveGame("Autosave");
+                SaveManager.currentSaveFile = null;
+                SaveManager.gameInitialized = false;
+                SaveManager.startNewGame = true;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+            else Debug.LogError("NEW_GAME Command failed");
+        });
+
+        RELOAD = new DebugCommand("reload", "Loads the last autosave, can be used if there is a bug preventing gameplay", "reload", () =>
+        {
+            SaveController saveController = GameObject.Find("Save Controller").GetComponent<SaveController>();
+            if (saveController)
+            {
+                saveController.SaveGame("Autosave");
+                SaveManager.currentSaveFile = "Autosave";
+                SaveManager.gameInitialized = false;
+                SaveManager.startNewGame = false;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+            else Debug.LogError("RELOAD Command failed");
+        });
+
+        SAVE_GAME = new DebugCommand<string>("save_game", "Saves the game to this file, any name can be entered so you can have more files", "save_game", (x) =>
+        {
+            SaveController saveController = GameObject.Find("Save Controller").GetComponent<SaveController>();
+            if (saveController)
+                saveController.SaveGame(x);
+            else Debug.LogError("SAVE_GAME Command failed");
+        });
+
+        LOAD_GAME = new DebugCommand<string>("load_game", "Loads the game from this file (Default files are named like 'SaveFile1')", "load_game", (x) =>
+        {
+            SaveController saveController = GameObject.Find("Save Controller").GetComponent<SaveController>();
+            if (saveController)
+            {
+                saveController.SaveGame("Autosave");
+                SaveManager.currentSaveFile = x;
+                SaveManager.gameInitialized = false;
+                SaveManager.startNewGame = false;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+            else Debug.LogError("LOAD_GAME Command failed");
+        });
+
         OPEN_SAVE_FOLDER = new DebugCommand("open_save_folder", "Opens the folder containing your game saves in the file explorer", "open_save_folder", () =>
         {
             SaveManager.OpenSaveFolder();
         });
 
-
-
-        HELP = new DebugCommand("help", "Shows a list of commands", "help", () =>
+        SET_AUTOSAVE_DELAY = new DebugCommand<float>("set_autosave_delay", "Changes the rate at which the game is autosaved", "set_autosave_delay", (x) =>
         {
-            showHelp = true;
-            showStats = false;
+            oldAutosaveTime = x;
         });
 
-        STATS = new DebugCommand("stats", "Shows a selection of game stats", "stats", () =>
-        {
-            showStats = true;
-            showHelp = false;
-        });
+
+
+
 
 
 
@@ -177,7 +244,12 @@ public class DebugController : MonoBehaviour
 
             Spacer,
 
+            NEW_GAME,
+            RELOAD,
+            SAVE_GAME,
+            LOAD_GAME,
             OPEN_SAVE_FOLDER,
+            SET_AUTOSAVE_DELAY,
         };
     }
 
@@ -269,7 +341,7 @@ public class DebugController : MonoBehaviour
 
                         string label = $"{command.commandFormat}{labelParameter}  -  {command.commandDescription}";
 
-                        Rect labelRect = new Rect(5, 20 * i, viewport.width - 100, 20);
+                        Rect labelRect = new Rect(5, 20 * i, viewport.width - 30, 20);
                         GUI.Label(labelRect, label);
                     }
                 }
@@ -334,10 +406,10 @@ public class DebugController : MonoBehaviour
                     {
                         (commandList[i] as DebugCommand<float>).Invoke(float.Parse(properties[1]));
                     }
-                    //else if (commandList[i] as DebugCommand<string> != null)
-                    //{
-                    //    (commandList[i] as DebugCommand<string>).Invoke(string.Parse(properties[1]));
-                    //}
+                    else if (commandList[i] as DebugCommand<string> != null)
+                    {
+                        (commandList[i] as DebugCommand<string>).Invoke(properties[1]);
+                    }
                 }
             }
         }
