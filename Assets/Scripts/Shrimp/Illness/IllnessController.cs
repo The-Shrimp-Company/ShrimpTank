@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class IllnessController : MonoBehaviour
 {
-    [SerializeField] IllnessSO[] possibleIllness;
+    public IllnessSO[] possibleIllness;
     public List<IllnessSO> currentIllness = new List<IllnessSO>();
     public List<Symptom> currentSymptoms = new List<Symptom>();
     private Shrimp shrimp;
@@ -15,7 +15,7 @@ public class IllnessController : MonoBehaviour
     [SerializeField] float severityBoostIfSymptomIsAlreadyPresent = 20;
     public AnimationCurve severityCurve;
     [SerializeField] GameObject curingParticles;
-    [SerializeField] GameObject gainIllnessParticles;
+    public GameObject gainIllnessParticles;
     private bool loadingIllnesses = false;
 
     [Header("Illness Unlock Requirement")]
@@ -194,7 +194,7 @@ public class IllnessController : MonoBehaviour
     }
 
 
-    private void AddIllnessToTank(TankController t, IllnessSO i)
+    public void AddIllnessToTank(TankController t, IllnessSO i)
     {
         if (t.currentIllness.ContainsKey(i))
             t.currentIllness[i]++;
@@ -268,6 +268,30 @@ public class IllnessController : MonoBehaviour
         currentIllness.Remove(illness);
         RemoveIllnessFromTank(shrimp.tank, illness);
 
+
+        if (curingParticles != null)
+        {
+            GameObject.Instantiate(curingParticles, shrimp.transform.position, shrimp.transform.rotation, shrimp.particleParent); ;
+        }
+    }
+
+
+    public void CureAllIllnesses()
+    {
+        if (currentIllness.Count == 0) return;
+
+        foreach (Symptom symptom in currentSymptoms)
+        {
+            symptom.EndSymptom();
+        }
+
+        foreach (IllnessSO illness in currentIllness)
+        { 
+            RemoveIllnessFromTank(shrimp.tank, illness);
+        }
+
+        currentSymptoms.Clear();
+        currentIllness.Clear();
 
         if (curingParticles != null)
         {

@@ -80,6 +80,10 @@ public class DebugController : MonoBehaviour
     public static DebugCommand<int> SET_FILTRATION;
     public static DebugCommand<int> SET_TEMPERATURE;
 
+    public static DebugCommand<int> GIVE_BIG_HEAD;
+    public static DebugCommand<int> GIVE_DISCOLOUR;
+    public static DebugCommand<int> GIVE_BUBBLES;
+    public static DebugCommand CURE_SHRIMP;
     public static DebugCommand KILL_SHRIMP;
 
 
@@ -424,6 +428,81 @@ public class DebugController : MonoBehaviour
 
 
 
+        GIVE_BIG_HEAD = new DebugCommand<int>("give_big_head", "Give the shrimp the big head illness, value is the severity of it (0-100)", "give_big_head", (x) =>
+        {
+            Symptom symptom = new SymptomBodySize();
+            focussedShrimp.GetShrimp().illnessCont.currentSymptoms.Add(symptom);
+            symptom.shrimp = focussedShrimp.GetShrimp();
+            symptom.severity = x;
+            symptom.StartSymptom();
+
+
+            foreach (IllnessSO so in focussedShrimp.GetShrimp().illnessCont.possibleIllness)
+            {
+                if (so.symptoms[0] == symptom.symptom)
+                {
+                    focussedShrimp.GetShrimp().illnessCont.currentIllness.Add(so);
+                    focussedShrimp.GetShrimp().illnessCont.AddIllnessToTank(focussedShrimp.GetShrimp().tank, so);
+                }
+            }
+
+            if (focussedShrimp.GetShrimp().illnessCont.gainIllnessParticles != null)
+                GameObject.Instantiate(focussedShrimp.GetShrimp().illnessCont.gainIllnessParticles, 
+                    focussedShrimp.GetShrimp().transform.position, focussedShrimp.GetShrimp().transform.rotation, 
+                    focussedShrimp.GetShrimp().particleParent);
+        });
+
+        GIVE_BUBBLES = new DebugCommand<int>("give_bubbles", "Give the shrimp the bubble illness, value is the severity of it (0-100)", "give_bubbles", (x) =>
+        {
+            Symptom symptom = new SymptomBubbles();
+            focussedShrimp.GetShrimp().illnessCont.currentSymptoms.Add(symptom);
+            symptom.shrimp = focussedShrimp.GetShrimp();
+            symptom.severity = x;
+            symptom.StartSymptom();
+
+            foreach (IllnessSO so in focussedShrimp.GetShrimp().illnessCont.possibleIllness)
+            {
+                if (so.symptoms[0] == symptom.symptom)
+                {
+                    focussedShrimp.GetShrimp().illnessCont.currentIllness.Add(so);
+                    focussedShrimp.GetShrimp().illnessCont.AddIllnessToTank(focussedShrimp.GetShrimp().tank, so);
+                }
+            }
+
+            if (focussedShrimp.GetShrimp().illnessCont.gainIllnessParticles != null)
+                GameObject.Instantiate(focussedShrimp.GetShrimp().illnessCont.gainIllnessParticles, 
+                    focussedShrimp.GetShrimp().transform.position, focussedShrimp.GetShrimp().transform.rotation, 
+                    focussedShrimp.GetShrimp().particleParent);
+        });
+
+        GIVE_DISCOLOUR = new DebugCommand<int>("give_discolour", "Give the shrimp the discolour illness, value is the severity of it (0-100)", "give_discolour", (x) =>
+        {
+            Symptom symptom = new SymptomDiscolouration();
+            focussedShrimp.GetShrimp().illnessCont.currentSymptoms.Add(symptom);
+            symptom.shrimp = focussedShrimp.GetShrimp();
+            symptom.severity = x;
+            symptom.StartSymptom();
+
+            foreach (IllnessSO so in focussedShrimp.GetShrimp().illnessCont.possibleIllness)
+            {
+                if (so.symptoms[0] == symptom.symptom)
+                {
+                    focussedShrimp.GetShrimp().illnessCont.currentIllness.Add(so);
+                    focussedShrimp.GetShrimp().illnessCont.AddIllnessToTank(focussedShrimp.GetShrimp().tank, so);
+                }
+            }
+
+            if (focussedShrimp.GetShrimp().illnessCont.gainIllnessParticles != null)
+                GameObject.Instantiate(focussedShrimp.GetShrimp().illnessCont.gainIllnessParticles, 
+                    focussedShrimp.GetShrimp().transform.position, focussedShrimp.GetShrimp().transform.rotation, 
+                    focussedShrimp.GetShrimp().particleParent);
+        });
+
+        CURE_SHRIMP = new DebugCommand("cure_shrimp", "Cure all illnesses on the shrimp", "cure_shrimp", () =>
+        {
+            focussedShrimp.GetShrimp().illnessCont.CureAllIllnesses();
+        });
+
         KILL_SHRIMP = new DebugCommand("kill_shrimp", "Kill the shrimp", "kill_shrimp", () =>
         {
             focussedShrimp.GetShrimp().KillShrimp();
@@ -450,6 +529,10 @@ public class DebugController : MonoBehaviour
 
             Spacer,
 
+            GIVE_BIG_HEAD,
+            GIVE_DISCOLOUR,
+            GIVE_BUBBLES,
+            CURE_SHRIMP,
             KILL_SHRIMP,
 
             Spacer,
@@ -495,7 +578,6 @@ public class DebugController : MonoBehaviour
                 if (focussedTank) fullCommandList.AddRange(tankCommandList);
                 if (focussedShrimp) fullCommandList.AddRange(shrimpCommandList);
                 fullCommandList.AddRange(generalCommandList);
-                Debug.Log(fullCommandList.Count);
             }
 
             else  // Closing menu
