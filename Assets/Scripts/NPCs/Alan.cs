@@ -13,6 +13,7 @@ public class Alan : NPC
 
     public override void NpcCheck()
     {
+        Debug.Log("Alan time " + Time.time);
         if(completion == 0)
         {
             Email email = new Email();
@@ -37,7 +38,7 @@ public class Alan : NPC
         {
             Email email = new Email();
             email.subjectLine = "I'm glad you said yes!";
-            email.title = "Alan";
+            email.title = "Alan is HAPPY";
             email.mainText = "Have some money!";
             email.CreateEmailButton("Press here for MONEY", () =>
             {

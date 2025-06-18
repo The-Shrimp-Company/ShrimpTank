@@ -16,6 +16,7 @@ public class NPCManager : MonoBehaviour
         {
             Instance = this;
             NPCs.Add(new Alan());
+            NPCs.Add(new CollectorTom());
         }
         else
         {

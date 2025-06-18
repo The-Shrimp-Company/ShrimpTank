@@ -22,7 +22,7 @@ public class CustomerManager : MonoBehaviour
 
     private List<Request> requests = new List<Request>();
 
-
+    public EmailScreen emailScreen;
     private void Start()
     {
         if (Instance == null)
@@ -201,13 +201,10 @@ public class CustomerManager : MonoBehaviour
         requests.Add(request);
     }
 
-    public void EmailOpen(EmailScreen emailScreen)
+    public void EmailOpen(EmailScreen newEmailScreen)
     {
         Debug.Log("Recieved");
-        foreach(Request request in requests)
-        {
-            request.emailScreen = emailScreen;
-        }
+        emailScreen = newEmailScreen;
     }
 
     public void CompleteRequest(Request request)
@@ -229,8 +226,6 @@ public class CustomerManager : MonoBehaviour
 
 public class Request
 {
-    public EmailScreen emailScreen;
-
     public float value;
 
     public ShrimpStats stats;
@@ -251,7 +246,7 @@ public class Request
 
     public void OpenShrimpSelection()
     {
-        emailScreen.OpenSelection(this);
+        CustomerManager.Instance.emailScreen.OpenSelection(this);
     }
 
     
