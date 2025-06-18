@@ -205,4 +205,6 @@ public class ShrimpView : ScreenView
         DOTween.Kill(panel);  // End the tweens
         base.Close(switchTab);
     }
+
+    public Shrimp GetShrimp() { return _shrimp; }
 }

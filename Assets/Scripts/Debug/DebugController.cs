@@ -1,7 +1,10 @@
 using SaveLoadSystem;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -25,6 +28,9 @@ public class DebugController : MonoBehaviour
     string oldActionMap;
     float oldAutosaveTime;
 
+    TankViewScript focussedTank;
+    ShrimpView focussedShrimp;
+
 
     public static DebugCommand HELP;
     public static DebugCommand STATS;
@@ -44,21 +50,47 @@ public class DebugController : MonoBehaviour
     public static DebugCommand<float> GAME_SPEED;
 
     public static DebugCommand NEW_GAME;
-    public static DebugCommand RELOAD;
     public static DebugCommand<string> SAVE_GAME;
     public static DebugCommand<string> LOAD_GAME;
     public static DebugCommand OPEN_SAVE_FOLDER;
     public static DebugCommand<float> SET_AUTOSAVE_DELAY;
 
+    public static DebugCommand RELOAD;
+    public static DebugCommand FREEZE;
     public static DebugCommand MAIN_MENU;
     public static DebugCommand FORCE_CLOSE;
 
+
+
+    public static DebugCommand<string> NAME_TANK;
+
+
+
+
+    public static DebugCommand<string> NAME_SHRIMP;
+
+    public static DebugCommand<string> SET_GENDER;
+    public static DebugCommand<int> SET_AGE;
+    public static DebugCommand<int> SET_HUNGER;
+    public static DebugCommand<int> SET_SIZE;
+
+    public static DebugCommand<int> SET_TEMPERAMENT;
+    public static DebugCommand<int> SET_IMMUNITY;
+    public static DebugCommand<int> SET_METABOLISM;
+    public static DebugCommand<int> SET_FILTRATION;
+    public static DebugCommand<int> SET_TEMPERATURE;
+
+    public static DebugCommand KILL_SHRIMP;
+
+
+
+
     public static DebugCommand Spacer;
 
-
-
-
-    public List<object> commandList;
+    private List<object> fullCommandList;
+    public List<object> generalCommandList;
+    public List<object> tankCommandList;
+    public List<object> shrimpCommandList;
 
 
 
@@ -71,6 +103,8 @@ public class DebugController : MonoBehaviour
 #if UNITY_EDITOR
         canShow = true;
 #endif
+
+        if (!canShow) return;
 
 
 
@@ -118,34 +152,45 @@ public class DebugController : MonoBehaviour
         if (GameObject.Find("Shelving")) shelf = GameObject.Find("Shelving").GetComponent<ShelfSpawn>();
         if (shelf)
         {
+
             SPAWN_RANDOM = new DebugCommand<int>("spawn_random", "Spawns random shrimp in the destination tank", "spawn_random", (x) =>
             {
+                TankController targetTank = shelf.GetDestinationTank();
+                if (focussedTank != null) targetTank = focussedTank.GetTank();
                 for (int i = 0; i < x; i++)
-                    shelf.GetDestinationTank().SpawnShrimp(TraitSet.None);
+                    targetTank.SpawnShrimp(TraitSet.None);
             });
 
             SPAWN_CHERRY = new DebugCommand<int>("spawn_cherry", "Spawns cherry shrimp in the destination tank", "spawn_cherry", (x) =>
             {
+                TankController targetTank = shelf.GetDestinationTank();
+                if (focussedTank != null) targetTank = focussedTank.GetTank();
                 for (int i = 0; i < x; i++)
-                    shelf.GetDestinationTank().SpawnShrimp(TraitSet.Cherry);
+                    targetTank.SpawnShrimp(TraitSet.Cherry);
             });
 
             SPAWN_NYLON = new DebugCommand<int>("spawn_nylon", "Spawns nylon shrimp in the destination tank", "spawn_nylon", (x) =>
             {
+                TankController targetTank = shelf.GetDestinationTank();
+                if (focussedTank != null) targetTank = focussedTank.GetTank();
                 for (int i = 0; i < x; i++)
-                    shelf.GetDestinationTank().SpawnShrimp(TraitSet.Nylon);
+                    targetTank.SpawnShrimp(TraitSet.Nylon);
             });
 
             SPAWN_ANOMALIS = new DebugCommand<int>("spawn_anomalis", "Spawns anomalis shrimp in the destination tank", "spawn_anomalis", (x) =>
             {
+                TankController targetTank = shelf.GetDestinationTank();
+                if (focussedTank != null) targetTank = focussedTank.GetTank();
                 for (int i = 0; i < x; i++)
-                    shelf.GetDestinationTank().SpawnShrimp(TraitSet.Anomalis);
+                    targetTank.SpawnShrimp(TraitSet.Anomalis);
             });
 
             SPAWN_CARIDID = new DebugCommand<int>("spawn_caridid", "Spawns caridid shrimp in the destination tank", "spawn_caridid", (x) =>
             {
+                TankController targetTank = shelf.GetDestinationTank();
+                if (focussedTank != null) targetTank = focussedTank.GetTank();
                 for (int i = 0; i < x; i++)
-                    shelf.GetDestinationTank().SpawnShrimp(TraitSet.Caridid);
+                    targetTank.SpawnShrimp(TraitSet.Caridid);
             });
         }
 
@@ -166,6 +211,11 @@ public class DebugController : MonoBehaviour
         GAME_SPEED = new DebugCommand<float>("game_speed", "Change the speed at which the game runs", "game_speed", (x) =>
         {
             Time.timeScale = x;
+        });
+
+        FREEZE = new DebugCommand("freeze", "Set the gamespeed to 0 and freeze the game", "freeze", () =>
+        {
+            Time.timeScale = 0;
         });
 
 
@@ -245,11 +295,7 @@ public class DebugController : MonoBehaviour
 
 
 
-
-
-
-
-        commandList = new List<object>
+        generalCommandList = new List<object>
         {
             HELP,
             STATS,
@@ -277,7 +323,6 @@ public class DebugController : MonoBehaviour
             Spacer,
 
             NEW_GAME,
-            RELOAD,
             SAVE_GAME,
             LOAD_GAME,
             OPEN_SAVE_FOLDER,
@@ -285,8 +330,129 @@ public class DebugController : MonoBehaviour
 
             Spacer,
 
+            RELOAD,
+            FREEZE,
             MAIN_MENU,
             FORCE_CLOSE,
+
+            Spacer,
+        };
+
+
+
+
+
+        NAME_TANK = new DebugCommand<string>("name_tank", "Change the name of the tank", "name_tank", (x) =>
+        {
+            focussedTank.GetTank().tankName = x;
+        });
+
+
+
+
+        tankCommandList = new List<object>
+        {
+            NAME_TANK,
+
+            Spacer,
+        };
+
+
+
+
+
+        NAME_SHRIMP = new DebugCommand<string>("name_shrimp", "Change the name of the shrimp", "name_shrimp", (x) =>
+        {
+            focussedShrimp.GetShrimp().name = x;
+            focussedShrimp.GetShrimp().stats.name = x;
+        });
+
+        SET_GENDER = new DebugCommand<string>("set_gender", "Change the gender of the shrimp (male / female)", "set_gender", (x) =>
+        {
+            if (x == "male")
+                focussedShrimp.GetShrimp().stats.gender = true;
+            else if (x == "female")
+                focussedShrimp.GetShrimp().stats.gender = false;
+        });
+
+        SET_AGE = new DebugCommand<int>("set_age", "Set the age of the shrimp in days (Adult ~ 40, Death ~ 380)", "set_age", (x) =>
+        {
+            focussedShrimp.GetShrimp().stats.birthTime = TimeManager.instance.CalculateBirthTimeFromAge(x);
+        });
+
+        SET_HUNGER = new DebugCommand<int>("set_hunger", "Set the hunger of the shrimp (0-100)", "set_hunger", (x) =>
+        {
+            focussedShrimp.GetShrimp().stats.hunger = x;
+        });
+
+        SET_SIZE = new DebugCommand<int>("set_size", "Set the genetic size of the shrimp", "set_size", (x) =>
+        {
+            focussedShrimp.GetShrimp().stats.geneticSize = x;
+            focussedShrimp.GetShrimp().agent.shrimpModel.localScale = ShrimpManager.instance.GetShrimpSize(
+                TimeManager.instance.GetShrimpAge(focussedShrimp.GetShrimp().stats.birthTime),
+                focussedShrimp.GetShrimp().stats.geneticSize);
+        });
+
+
+
+
+        SET_TEMPERAMENT = new DebugCommand<int>("set_temperament", "Set the temperament of the shrimp (0-100)", "set_temperament", (x) =>
+        {
+            focussedShrimp.GetShrimp().stats.temperament = x;
+        });
+
+        SET_IMMUNITY = new DebugCommand<int>("set_immunity", "Set the illness immunity of the shrimp (0-100)", "set_immunity", (x) =>
+        {
+            focussedShrimp.GetShrimp().stats.immunity = x;
+        });
+
+        SET_METABOLISM = new DebugCommand<int>("set_metabolism", "Set the metabolism of the shrimp (0-100)", "set_metabolism", (x) =>
+        {
+            focussedShrimp.GetShrimp().stats.metabolism = x;
+        });
+
+        SET_FILTRATION = new DebugCommand<int>("set_filtration", "Set the filtration impact of the shrimp (0-100)", "set_filtration", (x) =>
+        {
+            focussedShrimp.GetShrimp().stats.filtration = x;
+        });
+
+        SET_TEMPERATURE = new DebugCommand<int>("set_temperature", "Set the temperature preference of the shrimp (0-100)", "set_temperature", (x) =>
+        {
+            focussedShrimp.GetShrimp().stats.temperaturePreference = x;
+        });
+
+
+
+
+        KILL_SHRIMP = new DebugCommand("kill_shrimp", "Kill the shrimp", "kill_shrimp", () =>
+        {
+            focussedShrimp.GetShrimp().KillShrimp();
+        });
+
+
+
+
+        shrimpCommandList = new List<object>
+        {
+            NAME_SHRIMP,
+            SET_GENDER,
+            SET_AGE,
+            SET_HUNGER,
+            SET_SIZE,
+
+            Spacer,
+
+            SET_TEMPERAMENT,
+            SET_IMMUNITY,
+            SET_METABOLISM,
+            SET_FILTRATION,
+            SET_TEMPERATURE,
+
+            Spacer,
+
+            KILL_SHRIMP,
+
+            Spacer,
         };
     }
 
@@ -297,21 +463,47 @@ public class DebugController : MonoBehaviour
         {
             showConsole = !showConsole;
 
-
             SaveController saveController = GameObject.Find("Save Controller").GetComponent<SaveController>();
+
 
             if (showConsole)  // Opening menu
             {
                 oldActionMap = playerInput.currentActionMap.name;
                 playerInput.SwitchCurrentActionMap("Debug");
 
+
                 if (saveController) oldAutosaveTime = saveController.autosaveTime;
                 if (saveController) saveController.autosaveTime = autosaveTime;
+
+
+                if (UIManager.instance != null)
+                {
+                    TankViewScript tv = UIManager.instance.GetScreen() as TankViewScript;
+                    if (tv != null)
+                    {
+                        focussedTank = tv;
+                    }
+                    ShrimpView sv = UIManager.instance.GetScreen() as ShrimpView;
+                    if (sv != null)
+                    {
+                        focussedShrimp = sv;
+                    }
+                }
+
+
+                fullCommandList = new List<object>();
+                if (focussedTank) fullCommandList.AddRange(tankCommandList);
+                if (focussedShrimp) fullCommandList.AddRange(shrimpCommandList);
+                fullCommandList.AddRange(generalCommandList);
+                Debug.Log(fullCommandList.Count);
             }
+
             else  // Closing menu
             {
                 playerInput.SwitchCurrentActionMap(oldActionMap);
                 if (saveController) saveController.autosaveTime = oldAutosaveTime;
+                focussedTank = null;
+                focussedShrimp = null;
             }
         }
     }
@@ -345,6 +537,7 @@ public class DebugController : MonoBehaviour
         float y = 0f;
         if (showConsole)
         {
+
             //Command Bar
             GUI.Box(new Rect(0, y, Screen.width, 30), "");
 
@@ -363,14 +556,14 @@ public class DebugController : MonoBehaviour
             {
                 GUI.Box(new Rect(0, y, 600, Screen.height - y), "");
 
-                Rect viewport = new Rect(0, 0, 600 - 30, 20 * commandList.Count);
+                Rect viewport = new Rect(0, 0, 600 - 30, 20 * fullCommandList.Count);
                 helpScroll = GUI.BeginScrollView(new Rect(0, y + 5f, 600, Screen.height - y - 10), helpScroll, viewport);
 
-                for (int i = 0; i < commandList.Count; i++)
+                for (int i = 0; i < fullCommandList.Count; i++)
                 {
-                    if (commandList[i] != null)
+                    if (fullCommandList[i] != null)
                     {
-                        DebugCommandBase command = commandList[i] as DebugCommandBase;
+                        DebugCommandBase command = fullCommandList[i] as DebugCommandBase;
 
                         string labelParameter = "";
                         if (command as DebugCommand<int> != null) labelParameter = " <int>";
@@ -424,28 +617,28 @@ public class DebugController : MonoBehaviour
     {
         string[] properties = input.Split(' ');
 
-        for (int i = 0; i < commandList.Count; i++)
+        for (int i = 0; i < fullCommandList.Count; i++)
         {
-            if (commandList[i] != null)
+            if (fullCommandList[i] != null)
             {
-                DebugCommandBase commandBase = commandList[i] as DebugCommandBase;
+                DebugCommandBase commandBase = fullCommandList[i] as DebugCommandBase;
                 if (input.Contains(commandBase.commandID))
                 {
-                    if (commandList[i] as DebugCommand != null)
+                    if (fullCommandList[i] as DebugCommand != null)
                     {
-                        (commandList[i] as DebugCommand).Invoke();
+                        (fullCommandList[i] as DebugCommand).Invoke();
                     }
-                    else if (commandList[i] as DebugCommand<int> != null)
+                    else if (fullCommandList[i] as DebugCommand<int> != null)
                     {
-                        (commandList[i] as DebugCommand<int>).Invoke(int.Parse(properties[1]));
+                        (fullCommandList[i] as DebugCommand<int>).Invoke(int.Parse(properties[1]));
                     }
-                    else if (commandList[i] as DebugCommand<float> != null)
+                    else if (fullCommandList[i] as DebugCommand<float> != null)
                     {
-                        (commandList[i] as DebugCommand<float>).Invoke(float.Parse(properties[1]));
+                        (fullCommandList[i] as DebugCommand<float>).Invoke(float.Parse(properties[1]));
                     }
-                    else if (commandList[i] as DebugCommand<string> != null)
+                    else if (fullCommandList[i] as DebugCommand<string> != null)
                     {
-                        (commandList[i] as DebugCommand<string>).Invoke(properties[1]);
+                        (fullCommandList[i] as DebugCommand<string>).Invoke(properties[1]);
                     }
                 }
             }

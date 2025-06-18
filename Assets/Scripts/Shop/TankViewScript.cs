@@ -389,4 +389,6 @@ public class TankViewScript : ScreenView
 
         base.Close(switchTab);
     }
+
+    public TankController GetTank() {  return tank; }
 }
