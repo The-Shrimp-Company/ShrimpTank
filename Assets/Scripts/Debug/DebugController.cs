@@ -63,7 +63,17 @@ public class DebugController : MonoBehaviour
 
 
     public static DebugCommand<string> NAME_TANK;
+    public static DebugCommand DESTINATION_TANK;
+    public static DebugCommand SALE_TANK;
+    public static DebugCommand<float> SALE_PRICE;
 
+    public static DebugCommand<int> SET_WATER_QUALITY;
+    public static DebugCommand<int> SET_WATER_TEMPERATURE;
+    public static DebugCommand<int> SET_WATER_SALT;
+
+    public static DebugCommand BREAK_FILTER;
+    public static DebugCommand BREAK_HEATER;
+    public static DebugCommand FIX_UPGRADES;
 
 
 
@@ -351,12 +361,78 @@ public class DebugController : MonoBehaviour
             focussedTank.GetTank().tankName = x;
         });
 
+        DESTINATION_TANK = new DebugCommand("destination_tank", "Set this tank as the destination tank", "destination_tank", () =>
+        {
+            focussedTank.SetDestinationTank();
+        });
+
+        SALE_TANK = new DebugCommand("sale_tank", "Toggle this tank as a sale tank", "sale_tank", () =>
+        {
+            focussedTank.SetOpenTank();
+        });
+
+        SALE_PRICE = new DebugCommand<float>("sale_price", "Change the price on this sale tank", "sale_price", (x) =>
+        {
+            focussedTank.GetTank().SetTankPrice(x);
+        });
+
+
+
+
+        SET_WATER_QUALITY = new DebugCommand<int>("set_water_quality", "Sets the water quality in the tank (0-100)", "set_water_quality", (x) =>
+        {
+            focussedTank.GetTank().waterQuality = x;
+        });
+
+        SET_WATER_TEMPERATURE = new DebugCommand<int>("set_water_temperature", "Sets the water temperature in the tank (0-100)", "set_water_temperature", (x) =>
+        {
+            focussedTank.GetTank().waterTemperature = x;
+        });
+
+        SET_WATER_SALT = new DebugCommand<int>("set_water_salt", "Sets the water salt in the tank (0-100)", "set_water_salt", (x) =>
+        {
+            focussedTank.GetTank().waterSalt = x;
+        });
+
+
+
+
+        BREAK_FILTER = new DebugCommand("break_filter", "Break the filter on this tank", "break_filter", () =>
+        {
+            focussedTank.GetTank().upgradeController.BreakUpgrade(UpgradeTypes.Filter);
+        });
+
+        BREAK_HEATER = new DebugCommand("break_heater", "Break the heater on this tank", "break_heater", () =>
+        {
+            focussedTank.GetTank().upgradeController.BreakUpgrade(UpgradeTypes.Heater);
+        });
+
+        FIX_UPGRADES = new DebugCommand("fix_upgrades", "Repair all broken upgrades on this tank", "fix_upgrades", () =>
+        {
+            focussedTank.GetTank().upgradeController.FixAllUpgrades();
+        });
+
 
 
 
         tankCommandList = new List<object>
         {
             NAME_TANK,
+            DESTINATION_TANK,
+            SALE_TANK,
+            SALE_PRICE,
+
+            Spacer,
+
+            SET_WATER_QUALITY,
+            SET_WATER_TEMPERATURE,
+            SET_WATER_SALT,
+
+            Spacer,
+
+            BREAK_FILTER,
+            BREAK_HEATER,
+            FIX_UPGRADES,
 
             Spacer,
         };

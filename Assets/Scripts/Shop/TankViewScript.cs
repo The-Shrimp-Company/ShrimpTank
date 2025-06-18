@@ -225,7 +225,7 @@ public class TankViewScript : ScreenView
         }
     }
 
-    public void SetTank()
+    public void SetDestinationTank()
     {
         shelves.SwitchDestinationTank(tank);
     }
