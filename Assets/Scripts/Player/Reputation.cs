@@ -25,5 +25,4 @@ public class Reputation
     /// </summary>
     /// <param name="newRep"></param>
     public static void SetReputation(float newRep) { instance.reputation = newRep; }
-
 }

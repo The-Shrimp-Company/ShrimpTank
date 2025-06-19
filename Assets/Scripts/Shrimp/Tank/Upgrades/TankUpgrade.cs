@@ -6,7 +6,7 @@ public class TankUpgrade : MonoBehaviour
 {
     [HideInInspector] public UpgradeSO upgrade;
     protected TankController tank;
-    protected bool working = true;
+    public bool working = true;
     public GameObject brokenParticlesPrefab;
     private GameObject brokenParticles;
     public Upgrade item;

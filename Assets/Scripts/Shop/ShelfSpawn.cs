@@ -108,13 +108,15 @@ public class ShelfSpawn : MonoBehaviour
         }
     }
 
+    public TankController GetDestinationTank() { return _destinationTank; } 
+
     public void SpawnShrimp()
     {
         if(_destinationTank != null)
         {
             if (Money.instance.WithdrawMoney(10))
             {
-                _destinationTank.SpawnShrimp();
+                _destinationTank.SpawnShrimp(TraitSet.None);
             }
         }
     }

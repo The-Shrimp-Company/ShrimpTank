@@ -9,6 +9,7 @@ TagManager:
   - UIScreen
   - Tank
   - UI
+  - Blocker
   layers:
   - Default
   - TransparentFX

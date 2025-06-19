@@ -106,6 +106,29 @@ public class TankUpgradeController : MonoBehaviour
     }
 
 
+    public void FixAllUpgrades()
+    {
+        foreach (KeyValuePair<UpgradeTypes, TankUpgrade> upgrade in upgradeScripts)
+        {
+            if (upgrade.Value != null && !upgrade.Value.working)
+            {
+                upgrade.Value.FixUpgrade();
+            }
+        }
+    }
+
+    public void BreakUpgrade(UpgradeTypes type)
+    {
+        foreach (KeyValuePair<UpgradeTypes, TankUpgrade> upgrade in upgradeScripts)
+        {
+            if (upgrade.Value != null && upgrade.Key == type && upgrade.Value.working)
+            {
+                upgrade.Value.BreakUpgrade();
+            }
+        }
+    }
+
+
     public TankUpgrade GetUpgrade(UpgradeTypes type)
     {
         if (upgradeScripts.ContainsKey(type) && upgradeScripts[type] != null)
