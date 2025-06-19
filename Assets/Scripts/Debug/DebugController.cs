@@ -1,15 +1,8 @@
 using SaveLoadSystem;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Mathematics;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.TextCore.Text;
 
 public class DebugController : MonoBehaviour
 {
@@ -709,6 +702,12 @@ public class DebugController : MonoBehaviour
             y += 30;
 
 
+            string FPS = (1.0f / Time.deltaTime).ToString();
+            GUI.Box(new Rect(Screen.width - 50, y, 50, 30), "");
+            Rect FPSRect = new Rect(Screen.width - 45, y + 5f, 40, 20);
+            GUI.Label(FPSRect, FPS);
+
+
             // Help Box
             if (showHelp)
             {
@@ -726,6 +725,7 @@ public class DebugController : MonoBehaviour
                         string labelParameter = "";
                         if (command as DebugCommand<int> != null) labelParameter = " <int>";
                         if (command as DebugCommand<float> != null) labelParameter = " <float>";
+                        if (command as DebugCommand<string> != null) labelParameter = " <string>";
 
                         string label = $"{command.commandFormat}{labelParameter}  -  {command.commandDescription}";
 
