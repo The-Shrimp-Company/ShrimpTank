@@ -34,7 +34,7 @@ public class MainCanvas : MonoBehaviour
         RaiseTablet();
         lastCreated = Instantiate(screen, GetComponentInChildren<ShelfRef>().transform);
         UIManager.instance.OpenScreen(lastCreated.GetComponent<ScreenView>());
-        UIManager.instance.GetCursor().GetComponent<Image>().maskable = true;
+        UIManager.instance.SetCursorMasking(true);
         return lastCreated;
     }
 
@@ -42,7 +42,7 @@ public class MainCanvas : MonoBehaviour
     {
         LowerTablet();
         Destroy(lastCreated);
-        UIManager.instance.GetCursor().GetComponent<Image>().maskable = false;
+        UIManager.instance.SetCursorMasking(false);
         UIManager.instance.CloseScreen();
     }
 

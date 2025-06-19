@@ -416,7 +416,7 @@ public class TankController : MonoBehaviour
         UIManager.instance.SwitchScreen(newView.GetComponent<ScreenView>());
         newView.GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
         newView.GetComponent<Canvas>().planeDistance = 1;
-        UIManager.instance.GetCursor().GetComponent<Image>().maskable = false;
+        UIManager.instance.SetCursorMasking(false);
         SwitchLODLevel(LODLevel.Mid);
         tankNameChanged = false;
     }

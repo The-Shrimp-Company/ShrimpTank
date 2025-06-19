@@ -8,6 +8,7 @@ using UnityEngine.Device;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -214,6 +215,7 @@ public class UIManager : MonoBehaviour
     }
 
     public GameObject GetCursor() { return _cursor; }
+    public void SetCursorMasking(bool masking) { _cursor.GetComponent<FakeCursor>().SetCursorMasking(masking); }
 
     public void SetCanvas(Transform transform)
     {
