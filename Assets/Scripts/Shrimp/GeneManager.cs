@@ -49,7 +49,6 @@ public class GeneManager : MonoBehaviour
     public List<TraitSO> eyeSOs = new List<TraitSO>();
     public List<TraitSO> tailSOs = new List<TraitSO>();
     public List<TraitSO> tailFanSOs = new List<TraitSO>();
-    public List<TraitSO> antennaSOs = new List<TraitSO>();
     public List<TraitSO> legsSOs = new List<TraitSO>();
 
     private List<GlobalGene> loadedGlobalGenes = new List<GlobalGene>();
@@ -109,9 +108,6 @@ public class GeneManager : MonoBehaviour
         else if (type == 'F')
             t = RandomTraitsFromList(tailFanSOs);
 
-        else if (type == 'A')
-            t = RandomTraitsFromList(antennaSOs);
-
         else if (type == 'L')
             t = RandomTraitsFromList(legsSOs);
 
@@ -154,9 +150,6 @@ public class GeneManager : MonoBehaviour
 
             else if (type == 'F')
                 t = WeightedRandomTraitsFromList(tailFanSOs);
-
-            else if (type == 'A')
-                t = WeightedRandomTraitsFromList(antennaSOs);
 
             else if (type == 'L')
                 t = WeightedRandomTraitsFromList(legsSOs);
@@ -387,7 +380,6 @@ public class GeneManager : MonoBehaviour
         LoadTraitType(eyeSOs);
         LoadTraitType(tailSOs);
         LoadTraitType(tailFanSOs);
-        //LoadTraitType(antennaSOs);
         LoadTraitType(legsSOs);
     }
 
@@ -432,9 +424,6 @@ public class GeneManager : MonoBehaviour
 
             else if (ID[0] == 'F')
                 t = GetSOFromList(tailFanSOs, ID);
-
-            else if (ID[0] == 'A')
-                t = GetSOFromList(antennaSOs, ID);
 
             else if (ID[0] == 'L')
                 t = GetSOFromList(legsSOs, ID);
@@ -484,6 +473,22 @@ public class GeneManager : MonoBehaviour
     }
 
 
+    private Trait TraitFromSetFromList(List<TraitSO> l, TraitSet set)
+    {
+        if (l.Count == 0) return new Trait();
+
+        int i = 0;
+        if (set == TraitSet.Cherry) i = 0;
+        else if (set == TraitSet.Nylon) i = 1;
+        else if (set == TraitSet.Anomalis) i = 2;
+        else if (set == TraitSet.Caridid) i = 3;
+
+        return new Trait(
+            GetGlobalGene(l[i].ID),
+            GetGlobalGene(l[i].ID));
+    }
+
+
     private Trait WeightedRandomTraitsFromList(List<TraitSO> l)
     {
         Trait r = new Trait();
@@ -530,6 +535,47 @@ public class GeneManager : MonoBehaviour
         }
 
         return r;
+    }
+
+
+    public Trait TraitFromSet(Trait parentATrait, TraitSet set)
+    {
+        char type = parentATrait.activeGene.ID[0];
+        Trait t = new Trait();
+
+        if (type == 'C')
+            t = TraitFromSetFromList(colourSOs, set);
+
+        else if (type == 'P')
+            t = TraitFromSetFromList(patternSOs, set);
+
+        else if (type == 'B')
+            t = TraitFromSetFromList(bodySOs, set);
+
+        else if (type == 'H')
+            t = TraitFromSetFromList(headSOs, set);
+
+        else if (type == 'E')
+            t = TraitFromSetFromList(eyeSOs, set);
+
+        else if (type == 'T')
+            t = TraitFromSetFromList(tailSOs, set);
+
+        else if (type == 'F')
+            t = TraitFromSetFromList(tailFanSOs, set);
+
+        else if (type == 'L')
+            t = TraitFromSetFromList(legsSOs, set);
+
+        else
+            Debug.Log("ID prefix " + type + " could not be found");
+
+        if (t.activeGene.ID == null || t.activeGene.ID == "")
+        {
+            Debug.LogWarning("Fully Random Trait using ID " + t.activeGene.ID + " could not be found");
+        }
+
+        return t;
     }
 
 
@@ -703,7 +749,7 @@ public class GeneManager : MonoBehaviour
         if (GetTraitSO(s.tailFan.activeGene.ID).set != ts) return false;
         if (GetTraitSO(s.legs.activeGene.ID).set != ts) return false;
 
-        Debug.Log("Pure Shrimp!");
+        //Debug.Log("Pure Shrimp!");
         return true;
     }
 
@@ -712,7 +758,7 @@ public class GeneManager : MonoBehaviour
     {
         if (s.primaryColour.activeGene.ID != s.secondaryColour.activeGene.ID) return false;
 
-        Debug.Log("Pure Colour Shrimp!");
+        //Debug.Log("Pure Colour Shrimp!");
         return true;
     }
 
