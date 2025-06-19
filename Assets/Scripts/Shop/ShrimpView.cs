@@ -119,7 +119,6 @@ public class ShrimpView : ScreenView
 
     public override void Exit()
     {
-
         _shrimp.gameObject.layer = LayerMask.NameToLayer("Shrimp");
         _shrimp.GetComponentInChildren<ShrimpCam>().Deactivate();
         player.GetComponent<PlayerUIController>().UnsetShrimpCam();

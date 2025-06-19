@@ -84,6 +84,8 @@ public class PlayerUIController : MonoBehaviour
     public void SetShrimpCam(ShrimpCam cam)
     {
         _cam = cam;
+        control = 0;
+        zoom = 0;
     }
 
     public void UnsetShrimpCam()

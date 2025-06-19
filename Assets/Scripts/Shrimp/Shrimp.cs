@@ -41,7 +41,7 @@ public class Shrimp : MonoBehaviour
     public float currentValue;
     [HideInInspector] public bool shrimpNameChanged;
     [HideInInspector] public bool loadedShrimp;  // Whether the shrimp has been loaded from a save file
-    private bool focussingShrimp;
+    private bool focusingShrimp;
 
 
 
@@ -59,7 +59,7 @@ public class Shrimp : MonoBehaviour
 
     private void Update()
     {
-        if (focussingShrimp) PlayerStats.stats.timeSpentFocusingShrimp += Time.deltaTime;
+        if (focusingShrimp) PlayerStats.stats.timeSpentFocusingShrimp += Time.deltaTime;
     }
 
 
@@ -178,6 +178,15 @@ public class Shrimp : MonoBehaviour
         illnessCont.RemoveShrimp();
         tank.shrimpToRemove.Add(this);
 
+        if (focusingShrimp)
+        {
+            GetComponentInChildren<ShrimpCam>().Deactivate();
+            Camera.main.transform.position = tank.GetCam().transform.position;
+            Camera.main.transform.rotation = tank.GetCam().transform.rotation;
+            UIManager.instance.CloseScreen();
+        }
+
+
         // Spawn dead body
 
 
@@ -210,7 +219,7 @@ public class Shrimp : MonoBehaviour
 
     public void FocusShrimp()
     {
-        focussingShrimp = true;
+        focusingShrimp = true;
         tank.SwitchLODLevel(LODLevel.High);
         shrimpNameChanged = false;
     }
@@ -218,7 +227,7 @@ public class Shrimp : MonoBehaviour
 
     public void StopFocusingShrimp()
     {
-        focussingShrimp = false;
+        focusingShrimp = false;
         tank.SwitchLODLevel(LODLevel.Mid);
 
         if (shrimpNameChanged)
