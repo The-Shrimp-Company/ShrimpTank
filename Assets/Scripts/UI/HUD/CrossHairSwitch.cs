@@ -56,6 +56,6 @@ public class CrossHairSwitch : MonoBehaviour
     private void FadeText(float alpha)
     {
         DOTween.Kill(text);
-        text.DOFade(alpha, 0.1f);
+        text.DOFade(alpha, 0.15f);
     }
 }
