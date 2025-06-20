@@ -78,7 +78,7 @@ public class ShrimpSelectionPopulation : ContentPopulation
         {
             if(email.mainText == _email.mainText)
             {
-                EmailManager.instance.emails.Remove(email);
+                EmailManager.RemoveEmail(email);
                 break;
             }
         }
