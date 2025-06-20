@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ebb6f1a96a0b6114aba6c24e854bc53b
+guid: e619e40e60a531e42b4373b48828f96b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -28,7 +28,7 @@ ModelImporter:
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
-    animationWrapMode: 0
+    animationWrapMode: 2
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
@@ -81,7 +81,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 0
+  importAnimation: 1
   humanDescription:
     serializedVersion: 3
     human: []

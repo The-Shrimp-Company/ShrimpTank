@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &8801083838470177326
+--- !u!1001 &7377395501522906907
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -63,11 +63,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shrimp_Eyes_Anomalis
       objectReference: {fileID: 0}
-    - target: {fileID: 2223639932434330405, guid: dc90dc7aebf243d44b398cdd1d4efef3,
-        type: 3}
-      propertyPath: m_PlayAutomatically
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -75,21 +70,21 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dc90dc7aebf243d44b398cdd1d4efef3,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: -4200204251434638494}
+      addedObject: {fileID: -5596313883938678276}
   m_SourcePrefab: {fileID: 100100000, guid: dc90dc7aebf243d44b398cdd1d4efef3, type: 3}
---- !u!1 &8566641228022513535 stripped
+--- !u!1 &7683334267884753482 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: dc90dc7aebf243d44b398cdd1d4efef3,
     type: 3}
-  m_PrefabInstance: {fileID: 8801083838470177326}
+  m_PrefabInstance: {fileID: 7377395501522906907}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-4200204251434638494
+--- !u!114 &-5596313883938678276
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8566641228022513535}
+  m_GameObject: {fileID: 7683334267884753482}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1bb8abcd39b993a4fb5389cdffe194a3, type: 3}
