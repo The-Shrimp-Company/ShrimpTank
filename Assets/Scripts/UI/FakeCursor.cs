@@ -37,7 +37,11 @@ public class FakeCursor : MonoBehaviour
         rect.position = Mouse.current.position.value / rect.localScale;
     }
 
-    public void SetCursorMasking(bool masking) { image.maskable = masking; }
+    public void SetCursorMasking(bool masking) 
+    {
+        if (image == null) return;
+        image.maskable = masking; 
+    }
 
     public Image GetImage() { return image; }
 }
