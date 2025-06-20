@@ -1,5 +1,7 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(IllnessController))]
@@ -36,6 +38,7 @@ public class Shrimp : MonoBehaviour
 
     [Header("Effects")]
     public Transform particleParent;
+    public Ease shrimpAppearEase = Ease.OutBack;
 
     [Header("Misc")]
     public float currentValue;
@@ -53,7 +56,10 @@ public class Shrimp : MonoBehaviour
         TryAddActivity(3);  // Try to add up to 3 activities
 
         moltSpeed = ShrimpManager.instance.GetMoltTime(TimeManager.instance.GetShrimpAge(stats.birthTime));
-        agent.shrimpModel.localScale = ShrimpManager.instance.GetShrimpSize(TimeManager.instance.GetShrimpAge(stats.birthTime), stats.geneticSize);
+
+        agent.shrimpModel.localScale = Vector2.zero;
+        agent.shrimpModel.DOScale(ShrimpManager.instance.GetShrimpSize(TimeManager.instance.GetShrimpAge(stats.birthTime), stats.geneticSize), 0.5f).SetEase(shrimpAppearEase);  // Make the shrimp smoothly appear
+
     }
 
 

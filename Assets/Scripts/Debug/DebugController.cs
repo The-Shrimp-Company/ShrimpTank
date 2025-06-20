@@ -688,6 +688,7 @@ public class DebugController : MonoBehaviour
         float y = 0f;
         if (showConsole)
         {
+            GUI.color = new Color(1, 1, 1, 0.95f);
 
             //Command Bar
             GUI.Box(new Rect(0, y, Screen.width, 30), "");
