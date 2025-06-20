@@ -790,7 +790,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 74a488ec502e91e49b49776074682981, type: 2}
   - {fileID: 11400000, guid: 54c6f410b1c0e6f448713a29f84af290, type: 2}
   - {fileID: 11400000, guid: b6cf306d9eed4e6489276548af77fafc, type: 2}
-  antennaSOs: []
   legsSOs:
   - {fileID: 11400000, guid: 1a9df5f638e35974fa735424e05d1d34, type: 2}
   - {fileID: 11400000, guid: daa19c069b068734f9b394f7c56817be, type: 2}

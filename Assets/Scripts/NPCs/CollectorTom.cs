@@ -13,7 +13,6 @@ public class CollectorTom : NPC
 
     public override void NpcCheck()
     {
-        Debug.Log("Tom Time " + Time.time);
         if(completion == 0 && TimeManager.instance.day > 1)
         {
             Email email = new Email();
