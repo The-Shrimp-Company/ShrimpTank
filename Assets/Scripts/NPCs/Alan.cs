@@ -74,7 +74,7 @@ public class Alan : NPC
             }
             if(email.mainText != null)
             {
-                email.mainText += "\n Alan";
+                email.mainText += "\nAlan";
 
                 NpcEmail(email, important);
             }

@@ -10,4 +10,9 @@ public class ShrimpSelectionWindow : MonoBehaviour
     {
         screen.Populate(request, emailScreen);
     }
+
+    public void PopulateFull(float price, EmailScreen emailScreen)
+    {
+        screen.PopulateFull(price, emailScreen);
+    }
 }
