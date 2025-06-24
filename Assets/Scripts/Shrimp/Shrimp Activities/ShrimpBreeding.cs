@@ -189,7 +189,7 @@ public class ShrimpBreeding : ShrimpActivity
 
         Debug.LogWarning(shrimp.name + "Has had a shrimp");
 
-        Email email = new Email();
+        Email email = EmailTools.CreateEmail();
         email.title = "A new shrimp has been born";
         email.subjectLine = "Wow!";
         email.mainText = "The shrimp is in " + shrimp.tank.tankName + ", the parents are " + shrimp.stats.name + " and " + otherShrimp.stats.name;

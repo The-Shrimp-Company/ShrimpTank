@@ -10,6 +10,7 @@ public class NPC
 
     protected bool sent = false;
 
+    protected int LastDaySent = -1;
     
 
     public virtual void NpcCheck()
@@ -25,6 +26,7 @@ public class NPC
 
     public void EmailDestroyed()
     {
+        LastDaySent = TimeManager.instance.day;
         sent = false;
     }
 }

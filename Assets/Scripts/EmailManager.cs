@@ -41,6 +41,8 @@ public class EmailManager
 
     private int IdChaff = 0;
 
+    public FullEmail openEmail;
+
     public List<Email> emails { get; private set; } = new List<Email>();
 
     public EmailManager()
@@ -51,6 +53,11 @@ public class EmailManager
     public void Initialize()
     {
         emails = new List<Email>();
+    }
+
+    public int CreateID()
+    {
+        return (int)Time.time + instance.IdChaff++;
     }
 
     static public void SendEmail(Email email, bool important = false, float delay = 0, NPC sender = null)
@@ -66,7 +73,6 @@ public class EmailManager
     {
         yield return new WaitForSeconds(delay);
         email.important = important;
-        email.ID = (int)Time.time + instance.IdChaff++;
         instance.emails.Add(email);
         UIManager.instance.SendNotification(email.title);
     }
@@ -76,6 +82,10 @@ public class EmailManager
         if(email.sender != null)
         {
             email.sender.EmailDestroyed();
+        }
+        if(instance.openEmail != null)
+        {
+            GameObject.Destroy(instance.openEmail.gameObject);
         }
         instance.emails.Remove(email);
     }
@@ -102,5 +112,12 @@ public static class EmailTools
         button.destroy = destroy;
         email.buttons.Add(button);
         //Debug.Log("Added button");
+    }
+
+    static public Email CreateEmail()
+    {
+        Email email = new Email();
+        email.ID = EmailManager.instance.CreateID();
+        return email;
     }
 }

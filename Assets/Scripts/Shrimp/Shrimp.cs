@@ -192,7 +192,7 @@ public class Shrimp : MonoBehaviour
 
 
 
-        Email email = new Email();
+        Email email = EmailTools.CreateEmail();
         email.title = stats.name + " has died";
         email.subjectLine = "Please check the conditions of the tank";
         email.mainText = stats.name + " was in " + tank.tankName;

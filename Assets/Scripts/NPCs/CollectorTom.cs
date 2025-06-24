@@ -15,7 +15,7 @@ public class CollectorTom : NPC
     {
         if (!sent)
         {
-            Email email = new Email();
+            Email email = EmailTools.CreateEmail();
             bool important = false;
             if (completion == 0 && TimeManager.instance.day > 1)
             {

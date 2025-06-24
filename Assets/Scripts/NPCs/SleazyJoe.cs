@@ -1,21 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SleazyJoe : NPC
 {
+
     public SleazyJoe()
     {
         reputation = 10;
         reliability = 50;
         completion = 0;
+
+
     }
 
     public override void NpcCheck()
     {
-        if (!sent)
+        if (!sent && TimeManager.instance.day > LastDaySent)
         {
-            Email email = new Email();
+            Email email = EmailTools.CreateEmail();
             bool important = false;
 
             if(completion == 0 && ShrimpManager.instance.allShrimp.Count > 1)
@@ -38,7 +42,7 @@ public class SleazyJoe : NPC
                 email.subjectLine = "Please";
                 email.CreateEmailButton("I will sell you this one", () =>
                 {
-                    CustomerManager.Instance.emailScreen.OpenFullSelection(completion);
+                    CustomerManager.Instance.emailScreen.OpenFullSelection(completion, email);
                     completion += 1;
                 }, false);
                 important = true;

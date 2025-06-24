@@ -61,9 +61,10 @@ public class ShrimpSelectionPopulation : ContentPopulation
         }
     }
 
-    public void PopulateFull(float price, EmailScreen emailScreen)
+    public void PopulateFull(float price, EmailScreen emailScreen, Email email)
     {
         _window = emailScreen;
+        _email = email;
         foreach (Shrimp s in ShrimpManager.instance.allShrimp)
         {
             GameObject block = Instantiate(contentBlock, transform);

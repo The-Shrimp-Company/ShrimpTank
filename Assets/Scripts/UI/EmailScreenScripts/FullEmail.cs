@@ -15,6 +15,7 @@ public class FullEmail : MonoBehaviour
     public void SetEmail(Email email)
     {
         _email = email;
+        EmailManager.instance.openEmail = this;
         TextMeshProUGUI text = GetComponentInChildren<TextMeshProUGUI>();
         text.text = email.mainText;
         text.fontSize = 30;

@@ -90,7 +90,7 @@ public class CustomerManager : MonoBehaviour
             Reputation.AddReputation(0.6f - shrimp.stats.illnessLevel / 100);
             EconomyManager.instance.UpdateTraitValues(false, shrimp.stats);
 
-            Email email = new Email();
+            Email email = EmailTools.CreateEmail();
             email.title = shrimp.stats.name + " has been sold";
             email.subjectLine = "£" + shrimp.tank.openTankPrice + " has been deposited into your account";
             email.mainText = shrimp.stats.name + " was in " + shrimp.tank.tankName;
@@ -115,7 +115,7 @@ public class CustomerManager : MonoBehaviour
             Reputation.AddReputation(0.6f - shrimp.stats.illnessLevel / 100);
             Debug.Log("Reputation: " + Reputation.GetReputation());
 
-            Email email = new Email();
+            Email email = EmailTools.CreateEmail();
             email.title = "Thanks!";
             email.subjectLine = "I Love this shrimp!";
             email.mainText = "It's just what I wanted, so I got you this bonus!";
@@ -205,7 +205,7 @@ public class CustomerManager : MonoBehaviour
         request.stats = s;
         request.obfstats = obfs;
         request.value = value;
-        Email email = new Email();
+        Email email = EmailTools.CreateEmail();
         email.title = "Shrimp Request";
         email.subjectLine = "I would like a shrimp";
         email.mainText = message;
