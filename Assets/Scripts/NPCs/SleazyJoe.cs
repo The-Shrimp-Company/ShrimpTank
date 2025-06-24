@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class SleazyJoe : NPC
 {
+    private float totalShrimpLoss;
+
 
     public SleazyJoe()
     {
@@ -19,7 +21,7 @@ public class SleazyJoe : NPC
     {
         if (!sent && TimeManager.instance.day > LastDaySent)
         {
-            Email email = EmailTools.CreateEmail();
+            Email email = this.CreateEmail();
             bool important = false;
 
             if(completion == 0 && ShrimpManager.instance.allShrimp.Count > 1)
@@ -55,5 +57,11 @@ public class SleazyJoe : NPC
                 NpcEmail(email, important);
             }
         }
+    }
+
+    public override void BoughtShrimp(ShrimpStats stats)
+    {
+        totalShrimpLoss += EconomyManager.instance.GetShrimpValue(stats) - completion;
+        Debug.Log(totalShrimpLoss);
     }
 }

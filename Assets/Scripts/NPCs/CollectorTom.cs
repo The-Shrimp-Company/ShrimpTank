@@ -13,9 +13,9 @@ public class CollectorTom : NPC
 
     public override void NpcCheck()
     {
-        if (!sent)
+        if (!sent && TimeManager.instance.day == LastDaySent)
         {
-            Email email = EmailTools.CreateEmail();
+            Email email = this.CreateEmail();
             bool important = false;
             if (completion == 0 && TimeManager.instance.day > 1)
             {

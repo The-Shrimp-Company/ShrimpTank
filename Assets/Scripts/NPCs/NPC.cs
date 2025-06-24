@@ -11,7 +11,8 @@ public class NPC
     protected bool sent = false;
 
     protected int LastDaySent = -1;
-    
+
+    protected List<ShrimpStats> shrimpBought = new List<ShrimpStats>();
 
     public virtual void NpcCheck()
     {
@@ -21,12 +22,17 @@ public class NPC
     protected void NpcEmail(Email email, bool important = true)
     {
         sent = true;
-        EmailManager.SendEmail(email, important, Random.value * 5, this);
+        EmailManager.SendEmail(email, important, Random.value * 5);
     }
 
     public void EmailDestroyed()
     {
         LastDaySent = TimeManager.instance.day;
         sent = false;
+    }
+
+    public virtual void BoughtShrimp(ShrimpStats stats)
+    {
+        shrimpBought.Add(stats);
     }
 }

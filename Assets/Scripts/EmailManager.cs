@@ -62,10 +62,6 @@ public class EmailManager
 
     static public void SendEmail(Email email, bool important = false, float delay = 0, NPC sender = null)
     {
-        if(sender != null)
-        {
-            email.sender = sender;
-        }
         CustomerManager.Instance.StartCoroutine(SendEmailDelayed(email, important, delay));
     }
 
@@ -118,6 +114,13 @@ public static class EmailTools
     {
         Email email = new Email();
         email.ID = EmailManager.instance.CreateID();
+        return email;
+    }
+
+    static public Email CreateEmail(this NPC npc)
+    {
+        Email email = CreateEmail();
+        email.sender = npc;
         return email;
     }
 }
