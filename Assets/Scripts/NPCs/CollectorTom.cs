@@ -13,7 +13,7 @@ public class CollectorTom : NPC
 
     public override void NpcCheck()
     {
-        if (!sent && TimeManager.instance.day == LastDaySent)
+        if (!sent && TimeManager.instance.day > LastDaySent)
         {
             Email email = this.CreateEmail();
             bool important = false;
