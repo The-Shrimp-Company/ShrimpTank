@@ -23,6 +23,14 @@ public class EmailScreen : ScreenView
         screen.Populate(request, this);
     }
 
+    public void OpenFullSelection(float price)
+    {
+        ShrimpSelectionWindow screen = Instantiate(ShrimpSelection, transform).GetComponent<ShrimpSelectionWindow>();
+        activeSelection = screen;
+        window.interactable = false;
+        screen.PopulateFull(price, this);
+    }
+
     public void CloseSelection()
     {
         Destroy(activeSelection.gameObject);

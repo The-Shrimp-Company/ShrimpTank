@@ -216,6 +216,11 @@ public class Shrimp : MonoBehaviour
         CustomerManager.Instance.PurchaseShrimp(this, currentValue);
     }
 
+    public void HardSellShrimp()
+    {
+        illnessCont.RemoveShrimp();
+        CustomerManager.Instance.HardPurchaseShrimp(this, currentValue);
+    }
 
     public float GetValue()
     {

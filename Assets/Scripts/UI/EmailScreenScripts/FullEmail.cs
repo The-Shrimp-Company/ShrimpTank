@@ -46,7 +46,7 @@ public class FullEmail : MonoBehaviour
 
     public void DeleteEmail()
     {
-        EmailManager.instance.emails.Remove( _email );
+        EmailManager.RemoveEmail(_email);
         Destroy(transform.gameObject);
     }
 }

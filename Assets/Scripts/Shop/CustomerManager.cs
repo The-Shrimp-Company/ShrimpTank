@@ -125,6 +125,20 @@ public class CustomerManager : MonoBehaviour
         }
     }
 
+    public void HardPurchaseShrimp(Shrimp shrimp, float value)
+    {
+        if (shrimp != null)
+        {
+            ToPurchase.Remove(shrimp);
+            shrimp.tank.shrimpToRemove.Add(shrimp);
+            Money.instance.AddMoney(value);
+            EconomyManager.instance.UpdateTraitValues(false, shrimp.stats);
+            //Destroy(shrimp.gameObject);
+
+            Reputation.AddReputation(0.6f - shrimp.stats.illnessLevel / 100);
+        }
+    }
+
     public void MakeRequest()
     {
         ShrimpStats s = ShrimpManager.instance.CreateRequestShrimp();

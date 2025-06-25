@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -60,6 +61,31 @@ public class ShrimpSelectionPopulation : ContentPopulation
         }
     }
 
+    public void PopulateFull(float price, EmailScreen emailScreen)
+    {
+        _window = emailScreen;
+        foreach (Shrimp s in ShrimpManager.instance.allShrimp)
+        {
+            GameObject block = Instantiate(contentBlock, transform);
+            block.GetComponent<ShrimpSelectionBlock>().Populate(s.stats);
+            contentBlocks.Add(block.GetComponent<ContentBlock>());
+            s.currentValue = price;
+            block.GetComponent<Button>().onClick.AddListener(s.HardSellShrimp);
+            block.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                foreach (Email email in EmailManager.instance.emails)
+                {
+                    if (email.ID == _email.ID)
+                    {
+                        EmailManager.RemoveEmail(email);
+                        break;
+                    }
+                }
+                emailScreen.CloseSelection();
+            });
+        }
+    }
+
     protected void CreateContent()
     {
         foreach ( Shrimp shrimp in ShrimpManager.instance.allShrimp)
@@ -76,9 +102,9 @@ public class ShrimpSelectionPopulation : ContentPopulation
         PlayerStats.stats.requestsCompleted++;
         foreach(Email email in EmailManager.instance.emails)
         {
-            if(email.mainText == _email.mainText)
+            if(email.ID == _email.ID)
             {
-                EmailManager.instance.emails.Remove(email);
+                EmailManager.RemoveEmail(email);
                 break;
             }
         }

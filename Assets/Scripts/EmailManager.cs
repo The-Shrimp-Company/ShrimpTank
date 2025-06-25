@@ -16,6 +16,8 @@ public struct Email
 {
     public int ID;
 
+    public NPC sender;
+
     public string title;
     public string subjectLine;
     public string mainText;
@@ -31,19 +33,6 @@ public struct Email
         Money.instance.AddMoney(value);
     }
 
-    public override bool Equals(object obj)
-    {
-        if (obj is Email m)
-        {
-            return m.ID == ID;
-        }
-        return false;
-    }
-
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
 }
 
 public class EmailManager
@@ -64,18 +53,31 @@ public class EmailManager
         emails = new List<Email>();
     }
 
-    static public void SendEmail(Email email, bool important = false, int delay = 0)
+    static public void SendEmail(Email email, bool important = false, float delay = 0, NPC sender = null)
     {
+        if(sender != null)
+        {
+            email.sender = sender;
+        }
         CustomerManager.Instance.StartCoroutine(SendEmailDelayed(email, important, delay));
     }
 
-    static IEnumerator SendEmailDelayed(Email email, bool important = false, int delay = 0)
+    static IEnumerator SendEmailDelayed(Email email, bool important = false, float delay = 0)
     {
         yield return new WaitForSeconds(delay);
         email.important = important;
         email.ID = (int)Time.time + instance.IdChaff++;
         instance.emails.Add(email);
         UIManager.instance.SendNotification(email.title);
+    }
+
+    static public void RemoveEmail(Email email)
+    {
+        if(email.sender != null)
+        {
+            email.sender.EmailDestroyed();
+        }
+        instance.emails.Remove(email);
     }
 }
 
