@@ -13,9 +13,9 @@ public class Alan : NPC
 
     public override void NpcCheck()
     {
-        if (!sent)
+        if (!sent && TimeManager.instance.day > LastDaySent)
         {
-            Email email = new Email();
+            Email email = this.CreateEmail();
             bool important = false;
             if (completion == 0)
             {

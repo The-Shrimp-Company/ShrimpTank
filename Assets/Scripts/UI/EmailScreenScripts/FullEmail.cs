@@ -10,14 +10,18 @@ public class FullEmail : MonoBehaviour
     private List<Button> buttons = new List<Button>();
     [SerializeField] private Transform buttonParent;
 
+    [SerializeField] private TextMeshProUGUI title, subject, body;
+
     private Email _email;
 
     public void SetEmail(Email email)
     {
         _email = email;
-        TextMeshProUGUI text = GetComponentInChildren<TextMeshProUGUI>();
-        text.text = email.mainText;
-        text.fontSize = 30;
+        EmailManager.instance.openEmail = this;
+        body.text = email.mainText;
+        title.text = email.title;
+        subject.text = email.subjectLine;
+        body.fontSize = 30;
         if(email.buttons != null)
         {
             Debug.Log("Buttons");

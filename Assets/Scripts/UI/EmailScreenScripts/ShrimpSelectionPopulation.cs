@@ -61,21 +61,29 @@ public class ShrimpSelectionPopulation : ContentPopulation
         }
     }
 
-    public void PopulateFull(float price, EmailScreen emailScreen)
+    public void PopulateFull(float price, EmailScreen emailScreen, Email email)
     {
         _window = emailScreen;
+        _email = email;
         foreach (Shrimp s in ShrimpManager.instance.allShrimp)
         {
             GameObject block = Instantiate(contentBlock, transform);
             block.GetComponent<ShrimpSelectionBlock>().Populate(s.stats);
             contentBlocks.Add(block.GetComponent<ContentBlock>());
             s.currentValue = price;
+            Email TempEmail = email;
+            TempEmail.sender = _email.sender;
+            ShrimpStats TempStats = s.stats;
             block.GetComponent<Button>().onClick.AddListener(s.HardSellShrimp);
             block.GetComponent<Button>().onClick.AddListener(() =>
             {
+                if(TempEmail.sender != null)
+                {
+                    TempEmail.sender.BoughtShrimp(TempStats);
+                }
                 foreach (Email email in EmailManager.instance.emails)
                 {
-                    if (email.ID == _email.ID)
+                    if (email.ID == TempEmail.ID)
                     {
                         EmailManager.RemoveEmail(email);
                         break;
