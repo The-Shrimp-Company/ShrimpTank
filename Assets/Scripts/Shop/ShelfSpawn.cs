@@ -106,6 +106,8 @@ public class ShelfSpawn : MonoBehaviour
             // Switch the new one
             _destinationTank.ToggleDestinationTank();
         }
+
+        ShrimpManager.instance.destTank = _destinationTank;
     }
 
     public TankController GetDestinationTank() { return _destinationTank; } 
