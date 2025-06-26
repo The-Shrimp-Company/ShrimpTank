@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 4574753777005730505}
   - component: {fileID: 5290904158472411627}
   - component: {fileID: 6317603505463835550}
-  - component: {fileID: 108971536364095126}
+  - component: {fileID: 8878962934132659886}
   m_Layer: 5
   m_Name: EmailContentBlock
   m_TagString: Untagged
@@ -456,7 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3df904b076a83048b44a510915ec608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &108971536364095126
+--- !u!95 &8878962934132659886
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0

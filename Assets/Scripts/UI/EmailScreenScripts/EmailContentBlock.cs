@@ -11,10 +11,14 @@ public class EmailContentBlock : ContentBlock
 
     private EmailContentWindow window;
 
-    private GameObject _fullEmail;
+    private Animator animator;
     
     private Email _email;
 
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -37,7 +41,7 @@ public class EmailContentBlock : ContentBlock
 
     public void Click()
     {
-        window.OpenEmail(fullEmail, _email);
+        window.OpenEmail(fullEmail, _email, this);
     }
 
     public bool isImportant()
@@ -55,4 +59,6 @@ public class EmailContentBlock : ContentBlock
     {
         return _email;
     }
+
+    public Animator GetAnimator() { return animator; }
 }
