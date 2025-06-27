@@ -22,8 +22,10 @@ public class EmailContent : ContentPopulation
 
     private void Update()
     {
+        
         if(count != EmailManager.instance.emails.Count)
         {
+            /* Old way of doing this
             foreach(ContentBlock block in contentBlocks)
             {
                 Destroy(block.gameObject);
@@ -36,6 +38,55 @@ public class EmailContent : ContentPopulation
                 contentBlocks.Add(block);
             }
             count = contentBlocks.Count;
+            */
+        
+
+            bool flag;
+
+            foreach(EmailContentBlock block in contentBlocks)
+            {
+                flag = false;
+                foreach(Email email in EmailManager.instance.emails)
+                {
+                    if(block.GetEmail().ID == email.ID)
+                    {
+                        flag = true;
+                    }
+                }
+                if (!flag)
+                {
+                    Destroy(block.gameObject);
+                }
+            }
+
+            foreach(Email email in EmailManager.instance.emails)
+            {
+                flag = false;
+                foreach(EmailContentBlock block in contentBlocks)
+                {
+                    if(block != null)
+                    {
+                        if(block.GetEmail().ID == email.ID)
+                        {
+                            flag = true;
+                        }
+                    }
+                }
+                if (!flag)
+                {
+                    ContentBlock block = Instantiate(contentBlock, transform).GetComponent<ContentBlock>();
+                    block.GetComponent<EmailContentBlock>().SetEmail(email, window);
+                    contentBlocks.Add(block);
+                }
+            }
+            for(int i = contentBlocks.Count; i < 0; i--)
+            {
+                if (contentBlocks[i] == null)
+                {
+                    contentBlocks.RemoveAt(i);
+                }
+            }
+
         }
     }
 
