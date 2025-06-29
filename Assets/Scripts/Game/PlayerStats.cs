@@ -31,6 +31,7 @@ public struct Stats
 
     public int totalShrimp;
     public int shrimpBred;
+    public int shrimpBorn;
     public int shrimpBought;
     public int shrimpMoved;
     public int mostShrimpInOneTank;

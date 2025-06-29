@@ -29,6 +29,9 @@ public class Shrimp : MonoBehaviour
     private float moltTimer;
     private float moltSpeed;
 
+    [Header("Breeding")]
+    [HideInInspector] public float breedingTimer;
+
     [Header("Illness")]
     public GameObject symptomBubbleParticles;
     [HideInInspector] public IllnessController illnessCont;
@@ -56,10 +59,11 @@ public class Shrimp : MonoBehaviour
         TryAddActivity(3);  // Try to add up to 3 activities
 
         moltSpeed = ShrimpManager.instance.GetMoltTime(TimeManager.instance.GetShrimpAge(stats.birthTime));
+        breedingTimer = ShrimpManager.instance.GetBreedingCooldown(stats, tank);
+        stats.canBreed = false;
 
         agent.shrimpModel.localScale = Vector2.zero;
         agent.shrimpModel.DOScale(ShrimpManager.instance.GetShrimpSize(TimeManager.instance.GetShrimpAge(stats.birthTime), stats.geneticSize), 0.5f).SetEase(shrimpAppearEase);  // Make the shrimp smoothly appear
-
     }
 
 
@@ -83,7 +87,7 @@ public class Shrimp : MonoBehaviour
         float timeRemaining = elapsedTime;  // The time since the last update
         do
         {
-            if (shrimpActivities.Count > 0 && shrimpActivities[0] != null)
+            if (shrimpActivities.Count > 0 && shrimpActivities[0] != null && shrimpActivities[0].shrimp != null)
             {
                 timeRemaining = shrimpActivities[0].Activity(timeRemaining);
                 if (timeRemaining != 0)
@@ -105,6 +109,17 @@ public class Shrimp : MonoBehaviour
         {
             moltTimer -= moltSpeed;
             Molt();
+        }
+
+
+        // Breeding
+        if (!stats.canBreed && ShrimpManager.instance.IsShrimpAdult(stats))
+        {
+            breedingTimer -= elapsedTime;
+            if (breedingTimer <= 0)
+            {
+                stats.canBreed = true;
+            }
         }
 
 
@@ -136,6 +151,17 @@ public class Shrimp : MonoBehaviour
         TryAddActivity(activities);  // Recursively add activities
     }
 
+    public void ClearActivities()
+    {
+        for (int i = shrimpActivities.Count - 1; i >= 0; i--)
+        {
+            if (shrimpActivities[i] == null) break;
+
+            shrimpActivities[i].EndActivity();
+            shrimpActivities.RemoveAt(i);
+        }
+        shrimpActivities.Clear();
+    }
 
     public void EndActivity()
     {
@@ -152,9 +178,6 @@ public class Shrimp : MonoBehaviour
         stats.moltHistory++;
         agent.shrimpModel.localScale = ShrimpManager.instance.GetShrimpSize(age, stats.geneticSize);
 
-        if (age >= ShrimpManager.instance.GetAdultAge())  // If the shrimp is considered an adult
-            stats.canBreed = true;  // The shrimp can breed
-
         if (ShrimpManager.instance.CheckForMoltFail(age, stats, tank))
             KillShrimp();  // Molt has failed, the shrimp will now die
 
@@ -170,12 +193,11 @@ public class Shrimp : MonoBehaviour
         tank = t;
         agent.tankGrid = tank.tankGrid;
 
-        // Clear all activities
-        if (shrimpActivities.Count != 0)
-            shrimpActivities[0].EndActivity();
-        shrimpActivities.Clear();
-
+        ClearActivities();  // Remove old activities
         TryAddActivity(3);  // Try to add up to 3 activities
+
+        breedingTimer = ShrimpManager.instance.GetBreedingCooldown(stats, tank);  // Reset breeding cooldown
+        stats.canBreed = false;
     }
 
 

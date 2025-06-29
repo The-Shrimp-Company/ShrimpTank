@@ -34,6 +34,15 @@ public class ShrimpManager : MonoBehaviour
     private int adultAge;
     [SerializeField] float minAgeForAShrimpBeingBought = 45;
 
+    [Header("Breeding")]
+    [SerializeField] AnimationCurve femaleBreedingTime;  // Time till they can breed again based on the number of shrimp in the tank
+    [SerializeField] float femaleBreedingRandomVariance;
+    [SerializeField] AnimationCurve maleBreedingTime;  // Time till they can breed again based on the number of shrimp in the tank
+    [SerializeField] float maleBreedingRandomVariance;
+    public int shrimpInTankBreedingLimit = 15;  // Shrimp will not breed at all once there are this many shrimp in the tank
+    public int minChildrenToGiveBirthTo = 3;
+    public int maxChildrenToGiveBirthTo = 5;
+
     [Header("Death")]
     [SerializeField] AnimationCurve shrimpNaturalDeathAge;
     [SerializeField] AnimationCurve shrimpIllnessDeathChance;
@@ -360,6 +369,12 @@ public class ShrimpManager : MonoBehaviour
     }
 
 
+    public bool IsShrimpAdult(ShrimpStats stats)
+    {
+        return TimeManager.instance.GetShrimpAge(stats.birthTime) >= GetAdultAge();
+    }
+
+
     public Vector3 GetShrimpSize(int age, int geneticSize)
     {
         float s = 0;
@@ -384,5 +399,23 @@ public class ShrimpManager : MonoBehaviour
         s *= gs;
 
         return new Vector3(s, s, s);
+    }
+
+
+    public float GetBreedingCooldown(ShrimpStats stats, TankController tank)
+    {
+        if (stats.gender == true)  // Male
+        {
+            float t = maleBreedingTime.Evaluate(tank.shrimpInTank.Count);
+            return Random.Range(t - maleBreedingRandomVariance, t + maleBreedingRandomVariance);
+        }
+
+        else if (stats.gender == false)  // Female
+        {
+            float t = femaleBreedingTime.Evaluate(tank.shrimpInTank.Count);
+            return Random.Range(t - femaleBreedingRandomVariance, t + femaleBreedingRandomVariance);
+        }
+
+        return 0;
     }
 }

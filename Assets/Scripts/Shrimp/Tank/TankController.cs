@@ -72,6 +72,11 @@ public class TankController : MonoBehaviour
     [Range(0, 100)] public float illnessSpreadRate = 30;
     [HideInInspector] public Dictionary<IllnessSO, int> currentIllness = new Dictionary<IllnessSO, int>();
 
+    [Header("Breeding")]
+    public float breedingCooldown = 90;
+    [HideInInspector] public float breedingCooldownTimer;
+    [HideInInspector] public bool shrimpCanBreed;
+
     [Header("Optimisation")]
     private LODLevel currentLODLevel;
     [SerializeField] float distanceCheckTime = 1;
@@ -101,6 +106,9 @@ public class TankController : MonoBehaviour
 
         sign.SetActive(destinationTank);
 
+        breedingCooldownTimer = breedingCooldown;
+        shrimpCanBreed = false;
+
 
         if (autoSpawnTestShrimp)
         {
@@ -127,6 +135,7 @@ public class TankController : MonoBehaviour
         }
 
 
+        // LOD Distance
         distanceCheckTimer += Time.deltaTime;
         if (distanceCheckTimer >= distanceCheckTime)
         {
@@ -135,6 +144,7 @@ public class TankController : MonoBehaviour
         }
 
 
+        // Shrimp Capacity
         capacityCheckTimer += Time.deltaTime;
         if (capacityCheckTimer >= capacityCheckTime)
         {
@@ -143,6 +153,19 @@ public class TankController : MonoBehaviour
         }
 
 
+        // Breeding
+        if (!shrimpCanBreed)
+        {
+            breedingCooldownTimer -= Time.deltaTime;
+            if (breedingCooldownTimer <= 0)
+            {
+                breedingCooldownTimer = breedingCooldown;
+                shrimpCanBreed = true;
+            }
+        }
+
+
+        // Food Spawning
         autoSpawnFoodTimer += Time.deltaTime;
         if (FoodStore > 0)
         {

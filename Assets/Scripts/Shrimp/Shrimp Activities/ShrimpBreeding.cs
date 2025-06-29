@@ -32,7 +32,7 @@ public class ShrimpBreeding : ShrimpActivity
 
     protected override void StartActivity()
     {
-        if(otherShrimp == null || !shrimp.stats.canBreed || !otherShrimp.stats.canBreed)
+        if(otherShrimp == null)
         {
             EndActivity();
             return;
@@ -139,10 +139,10 @@ public class ShrimpBreeding : ShrimpActivity
             if (female && otherShrimp != null) LayEggs();
             if (particles != null) Object.Destroy(particles);
 
-            if (female) shrimp.stats.canBreed = false;
-
             if (debugBreeding) Debug.Log("Finished Breeding");
         }
+
+        shrimp.breedingTimer = ShrimpManager.instance.GetBreedingCooldown(shrimp.stats, shrimp.tank);   
 
         base.EndActivity();
     }
@@ -173,27 +173,32 @@ public class ShrimpBreeding : ShrimpActivity
 
     private void LayEggs()
     {
-        //shrimp.tank.SpawnShrimp();
+        int children = Random.Range(ShrimpManager.instance.minChildrenToGiveBirthTo, ShrimpManager.instance.maxChildrenToGiveBirthTo + 1);
 
-        GameObject newShrimp = GameObject.Instantiate(ShrimpManager.instance.shrimpPrefab, shrimp.tank.GetRandomTankPosition(), Quaternion.identity);
-        Shrimp s = newShrimp.GetComponent<Shrimp>();
+        for (int i = 0; i < children; i++)
+        {
+            GameObject newShrimp = GameObject.Instantiate(ShrimpManager.instance.shrimpPrefab, shrimp.tank.GetRandomTankPosition(), Quaternion.identity);
+            Shrimp s = newShrimp.GetComponent<Shrimp>();
 
-        s.stats = ShrimpManager.instance.CreateShrimpThroughBreeding(shrimp.stats, otherShrimp.stats);
-        s.ChangeTank(shrimp.tank);
-        newShrimp.name = s.stats.name;
-        newShrimp.transform.parent = shrimp.tank.shrimpParent;
-        newShrimp.transform.position = (shrimp.transform.position + otherShrimp.transform.position) / 2;  // Spawn inbetween the two shrimp
-        s.ConstructShrimp();
+            s.stats = ShrimpManager.instance.CreateShrimpThroughBreeding(shrimp.stats, otherShrimp.stats);
+            s.ChangeTank(shrimp.tank);
+            newShrimp.name = s.stats.name;
+            newShrimp.transform.parent = shrimp.tank.shrimpParent;
+            newShrimp.transform.position = (shrimp.transform.position + otherShrimp.transform.position) / 2;  // Spawn inbetween the two shrimp
+            s.ConstructShrimp();
 
-        shrimp.tank.shrimpToAdd.Add(s);
+            shrimp.tank.shrimpToAdd.Add(s);
 
-        Debug.LogWarning(shrimp.name + "Has had a shrimp");
+            if (debugBreeding) Debug.Log(shrimp.name + " has had a shrimp");
 
-        Email email = EmailTools.CreateEmail();
-        email.title = "A new shrimp has been born";
-        email.subjectLine = "Wow!";
-        email.mainText = "The shrimp is in " + shrimp.tank.tankName + ", the parents are " + shrimp.stats.name + " and " + otherShrimp.stats.name;
-        EmailManager.SendEmail(email);
+            Email email = EmailTools.CreateEmail();
+            email.title = "A new shrimp has been born";
+            email.subjectLine = "Wow!";
+            email.mainText = "The shrimp is in " + shrimp.tank.tankName + ", the parents are " + shrimp.stats.name + " and " + otherShrimp.stats.name;
+            EmailManager.SendEmail(email);
+
+            PlayerStats.stats.shrimpBorn++;
+        }
 
         PlayerStats.stats.shrimpBred++;
     }
