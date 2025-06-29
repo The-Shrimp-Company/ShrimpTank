@@ -25,7 +25,7 @@ public class NPC
         EmailManager.SendEmail(email, important, Random.value * 5);
     }
 
-    public void EmailDestroyed()
+    public virtual void EmailDestroyed()
     {
         LastDaySent = TimeManager.instance.day;
         sent = false;

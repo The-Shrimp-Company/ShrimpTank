@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CollectorTom : NPC
 {
+
+    private float lastHourSent;
+
     public CollectorTom()
     {
         reputation = 80;
@@ -11,13 +14,19 @@ public class CollectorTom : NPC
         completion = 0;
     }
 
+    public override void EmailDestroyed()
+    {
+        base.EmailDestroyed();
+        lastHourSent = TimeManager.instance.hour;
+    }
+
     public override void NpcCheck()
     {
-        if (!sent && TimeManager.instance.day > LastDaySent)
+        if (!sent && (TimeManager.instance.day > LastDaySent || TimeManager.instance.hour > lastHourSent + 1))
         {
             Email email = this.CreateEmail();
             bool important = false;
-            if (completion == 0 && TimeManager.instance.day > 1)
+            if (completion == 0)
             {
                 email.title = "My name is Tom";
                 email.subjectLine = "Hi, I like shrimp";
@@ -29,13 +38,28 @@ public class CollectorTom : NPC
                     completion = 1;
                 },
                 true);
-                email.CreateEmailButton("Actually, I think I hate you.", () =>
+                important = true;
+            }
+
+            if(completion == 1)
+            {
+                email.title = "Some Advice";
+                email.subjectLine = "Everyone needs a hand at some point";
+                email.mainText = "I just thought I'd clue you in on some stuff. First of all, you have figured out how to check" +
+                    " your emails, so that's good. However, just in case you haven't figured out some of the other useful tools" +
+                    " on your tablet, let me give you a rundown. First of all, there is the shop. You can buy shrimp there from" +
+                    " other shrimpers, if you have a good enough reputation that they're willing to sell to you. You can also access" +
+                    " your own shops stats in the your shop page, which is where you can see your own reputation. " +
+                    " \nAnother useful tool is the vet. There are several paid services there, but there's also a free compendium of" +
+                    " shrimp tips.";
+                email.CreateEmailButton("Thanks for the advice", () =>
                 {
-                    completion = -1;
+                    completion++;
                 },
                 true);
                 important = true;
             }
+
 
             if(email.mainText != null)
             {
