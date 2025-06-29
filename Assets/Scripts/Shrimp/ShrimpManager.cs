@@ -40,6 +40,8 @@ public class ShrimpManager : MonoBehaviour
     [SerializeField] AnimationCurve maleBreedingTime;  // Time till they can breed again based on the number of shrimp in the tank
     [SerializeField] float maleBreedingRandomVariance;
     public int shrimpInTankBreedingLimit = 15;  // Shrimp will not breed at all once there are this many shrimp in the tank
+    public int minChildrenToGiveBirthTo = 3;
+    public int maxChildrenToGiveBirthTo = 5;
 
     [Header("Death")]
     [SerializeField] AnimationCurve shrimpNaturalDeathAge;

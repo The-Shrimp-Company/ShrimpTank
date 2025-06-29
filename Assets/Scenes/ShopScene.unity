@@ -29725,7 +29725,7 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 45
+      value: 90
       inSlope: 0
       outSlope: 0
       tangentMode: 136
@@ -29733,33 +29733,33 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 12.954392
-      value: 57.89145
-      inSlope: 3.460039
-      outSlope: 3.460039
+      time: 13
+      value: 120
+      inSlope: 6.16368
+      outSlope: 6.16368
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.22853324
       outWeight: 1
     - serializedVersion: 3
       time: 15
-      value: 90
-      inSlope: 14.085413
-      outSlope: 14.085413
+      value: 180
+      inSlope: 65.62717
+      outSlope: 65.62717
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.077150665
+      inWeight: 0.23106194
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  femaleBreedingRandomVariance: 15
+  femaleBreedingRandomVariance: 40
   maleBreedingTime:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 15
+      value: 60
       inSlope: 0
       outSlope: 0
       tangentMode: 136
@@ -29767,28 +29767,30 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 13.419186
-      value: 21.947609
-      inSlope: 1.8824178
-      outSlope: 1.8824178
+      time: 13
+      value: 80
+      inSlope: 4.633244
+      outSlope: 4.633244
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.09921947
       outWeight: 0.86670035
     - serializedVersion: 3
       time: 15
-      value: 30
-      inSlope: 7.691843
-      outSlope: 7.691843
+      value: 120
+      inSlope: 49.561043
+      outSlope: 49.561043
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.035905074
+      inWeight: 0.08521366
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maleBreedingRandomVariance: 5
+  maleBreedingRandomVariance: 20
   shrimpInTankBreedingLimit: 15
+  minChildrenToGiveBirthTo: 3
+  maxChildrenToGiveBirthTo: 5
   shrimpNaturalDeathAge:
     serializedVersion: 2
     m_Curve:
