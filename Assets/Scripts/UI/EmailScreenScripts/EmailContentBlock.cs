@@ -52,7 +52,6 @@ public class EmailContentBlock : ContentBlock
     public void DeleteEmail()
     {
         EmailManager.RemoveEmail(_email);
-        Destroy(transform.gameObject);
     }
 
     public Email GetEmail()

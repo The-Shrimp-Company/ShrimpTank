@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EmailContent : ContentPopulation
@@ -53,9 +54,12 @@ public class EmailContent : ContentPopulation
                         flag = true;
                     }
                 }
-                if (!flag)
+                if (!flag && block != null)
                 {
                     Destroy(block.gameObject);
+                }else if (!flag)
+                {
+                    Debug.Log("Fake Call");
                 }
             }
 
@@ -79,14 +83,17 @@ public class EmailContent : ContentPopulation
                     contentBlocks.Add(block);
                 }
             }
-            for(int i = contentBlocks.Count; i < 0; i--)
+            for(int i = contentBlocks.Count-1; i >= 0; i--)
             {
+                Debug.Log("there");
                 if (contentBlocks[i] == null)
                 {
                     contentBlocks.RemoveAt(i);
+                    Debug.Log("Here");
                 }
             }
 
+            count = contentBlocks.Count;
         }
     }
 
