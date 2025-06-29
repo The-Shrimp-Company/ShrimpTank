@@ -1428,7 +1428,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 131927633617552070}
         m_TargetAssemblyTypeName: TankViewScript, Assembly-CSharp
-        m_MethodName: SetTank
+        m_MethodName: SetDestinationTank
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3213,6 +3213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shelves: {fileID: 0}
+  locksPlayerMovement: 1
   leftPanel: {fileID: 3343520172320402500}
   shrimpView: {fileID: 4927723591345053280, guid: 339fc23dc39dfec47b032eec0b36c061,
     type: 3}
