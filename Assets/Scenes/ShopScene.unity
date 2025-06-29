@@ -27244,7 +27244,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.03, y: 0.05}
   m_AnchorMax: {x: 0.97, y: 0.95}
-  m_AnchoredPosition: {x: 0, y: -966.0004}
+  m_AnchoredPosition: {x: 0, y: -966.0005}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &625308367
@@ -29720,6 +29720,75 @@ MonoBehaviour:
     m_RotationOrder: 4
   moltSpeedRequiredToBeAdult: 1.5
   minAgeForAShrimpBeingBought: 40
+  femaleBreedingTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 45
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 12.954392
+      value: 57.89145
+      inSlope: 3.460039
+      outSlope: 3.460039
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 15
+      value: 90
+      inSlope: 14.085413
+      outSlope: 14.085413
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.077150665
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  femaleBreedingRandomVariance: 15
+  maleBreedingTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 15
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 13.419186
+      value: 21.947609
+      inSlope: 1.8824178
+      outSlope: 1.8824178
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.86670035
+    - serializedVersion: 3
+      time: 15
+      value: 30
+      inSlope: 7.691843
+      outSlope: 7.691843
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.035905074
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maleBreedingRandomVariance: 5
+  shrimpInTankBreedingLimit: 15
   shrimpNaturalDeathAge:
     serializedVersion: 2
     m_Curve:
@@ -90570,7 +90639,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.03, y: 0}
   m_AnchorMax: {x: 0.97, y: 0.05}
-  m_AnchoredPosition: {x: 0, y: -453.0001}
+  m_AnchoredPosition: {x: 0, y: -453.00012}
   m_SizeDelta: {x: 0, y: 918}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!43 &2141126143

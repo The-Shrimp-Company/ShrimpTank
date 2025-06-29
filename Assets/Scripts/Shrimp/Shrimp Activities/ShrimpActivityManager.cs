@@ -40,6 +40,13 @@ public static class ShrimpActivityManager
 
         else if (activity is ShrimpBreeding)
         {
+            // If there are too many shrimp in the tank
+            if (shrimp.tank.shrimpInTank.Count > ShrimpManager.instance.shrimpInTankBreedingLimit)  
+            {
+                AddActivity(shrimp, GetRandomActivity(shrimp));
+                return;  // Cancel this and find a different activity
+            }
+
             // Find other shrimp
             List<Shrimp> validShrimp = new List<Shrimp>();
             foreach (Shrimp s in shrimp.tank.shrimpInTank)
@@ -47,9 +54,9 @@ public static class ShrimpActivityManager
                 if (s.stats.gender != shrimp.stats.gender)  // Get all shrimp of the opposite gender, also excludes this shrimp
                 {
                     // Other logic for who can breed here
-                    // Once every molt for female
+
                     if (s.stats.canBreed &&
-                        s.stats.canBreed)
+                        shrimp.stats.canBreed)
                     {
                         validShrimp.Add(s);
                     }
@@ -77,6 +84,11 @@ public static class ShrimpActivityManager
             ShrimpBreeding breeding = (ShrimpBreeding)activity;
             breeding.instigator = true;
             breeding.otherShrimp = otherShrimp;
+
+            shrimp.stats.canBreed = false;
+            otherShrimp.stats.canBreed = false;
+            shrimp.breedingTimer = 300;
+            otherShrimp.breedingTimer = 300;
         }
 
 

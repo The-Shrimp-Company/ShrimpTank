@@ -32,7 +32,7 @@ public class ShrimpBreeding : ShrimpActivity
 
     protected override void StartActivity()
     {
-        if(otherShrimp == null || !shrimp.stats.canBreed || !otherShrimp.stats.canBreed)
+        if(otherShrimp == null)
         {
             EndActivity();
             return;
@@ -139,10 +139,10 @@ public class ShrimpBreeding : ShrimpActivity
             if (female && otherShrimp != null) LayEggs();
             if (particles != null) Object.Destroy(particles);
 
-            if (female) shrimp.stats.canBreed = false;
-
             if (debugBreeding) Debug.Log("Finished Breeding");
         }
+
+        shrimp.breedingTimer = ShrimpManager.instance.GetBreedingCooldown(shrimp.stats, shrimp.tank);   
 
         base.EndActivity();
     }
