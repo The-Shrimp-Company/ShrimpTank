@@ -40,11 +40,18 @@ public static class ShrimpActivityManager
 
         else if (activity is ShrimpBreeding)
         {
+            // If the tank cooldown has not ended
+            if (!shrimp.tank.shrimpCanBreed)
+            {
+                AddActivity(shrimp, GetRandomActivity(shrimp));
+                return;
+            }
+
             // If there are too many shrimp in the tank
             if (shrimp.tank.shrimpInTank.Count > ShrimpManager.instance.shrimpInTankBreedingLimit)  
             {
                 AddActivity(shrimp, GetRandomActivity(shrimp));
-                return;  // Cancel this and find a different activity
+                return;
             }
 
             // Find other shrimp
@@ -66,7 +73,7 @@ public static class ShrimpActivityManager
             if (validShrimp.Count == 0)  // If there are no valid shrimp
             {
                 AddActivity(shrimp, GetRandomActivity(shrimp));
-                return;  // Cancel this and find a different activity
+                return;
             }
 
             // Pick other shrimp
@@ -85,6 +92,8 @@ public static class ShrimpActivityManager
             breeding.instigator = true;
             breeding.otherShrimp = otherShrimp;
 
+            shrimp.tank.shrimpCanBreed = false;
+            shrimp.tank.breedingCooldownTimer = shrimp.tank.breedingCooldown;
             shrimp.stats.canBreed = false;
             otherShrimp.stats.canBreed = false;
             shrimp.breedingTimer = 300;
