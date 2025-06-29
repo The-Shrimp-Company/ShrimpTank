@@ -44,4 +44,12 @@ public class FakeCursor : MonoBehaviour
     }
 
     public Image GetImage() { return image; }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (focus)
+        {
+            Cursor.visible = false;
+        }
+    }
 }
