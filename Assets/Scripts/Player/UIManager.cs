@@ -55,7 +55,10 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        EventSystem.current.SetSelectedGameObject(null);
+        if(EventSystem.current.currentSelectedGameObject != null && !EventSystem.current.currentSelectedGameObject.CompareTag("Input"))
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
     }
 
     public void OpenScreen(ScreenView newScreen)

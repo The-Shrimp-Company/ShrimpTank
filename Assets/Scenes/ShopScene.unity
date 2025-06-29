@@ -29861,6 +29861,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  destTank: {fileID: 0}
 --- !u!4 &705895234
 Transform:
   m_ObjectHideFlags: 0
@@ -43332,7 +43333,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.8295674, y: 0.066}
   m_AnchorMax: {x: 0.9734792, y: 1}
-  m_AnchoredPosition: {x: -35.532227, y: -272.96283}
+  m_AnchoredPosition: {x: -35.532227, y: -272.96277}
   m_SizeDelta: {x: -16.273438, y: -836.16016}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &916690609
@@ -80636,7 +80637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 0
+  m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1853294159
 Transform:
@@ -90564,7 +90565,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.03, y: 0}
   m_AnchorMax: {x: 0.97, y: 0.05}
-  m_AnchoredPosition: {x: 0, y: -453.00015}
+  m_AnchoredPosition: {x: 0, y: -453.0001}
   m_SizeDelta: {x: 0, y: 918}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!43 &2141126143
