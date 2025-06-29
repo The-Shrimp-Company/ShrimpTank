@@ -29,8 +29,8 @@ public class AudioController : MonoBehaviour
         }
         else
         {
-            VolumeChange(0f);
-            PlayerPrefs.SetFloat("Volume", 0f);
+            VolumeChange(-20f);
+            PlayerPrefs.SetFloat("Volume", -20f);
         }
     }
 

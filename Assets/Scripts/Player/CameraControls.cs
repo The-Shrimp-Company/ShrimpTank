@@ -9,7 +9,7 @@ public class CameraControls : MonoBehaviour
 {
     public Transform cameraTransform;
     public float lookSenstivity;
-    [SerializeField][Range(0f, 250f)] private float startingSensitivity = 100f;
+    [SerializeField][Range(50f, 200f)] private float startingSensitivity = 100f;
 
     private PlayerInput _playerInput;
 
