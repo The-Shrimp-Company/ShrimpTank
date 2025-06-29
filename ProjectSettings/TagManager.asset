@@ -10,6 +10,7 @@ TagManager:
   - Tank
   - UI
   - Blocker
+  - Input
   layers:
   - Default
   - TransparentFX
