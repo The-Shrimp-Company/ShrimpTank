@@ -47,6 +47,7 @@ public class DebugController : MonoBehaviour
     public static DebugCommand<string> LOAD_GAME;
     public static DebugCommand OPEN_SAVE_FOLDER;
     public static DebugCommand<float> SET_AUTOSAVE_DELAY;
+    public static DebugCommand DELETE_PLAYERPREFS;
 
     public static DebugCommand RELOAD;
     public static DebugCommand FREEZE;
@@ -276,6 +277,11 @@ public class DebugController : MonoBehaviour
             oldAutosaveTime = x;
         });
 
+        DELETE_PLAYERPREFS = new DebugCommand("delete_playerprefs", "Deletes all saved PlayerPrefs", "delete_playerprefs", () =>
+        {
+            PlayerPrefs.DeleteAll();
+        });
+
 
 
 
@@ -334,6 +340,7 @@ public class DebugController : MonoBehaviour
             LOAD_GAME,
             OPEN_SAVE_FOLDER,
             SET_AUTOSAVE_DELAY,
+            DELETE_PLAYERPREFS,
 
             Spacer,
 
