@@ -301,7 +301,6 @@ public class ShrimpManager : MonoBehaviour
 
         geneManager.AddInstancesOfGenes(s.stats, false);
         allShrimp.Remove(s);
-        Destroy(s.gameObject);
     }
 
 

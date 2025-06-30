@@ -133,7 +133,7 @@ public class CustomerManager : MonoBehaviour
             shrimp.tank.shrimpToRemove.Add(shrimp);
             Money.instance.AddMoney(value);
             EconomyManager.instance.UpdateTraitValues(false, shrimp.stats);
-            //Destroy(shrimp.gameObject);
+            Destroy(shrimp.gameObject);
 
             Reputation.AddReputation(0.6f - shrimp.stats.illnessLevel / 100);
         }
