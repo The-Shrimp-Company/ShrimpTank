@@ -202,7 +202,6 @@ public class TankController : MonoBehaviour
             for (int i = shrimpToAdd.Count - 1; i >= 0; i--)
             {
                 shrimpInTank.Add(shrimpToAdd[i]);
-                ShrimpManager.instance.AddShrimpToStore(shrimpToAdd[i]);
                 ShrimpManager.instance.allShrimp.Add(shrimpToAdd[i]);
                 shrimpToAdd[i].SwitchLODLevel(currentLODLevel);
                 shrimpToAdd.RemoveAt(i);
@@ -328,6 +327,7 @@ public class TankController : MonoBehaviour
         newShrimp.transform.position = GetRandomTankPosition();
         s.ConstructShrimp();
 
+        ShrimpManager.instance.AddShrimpToStore(s);
         shrimpToAdd.Add(s);
 
         CheckMostShrimpInTank();
@@ -337,7 +337,7 @@ public class TankController : MonoBehaviour
     public void SpawnShrimp(ShrimpStats s, bool gameLoading = false)
     {
         upgradeController = GetComponent<TankUpgradeController>();
-
+        
         if (upgradeController.CheckForUpgrade(UpgradeTypes.Decorations))
         {
             Decorations d = (Decorations) upgradeController.GetUpgrade(UpgradeTypes.Decorations);
@@ -358,6 +358,7 @@ public class TankController : MonoBehaviour
         if (gameLoading)
             newShrimp.GetComponent<IllnessController>().LoadIllnesses(s);
 
+        ShrimpManager.instance.AddShrimpToStore(shrimp);
         shrimpToAdd.Add(shrimp);
 
         CheckMostShrimpInTank();

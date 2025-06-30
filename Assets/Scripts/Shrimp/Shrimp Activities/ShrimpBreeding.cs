@@ -187,6 +187,7 @@ public class ShrimpBreeding : ShrimpActivity
             newShrimp.transform.position = (shrimp.transform.position + otherShrimp.transform.position) / 2;  // Spawn inbetween the two shrimp
             s.ConstructShrimp();
 
+            ShrimpManager.instance.AddShrimpToStore(s);
             shrimp.tank.shrimpToAdd.Add(s);
 
             if (debugBreeding) Debug.Log(shrimp.name + " has had a shrimp");
