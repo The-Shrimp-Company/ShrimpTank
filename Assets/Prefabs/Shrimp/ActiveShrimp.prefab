@@ -143,21 +143,23 @@ MonoBehaviour:
     canBreed: 0
     illness: 
     symptoms: []
-  shrimpActivities: []
   tank: {fileID: 0}
+  shrimpActivities: []
   agent: {fileID: 797484481638392343}
-  camDock: {fileID: 3154724589825782822, guid: 9c37763690d5b354cb993c972810dd39, type: 3}
-  hungerLossSpeed: 0.125
   shrimpLegs: {fileID: 0}
-  loadedShrimp: 0
-  currentValue: 0
-  particleParent: {fileID: 7243179094386093995}
-  shrimpNameChanged: 0
+  hungerLossSpeed: 0.125
+  camDock: {fileID: 3154724589825782822, guid: 9c37763690d5b354cb993c972810dd39, type: 3}
+  breedingTimer: 0
   symptomBubbleParticles: {fileID: 6891814893824954130, guid: 9ae2c460b956ae14c9888880a58fadd2,
     type: 3}
   illnessCont: {fileID: 0}
   breedingHeartParticles: {fileID: 6702105809018823241, guid: 6631f23106340f44d827d4b785375ec7,
     type: 3}
+  particleParent: {fileID: 7243179094386093995}
+  shrimpAppearEase: 27
+  currentValue: 0
+  shrimpNameChanged: 0
+  loadedShrimp: 0
 --- !u!114 &797484481638392343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +206,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1
+  m_Radius: 0.75
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8310079875162417360
 MonoBehaviour:
@@ -272,6 +274,8 @@ MonoBehaviour:
     type: 3}
   gainIllnessParticles: {fileID: 6749437817111371028, guid: 845913931120dd840a85cc9fea10e964,
     type: 3}
+  unlockReqTotalShrimp: 50
+  unlockReqShrimpInOneTank: 20
 --- !u!1 &889787746608865538
 GameObject:
   m_ObjectHideFlags: 0
