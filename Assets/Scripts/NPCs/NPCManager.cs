@@ -18,6 +18,7 @@ public class NPCManager : MonoBehaviour
             NPCs.Add(new Alan());
             NPCs.Add(new CollectorTom());
             NPCs.Add(new SleazyJoe());
+            NPCs.Add(new DebugNPC());
         }
         else
         {

@@ -20,8 +20,8 @@ public class Alan : NPC
             if (completion == 0)
             {
                 important = true;
-                email.title = "Alan";
-                email.subjectLine = "My name is ALAN";
+                email.title = "Press E to open your tablet";
+                email.subjectLine = "My name is Alan";
                 email.mainText = "I have an offer for you~!";
                 email.CreateEmailButton("press here for FRIENDS", () =>
                 {

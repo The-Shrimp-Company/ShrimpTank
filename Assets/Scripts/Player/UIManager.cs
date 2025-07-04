@@ -233,13 +233,13 @@ public class UIManager : MonoBehaviour
         notifBar.text = _currentText;
     }
 
-    public void SendNotification(string notif)
+    public void SendNotification(string notif, bool mute = false)
     {
         if(notifBar == null)
         {
             return;
         }
-        notifBar.GetComponent<AudioSource>().Play();
+        if (!mute && _currentText != notifBar.text) notifBar.GetComponent<AudioSource>().Play();
         _currentText = notif;
         notifBar.text = notif;
     }

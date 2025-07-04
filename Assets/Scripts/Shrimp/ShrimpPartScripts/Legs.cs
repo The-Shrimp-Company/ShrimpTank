@@ -53,16 +53,31 @@ public class Legs : PartScript
 
         SetAnimation(AnimNames.swimming);
 
-        body.GetComponent<LODGroup>().localReferencePoint = body.transform.InverseTransformPoint(transform.TransformPoint(GetComponent<LODGroup>().localReferencePoint));
-        body.GetComponent<LODGroup>().size = GetComponent<LODGroup>().size;
-        tail.GetComponent<LODGroup>().localReferencePoint = tail.transform.InverseTransformPoint(transform.TransformPoint(GetComponent<LODGroup>().localReferencePoint));
-        tail.GetComponent<LODGroup>().size = GetComponent<LODGroup>().size;
-        tFan.GetComponent<LODGroup>().localReferencePoint = tFan.transform.InverseTransformPoint(transform.TransformPoint(GetComponent<LODGroup>().localReferencePoint));
-        tFan.GetComponent<LODGroup>().size = GetComponent<LODGroup>().size;
-        head.GetComponent<LODGroup>().localReferencePoint = head.transform.InverseTransformPoint(transform.TransformPoint(GetComponent<LODGroup>().localReferencePoint));
-        head.GetComponent<LODGroup>().size = GetComponent<LODGroup>().size;
-        eyes.GetComponent<LODGroup>().localReferencePoint = eyes.transform.InverseTransformPoint(transform.TransformPoint(GetComponent<LODGroup>().localReferencePoint));
-        eyes.GetComponent<LODGroup>().size = GetComponent<LODGroup>().size;
+        SetLodLevels(transform.TransformPoint(GetComponent<LODGroup>().localReferencePoint), GetComponent<LODGroup>().size);
+    }
+
+    public void SetLodLevels(Vector3 point, float size = 1)
+    {
+        body.GetComponent<LODGroup>().localReferencePoint = body.transform.InverseTransformPoint(point);
+        body.GetComponent<LODGroup>().size = size;
+        tail.GetComponent<LODGroup>().localReferencePoint = tail.transform.InverseTransformPoint(point);
+        tail.GetComponent<LODGroup>().size = size;
+        tFan.GetComponent<LODGroup>().localReferencePoint = tFan.transform.InverseTransformPoint(point);
+        tFan.GetComponent<LODGroup>().size = size;
+        head.GetComponent<LODGroup>().localReferencePoint = head.transform.InverseTransformPoint(point);
+        head.GetComponent<LODGroup>().size = size;
+        eyes.GetComponent<LODGroup>().localReferencePoint = eyes.transform.InverseTransformPoint(point);
+        eyes.GetComponent<LODGroup>().size = size;
+    }
+
+    public void ForceLod(int index)
+    {
+        body.GetComponent<LODGroup>().ForceLOD(index);
+        tail.GetComponent<LODGroup>().ForceLOD(index);
+        tFan.GetComponent<LODGroup>().ForceLOD(index);
+        head.GetComponent<LODGroup>().ForceLOD(index);
+        eyes.GetComponent<LODGroup>().ForceLOD(index);
+        GetComponent<LODGroup>().ForceLOD(index);
     }
 
     public void ChangeColours(ColourTypes colour)

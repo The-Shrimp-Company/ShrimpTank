@@ -321,11 +321,11 @@ public class TankController : MonoBehaviour
 
         if (set == TraitSet.None) s.stats = ShrimpManager.instance.CreateRandomShrimp(false);
         else s.stats = ShrimpManager.instance.CreatePureBreedShrimp(set, false);
-        s.ChangeTank(this);
         newShrimp.name = s.stats.name;
         newShrimp.transform.parent = shrimpParent;
         newShrimp.transform.position = GetRandomTankPosition();
         s.ConstructShrimp();
+        s.ChangeTank(this);
 
         ShrimpManager.instance.AddShrimpToStore(s);
         shrimpToAdd.Add(s);
@@ -348,12 +348,12 @@ public class TankController : MonoBehaviour
         Shrimp shrimp = newShrimp.GetComponent<Shrimp>();
         shrimp.stats = s;
 
-        shrimp.ChangeTank(this);
         shrimp.loadedShrimp = gameLoading;
         newShrimp.name = shrimp.stats.name;
         newShrimp.transform.parent = shrimpParent;
         newShrimp.transform.position = GetRandomTankPosition();
         shrimp.ConstructShrimp();
+        shrimp.ChangeTank(this);
 
         if (gameLoading)
             newShrimp.GetComponent<IllnessController>().LoadIllnesses(s);

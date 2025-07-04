@@ -198,6 +198,7 @@ public class Shrimp : MonoBehaviour
 
         breedingTimer = ShrimpManager.instance.GetBreedingCooldown(stats, tank);  // Reset breeding cooldown
         stats.canBreed = false;
+
     }
 
 

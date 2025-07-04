@@ -37,6 +37,7 @@ public class PlayerTablet : PlayerUIController
         _tabletRect.gameObject.SetActive(true);
         UIManager.instance.GetCanvas().GetComponent<MainCanvas>().RaiseTablet();
         UIManager.instance.OpenTabletScreen();
+        Tutorial.instance.OpenedTablet();
         _input.SwitchCurrentActionMap("UI");
     }
 
