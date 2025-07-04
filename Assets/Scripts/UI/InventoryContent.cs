@@ -10,8 +10,8 @@ public class InventoryContent : ContentPopulation
     private void Awake()
     {
 
-        CreateContent(Inventory.instance.GetItemCount());
-        for(int i = 0; i < Inventory.instance.GetItemCount(); i++)
+        CreateContent(Inventory.GetItemCount());
+        for(int i = 0; i < Inventory.GetItemCount(); i++)
         {
             contentBlocks[i].SetText(Inventory.GetInventory()[i].itemName);
             contentBlocks[i].GetComponent<InventoryContentBlock>().quantity.text = Inventory.GetInventory()[i].quantity.ToString();
@@ -58,7 +58,7 @@ public class InventoryContent : ContentPopulation
                 TankUpgradeController thisController = controller;
                 block.AssignFunction(() =>
                 {
-                    if (Inventory.Contains(thisBlock.item))
+                    if (Inventory.HasItem(thisBlock.item))
                     {
                         if (thisController.CheckForUpgrade(type))
                         {
@@ -99,13 +99,13 @@ public class InventoryContent : ContentPopulation
                 ContentBlock thisBlock = block;
                 block.AssignFunction(() =>
                 {
-                    if (Inventory.Contains(Items.AlgaeWafer))
+                    if (Inventory.HasItem(Items.AlgaeWafer))
                     {
                         Inventory.instance.RemoveItem(Items.AlgaeWafer);
                         GameObject newFood = Instantiate(algaeWafers, tank.GetRandomSurfacePosition(), Quaternion.identity);
                         newFood.GetComponent<ShrimpFood>().CreateFood(tank);
                         thisBlock.GetComponent<InventoryContentBlock>().quantity.text = Inventory.GetItemQuant(Items.AlgaeWafer).ToString();
-                        if (!Inventory.Contains(Items.AlgaeWafer))
+                        if (!Inventory.HasItem(Items.AlgaeWafer))
                         {
                             Destroy(thisBlock);
                         }
@@ -118,13 +118,13 @@ public class InventoryContent : ContentPopulation
                 ContentBlock thisBlock = block;
                 block.AssignFunction(() =>
                 {
-                    if (Inventory.Contains(Items.FoodPellet))
+                    if (Inventory.HasItem(Items.FoodPellet))
                     {
                         Inventory.instance.RemoveItem(Items.FoodPellet);
                         GameObject newFood = Instantiate(foodPellets, tank.GetRandomSurfacePosition(), Quaternion.identity);
                         newFood.GetComponent<ShrimpFood>().CreateFood(tank);
                         thisBlock.GetComponent<InventoryContentBlock>().quantity.text = Inventory.GetItemQuant(Items.FoodPellet).ToString();
-                        if (!Inventory.Contains(Items.FoodPellet))
+                        if (!Inventory.HasItem(Items.FoodPellet))
                         {
                             Destroy(thisBlock);
                         }

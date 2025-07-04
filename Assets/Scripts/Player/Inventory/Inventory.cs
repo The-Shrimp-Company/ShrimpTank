@@ -1,13 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 
 public class Inventory
 {
-    private List<Item> newInventory = new List<Item>();
-
     public static Inventory instance = new Inventory();
 
     private ItemSO[] loadedItemList;
@@ -15,17 +15,11 @@ public class Inventory
 
     public List<TankController> activeTanks { get; private set; } = new List<TankController>();
 
-    public Inventory()
-    {
-
-    }
-
     public void Initialize()
     {
         LoadItemsFromResources();
         GenerateInventory();
         activeTanks = new List<TankController>();
-        newInventory = new List<Item>();
     }
 
     private void LoadItemsFromResources()
@@ -70,73 +64,69 @@ public class Inventory
         }
     }
 
-    public void AddItem(Item newItem, int quantity = 1)  // UPDATE
+    public void AddItem(Item newItem, int quantity = 1)
     {
         if (newItem == null) return;
+        AddItem(newItem.itemName, quantity);
+    }
 
-        for(int i = 0; i < newInventory.Count; i++)
+    public void AddItem(string itemName, int quantity = 1)
+    {
+        if (itemName == null) return;
+
+        for (int i = 0; i < instance.inventory.Count; i++)
         {
-            //if (newInventory[i] == newItem.itemName)
-            //{
-            //    newInventory[i].quantity += quantity;
-            //    return;
-            //}
+            if (instance.inventory[i].itemName == itemName)
+            {
+                instance.inventory[i].quantity += quantity;
+                return;
+            }
         }
-        newItem.quantity = quantity;
-        newInventory.Add(newItem);
     }
 
     public bool RemoveItem(Item item, int quantity = 1)  // UPDATE
     {
-        foreach(Item i in newInventory)
+        if (item == null) return false;
+        return RemoveItem(item.itemName, quantity);
+    }
+
+    public static bool RemoveItem(string itemName, int quantity = 1)
+    {
+        foreach(Item item in instance.inventory)
         {
-            if(i.itemName == item.itemName)
+            if(item.itemName == itemName)
             {
-                if(i.quantity >= quantity)
+                if(item.quantity >= quantity)
                 {
-                    i.quantity -= quantity;
-                    if(i.quantity <= 0)
-                    {
-                        newInventory.Remove(i);
-                    }
+                    item.quantity -= quantity;
+
                     return true;
                 }
             }
         }
         return false;
-
     }
 
 
-    public int GetItemCount() { return  newInventory.Count; }  // UPDATE
+    public static int GetItemCount() { return instance.inventory.Count; }
 
-    public static int GetItemQuant(Item itemCheck)  // UPDATE
+    public static int GetItemQuantity(Item itemCheck) { return GetItemQuantity(itemCheck.itemName); }
+    public static int GetItemQuantity(string itemName)
     {
-        foreach(Item i in instance.newInventory)
-        {
-            if(i.itemName == itemCheck.itemName)
-            {
-                return i.quantity;
-            }
-        }
-        return 0;
+        Item item = GetItemUsingName(itemName);
+        if (item != null) return item.quantity;
+        else return 0;
     }
 
+    public static List<Item> GetInventory() { return instance.inventory; }
 
-    public static List<Item> GetInventory()  // UPDATE
+    public static bool HasItem(Item itemCheck) { return HasItem(itemCheck.itemName); }
+    public static bool HasItem(string itemName)
     {
-        return instance.newInventory;
-    }
+        Item item = GetItemUsingName(itemName);
+        if (item != null && item.quantity > 0)
+            return true;
 
-    public static bool Contains(Item itemCheck)  // UPDATE
-    {
-        foreach(Item i in instance.newInventory)
-        {
-            if(itemCheck.itemName == i.itemName)
-            {
-                return true;
-            }
-        }
         return false;
     }
 
@@ -145,6 +135,15 @@ public class Inventory
         ItemSO so = GetSOUsingName(item.itemName);
         if (so != null)
             return so;
+        else
+            return null;
+    }
+
+    public static Item GetItemUsingSO(ItemSO so)
+    {
+        Item item = GetItemUsingName(so.itemName);
+        if (item != null)
+            return item;
         else
             return null;
     }
@@ -160,6 +159,20 @@ public class Inventory
         }
 
         Debug.LogWarning("SO for item " + name + " could not be found");
+        return null;
+    }
+
+    public static Item GetItemUsingName(string name)
+    {
+        foreach (Item item in instance.inventory)
+        {
+            if (item.itemName == name)
+            {
+                return item;
+            }
+        }
+
+        Debug.LogWarning("Item " + name + " could not be found");
         return null;
     }
 }
