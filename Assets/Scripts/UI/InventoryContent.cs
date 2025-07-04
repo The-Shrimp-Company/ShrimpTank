@@ -93,7 +93,7 @@ public class InventoryContent : ContentPopulation
 
         foreach(ContentBlock block in contentBlocks)
         {
-            if(block.GetText().text == Items.AlgaeWafer)
+            if(block.GetText().text == Items.AlgaeWafer.itemName)
             {
                 block.ClearFunctions();
                 ContentBlock thisBlock = block;
@@ -112,7 +112,7 @@ public class InventoryContent : ContentPopulation
                     }
                 });
             }
-            else if(block.GetText().text == Items.FoodPellet)
+            else if(block.GetText().text == Items.FoodPellet.itemName)
             {
                 block.ClearFunctions();
                 ContentBlock thisBlock = block;

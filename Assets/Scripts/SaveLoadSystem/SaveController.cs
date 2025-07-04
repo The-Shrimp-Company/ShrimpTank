@@ -216,8 +216,8 @@ public class SaveController : MonoBehaviour
         {
             foreach (ItemSaveData i in d.inventoryItems)
             {
-                Item newItem = new Item(i.name, i.value);
-                Inventory.instance.AddItem(newItem, d.inventoryQuantities[index]);
+                //Item newItem = new Item(i.name, i.value);
+                //Inventory.instance.AddItem(newItem, d.inventoryQuantities[index]);
                 index++;
             }
         }
