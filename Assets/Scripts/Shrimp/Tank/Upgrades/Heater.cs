@@ -14,7 +14,7 @@ public class Heater : TankUpgrade
     public override void CreateUpgrade(UpgradeSO u, TankController t)
     {
         base.CreateUpgrade(u, t);
-        item = (Upgrade)Items.UpHeat0;
+        item = (Upgrade)Inventory.GetItemUsingName("Starter Heater");
     }
 
 

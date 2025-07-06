@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: ItemList
   m_EditorClassIdentifier: Assembly-CSharp::ItemList
   items:
+  - {fileID: 11400000, guid: 1a057c6b1c428c14b9bfcdc3a90cd5d4, type: 2}
   - {fileID: 11400000, guid: 91638d957de0ef944b3302430f1b5bed, type: 2}
-  - {fileID: 11400000, guid: acdb36fbbd3e5d74f96d4b6316d19b6f, type: 2}
-  - {fileID: 11400000, guid: bdeedcc6b26f1db47bab61c5174bf902, type: 2}
+  - {fileID: 11400000, guid: 98e6daea5f511c942abf72b81e17764b, type: 2}
+  - {fileID: 11400000, guid: fc4b8747ef61f264fbf7a1e27a85b292, type: 2}
+  - {fileID: 11400000, guid: 68f5568e313e70045b450a0eccf06e79, type: 2}
+  - {fileID: 11400000, guid: 1b41ca38f702655459ac776ab8a1e20b, type: 2}
+  - {fileID: 11400000, guid: a0a055decf1e97841b1e8ff293a28ede, type: 2}

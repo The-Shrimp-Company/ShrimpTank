@@ -26,4 +26,14 @@ public class ContentPopulation : MonoBehaviour
         }
     }
 
+    protected virtual void ClearContent()
+    {
+        for (int i = contentBlocks.Count - 1; i >= 0; i--)
+        {
+            Destroy(contentBlocks[i].gameObject);
+            contentBlocks.RemoveAt(i);
+        }
+
+        contentBlocks.Clear();
+    }
 }

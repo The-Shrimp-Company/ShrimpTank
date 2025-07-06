@@ -2,6 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ItemTags
+{
+    Tank,
+    Shelf,
+
+    Food,
+    Medicine,
+
+    TankUpgrade,
+    Filter,
+    Heater,
+
+    RoomDecoration,
+    TankDecoration,
+}
+
 [System.Serializable]
 public class Item
 {
@@ -16,21 +32,17 @@ public class Item
 [System.Serializable]
 public class MedicineItem : Item
 {
-    public IllnessSymptoms[] symptoms;
-    [Range(0, 100)] public float strength = 100;  // 100 Will allways fully cure
 
-
-    //public Medicine(string newName, int newValue, IllnessSymptoms symptom, int setStrength, int newQuantity = 0) : base(newName, newValue, newQuantity)
-    //{
-    //    symptoms = new IllnessSymptoms[] { symptom };
-    //    strength = setStrength;
-    //}
 }
 
+[System.Serializable]
+public class FoodItem : Item
+{
+
+}
 
 [System.Serializable]
 public class UpgradeItem : Item
 {
-
 
 }

@@ -3664,8 +3664,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2099794480881776206}
   m_HandleRect: {fileID: 199330680791225004}
   m_Direction: 2
-  m_Value: 1.0000013
-  m_Size: 0.4706738
+  m_Value: 1.0000011
+  m_Size: 0.39412826
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5516,7 +5516,7 @@ PrefabInstance:
     - target: {fileID: 5582182108252296287, guid: 687addf8c5e5dfa4e8b94ab5bb5035b2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5582182108252296287, guid: 687addf8c5e5dfa4e8b94ab5bb5035b2,
         type: 3}
@@ -5531,12 +5531,17 @@ PrefabInstance:
     - target: {fileID: 5582182108252296287, guid: 687addf8c5e5dfa4e8b94ab5bb5035b2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BuyBubbleMed
+      value: BuyItem
       objectReference: {fileID: 0}
     - target: {fileID: 5582182108252296287, guid: 687addf8c5e5dfa4e8b94ab5bb5035b2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: VetScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582182108252296287, guid: 687addf8c5e5dfa4e8b94ab5bb5035b2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Bubble Be Gone
       objectReference: {fileID: 0}
     - target: {fileID: 5582182108252296287, guid: 687addf8c5e5dfa4e8b94ab5bb5035b2,
         type: 3}
@@ -6028,7 +6033,7 @@ PrefabInstance:
     - target: {fileID: 5582182108252296287, guid: 687addf8c5e5dfa4e8b94ab5bb5035b2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5582182108252296287, guid: 687addf8c5e5dfa4e8b94ab5bb5035b2,
         type: 3}
@@ -6043,12 +6048,17 @@ PrefabInstance:
     - target: {fileID: 5582182108252296287, guid: 687addf8c5e5dfa4e8b94ab5bb5035b2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BuyVibranceMed
+      value: BuyItem
       objectReference: {fileID: 0}
     - target: {fileID: 5582182108252296287, guid: 687addf8c5e5dfa4e8b94ab5bb5035b2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: VetScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582182108252296287, guid: 687addf8c5e5dfa4e8b94ab5bb5035b2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Vibrancee
       objectReference: {fileID: 0}
     - target: {fileID: 5582182108252296287, guid: 687addf8c5e5dfa4e8b94ab5bb5035b2,
         type: 3}
@@ -6268,7 +6278,7 @@ PrefabInstance:
     - target: {fileID: 5582182108252296287, guid: 687addf8c5e5dfa4e8b94ab5bb5035b2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5582182108252296287, guid: 687addf8c5e5dfa4e8b94ab5bb5035b2,
         type: 3}
@@ -6283,12 +6293,17 @@ PrefabInstance:
     - target: {fileID: 5582182108252296287, guid: 687addf8c5e5dfa4e8b94ab5bb5035b2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BuySmallMed
+      value: BuyItem
       objectReference: {fileID: 0}
     - target: {fileID: 5582182108252296287, guid: 687addf8c5e5dfa4e8b94ab5bb5035b2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: VetScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582182108252296287, guid: 687addf8c5e5dfa4e8b94ab5bb5035b2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Small Head Pills
       objectReference: {fileID: 0}
     - target: {fileID: 5582182108252296287, guid: 687addf8c5e5dfa4e8b94ab5bb5035b2,
         type: 3}

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 
 public class Inventory
@@ -41,19 +42,16 @@ public class Inventory
             if (loadedItemList[i] as MedicineItemSO != null)
             {
                 item = new MedicineItem();
-                Debug.Log("Medicine");
             }
 
             else if (loadedItemList[i] as UpgradeItemSO != null)
             {
                 item = new UpgradeItem();
-                Debug.Log("Upgrade");
             }
 
             else
             {
                 item = new Item();
-                Debug.Log("Basic");
             }
 
             item.itemName = loadedItemList[i].itemName;
@@ -107,7 +105,7 @@ public class Inventory
     }
 
 
-    public static int GetItemCount() { return instance.inventory.Count; }
+    public static int GetItemCount() { return GetInventory().Count; }
 
     public static int GetItemQuantity(Item itemCheck) { return GetItemQuantity(itemCheck.itemName); }
     public static int GetItemQuantity(string itemName)
@@ -173,9 +171,22 @@ public class Inventory
         return null;
     }
 
-    public static List<Item> GetInventory() { return instance.inventory; }
+    public static List<Item> GetInventory() 
+    {
+        List<Item> items = new List<Item>();
 
-    public static List<Item> GetInventoryItemsWithTag(ItemTags tag) { return FilterItemsWithTag(instance.inventory, tag); }
+        foreach (Item item in instance.inventory)
+        {
+            if (item.quantity > 0)
+                items.Add(item);
+        }
+
+        items = SortItemsByQuantityThenName(items);
+
+        return items;
+    }
+
+    public static List<Item> GetInventoryItemsWithTag(ItemTags tag) { return FilterItemsWithTag(GetInventory(), tag); }
 
     public static List<Item> FilterItemsWithTag(List<Item> items, ItemTags tag)
     {
@@ -190,7 +201,7 @@ public class Inventory
         return filteredItems;
     }
 
-    public static List<Item> GetInventoryItemsWithTags(List<ItemTags> tags) { return FilterItemsWithTags(instance.inventory, tags); }
+    public static List<Item> GetInventoryItemsWithTags(List<ItemTags> tags) { return FilterItemsWithTags(GetInventory(), tags); }
 
     public static List<Item> FilterItemsWithTags(List<Item> items, List<ItemTags> tags)
     {
@@ -209,6 +220,12 @@ public class Inventory
         }
 
         return filteredItems;
+    }
+
+    public static List<Item> SortItemsByQuantityThenName(List<Item> items)
+    {
+        List<Item> sortedItems = items.OrderByDescending(i => i.quantity).ThenBy(n => n.itemName).ToList();
+        return sortedItems;
     }
 
     public static List<Item> SortItemsByQuantity(List<Item> items) 

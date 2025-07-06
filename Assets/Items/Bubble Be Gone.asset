@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8536f9e8c929be47bbd944e5887e460, type: 3}
-  m_Name: SmallTank
-  m_EditorClassIdentifier: 
-  itemName: 
-  purchaseValue: 0
-  sellValue: 0
-  tags: 00000000
-  quantity: 0
+  m_Script: {fileID: 0}
+  m_Name: Bubble Be Gone
+  m_EditorClassIdentifier: Assembly-CSharp::MedicineItemSO
+  itemName: Bubble Be Gone
+  purchaseValue: 5
+  purchaseQuantity: 1
+  sellValue: 5
+  tags: 03000000
+  symptoms: 02000000
+  strength: 100

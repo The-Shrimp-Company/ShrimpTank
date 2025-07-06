@@ -5,27 +5,18 @@ using UnityEngine;
 public class VetScreen : ScreenView
 {
 
-    public void BuyBubbleMed()
+    public void BuyItem(string itemName)
     {
-        if (Money.instance.WithdrawMoney(Items.MedBubble.value))
+        ItemSO so = Inventory.GetSOUsingName(itemName);
+        if (so == null)
         {
-            Inventory.instance.AddItem(Items.MedBubble);
+            Debug.LogWarning("Item with name " + itemName + " cannot be found through the vet screen");
+            return;
         }
-    }
 
-    public void BuySmallMed()
-    {
-        if (Money.instance.WithdrawMoney(Items.MedSmallHead.value))
+        if (Money.instance.WithdrawMoney(so.purchaseValue))
         {
-            Inventory.instance.AddItem(Items.MedSmallHead);
-        }
-    }
-
-    public void BuyVibranceMed()
-    {
-        if (Money.instance.WithdrawMoney(Items.MedVibrance.value))
-        {
-            Inventory.instance.AddItem(Items.MedVibrance);
+            Inventory.instance.AddItem(Inventory.GetItemUsingSO(so), so.purchaseQuantity);
         }
     }
 }

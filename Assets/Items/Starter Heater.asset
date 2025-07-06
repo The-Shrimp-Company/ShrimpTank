@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: Upgrade Item
+  m_Name: Starter Heater
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeItemSO
-  itemName: 
-  purchaseValue: 0
-  sellValue: 0
-  tags: 0400000005000000
-  quantity: 0
+  itemName: Starter Heater
+  purchaseValue: 30
+  purchaseQuantity: 1
+  sellValue: 30
+  tags: 0400000006000000

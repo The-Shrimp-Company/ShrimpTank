@@ -10,7 +10,7 @@ public class Filter : TankUpgrade
     public override void CreateUpgrade(UpgradeSO u, TankController t)
     {
         base.CreateUpgrade(u, t);
-        item = (Upgrade)Items.UpFilt0;
+        item = (Upgrade)Inventory.GetItemUsingName("Starter Filter");
     }
 
 

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: Medicine Item
+  m_Name: Small Head Pills
   m_EditorClassIdentifier: Assembly-CSharp::MedicineItemSO
-  itemName: 
-  purchaseValue: 0
-  sellValue: 0
+  itemName: Small Head Pills
+  purchaseValue: 5
+  purchaseQuantity: 1
+  sellValue: 5
   tags: 03000000
-  quantity: 0
-  symptoms: 
+  symptoms: 01000000
   strength: 100
