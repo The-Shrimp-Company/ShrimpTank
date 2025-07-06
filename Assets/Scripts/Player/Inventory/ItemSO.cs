@@ -35,7 +35,6 @@ public class ItemSO : ScriptableObject
     public int purchaseValue;
     public int sellValue;
     public List<ItemTags> tags = new List<ItemTags>();
-    [HideInInspector] public int quantity;
 }
 
 

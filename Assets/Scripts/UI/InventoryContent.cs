@@ -104,7 +104,7 @@ public class InventoryContent : ContentPopulation
                         Inventory.instance.RemoveItem(Items.AlgaeWafer);
                         GameObject newFood = Instantiate(algaeWafers, tank.GetRandomSurfacePosition(), Quaternion.identity);
                         newFood.GetComponent<ShrimpFood>().CreateFood(tank);
-                        thisBlock.GetComponent<InventoryContentBlock>().quantity.text = Inventory.GetItemQuant(Items.AlgaeWafer).ToString();
+                        thisBlock.GetComponent<InventoryContentBlock>().quantity.text = Inventory.GetItemQuantity(Items.AlgaeWafer).ToString();
                         if (!Inventory.HasItem(Items.AlgaeWafer))
                         {
                             Destroy(thisBlock);
@@ -123,7 +123,7 @@ public class InventoryContent : ContentPopulation
                         Inventory.instance.RemoveItem(Items.FoodPellet);
                         GameObject newFood = Instantiate(foodPellets, tank.GetRandomSurfacePosition(), Quaternion.identity);
                         newFood.GetComponent<ShrimpFood>().CreateFood(tank);
-                        thisBlock.GetComponent<InventoryContentBlock>().quantity.text = Inventory.GetItemQuant(Items.FoodPellet).ToString();
+                        thisBlock.GetComponent<InventoryContentBlock>().quantity.text = Inventory.GetItemQuantity(Items.FoodPellet).ToString();
                         if (!Inventory.HasItem(Items.FoodPellet))
                         {
                             Destroy(thisBlock);
@@ -165,7 +165,7 @@ public class InventoryContent : ContentPopulation
                 Shrimp[] thisShrimp = shrimp;
                 block.AssignFunction(() =>
                 {
-                    if(Inventory.GetItemQuant(thisBlock.item) >= thisShrimp.Length)
+                    if(Inventory.GetItemQuantity(thisBlock.item) >= thisShrimp.Length)
                     {
                         foreach (Shrimp shrimp in thisShrimp)
                         {
@@ -173,8 +173,8 @@ public class InventoryContent : ContentPopulation
                         }
                         Inventory.instance.RemoveItem(thisBlock.item, thisShrimp.Length);
                     }
-                    thisBlock.GetComponent<InventoryContentBlock>().quantity.text = Inventory.GetItemQuant(thisBlock.item).ToString();
-                    if (Inventory.GetItemQuant(thisBlock.item) <= 0) Destroy(thisBlock.gameObject);
+                    thisBlock.GetComponent<InventoryContentBlock>().quantity.text = Inventory.GetItemQuantity(thisBlock.item).ToString();
+                    if (Inventory.GetItemQuantity(thisBlock.item) <= 0) Destroy(thisBlock.gameObject);
                 });
             }
 

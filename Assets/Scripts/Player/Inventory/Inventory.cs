@@ -1,9 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental;
+using System.Linq;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 
 public class Inventory
@@ -118,8 +117,6 @@ public class Inventory
         else return 0;
     }
 
-    public static List<Item> GetInventory() { return instance.inventory; }
-
     public static bool HasItem(Item itemCheck) { return HasItem(itemCheck.itemName); }
     public static bool HasItem(string itemName)
     {
@@ -174,5 +171,55 @@ public class Inventory
 
         Debug.LogWarning("Item " + name + " could not be found");
         return null;
+    }
+
+    public static List<Item> GetInventory() { return instance.inventory; }
+
+    public static List<Item> GetInventoryItemsWithTag(ItemTags tag) { return FilterItemsWithTag(instance.inventory, tag); }
+
+    public static List<Item> FilterItemsWithTag(List<Item> items, ItemTags tag)
+    {
+        List<Item> filteredItems = new List<Item>();
+
+        foreach (Item item in items)
+        {
+            if (GetSOForItem(item).tags.Contains(tag))
+                filteredItems.Add(item);
+        }
+
+        return filteredItems;
+    }
+
+    public static List<Item> GetInventoryItemsWithTags(List<ItemTags> tags) { return FilterItemsWithTags(instance.inventory, tags); }
+
+    public static List<Item> FilterItemsWithTags(List<Item> items, List<ItemTags> tags)
+    {
+        List<Item> filteredItems = new List<Item>();
+
+        foreach (Item item in items)
+        {
+            foreach (ItemTags tag in tags)
+            {
+                if (GetSOForItem(item).tags.Contains(tag))
+                {
+                    filteredItems.Add(item);
+                    break;
+                }
+            }
+        }
+
+        return filteredItems;
+    }
+
+    public static List<Item> SortItemsByQuantity(List<Item> items) 
+    {
+        List<Item> sortedItems = items.OrderByDescending(i => i.quantity).ToList();
+        return sortedItems;
+    }
+
+    public static List<Item> SortItemsByName(List<Item> items)
+    {
+        List<Item> sortedItems = items.OrderBy(i => i.itemName).ToList();
+        return sortedItems;
     }
 }
