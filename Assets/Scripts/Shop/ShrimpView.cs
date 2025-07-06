@@ -70,20 +70,22 @@ public class ShrimpView : ScreenView
         RaycastHit ray;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(point), out ray, 3f, LayerMask.GetMask("Shrimp")))
         {
+            if (_shrimp.tank.shrimpInTank.Contains(ray.transform.GetComponent<Shrimp>()))
+            {
+                _shrimp.gameObject.layer = LayerMask.NameToLayer("Shrimp");
+                _shrimp.GetComponentInChildren<ShrimpCam>().Deactivate();
+                player.GetComponent<PlayerUIController>().UnsetShrimpCam();
+                _shrimp = ray.transform.GetComponent<Shrimp>();
+                Populate(_shrimp);
+                GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
+                //GetComponent<Canvas>().planeDistance = 1;
+                UIManager.instance.SetCursorMasking(false);
+                _shrimp.GetComponentInChildren<ShrimpCam>().SetCam();
 
-            _shrimp.gameObject.layer = LayerMask.NameToLayer("Shrimp");
-            _shrimp.GetComponentInChildren<ShrimpCam>().Deactivate();
-            player.GetComponent<PlayerUIController>().UnsetShrimpCam();
-            _shrimp = ray.transform.GetComponent<Shrimp>();
-            Populate(_shrimp);
-            GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
-            //GetComponent<Canvas>().planeDistance = 1;
-            UIManager.instance.SetCursorMasking(false);
-            _shrimp.GetComponentInChildren<ShrimpCam>().SetCam();
-
-            DOTween.Kill(panel);
-            panel.transform.localPosition = panelRestPos;
-            panel.DOPunchAnchorPos(shrimpSwitchPunch, 0.25f);
+                DOTween.Kill(panel);
+                panel.transform.localPosition = panelRestPos;
+                panel.DOPunchAnchorPos(shrimpSwitchPunch, 0.25f);
+            }
         }
     }
 

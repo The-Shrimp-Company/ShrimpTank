@@ -255,14 +255,17 @@ public class TankViewScript : ScreenView
         RaycastHit ray;
         if(Physics.Raycast(Camera.main.ScreenPointToRay(point), out ray, 3f, LayerMask.GetMask("Shrimp")))
         {
-            _shrimp = ray.transform.GetComponent<Shrimp>();
-            GameObject newitem = Instantiate(shrimpView);
-            UIManager.instance.OpenScreen(newitem.GetComponent<ScreenView>());
-            newitem.GetComponent<ShrimpView>().Populate(_shrimp);
-            newitem.GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
-            newitem.GetComponent<Canvas>().planeDistance = 1;
-            UIManager.instance.SetCursorMasking(false);
-            _shrimp.GetComponentInChildren<ShrimpCam>().SetCam(); 
+            if (tank.shrimpInTank.Contains(ray.transform.GetComponent<Shrimp>()))
+            {
+                _shrimp = ray.transform.GetComponent<Shrimp>();
+                GameObject newitem = Instantiate(shrimpView);
+                UIManager.instance.OpenScreen(newitem.GetComponent<ScreenView>());
+                newitem.GetComponent<ShrimpView>().Populate(_shrimp);
+                newitem.GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
+                newitem.GetComponent<Canvas>().planeDistance = 1;
+                UIManager.instance.SetCursorMasking(false);
+                _shrimp.GetComponentInChildren<ShrimpCam>().SetCam();
+            }
         }
     }
 
