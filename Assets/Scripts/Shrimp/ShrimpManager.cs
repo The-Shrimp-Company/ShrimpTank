@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
@@ -12,6 +14,8 @@ public class ShrimpManager : MonoBehaviour
 
     public List<Shrimp> allShrimp = new List<Shrimp>();
     private int numberOfShrimp = 0;
+
+    private List<string> names = new List<string>();
 
 
     [Header("Size")]
@@ -59,6 +63,10 @@ public class ShrimpManager : MonoBehaviour
     {
         instance = this;
         geneManager = GetComponent<GeneManager>();
+        foreach(string line in File.ReadLines("Assets/ShrimpNames.txt"))
+        {
+            names.Add(line);
+        }
     }
 
 
@@ -343,7 +351,37 @@ public class ShrimpManager : MonoBehaviour
 
     public string GenerateShrimpName()
     {
-        return "Shrimp " + (numberOfShrimp + 1);
+        int randVal;
+        int index = 0;
+        Shrimp[] shrimpWithName;
+        do
+        {
+            randVal = Random.Range(0, 21);
+            index += randVal;
+            while (randVal == 20)
+            {
+                randVal = Random.Range(0, 21);
+                index += randVal;
+            }
+
+            if (index >= names.Count)
+            {
+                foreach(string name in names)
+                {
+                    shrimpWithName = allShrimp.Where(x => { return x.name == names[index]; }).ToArray();
+                    if(shrimpWithName.Length == 0)
+                    {
+                        return name;
+                    }
+                }
+                return "Shrimp " + allShrimp.Count.ToString();
+            }
+
+            shrimpWithName = allShrimp.Where(x => { return x.name == names[index]; }).ToArray();
+
+        } while (shrimpWithName.Length != 0);
+
+        return names[index];
     }
 
 
