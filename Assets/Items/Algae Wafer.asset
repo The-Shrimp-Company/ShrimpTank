@@ -16,6 +16,6 @@ MonoBehaviour:
   purchaseValue: 10
   purchaseQuantity: 10
   sellValue: 1
-  tags: 
+  tags: 02000000
   foodPrefab: {fileID: 2843780405674553184, guid: 02d275baf18747b43a519e27d1ecd2cd,
     type: 3}
