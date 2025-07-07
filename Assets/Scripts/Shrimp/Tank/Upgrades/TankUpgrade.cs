@@ -9,7 +9,6 @@ public class TankUpgrade : MonoBehaviour
     public bool working = true;
     public GameObject brokenParticlesPrefab;
     private GameObject brokenParticles;
-    public UpgradeItem item;
 
     [Header("Illness Unlock Requirement")]
     [SerializeField] int unlockReqTotalShrimp = 50;

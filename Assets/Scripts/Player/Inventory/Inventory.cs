@@ -15,10 +15,14 @@ public class Inventory
 
     public List<TankController> activeTanks { get; private set; } = new List<TankController>();
 
-    public void Initialize()
+    public void Initialize(Item[] saveData = null)
     {
         LoadItemsFromResources();
-        GenerateInventory();
+
+        if (saveData == null)
+            GenerateInventory();
+        else
+            LoadInventoryFromFile(saveData);
         activeTanks = new List<TankController>();
     }
 
@@ -40,22 +44,47 @@ public class Inventory
         {
             Item item;
             if (loadedItemList[i] as MedicineItemSO != null)
-            {
                 item = new MedicineItem();
-            }
 
             else if (loadedItemList[i] as UpgradeItemSO != null)
-            {
                 item = new UpgradeItem();
-            }
+
+            else if (loadedItemList[i] as FoodItemSO != null)
+                item = new FoodItem();
 
             else
-            {
                 item = new Item();
-            }
 
             item.itemName = loadedItemList[i].itemName;
             item.quantity = 0;
+
+            inventory.Add(item);
+        }
+    }
+
+    private void LoadInventoryFromFile(Item[] saveData)
+    {
+        if (loadedItemList == null || loadedItemList.Length == 0) return;
+
+        if (inventory == null) inventory = new List<Item>();
+        else inventory.Clear();
+
+        for (int i = 0; i < loadedItemList.Length; i++)
+        {
+            Item item;
+            if (loadedItemList[i] as MedicineItemSO != null)
+                item = new MedicineItem();
+
+            else if (loadedItemList[i] as UpgradeItemSO != null)
+                item = new UpgradeItem();
+
+            else if (loadedItemList[i] as FoodItemSO != null)
+                item = new FoodItem();
+
+            else
+                item = new Item();
+
+            item = Array.Find(saveData, item => item.itemName == loadedItemList[i].itemName);
 
             inventory.Add(item);
         }
@@ -171,17 +200,18 @@ public class Inventory
         return null;
     }
 
-    public static List<Item> GetInventory() 
+    public static List<Item> GetInventory(bool ownedItems = true, bool sort = true) 
     {
         List<Item> items = new List<Item>();
 
         foreach (Item item in instance.inventory)
         {
-            if (item.quantity > 0)
-                items.Add(item);
+            if (ownedItems && item.quantity <= 0) continue;  // Skip this item if it is not owned
+
+            items.Add(item);
         }
 
-        items = SortItemsByQuantityThenName(items);
+        if (sort) items = SortItemsByQuantityThenName(items);
 
         return items;
     }

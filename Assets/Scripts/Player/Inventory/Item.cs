@@ -23,9 +23,6 @@ public class Item
 {
     public string itemName;
     public int quantity;
-
-
-    public int value;
 }
 
 

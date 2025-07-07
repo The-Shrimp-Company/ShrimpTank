@@ -66,10 +66,9 @@ public class InventoryContent : ContentPopulation
                     {
                         if (thisController.CheckForUpgrade(type))
                         {
-                            Inventory.instance.AddItem(thisController.GetUpgrade(type).item);
+                            Inventory.instance.AddItem(Inventory.GetItemUsingSO(thisController.GetUpgrade(type).upgrade));
                         }
                         thisController.AddUpgrade(Inventory.GetSOForItem(thisBlock.item) as UpgradeItemSO);
-                        thisController.GetUpgrade(type).item = (UpgradeItem)thisBlock.item;
                         Inventory.instance.RemoveItem(thisBlock.item);
 
                         UIManager.instance.CloseScreen();
