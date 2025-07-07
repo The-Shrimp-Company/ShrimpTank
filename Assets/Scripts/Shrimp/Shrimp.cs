@@ -304,25 +304,25 @@ public class Shrimp : MonoBehaviour
 
     public void SwitchToHighLOD()  // Focused on Shrimp
     {
-        agent.shrimpModel.gameObject.SetActive(true);
+        shrimpLegs.ForceLod(0);
         particleParent.gameObject.SetActive(true);
     }
 
     public void SwitchToMidLOD()  // Focused on tank
     {
-        agent.shrimpModel.gameObject.SetActive(true);
+        shrimpLegs.ForceLod(1);
         particleParent.gameObject.SetActive(true);
     }
 
     public void SwitchToLowLOD()  // Near tank
     {
-        agent.shrimpModel.gameObject.SetActive(true);
+        shrimpLegs.ForceLod(2);
         particleParent.gameObject.SetActive(false);
     }
 
     public void SwitchToSuperLowLOD()  // Far from tank
     {
-        agent.shrimpModel.gameObject.SetActive(false);
+        shrimpLegs.ForceLod(3);
         particleParent.gameObject.SetActive(false);
     }
 }
