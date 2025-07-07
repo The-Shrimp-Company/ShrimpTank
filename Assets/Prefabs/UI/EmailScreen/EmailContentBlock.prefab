@@ -442,7 +442,7 @@ MonoBehaviour:
   text: {fileID: 0}
   title: {fileID: 1003153029015567220}
   subjectLine: {fileID: 1542876720286965567}
-  fullEmail: {fileID: 7657981259110859896, guid: 4830b38360e6e744696c6bbcabc83973,
+  fullEmail: {fileID: 7657981259110859896, guid: 215327fd131742a4c912a3d8998ff731,
     type: 3}
 --- !u!114 &6317603505463835550
 MonoBehaviour:
