@@ -24,7 +24,7 @@ public class UpgradeScreen : ScreenView
 
         if (Money.instance.WithdrawMoney(so.purchaseValue))
         {
-            Inventory.instance.AddItem(Inventory.GetItemUsingSO(so), so.purchaseQuantity);
+            Inventory.AddItem(Inventory.GetItemUsingSO(so), so.purchaseQuantity);
         }
     }
 

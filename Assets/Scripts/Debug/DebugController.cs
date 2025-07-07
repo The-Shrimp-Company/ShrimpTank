@@ -39,6 +39,10 @@ public class DebugController : MonoBehaviour
     public static DebugCommand<int> SPAWN_NYLON;
     public static DebugCommand<int> SPAWN_ANOMALIS;
 
+    public static DebugCommand<string> GIVE_ITEM;
+    public static DebugCommand MAX_INVENTORY;
+    public static DebugCommand CLEAR_INVENTORY;
+
     public static DebugCommand<float> WALK_SPEED;
     public static DebugCommand<float> GAME_SPEED;
 
@@ -205,6 +209,29 @@ public class DebugController : MonoBehaviour
 
 
 
+        GIVE_ITEM = new DebugCommand<string>("give_item", "Give yourself an item", "give_item", (x) =>
+        {
+            Item item = Inventory.GetItemUsingName(x);
+            
+            if (item != null) Inventory.AddItem(item);
+        });
+
+        MAX_INVENTORY = new DebugCommand("max_inventory", "Give yourself the max number of items in the inventory", "max_inventory", () =>
+        {
+            foreach(Item item in Inventory.GetInventory(false))
+            {
+                Inventory.AddItem(item, Inventory.GetMaxItemCount());
+            }
+        });
+
+        CLEAR_INVENTORY = new DebugCommand("clear_inventory", "Remove all items from the inventory", "clear_inventory", () =>
+        {
+            Inventory.ClearInventory();
+        });
+
+
+
+
 
         PlayerMovement movement = null;
         if (GameObject.Find("Player")) movement = GameObject.Find("Player").GetComponent<PlayerMovement>();
@@ -327,6 +354,12 @@ public class DebugController : MonoBehaviour
             SPAWN_CARIDID,
             SPAWN_NYLON,
             SPAWN_ANOMALIS,
+
+            Spacer,
+
+            GIVE_ITEM,
+            MAX_INVENTORY,
+            CLEAR_INVENTORY,
 
             Spacer,
 

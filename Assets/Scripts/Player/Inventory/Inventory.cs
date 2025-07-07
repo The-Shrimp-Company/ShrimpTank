@@ -12,8 +12,11 @@ public class Inventory
 
     private ItemSO[] loadedItemList;
     private List<Item> inventory = new List<Item>();
-
     public List<TankController> activeTanks { get; private set; } = new List<TankController>();
+
+
+    private static int maxItemCount = 999;
+
 
     public void Initialize(Item[] saveData = null)
     {
@@ -90,13 +93,13 @@ public class Inventory
         }
     }
 
-    public void AddItem(Item newItem, int quantity = 1)
+    public static void AddItem(Item newItem, int quantity = 1)
     {
         if (newItem == null) return;
         AddItem(newItem.itemName, quantity);
     }
 
-    public void AddItem(string itemName, int quantity = 1)
+    public static void AddItem(string itemName, int quantity = 1)
     {
         if (itemName == null) return;
 
@@ -105,12 +108,16 @@ public class Inventory
             if (instance.inventory[i].itemName == itemName)
             {
                 instance.inventory[i].quantity += quantity;
+
+                if (instance.inventory[i].quantity > maxItemCount)
+                    instance.inventory[i].quantity = maxItemCount;
+
                 return;
             }
         }
     }
 
-    public bool RemoveItem(Item item, int quantity = 1)  // UPDATE
+    public static bool RemoveItem(Item item, int quantity = 1)  // UPDATE
     {
         if (item == null) return false;
         return RemoveItem(item.itemName, quantity);
@@ -252,23 +259,32 @@ public class Inventory
         return filteredItems;
     }
 
-    public static List<Item> SortItemsByQuantityThenName(List<Item> items)
+    public static List<Item> SortItemsByQuantityThenName(List<Item> items)  // Sorts a list of items by quantity and then alphabetically
     {
         List<Item> sortedItems = items.OrderByDescending(i => i.quantity).ThenBy(n => n.itemName).ToList();
         return sortedItems;
     }
 
-    public static List<Item> SortItemsByQuantity(List<Item> items) 
+    public static List<Item> SortItemsByQuantity(List<Item> items)   // Sorts a list of items by quantity in descending order
     {
         List<Item> sortedItems = items.OrderByDescending(i => i.quantity).ToList();
         return sortedItems;
     }
 
-    public static List<Item> SortItemsByName(List<Item> items)
+    public static List<Item> SortItemsByName(List<Item> items)  // Sorts a list of items from A-Z
     {
         List<Item> sortedItems = items.OrderBy(i => i.itemName).ToList();
         return sortedItems;
     }
 
-    public static ItemSO[] GetLoadedItems() { return instance.loadedItemList; }
+    public static ItemSO[] GetLoadedItems() { return instance.loadedItemList; }  // Returns all item scriptable objects
+    public static int GetMaxItemCount() { return maxItemCount; }
+
+    public static void ClearInventory()
+    {
+        foreach(Item item in instance.inventory)
+        {
+            item.quantity = 0;
+        }
+    }
 }

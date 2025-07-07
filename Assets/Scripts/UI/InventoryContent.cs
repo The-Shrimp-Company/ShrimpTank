@@ -66,10 +66,10 @@ public class InventoryContent : ContentPopulation
                     {
                         if (thisController.CheckForUpgrade(type))
                         {
-                            Inventory.instance.AddItem(Inventory.GetItemUsingSO(thisController.GetUpgrade(type).upgrade));
+                            Inventory.AddItem(Inventory.GetItemUsingSO(thisController.GetUpgrade(type).upgrade));
                         }
                         thisController.AddUpgrade(Inventory.GetSOForItem(thisBlock.item) as UpgradeItemSO);
-                        Inventory.instance.RemoveItem(thisBlock.item);
+                        Inventory.RemoveItem(thisBlock.item);
 
                         UIManager.instance.CloseScreen();
                     }
@@ -97,7 +97,7 @@ public class InventoryContent : ContentPopulation
             {
                 if (Inventory.HasItem(((InventoryContentBlock)block).item))
                 {
-                    Inventory.instance.RemoveItem(((InventoryContentBlock)block).item);
+                    Inventory.RemoveItem(((InventoryContentBlock)block).item);
                     GameObject newFood = Instantiate(((FoodItemSO)Inventory.GetSOForItem(((InventoryContentBlock)block).item)).foodPrefab, tank.GetRandomSurfacePosition(), Quaternion.identity);
                     newFood.GetComponent<ShrimpFood>().CreateFood(tank);
                 }
@@ -139,7 +139,7 @@ public class InventoryContent : ContentPopulation
                     {
                         shrimp.GetComponent<IllnessController>().UseMedicine(thisBlock.item as Medicine);
                     }
-                    Inventory.instance.RemoveItem(thisBlock.item, thisShrimp.Length);
+                    Inventory.RemoveItem(thisBlock.item, thisShrimp.Length);
                     ContentBlockUpdate(thisBlock);
                 }
             });
