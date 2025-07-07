@@ -239,4 +239,6 @@ public class Inventory
         List<Item> sortedItems = items.OrderBy(i => i.itemName).ToList();
         return sortedItems;
     }
+
+    public static ItemSO[] GetLoadedItems() { return instance.loadedItemList; }
 }

@@ -55,7 +55,7 @@ public class InventoryContent : ContentPopulation
 
         foreach (InventoryContentBlock block in contentBlocks)
         {
-            if(((Upgrade)block.item).upgrade.upgradeType == type)
+            if(((UpgradeItemSO)Inventory.GetSOForItem(block.item)).upgradeType == type)
             {
                 block.ClearFunctions();
                 InventoryContentBlock thisBlock = block;
@@ -68,8 +68,8 @@ public class InventoryContent : ContentPopulation
                         {
                             Inventory.instance.AddItem(thisController.GetUpgrade(type).item);
                         }
-                        thisController.AddUpgrade(((Upgrade)thisBlock.item).upgrade);
-                        thisController.GetUpgrade(type).item = (Upgrade)thisBlock.item;
+                        thisController.AddUpgrade(Inventory.GetSOForItem(thisBlock.item) as UpgradeItemSO);
+                        thisController.GetUpgrade(type).item = (UpgradeItem)thisBlock.item;
                         Inventory.instance.RemoveItem(thisBlock.item);
 
                         UIManager.instance.CloseScreen();

@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class TankUpgrade : MonoBehaviour
 {
-    [HideInInspector] public UpgradeSO upgrade;
+    [HideInInspector] public UpgradeItemSO upgrade;
     protected TankController tank;
     public bool working = true;
     public GameObject brokenParticlesPrefab;
     private GameObject brokenParticles;
-    public Upgrade item;
+    public UpgradeItem item;
 
     [Header("Illness Unlock Requirement")]
     [SerializeField] int unlockReqTotalShrimp = 50;
     [SerializeField] int unlockReqShrimpInOneTank = 20;
 
 
-    public virtual void CreateUpgrade(UpgradeSO u, TankController t)
+    public virtual void CreateUpgrade(UpgradeItemSO u, TankController t)
     {
         tank = t;
         upgrade = u;

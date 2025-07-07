@@ -569,6 +569,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   capacityCheckTime: 5
   illnessSpreadRate: 0.1
+  breedingCooldown: 90
+  breedingCooldownTimer: 0
+  shrimpCanBreed: 0
   distanceCheckTime: 1
   particleParent: {fileID: 7623248954326440091}
   autoSpawnTestShrimp: 0
@@ -617,8 +620,8 @@ MonoBehaviour:
     - Key: 7
       Value: {fileID: 6958339645014040434}
   startingUpgrades:
-  - {fileID: 11400000, guid: d2da9b71affb4cf459bcd5edbd9a7ca7, type: 2}
-  - {fileID: 11400000, guid: e0d5a6bb95ad4b04394cb38a9b11734c, type: 2}
+  - {fileID: 11400000, guid: acb7fdf5a6cf52440b182feffe42a47b, type: 2}
+  - {fileID: 11400000, guid: b2fad02914d55cb4a92ceb19388f00e4, type: 2}
 --- !u!114 &2571415597398310276
 MonoBehaviour:
   m_ObjectHideFlags: 0

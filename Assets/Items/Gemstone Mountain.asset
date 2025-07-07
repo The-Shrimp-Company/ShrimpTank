@@ -9,17 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88cfaf533f817694e96bea03b8f228f0, type: 3}
-  m_Name: Decoration Layout 5
+  m_Script: {fileID: 11500000, guid: 6099156fd9ecf7144bc7e5b7786f22b3, type: 3}
+  m_Name: Gemstone Mountain
   m_EditorClassIdentifier: 
-  ID: D005
+  itemName: Gemstone Mountain
+  purchaseValue: 30
+  purchaseQuantity: 1
+  sellValue: 30
+  tags: 0400000008000000
   upgradeType: 7
-  upgradeName: Leafy Pond
-  upgradePrefab: {fileID: 5987287620935341093, guid: 75fbcec762204a845b7c2004f39ad0bd,
+  upgradePrefab: {fileID: 2905897715263716655, guid: 572b36fb3fd105b4ab65e72d7ee98ce0,
     type: 3}
-  cost: 50
-  breakRate: 0
-  repairCost: 0
+  breakRate: 5
+  repairCost: 15
   energyCost: 0
   filterCapacity: 0
   heaterOutput: 0

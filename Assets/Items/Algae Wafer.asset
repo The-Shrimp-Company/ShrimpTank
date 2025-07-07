@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 60885f020abf6ee4698aace26a47e530, type: 3}
   m_Name: Algae Wafer
-  m_EditorClassIdentifier: Assembly-CSharp::FoodItemSO
+  m_EditorClassIdentifier: 
   itemName: Algae Wafer
   purchaseValue: 10
   purchaseQuantity: 10
-  sellValue: 5
-  tags: 02000000
+  sellValue: 1
+  tags: 
   foodPrefab: {fileID: 2843780405674553184, guid: 02d275baf18747b43a519e27d1ecd2cd,
     type: 3}

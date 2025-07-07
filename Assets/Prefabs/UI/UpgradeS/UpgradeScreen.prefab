@@ -4581,12 +4581,12 @@ PrefabInstance:
     - target: {fileID: 8326362844074259128, guid: 86f5de5a5df96034291395739b81a0d2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BuyDecor
+      value: BuyItem
       objectReference: {fileID: 0}
     - target: {fileID: 8326362844074259128, guid: 86f5de5a5df96034291395739b81a0d2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: RG
+      value: Red Garden
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4983,12 +4983,12 @@ PrefabInstance:
     - target: {fileID: 8326362844074259128, guid: 86f5de5a5df96034291395739b81a0d2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BuyDecor
+      value: BuyItem
       objectReference: {fileID: 0}
     - target: {fileID: 8326362844074259128, guid: 86f5de5a5df96034291395739b81a0d2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: DL
+      value: Driftwood Lake
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5801,12 +5801,12 @@ PrefabInstance:
     - target: {fileID: 8326362844074259128, guid: 86f5de5a5df96034291395739b81a0d2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BuyDecor
+      value: BuyItem
       objectReference: {fileID: 0}
     - target: {fileID: 8326362844074259128, guid: 86f5de5a5df96034291395739b81a0d2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: GM
+      value: Gemstone Mountain
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6002,12 +6002,12 @@ PrefabInstance:
     - target: {fileID: 8326362844074259128, guid: 86f5de5a5df96034291395739b81a0d2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BuyDecor
+      value: BuyItem
       objectReference: {fileID: 0}
     - target: {fileID: 8326362844074259128, guid: 86f5de5a5df96034291395739b81a0d2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: WR
+      value: Wavy River
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6575,12 +6575,12 @@ PrefabInstance:
     - target: {fileID: 8326362844074259128, guid: 86f5de5a5df96034291395739b81a0d2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BuyDecor
+      value: BuyItem
       objectReference: {fileID: 0}
     - target: {fileID: 8326362844074259128, guid: 86f5de5a5df96034291395739b81a0d2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: LP
+      value: Leafy Pond
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

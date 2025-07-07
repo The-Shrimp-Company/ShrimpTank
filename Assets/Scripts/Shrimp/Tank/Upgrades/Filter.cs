@@ -7,10 +7,10 @@ public class Filter : TankUpgrade
     [Header("Filter")]
     public float filterSpeed = 5;
 
-    public override void CreateUpgrade(UpgradeSO u, TankController t)
+    public override void CreateUpgrade(UpgradeItemSO u, TankController t)
     {
         base.CreateUpgrade(u, t);
-        item = (Upgrade)Inventory.GetItemUsingName("Starter Filter");
+        item = (UpgradeItem)Inventory.GetItemUsingName("Starter Filter");
     }
 
 

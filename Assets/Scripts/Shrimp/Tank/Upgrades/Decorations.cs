@@ -7,7 +7,7 @@ public class Decorations : TankUpgrade
 {
     public List<Modifier> statModifiers;
 
-    public override void CreateUpgrade(UpgradeSO u, TankController t)
+    public override void CreateUpgrade(UpgradeItemSO u, TankController t)
     {
         base.CreateUpgrade(u, t);
     }

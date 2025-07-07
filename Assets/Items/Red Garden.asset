@@ -9,17 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88cfaf533f817694e96bea03b8f228f0, type: 3}
-  m_Name: Decoration Layout 4
+  m_Script: {fileID: 11500000, guid: 6099156fd9ecf7144bc7e5b7786f22b3, type: 3}
+  m_Name: Red Garden
   m_EditorClassIdentifier: 
-  ID: D004
+  itemName: Red Garden
+  purchaseValue: 30
+  purchaseQuantity: 1
+  sellValue: 30
+  tags: 0400000008000000
   upgradeType: 7
-  upgradeName: Wavy River
-  upgradePrefab: {fileID: 8725759584356266068, guid: c8022d6767718184fa0576f910672868,
+  upgradePrefab: {fileID: 1256329419943621621, guid: d6e0abb1ca3d946418672641b5ab0684,
     type: 3}
-  cost: 50
-  breakRate: 0
-  repairCost: 0
+  breakRate: 5
+  repairCost: 15
   energyCost: 0
   filterCapacity: 0
   heaterOutput: 0

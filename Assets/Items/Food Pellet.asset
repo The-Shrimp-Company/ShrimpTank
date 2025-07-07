@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 60885f020abf6ee4698aace26a47e530, type: 3}
   m_Name: Food Pellet
-  m_EditorClassIdentifier: Assembly-CSharp::FoodItemSO
+  m_EditorClassIdentifier: 
   itemName: Food Pellet
   purchaseValue: 5
   purchaseQuantity: 10
-  sellValue: 2
+  sellValue: 0.5
   tags: 02000000
   foodPrefab: {fileID: 2369512782883937234, guid: 353019b5f58c3ec42a88826cd4b95597,
     type: 3}
