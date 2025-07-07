@@ -11,10 +11,9 @@ public class Heater : TankUpgrade
     [Range(0, 100)] public float minTemperature = 25;
     [Range(0, 100)] public float maxTemperature = 75;
 
-    public override void CreateUpgrade(UpgradeSO u, TankController t)
+    public override void CreateUpgrade(UpgradeItemSO u, TankController t)
     {
         base.CreateUpgrade(u, t);
-        item = (Upgrade)Items.UpHeat0;
     }
 
 

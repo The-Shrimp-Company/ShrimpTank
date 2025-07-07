@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class UpgradeScreen : ScreenView
 {
@@ -10,96 +11,35 @@ public class UpgradeScreen : ScreenView
         base.Start();
     }
 
-    public void BuyTanks()
+
+
+    public void BuyItem(string itemName)
     {
-        if (Money.instance.WithdrawMoney(Items.SmallTank.value))
+        ItemSO so = Inventory.GetSOUsingName(itemName);
+        if (so == null)
         {
-            Inventory.instance.AddItem(Items.SmallTank);
+            Debug.LogWarning("Item with name " + itemName + " cannot be found through the shop");
+            return;
+        }
+
+        if (Money.instance.WithdrawMoney(so.purchaseValue))
+        {
+            Inventory.instance.AddItem(Inventory.GetItemUsingSO(so), so.purchaseQuantity);
         }
     }
 
-    public void BuyShelf()
+    public void BuyShelf(string itemName)
     {
-        if (Money.instance.WithdrawMoney(Items.Shelf.value))
+        ItemSO so = Inventory.GetSOUsingName(itemName);
+        if (so == null)
+        {
+            Debug.LogWarning("Shelf with name " + itemName + " cannot be found through the shop");
+            return;
+        }
+
+        if (Money.instance.WithdrawMoney(so.purchaseValue))
         {
             shelves.SpawnNextShelf();
-        }
-    }
-
-    public void BuyAlgaeWafer()
-    {
-        if (Money.instance.WithdrawMoney(Items.AlgaeWafer.value))
-        {
-            Inventory.instance.AddItem(Items.AlgaeWafer, 10);
-        }
-    }
-
-    public void BuyFoodPellet()
-    {
-        if (Money.instance.WithdrawMoney(Items.FoodPellet.value))
-        {
-            Inventory.instance.AddItem(Items.FoodPellet, 10);
-        }
-    }
-
-    public void BuyHeater0()
-    {
-        if (Money.instance.WithdrawMoney(Items.UpHeat0.value))
-        {
-            Inventory.instance.AddItem(Items.UpHeat0);
-        }
-    }
-
-    public void BuyHeat1()
-    {
-        if (Money.instance.WithdrawMoney(Items.UpHeat1.value))
-        {
-            Inventory.instance.AddItem(Items.UpHeat1);
-        }
-    }
-
-    public void BuyFilt0()
-    {
-        if (Money.instance.WithdrawMoney(Items.UpFilt0.value))
-        {
-            Inventory.instance.AddItem(Items.UpFilt0);
-        }
-    }
-
-
-    public void BuyFilt1()
-    {
-        if (Money.instance.WithdrawMoney(Items.UpFilt1.value))
-        {
-            Inventory.instance.AddItem(Items.UpFilt1);
-        }
-    }
-
-    public void BuyDecor(string decor)
-    {
-        if (Money.instance.WithdrawMoney(30))
-        {
-            switch (decor)
-            {
-                case "GM":
-                    Inventory.instance.AddItem(Items.DecorGM);
-                    break;
-                case "DL":
-                    Inventory.instance.AddItem(Items.DecorDL);
-                    break;
-                case "RG":
-                    Inventory.instance.AddItem(Items.DecorRG);
-                    break;
-                case "WR":
-                    Inventory.instance.AddItem(Items.DecorWR);
-                    break;
-                case "LP":
-                    Inventory.instance.AddItem(Items.DecorLP);
-                    break;
-                default:
-                    Debug.LogWarning("Missing decoration, something is wrong");
-                    break;
-            }
         }
     }
 }

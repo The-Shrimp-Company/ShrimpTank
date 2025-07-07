@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
-using static UnityEngine.Rendering.DebugUI;
 using SaveLoadSystem;
 
 public class TankUpgradeController : MonoBehaviour
 {
     private Dictionary<UpgradeTypes, TankUpgrade> upgradeScripts = new Dictionary<UpgradeTypes, TankUpgrade>();
     public SerializedDictionary<UpgradeTypes, Transform> upgradeNodes = new SerializedDictionary<UpgradeTypes, Transform>();
-    public List<UpgradeSO> startingUpgrades = new List<UpgradeSO>();
+    public List<UpgradeItemSO> startingUpgrades = new List<UpgradeItemSO>();
     private TankController tank;
 
     private void Start()
@@ -18,7 +17,7 @@ public class TankUpgradeController : MonoBehaviour
 
         if (upgradeScripts.Count == 0)  // If we haven't already loaded upgrades
         {
-            foreach (UpgradeSO u in startingUpgrades)
+            foreach (UpgradeItemSO u in startingUpgrades)
             {
                 AddUpgrade(u);
             }
@@ -38,7 +37,7 @@ public class TankUpgradeController : MonoBehaviour
     }
 
 
-    public void AddUpgrade(UpgradeSO upgrade)
+    public void AddUpgrade(UpgradeItemSO upgrade)
     {
         if (!upgradeNodes.ContainsKey(upgrade.upgradeType))
         {
@@ -147,7 +146,7 @@ public class TankUpgradeController : MonoBehaviour
         {
             if (upgrade.Value.upgrade != null && index <= ids.Length)
             {
-                ids[index] = upgrade.Value.upgrade.ID;
+                ids[index] = upgrade.Value.upgrade.itemName;
                 index++;
             }
         }
@@ -164,11 +163,11 @@ public class TankUpgradeController : MonoBehaviour
         {
             if (id != null && id != "")
             {
-                foreach (UpgradeSO so in UpgradeList.instance.Upgrades)
+                foreach (ItemSO so in Inventory.GetLoadedItems())
                 {
-                    if (so.ID == id)
+                    if (so.itemName == id)
                     {
-                        AddUpgrade(so);
+                        AddUpgrade(so as UpgradeItemSO);
                         break;
                     }
                 }

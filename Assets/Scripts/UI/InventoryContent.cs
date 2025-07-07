@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,16 +7,23 @@ public class InventoryContent : ContentPopulation
 {
     [SerializeField] private GameObject algaeWafers, foodPellets;
 
-
     private void Awake()
     {
+        UpdateContent(Inventory.GetInventory());
+    }
 
-        CreateContent(Inventory.instance.GetItemCount());
-        for(int i = 0; i < Inventory.instance.GetItemCount(); i++)
+    private void UpdateContent(List<Item> inventory)
+    {
+        ClearContent();
+
+        if (inventory == null || inventory.Count == 0) return;
+
+        CreateContent(inventory.Count);
+        for (int i = 0; i < inventory.Count; i++)
         {
-            contentBlocks[i].SetText(Inventory.GetInventory()[i].itemName);
-            contentBlocks[i].GetComponent<InventoryContentBlock>().quantity.text = Inventory.GetInventory()[i].quantity.ToString();
-            contentBlocks[i].GetComponent<InventoryContentBlock>().item = Inventory.GetInventory()[i];
+            contentBlocks[i].SetText(inventory[i].itemName);
+            contentBlocks[i].GetComponent<InventoryContentBlock>().quantity.text = inventory[i].quantity.ToString();
+            contentBlocks[i].GetComponent<InventoryContentBlock>().item = inventory[i];
         }
     }
 
@@ -24,21 +32,17 @@ public class InventoryContent : ContentPopulation
     {
         transform.parent.GetComponentInChildren<BackButton>().gameObject.SetActive(false);
 
+
+        UpdateContent(Inventory.GetInventoryItemsWithTag(ItemTags.Tank));  // Create content blocks for all items with the tank tag
+
         foreach(ContentBlock block in contentBlocks)
         {
-            if (!block.GetText().text.Contains("Tank"))
-            {
-                Destroy(block.gameObject);
-            }
-            else
-            {
-                TankSocket socket = tankSocket.GetComponent<TankSocket>();
-                if (block.GetText().text.Contains("Small")) block.AssignFunction(socket.AddSmallTank);
-                else if (block.GetText().text.Contains("Large")) block.AssignFunction(socket.AddLargeTank);
-                else block.AssignFunction(socket.AddSmallTank);
+            TankSocket socket = tankSocket.GetComponent<TankSocket>();
+            if (block.GetText().text.Contains("Small")) block.AssignFunction(socket.AddSmallTank);
+            else if (block.GetText().text.Contains("Large")) block.AssignFunction(socket.AddLargeTank);
+            else block.AssignFunction(socket.AddSmallTank);
 
-                block.AssignFunction(UIManager.instance.GetCanvas().GetComponent<MainCanvas>().LowerScreen);
-            }
+            block.AssignFunction(UIManager.instance.GetCanvas().GetComponent<MainCanvas>().LowerScreen);
         }
     }
 
@@ -46,34 +50,27 @@ public class InventoryContent : ContentPopulation
     public void UpgradeAssignment(TankUpgradeController controller, UpgradeTypes type, ScreenView oldScreen, GameObject parent)
     {
         Button button = transform.parent.GetComponentInChildren<BackButton>().GetComponent<Button>();
-        //oldScreen.gameObject.SetActive(false);
+
+        UpdateContent(Inventory.GetInventoryItemsWithTag(ItemTags.TankUpgrade));  // Create content blocks for all items with the upgrade tag
 
         foreach (InventoryContentBlock block in contentBlocks)
         {
-            //Debug.Log("Inventory Content - " + block.item + " - " + ((Upgrade)block.item).upgrade.upgradeType);
-            if(block.item is Upgrade && ((Upgrade)block.item).upgrade.upgradeType == type)
+            if(((UpgradeItemSO)Inventory.GetSOForItem(block.item)).upgradeType == type)
             {
                 block.ClearFunctions();
                 InventoryContentBlock thisBlock = block;
                 TankUpgradeController thisController = controller;
                 block.AssignFunction(() =>
                 {
-                    if (Inventory.Contains(thisBlock.item))
+                    if (Inventory.HasItem(thisBlock.item))
                     {
                         if (thisController.CheckForUpgrade(type))
                         {
-                            Inventory.instance.AddItem(thisController.GetUpgrade(type).item);
+                            Inventory.instance.AddItem(Inventory.GetItemUsingSO(thisController.GetUpgrade(type).upgrade));
                         }
-                        thisController.AddUpgrade(((Upgrade)thisBlock.item).upgrade);
-                        thisController.GetUpgrade(type).item = (Upgrade)thisBlock.item;
+                        thisController.AddUpgrade(Inventory.GetSOForItem(thisBlock.item) as UpgradeItemSO);
                         Inventory.instance.RemoveItem(thisBlock.item);
-                        /*
-                        if (oldScreen != null)
-                        {
-                            oldScreen.gameObject.SetActive(true);
-                        }
-                        Destroy(parent);
-                        */
+
                         UIManager.instance.CloseScreen();
                     }
                 });
@@ -89,52 +86,23 @@ public class InventoryContent : ContentPopulation
     public void FoodAssignement(TankViewScript oldScreen, TankController tank, GameObject parent)
     {
         Button button = transform.parent.GetComponentInChildren<BackButton>().GetComponent<Button>();
-        //oldScreen.gameObject.SetActive(false);
 
-        foreach(ContentBlock block in contentBlocks)
+        UpdateContent(Inventory.GetInventoryItemsWithTag(ItemTags.Food));  // Create content blocks for all items with the food tag
+
+        foreach (ContentBlock block in contentBlocks)
         {
-            if(block.GetText().text == Items.AlgaeWafer)
+            block.ClearFunctions();
+            ContentBlock thisBlock = block;
+            block.AssignFunction(() =>
             {
-                block.ClearFunctions();
-                ContentBlock thisBlock = block;
-                block.AssignFunction(() =>
+                if (Inventory.HasItem(((InventoryContentBlock)block).item))
                 {
-                    if (Inventory.Contains(Items.AlgaeWafer))
-                    {
-                        Inventory.instance.RemoveItem(Items.AlgaeWafer);
-                        GameObject newFood = Instantiate(algaeWafers, tank.GetRandomSurfacePosition(), Quaternion.identity);
-                        newFood.GetComponent<ShrimpFood>().CreateFood(tank);
-                        thisBlock.GetComponent<InventoryContentBlock>().quantity.text = Inventory.GetItemQuant(Items.AlgaeWafer).ToString();
-                        if (!Inventory.Contains(Items.AlgaeWafer))
-                        {
-                            Destroy(thisBlock);
-                        }
-                    }
-                });
-            }
-            else if(block.GetText().text == Items.FoodPellet)
-            {
-                block.ClearFunctions();
-                ContentBlock thisBlock = block;
-                block.AssignFunction(() =>
-                {
-                    if (Inventory.Contains(Items.FoodPellet))
-                    {
-                        Inventory.instance.RemoveItem(Items.FoodPellet);
-                        GameObject newFood = Instantiate(foodPellets, tank.GetRandomSurfacePosition(), Quaternion.identity);
-                        newFood.GetComponent<ShrimpFood>().CreateFood(tank);
-                        thisBlock.GetComponent<InventoryContentBlock>().quantity.text = Inventory.GetItemQuant(Items.FoodPellet).ToString();
-                        if (!Inventory.Contains(Items.FoodPellet))
-                        {
-                            Destroy(thisBlock);
-                        }
-                    }
-                });
-            }
-            else
-            {
-                Destroy(block.gameObject);
-            }
+                    Inventory.instance.RemoveItem(((InventoryContentBlock)block).item);
+                    GameObject newFood = Instantiate(((FoodItemSO)Inventory.GetSOForItem(((InventoryContentBlock)block).item)).foodPrefab, tank.GetRandomSurfacePosition(), Quaternion.identity);
+                    newFood.GetComponent<ShrimpFood>().CreateFood(tank);
+                }
+                ContentBlockUpdate((InventoryContentBlock)block);
+            });
         }
     }
 
@@ -156,32 +124,34 @@ public class InventoryContent : ContentPopulation
             UIManager.instance.CloseScreen();
         });
 
-        foreach(InventoryContentBlock block in contentBlocks)
-        {
-            if(block.item is Medicine)
-            {
-                block.ClearFunctions();
-                InventoryContentBlock thisBlock = block;
-                Shrimp[] thisShrimp = shrimp;
-                block.AssignFunction(() =>
-                {
-                    if(Inventory.GetItemQuant(thisBlock.item) >= thisShrimp.Length)
-                    {
-                        foreach (Shrimp shrimp in thisShrimp)
-                        {
-                            shrimp.GetComponent<IllnessController>().UseMedicine(thisBlock.item as Medicine);
-                        }
-                        Inventory.instance.RemoveItem(thisBlock.item, thisShrimp.Length);
-                    }
-                    thisBlock.GetComponent<InventoryContentBlock>().quantity.text = Inventory.GetItemQuant(thisBlock.item).ToString();
-                    if (Inventory.GetItemQuant(thisBlock.item) <= 0) Destroy(thisBlock.gameObject);
-                });
-            }
+        UpdateContent(Inventory.GetInventoryItemsWithTag(ItemTags.Medicine));  // Create content blocks for all items with the medicine tag
 
-            else
+        foreach (InventoryContentBlock block in contentBlocks)
+        {
+            block.ClearFunctions();
+            InventoryContentBlock thisBlock = block;
+            Shrimp[] thisShrimp = shrimp;
+            block.AssignFunction(() =>
             {
-                Destroy(block.gameObject);
-            }
+                if(Inventory.GetItemQuantity(thisBlock.item) >= thisShrimp.Length)
+                {
+                    foreach (Shrimp shrimp in thisShrimp)
+                    {
+                        shrimp.GetComponent<IllnessController>().UseMedicine(thisBlock.item as Medicine);
+                    }
+                    Inventory.instance.RemoveItem(thisBlock.item, thisShrimp.Length);
+                    ContentBlockUpdate(thisBlock);
+                }
+            });
+        }
+    }
+
+    private void ContentBlockUpdate(InventoryContentBlock block)
+    {
+        block.GetComponent<InventoryContentBlock>().quantity.text = Inventory.GetItemQuantity(block.item).ToString();
+        if (!Inventory.HasItem(block.item))
+        {
+            Destroy(block.gameObject);
         }
     }
 }

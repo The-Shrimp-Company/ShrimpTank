@@ -17,8 +17,7 @@ namespace SaveLoadSystem
         public Stats playerStats;
         public Settings gameSettings;
 
-        public ItemSaveData[] inventoryItems;
-        public int[] inventoryQuantities;
+        public Item[] inventoryItems;
 
         public ShelfSaveData[] shelves;
 
@@ -55,12 +54,5 @@ namespace SaveLoadSystem
         public bool openTank;
         public float openTankPrice;
         public string[] upgradeIDs;
-    }
-
-    [System.Serializable]
-    public class ItemSaveData
-    {
-        public string name;
-        public int value;
     }
 }

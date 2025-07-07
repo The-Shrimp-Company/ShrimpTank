@@ -1,0 +1,13 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "Basic Item", menuName = "ScriptableObjects/Item/Basic Item")]
+public class ItemSO : ScriptableObject
+{
+    [SerializeReference] public string itemName;
+    [SerializeReference] public float purchaseValue;
+    [SerializeReference] public int purchaseQuantity = 1;
+    [SerializeReference] public float sellValue;
+    [SerializeReference] public List<ItemTags> tags = new List<ItemTags>();
+}

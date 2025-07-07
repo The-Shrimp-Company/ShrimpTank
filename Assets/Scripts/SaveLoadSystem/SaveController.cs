@@ -111,18 +111,7 @@ public class SaveController : MonoBehaviour
         d.versionNumber = Application.version;
 
         // Inventory
-        List<ItemSaveData> ii = new List<ItemSaveData>();
-        List<int> iq = new List<int>();
-        foreach (Item i in Inventory.GetInventory())
-        {
-            ItemSaveData newItem = new ItemSaveData();
-            newItem.name = i.itemName;
-            newItem.value = i.quantity;
-            ii.Add(newItem);
-            iq.Add(i.quantity);
-        }
-        d.inventoryItems = ii.ToArray();
-        d.inventoryQuantities = iq.ToArray();
+        d.inventoryItems = Inventory.GetInventory(false, false).ToArray();
 
         // Global Genes
         if (GeneManager.instance)
@@ -210,17 +199,7 @@ public class SaveController : MonoBehaviour
         GameSettings.settings = d.gameSettings;
 
         // Inventory
-        int index = 0;
-        Inventory.instance.Initialize();
-        if (d.inventoryItems != null && d.inventoryItems.Length != 0)
-        {
-            foreach (ItemSaveData i in d.inventoryItems)
-            {
-                Item newItem = new Item(i.name, i.value);
-                Inventory.instance.AddItem(newItem, d.inventoryQuantities[index]);
-                index++;
-            }
-        }
+        Inventory.instance.Initialize(d.inventoryItems);
 
         // Emails
         EmailManager.instance.Initialize();

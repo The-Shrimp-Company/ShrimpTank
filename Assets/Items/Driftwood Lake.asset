@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6099156fd9ecf7144bc7e5b7786f22b3, type: 3}
+  m_Name: Driftwood Lake
+  m_EditorClassIdentifier: 
+  itemName: Driftwood Lake
+  purchaseValue: 30
+  purchaseQuantity: 1
+  sellValue: 30
+  tags: 0400000008000000
+  upgradeType: 7
+  upgradePrefab: {fileID: 6135683479809353700, guid: 08e9149da9c485c4ebecd836585f8048,
+    type: 3}
+  breakRate: 5
+  repairCost: 15
+  energyCost: 0
+  filterCapacity: 0
+  heaterOutput: 0
+  thermometer: 0
