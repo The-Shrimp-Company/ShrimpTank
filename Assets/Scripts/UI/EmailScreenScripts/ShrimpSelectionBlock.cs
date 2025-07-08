@@ -24,7 +24,7 @@ public class ShrimpSelectionBlock : ContentBlock
         _shrimp = shrimp;
         text.text = _shrimp.name;
         age.text = "Age: " + TimeManager.instance.GetShrimpAge(_shrimp.birthTime).ToString();
-        gender.text = "Gender: " + (_shrimp.gender == true ? "M" : "F");
+        gender.text = "Sex: " + (_shrimp.gender == true ? "M" : "F");
         pattern.text = "Pattern: " + GeneManager.instance.GetTraitSO(_shrimp.pattern.activeGene.ID).traitName;
         body.text = "Body: " + GeneManager.instance.GetTraitSO(_shrimp.body.activeGene.ID).set;
         legs.text = "Legs: " + GeneManager.instance.GetTraitSO(_shrimp.legs.activeGene.ID).set;

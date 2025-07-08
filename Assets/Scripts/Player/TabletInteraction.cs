@@ -7,7 +7,9 @@ using UnityEngine.UI;
 
 public class TabletInteraction : ScreenView
 {
-    
+    [SerializeField]
+    private GameObject SellButton, BuyButton, VetButton, UpgradeButton;
+
 
     [SerializeField]
     private GameObject SellScreen;
@@ -33,8 +35,24 @@ public class TabletInteraction : ScreenView
 
 
     public ShelfSpawn GetShelves() { return shelves; }
-    
 
+    private void Update()
+    {
+        if(Tutorial.instance.flags.activeAccount != true)
+        {
+            BuyButton.SetActive(false);
+            SellButton.SetActive(false);
+            VetButton.SetActive(false);
+            UpgradeButton.SetActive(false);
+        }
+        else
+        {
+            BuyButton.SetActive(true);
+            SellButton.SetActive(true);
+            VetButton.SetActive(true);
+            UpgradeScreen.SetActive(true);
+        }
+    }
 
     public void OpenSell()
     {

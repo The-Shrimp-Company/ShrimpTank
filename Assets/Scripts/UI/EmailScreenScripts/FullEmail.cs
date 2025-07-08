@@ -9,6 +9,7 @@ public class FullEmail : MonoBehaviour
     [SerializeField] private GameObject _button;
     private List<Button> buttons = new List<Button>();
     [SerializeField] private Transform buttonParent;
+    [SerializeField] private GameObject deleteButton;
 
     [SerializeField] private TextMeshProUGUI title, subject, body;
 
@@ -41,10 +42,11 @@ public class FullEmail : MonoBehaviour
         }
         if (!email.important)
         {
-            GameObject obj = Instantiate(_button, buttonParent);
-            obj.GetComponentInChildren<TextMeshProUGUI>().text = "Delete";
-            FontTools.SizeFont(obj.GetComponentInChildren<TextMeshProUGUI>());
-            obj.GetComponent<Button>().onClick.AddListener(DeleteEmail);
+            deleteButton.SetActive(true);
+        }
+        else
+        {
+            deleteButton.SetActive(false);
         }
     }
 

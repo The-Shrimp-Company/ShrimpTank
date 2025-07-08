@@ -106,11 +106,18 @@ public class ShrimpManager : MonoBehaviour
     }
 
 
-    public ShrimpStats CreateRandomShrimp(bool adultAge)
+    public ShrimpStats CreateRandomShrimp(bool adultAge, bool giveName = true)
     {
         ShrimpStats s = new ShrimpStats();
 
-        s.name = GenerateShrimpName();
+        if (giveName)
+        {
+            s.name = GenerateShrimpName();
+        }
+        else
+        {
+            s.name = "";
+        }
         s.gender = geneManager.RandomGender();
         if (adultAge)
             s.birthTime = TimeManager.instance.CalculateBirthTimeFromAge(geneManager.IntGene(InheritanceType.FullRandom, Mathf.RoundToInt((maxShrimpAge - (1 + minAgeForAShrimpBeingBought)) * 0.9f), 0, 0, false) + Random.value + minAgeForAShrimpBeingBought);

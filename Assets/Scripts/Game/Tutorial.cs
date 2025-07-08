@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build;
 using UnityEngine;
 
 public class Tutorial : MonoBehaviour
@@ -10,6 +11,7 @@ public class Tutorial : MonoBehaviour
     {
         public bool openTablet;
         public bool boughtShrimp;
+        public bool activeAccount;
     }
 
     public TutorialFlags flags = new TutorialFlags();
@@ -35,7 +37,6 @@ public class Tutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         if(!flags.openTablet)UIManager.instance.SendNotification("Press E to open tablet");
     }
 

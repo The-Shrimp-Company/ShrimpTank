@@ -102,7 +102,7 @@ public class ShrimpView : ScreenView
         title.text = _shrimp.stats.name;
         //title.placeholder.GetComponent<TextMeshProUGUI>().text = _shrimp.stats.name;
         age.text = "Age: " + (TimeManager.instance.GetShrimpAge(_shrimp.stats.birthTime) < 60 ? "Child" : "Adult");
-        gender.text = "Gender: " + (_shrimp.stats.gender == true ? "M" : "F");
+        gender.text = "Sex: " + (_shrimp.stats.gender == true ? "M" : "F");
         pattern.text = "Pattern: " + GeneManager.instance.GetTraitSO(_shrimp.stats.pattern.activeGene.ID).traitName;
         body.text = "Body: " + GeneManager.instance.GetTraitSO(_shrimp.stats.body.activeGene.ID).set;
         legs.text = "Legs: " + GeneManager.instance.GetTraitSO(_shrimp.stats.legs.activeGene.ID).set;

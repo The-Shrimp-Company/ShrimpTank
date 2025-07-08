@@ -27244,7 +27244,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.03, y: 0.05}
   m_AnchorMax: {x: 0.97, y: 0.95}
-  m_AnchoredPosition: {x: 0, y: -966.0004}
+  m_AnchoredPosition: {x: 0, y: -966.0005}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &625308367
@@ -43417,7 +43417,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.8295674, y: 0.066}
   m_AnchorMax: {x: 0.9734792, y: 1}
-  m_AnchoredPosition: {x: -35.532227, y: -272.96277}
+  m_AnchoredPosition: {x: -35.532227, y: -272.96274}
   m_SizeDelta: {x: -16.273438, y: -836.16016}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &916690609
@@ -68073,6 +68073,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shelves: {fileID: 1826170790}
   locksPlayerMovement: 1
+  SellButton: {fileID: 55127424}
+  BuyButton: {fileID: 784625085}
+  VetButton: {fileID: 1075229328}
+  UpgradeButton: {fileID: 2090815374}
   SellScreen: {fileID: 5382316823195656821, guid: 6f93b301785f2f94cb03dc1e4e86748f,
     type: 3}
   BuyScreen: {fileID: 5382316823195656821, guid: 979402841e176254fb0a0d098f5e46f0,
@@ -90600,7 +90604,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.03, y: 0}
   m_AnchorMax: {x: 0.97, y: 0.05}
-  m_AnchoredPosition: {x: 0, y: -453.00015}
+  m_AnchoredPosition: {x: 0, y: -453.00018}
   m_SizeDelta: {x: 0, y: 918}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!43 &2141126143

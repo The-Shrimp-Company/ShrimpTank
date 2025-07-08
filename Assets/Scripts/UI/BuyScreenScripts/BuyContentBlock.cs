@@ -68,7 +68,7 @@ public class BuyContentBlock : ContentBlock
             {
                 while(shrimp.Count < 10)
                 {
-                    shrimp.Add(GenerateShrimp());
+                    shrimp.Add(GenerateShrimp(false));
                 }
             }
             shop.GetComponent<ShrimpPurchaseSelection>().Populate(_screen, ref shrimp);
@@ -79,10 +79,10 @@ public class BuyContentBlock : ContentBlock
         }
     }
 
-    private ShrimpStats GenerateShrimp()
+    private ShrimpStats GenerateShrimp(bool giveName = true)
     {
         GeneManager geneManager = GeneManager.instance;
-        ShrimpStats s = ShrimpManager.instance.CreateRandomShrimp(true);
+        ShrimpStats s = ShrimpManager.instance.CreateRandomShrimp(true, giveName);
 
         string ID = "";
         TraitSet currentTrait;
