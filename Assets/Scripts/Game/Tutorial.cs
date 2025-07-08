@@ -1,3 +1,4 @@
+using SaveLoadSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Build;
@@ -25,6 +26,10 @@ public class Tutorial : MonoBehaviour
         else
         {
             Destroy(this);
+        }
+        if (!SaveManager.startNewGame)
+        {
+            instance.flags.activeAccount = true;
         }
     }
 
