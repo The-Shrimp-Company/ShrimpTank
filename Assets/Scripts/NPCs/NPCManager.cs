@@ -15,11 +15,11 @@ public class NPCManager : MonoBehaviour
         if(Instance == null)
         {
             Instance = this;
+            NPCs.Add(new Admin());
             NPCs.Add(new Alan());
             NPCs.Add(new CollectorTom());
             NPCs.Add(new SleazyJoe());
             NPCs.Add(new DebugNPC());
-            NPCs.Add(new Admin());
         }
         else
         {
@@ -30,10 +30,17 @@ public class NPCManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (count >= NPCs.Count) count = 0;
+        if (!Tutorial.instance.flags.activeAccount)
+        {
+            NPCs[0].NpcCheck();
+        }
+        else
+        {
+            if (count >= NPCs.Count) count = 0;
 
-        NPCs[count].NpcCheck();
+            NPCs[count].NpcCheck();
 
-        count++;
+            count++;
+        }
     }
 }
