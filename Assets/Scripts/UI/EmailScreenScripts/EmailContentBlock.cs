@@ -31,7 +31,14 @@ public class EmailContentBlock : ContentBlock
     public void SetEmail(Email email, EmailContentWindow newWindow)
     {
         _email = email;
-        title.text = _email.title;
+        if (email.sender != null)
+        {
+            title.text = _email.sender.name;
+        }
+        else
+        {
+            title.text = _email.title;
+        }
         subjectLine.text = _email.subjectLine;
         FontTools.SizeFont(title);
         FontTools.SizeFont(subjectLine);

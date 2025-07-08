@@ -10,6 +10,7 @@ public class Admin : NPC
         reputation = 100;
         reliability = 100;
         completion = 0;
+        name = "Admin@admin.ShrimpCo.com";
     }
 
     public override void NpcCheck()

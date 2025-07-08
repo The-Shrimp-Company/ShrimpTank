@@ -7,6 +7,7 @@ public class NPC
     protected int reputation;
     protected int reliability;
     protected int completion;
+    public string name = "UnSet";
 
     protected bool sent = false;
 

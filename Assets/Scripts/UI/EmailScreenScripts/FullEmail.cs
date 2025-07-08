@@ -20,7 +20,14 @@ public class FullEmail : MonoBehaviour
         _email = email;
         EmailManager.instance.openEmail = this;
         body.text = email.mainText;
-        title.text = email.title;
+        if(email.sender != null)
+        {
+            title.text = email.sender.name;
+        }
+        else
+        {
+            title.text = email.title;
+        }
         subject.text = email.subjectLine;
         body.fontSize = 30;
         if(email.buttons != null)

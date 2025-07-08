@@ -14,7 +14,7 @@ public class SleazyJoe : NPC
         reputation = 10;
         reliability = 50;
         completion = 0;
-
+        name = "Joe@ShrimpMail.com";
 
     }
 

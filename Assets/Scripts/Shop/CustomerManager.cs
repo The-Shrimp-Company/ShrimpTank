@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.Rendering;
+using System.IO;
 
 public class CustomerManager : MonoBehaviour 
 {
@@ -22,12 +23,19 @@ public class CustomerManager : MonoBehaviour
 
     private List<Request> requests = new List<Request>();
 
+    private List<string> RandomEmails = new List<string>();
+
     public EmailScreen emailScreen;
     private void Start()
     {
         if (Instance == null)
         {
             Instance = this;
+        }
+
+        foreach (string line in File.ReadLines("Assets/NPCEmailAddresses.txt"))
+        {
+            RandomEmails.Add(line);
         }
     }
 
@@ -91,9 +99,9 @@ public class CustomerManager : MonoBehaviour
             EconomyManager.instance.UpdateTraitValues(false, shrimp.stats);
 
             Email email = EmailTools.CreateEmail();
-            email.title = shrimp.stats.name + " has been sold";
-            email.subjectLine = "£" + shrimp.tank.openTankPrice + " has been deposited into your account";
-            email.mainText = shrimp.stats.name + " was in " + shrimp.tank.tankName;
+            email.title = "Admin@admin.ShrimpCo.com";
+            email.subjectLine = shrimp.stats.name + " has been sold";
+            email.mainText = shrimp.stats.name + " was in " + shrimp.tank.tankName + "\n£" + shrimp.tank.openTankPrice + " has been deposited into your account";
             EmailManager.SendEmail(email);
 
             PlayerStats.stats.shrimpSold++;
@@ -116,7 +124,8 @@ public class CustomerManager : MonoBehaviour
             Debug.Log("Reputation: " + Reputation.GetReputation());
 
             Email email = EmailTools.CreateEmail();
-            email.title = "Thanks!";
+            int index = Random.Range(0, RandomEmails.Count);
+            email.title = RandomEmails[index];
             email.subjectLine = "I Love this shrimp!";
             email.mainText = "It's just what I wanted, so I got you this bonus!";
             email.value = Mathf.RoundToInt(shrimp.GetValue());

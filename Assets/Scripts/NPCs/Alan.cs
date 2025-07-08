@@ -9,6 +9,7 @@ public class Alan : NPC
         reputation = 40;
         reliability = 40;
         completion = 0;
+        name = "Alan@ShrimpMail.com";
     }
 
     public override void NpcCheck()

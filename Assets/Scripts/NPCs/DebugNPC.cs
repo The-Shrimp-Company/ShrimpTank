@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class DebugNPC : NPC
 {
+    public DebugNPC()
+    {
+        name = "DebugNPC";
+    }
+
     public override void NpcCheck()
     {
         if (!sent)

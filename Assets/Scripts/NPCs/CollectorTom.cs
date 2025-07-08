@@ -12,6 +12,7 @@ public class CollectorTom : NPC
         reputation = 80;
         reliability = 80;
         completion = 0;
+        name = "Tom@ShrimpMail.com";
     }
 
     public override void EmailDestroyed()
