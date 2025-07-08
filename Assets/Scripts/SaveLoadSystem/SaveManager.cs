@@ -19,7 +19,7 @@ namespace SaveLoadSystem
         private const bool debugSaving = true;  // Whether the saving and loading should output extra messages
         private const bool copyPathToClipboard = false;  // Whether the path to the save file should be copied to your clipboard when the game saves
 
-        public static bool startNewGame = true;  // Whether the game should start a new file on load
+        public static bool startNewGame = false;  // Whether the game should start a new file on load
         public static string currentSaveFile = null;  // The name of the loaded file
         public static bool currentlySaving = false;  // If the game is saving right now
         public static bool loadingGameFromFile = false;  // Whether the game is loading from a file or starting a new one

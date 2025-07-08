@@ -423,7 +423,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 5264572349257113971}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.7985371
+  m_Size: 0.93805945
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -834,6 +834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _button: {fileID: 3242327381697445407, guid: 2b8f8c8b178003242aab68b251968baf, type: 3}
   buttonParent: {fileID: 4503596169253510589}
+  deleteButton: {fileID: 0}
   title: {fileID: 7464130916172926377}
   subject: {fileID: 4063586351895380635}
   body: {fileID: 3398177639995632962}
