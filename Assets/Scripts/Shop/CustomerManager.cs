@@ -215,7 +215,8 @@ public class CustomerManager : MonoBehaviour
         request.obfstats = obfs;
         request.value = value;
         Email email = EmailTools.CreateEmail();
-        email.title = "Shrimp Request";
+        int emailIndex = Random.Range(0, RandomEmails.Count);
+        email.title = RandomEmails[emailIndex];
         email.subjectLine = "I would like a shrimp";
         email.mainText = message;
         email.CreateEmailButton("Choose Shrimp", request.OpenShrimpSelection);
