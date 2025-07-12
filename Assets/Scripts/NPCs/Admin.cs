@@ -19,7 +19,7 @@ public class Admin : NPC
         {
             Email email = this.CreateEmail();
             bool important = false;
-            if(completion == 0)
+            if(completion == 1)
             {
                 email.title = "Account activation";
                 email.subjectLine = "Account activation";

@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Prefabs/UI/OpeningScreen/StyleSheet.uss?fileID=7433441132597879392&amp;guid=b4b24079479ea584e8b1a73420dab973&amp;type=3#StyleSheet" />
+    <ui:VisualElement class="my-text-field" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/Tablet/Tablet.png?fileID=248998647&amp;guid=8c1033004aee2684d99b085bdf868c5f&amp;type=3#Tablet_BG&quot;); align-self: auto; justify-content: center; align-items: center; background-color: rgb(217, 175, 207);">
+        <ui:VisualElement class="VisualBox" style="width: 550px; height: 100px; top: -17%;">
+            <ui:Label tabindex="-1" text="What would you like to name your store?" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 24px;" />
+        </ui:VisualElement>
+        <ui:VisualElement class="TextBox" style="flex-grow: 0; flex-shrink: 0; width: 303px; height: 56px; background-color: rgb(226, 187, 217); border-left-color: rgb(71, 147, 147); border-right-color: rgb(71, 147, 147); border-top-color: rgb(71, 147, 147); border-bottom-color: rgb(71, 147, 147);">
+            <ui:TextField picking-mode="Ignore" name="TextField" class="my-text-field" style="width: 360px; background-color: rgba(255, 255, 255, 0); -unity-background-image-tint-color: rgb(255, 255, 255); color: rgb(0, 0, 0);" />
+        </ui:VisualElement>
+        <ui:Button text="Confirm" parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="true" name="Confirm" class="VisualBox" style="overflow: visible; top: 3%; color: rgb(0, 0, 0); font-size: 12px;" />
+    </ui:VisualElement>
+</ui:UXML>

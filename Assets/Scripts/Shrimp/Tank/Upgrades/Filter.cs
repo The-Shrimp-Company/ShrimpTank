@@ -41,8 +41,8 @@ public class Filter : TankUpgrade
         if (tank.shrimpInTank.Count != 0)
         {
             Email email = EmailTools.CreateEmail();
-            email.title = "Filter on " + tank.tankName + " has broken down";
-            email.subjectLine = "Please fix it";
+            email.title = "YourStore@notifSystem.store";
+            email.subjectLine = "Filter on " + tank.tankName + " has broken down";
             email.mainText = "The shrimp could die if the water quality decreases too much";
             EmailManager.SendEmail(email);
         }

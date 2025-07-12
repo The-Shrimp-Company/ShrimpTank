@@ -70,7 +70,7 @@ public class EmailManager
         yield return new WaitForSeconds(delay);
         email.important = important;
         instance.emails.Add(email);
-        UIManager.instance.SendNotification(email.title);
+        UIManager.instance.SendNotification(email.subjectLine);
     }
 
     static public void RemoveEmail(Email email)
