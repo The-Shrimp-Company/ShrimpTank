@@ -57,9 +57,6 @@ public class EmailContent : ContentPopulation
                 if (!flag && block != null)
                 {
                     Destroy(block.gameObject);
-                }else if (!flag)
-                {
-                    Debug.Log("Fake Call");
                 }
             }
 
@@ -85,11 +82,9 @@ public class EmailContent : ContentPopulation
             }
             for(int i = contentBlocks.Count-1; i >= 0; i--)
             {
-                Debug.Log("there");
                 if (contentBlocks[i] == null)
                 {
                     contentBlocks.RemoveAt(i);
-                    Debug.Log("Here");
                 }
             }
 

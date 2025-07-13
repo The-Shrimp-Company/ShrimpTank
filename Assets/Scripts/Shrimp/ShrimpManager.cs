@@ -383,7 +383,7 @@ public class ShrimpManager : MonoBehaviour
                 return "Shrimp " + allShrimp.Count.ToString();
             }
 
-            shrimpWithName = allShrimp.Where(x => { return x.name == names[index]; }).ToArray();
+            shrimpWithName = allShrimp.Where(x => { return (x != null && x.name == names[index]); }).ToArray();
 
         } while (shrimpWithName.Length != 0);
 

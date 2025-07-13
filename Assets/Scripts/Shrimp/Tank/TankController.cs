@@ -407,8 +407,8 @@ public class TankController : MonoBehaviour
                 int r = Random.Range(0, shrimpInTank.Count);
 
                 Email email = EmailTools.CreateEmail();
-                email.title = shrimpInTank[r].stats.name + " has died due to overpopulation";
-                email.subjectLine = "Please move some shrimp out of the tank";
+                email.title = "YourStore@notifSystem.store";
+                email.subjectLine = shrimpInTank[r].stats.name + " has died due to overpopulation";
                 email.mainText = shrimpInTank[r].stats.name + " was in " + tankName;
                 EmailManager.SendEmail(email);
 

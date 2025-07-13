@@ -134,8 +134,8 @@ public class ShelfSpawn : MonoBehaviour
                 PlayerStats.stats.shrimpBought++;
 
                 Email email = EmailTools.CreateEmail();
-                email.title = "A new shrimp has arrived in the store";
-                email.subjectLine = "Wow!";
+                email.title = "YourStore@notifSystem.store";
+                email.subjectLine = "A new shrimp has arrived in the store";
                 email.mainText = "The shrimp is in " + _destinationTank.tankName;
                 EmailManager.SendEmail(email);
 
