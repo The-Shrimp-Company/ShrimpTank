@@ -13,6 +13,8 @@ namespace SaveLoadSystem
         public Vector3 playerPosition;
         public float playerRotation;
 
+        public string storeName;
+
 
         public Stats playerStats;
         public Settings gameSettings;

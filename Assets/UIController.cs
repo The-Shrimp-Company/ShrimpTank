@@ -20,6 +20,8 @@ public class UIController : MonoBehaviour
     private bool loading = false;
     private int count;
 
+    private AsyncOperation operation;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,13 +53,17 @@ public class UIController : MonoBehaviour
     {
         if (loading)
         {
-            if(count >= 10)
+            if(count >= 1)
             {
                 loadingText.text += ".";
                 count = 0;
             }
             count++;
-            Debug.Log("here");
+            Debug.Log("Here");
+            if (operation.isDone)
+            {
+                SceneManager.UnloadSceneAsync(0);
+            }
         }
     }
 
@@ -65,7 +71,7 @@ public class UIController : MonoBehaviour
     {
         LoadingScreen();
         SaveManager.startNewGame = true;
-        SceneManager.LoadScene("ShopScene");
+        operation = SceneManager.LoadSceneAsync("OpeningMenu");
     }
 
     private void ContinueGame()
@@ -73,7 +79,7 @@ public class UIController : MonoBehaviour
         LoadingScreen();
         SaveManager.startNewGame = false;
         SaveManager.gameInitialized = false;
-        SceneManager.LoadScene("ShopScene");
+        operation = SceneManager.LoadSceneAsync("ShopScene");
     }
 
     private void QuitGame()

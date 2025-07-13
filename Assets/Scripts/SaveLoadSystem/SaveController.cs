@@ -100,6 +100,9 @@ public class SaveController : MonoBehaviour
         d.day = TimeManager.instance.day;
         d.year = TimeManager.instance.year;
 
+        // Store
+        d.storeName = Store.StoreName;
+
         // Player
         Transform player = GameObject.Find("Player").transform;
         d.playerPosition = player.position;
