@@ -62,7 +62,7 @@ public class ShrimpManager : MonoBehaviour
     {
         instance = this;
         geneManager = GetComponent<GeneManager>();
-        foreach(string line in File.ReadLines("Assets/ShrimpNames.txt"))
+        foreach (string line in File.ReadLines(Path.Combine(Application.streamingAssetsPath, "ShrimpNames.txt")))
         {
             names.Add(line);
         }

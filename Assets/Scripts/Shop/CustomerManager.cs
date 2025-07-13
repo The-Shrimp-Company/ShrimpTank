@@ -33,7 +33,7 @@ public class CustomerManager : MonoBehaviour
             Instance = this;
         }
 
-        foreach (string line in File.ReadLines("Assets/NPCEmailAddresses.txt"))
+        foreach (string line in File.ReadLines(Path.Combine(Application.streamingAssetsPath, "NPCEmailAddresses.txt")))
         {
             RandomEmails.Add(line);
         }
