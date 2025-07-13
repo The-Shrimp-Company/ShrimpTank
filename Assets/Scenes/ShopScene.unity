@@ -29607,6 +29607,7 @@ GameObject:
   - component: {fileID: 705895234}
   - component: {fileID: 705895233}
   - component: {fileID: 705895235}
+  - component: {fileID: 705895239}
   - component: {fileID: 705895237}
   - component: {fileID: 705895236}
   - component: {fileID: 705895238}
@@ -30136,6 +30137,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f53b813154b11124a8eed4981eafa573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &705895239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705895232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb5ced4aa2d50d146a64b93371e35b6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!43 &706526439
@@ -91386,6 +91399,7 @@ SceneRoots:
   - {fileID: 705895234}
   - {fileID: 115008965}
   - {fileID: 1933495676}
+  - {fileID: 383461684}
   - {fileID: 881677446}
   - {fileID: 113587256}
   - {fileID: 1790987987}
@@ -91395,4 +91409,3 @@ SceneRoots:
   - {fileID: 794203974}
   - {fileID: 704057448}
   - {fileID: 127724711}
-  - {fileID: 383461684}

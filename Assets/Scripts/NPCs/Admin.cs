@@ -10,6 +10,7 @@ public class Admin : NPC
         reputation = 100;
         reliability = 100;
         completion = 0;
+        LastDaySent = -10;
         name = "Admin@admin.ShrimpCo.com";
     }
 
@@ -19,7 +20,7 @@ public class Admin : NPC
         {
             Email email = this.CreateEmail();
             bool important = false;
-            if(completion == 1)
+            if(completion == 0)
             {
                 email.title = "Account activation";
                 email.subjectLine = "Account activation";
