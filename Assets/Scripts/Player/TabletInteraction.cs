@@ -50,7 +50,7 @@ public class TabletInteraction : ScreenView
             BuyButton.SetActive(true);
             SellButton.SetActive(true);
             VetButton.SetActive(true);
-            UpgradeScreen.SetActive(true);
+            UpgradeButton.SetActive(true);
         }
     }
 
