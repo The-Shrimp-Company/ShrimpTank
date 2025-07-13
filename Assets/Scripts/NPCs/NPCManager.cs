@@ -33,6 +33,7 @@ public class NPCManager : MonoBehaviour
         if (!Tutorial.instance.flags.activeAccount)
         {
             NPCs[0].NpcCheck();
+            Debug.Log("Doing This");
         }
         else
         {
