@@ -24,7 +24,6 @@ public class TankViewScript : ScreenView
 
     [SerializeField] private TMP_InputField Name;
     [SerializeField] private TMP_InputField salePrice;
-    [SerializeField] private TextMeshProUGUI foodAmount;
     [SerializeField] private GameObject inventoryScreen;
 
     [SerializeField] private GameObject currentTankScreen;
@@ -38,6 +37,9 @@ public class TankViewScript : ScreenView
 
     [SerializeField] private UpgradePanel upgrades;
 
+    [SerializeField] private Filters filter;
+
+    private List<Shrimp> visibleShrimp = new List<Shrimp>();
 
     private Vector3 leftPanelResting, upgradeBoxResting;
 
@@ -68,8 +70,11 @@ public class TankViewScript : ScreenView
         salePrice.text = tank.openTankPrice.ToString();
         selectedShrimp = new List<Shrimp>();
         upgrades.Tank = tank;
+        tank.OnShrimpRemoved += whenShrimpRemoved;
+        tank.OnShrimpAdded += whenShrimpAdded;
         multiSelect.Uncheck(false);
         StartCoroutine(OpenTab(switchTab));
+        ApplyFilters();
         UpdateContent();
         base.Open(switchTab);
     }
@@ -82,7 +87,6 @@ public class TankViewScript : ScreenView
     public virtual void Update()
     {
         //base.Update();
-        foodAmount.text = tank.FoodStore.ToString();
 
         if(selectedShrimp.Count > 0)
         {
@@ -111,6 +115,86 @@ public class TankViewScript : ScreenView
                 allSelected = true;
             }
         }
+    }
+
+    public void ApplyFilters()
+    {
+        List<string> traits = filter.getFilterList();
+
+        // Sets allselected to true so that the select all will deselect all.
+        allSelected = true;
+        SelectAll();
+
+        visibleShrimp = new List<Shrimp>();
+
+        if(traits == null)
+        {
+            visibleShrimp = tank.shrimpInTank;
+        }
+        else
+        {
+            foreach (Shrimp shrimp in tank.shrimpInTank)
+            {
+                if(!(traits.Contains(shrimp.stats.primaryColour.activeGene.ID)
+                    || traits.Contains(shrimp.stats.secondaryColour.activeGene.ID)
+                    || traits.Contains(shrimp.stats.legs.activeGene.ID)
+                    || traits.Contains(shrimp.stats.eyes.activeGene.ID)
+                    || traits.Contains(shrimp.stats.body.activeGene.ID)
+                    || traits.Contains(shrimp.stats.head.activeGene.ID)
+                    || traits.Contains(shrimp.stats.tail.activeGene.ID)
+                    || traits.Contains(shrimp.stats.tailFan.activeGene.ID)
+                    || traits.Contains(shrimp.stats.pattern.activeGene.ID)
+                    || (traits.Contains("A") && ShrimpManager.instance.IsShrimpAdult(shrimp.stats))
+                    || (traits.Contains("C") && !ShrimpManager.instance.IsShrimpAdult(shrimp.stats))
+                    ))
+                {
+                    visibleShrimp.Add(shrimp);
+                }
+            }
+        }
+        UpdateContent();
+    }
+
+    public void ApplyFilters(Shrimp shrimp)
+    {
+        List<string> traits = filter.getFilterList();
+
+        if(traits == null)
+        {
+            visibleShrimp.Add(shrimp);
+        }
+        else
+        {
+            if (!(traits.Contains(shrimp.stats.primaryColour.activeGene.ID)
+                    || traits.Contains(shrimp.stats.secondaryColour.activeGene.ID)
+                    || traits.Contains(shrimp.stats.legs.activeGene.ID)
+                    || traits.Contains(shrimp.stats.eyes.activeGene.ID)
+                    || traits.Contains(shrimp.stats.body.activeGene.ID)
+                    || traits.Contains(shrimp.stats.head.activeGene.ID)
+                    || traits.Contains(shrimp.stats.tail.activeGene.ID)
+                    || traits.Contains(shrimp.stats.tailFan.activeGene.ID)
+                    || traits.Contains(shrimp.stats.pattern.activeGene.ID)
+                    || (traits.Contains("A") && ShrimpManager.instance.IsShrimpAdult(shrimp.stats))
+                    || (traits.Contains("C") && !ShrimpManager.instance.IsShrimpAdult(shrimp.stats))
+                    ))
+            {
+                visibleShrimp.Add(shrimp);
+            }
+        }
+        UpdateContent();
+    }
+
+    public void whenShrimpRemoved(Shrimp shrimp)
+    {
+        visibleShrimp.Remove(shrimp);
+        selectedShrimp.Remove(shrimp);
+        UpdateContent();
+    }
+
+    public void whenShrimpAdded(Shrimp shrimp)
+    {
+        ApplyFilters(shrimp);
+        UpdateContent();
     }
 
     public void MoveShrimp()
@@ -176,7 +260,6 @@ public class TankViewScript : ScreenView
 
     public void UpdateContent()
     {
-        Debug.Log("Updating tank view content");
         foreach (Transform child in _content.transform)
         {
             Destroy(child.gameObject);
@@ -184,9 +267,9 @@ public class TankViewScript : ScreenView
 
         contentBlocks.Clear();
 
-        if (tank == null || tank.shrimpInTank.Count == 0) return;
+        if (tank == null || visibleShrimp.Count == 0) return;
 
-        foreach (Shrimp shrimp in tank.shrimpInTank)
+        foreach (Shrimp shrimp in visibleShrimp)
         {
             TankContentBlock temp = Instantiate(_contentBlock, _content.transform).GetComponent<TankContentBlock>();
             contentBlocks.Add(temp);
@@ -294,6 +377,8 @@ public class TankViewScript : ScreenView
 
     public override void Close(bool switchTab)
     {
+        tank.OnShrimpAdded -= whenShrimpAdded;
+        tank.OnShrimpRemoved -= whenShrimpRemoved;
         StartCoroutine(CloseTab(switchTab));
     }
 
@@ -394,6 +479,12 @@ public class TankViewScript : ScreenView
 
         base.Close(switchTab);
     }
+
+    public void setFilter(bool set)
+    {
+
+    }
+
 
     public TankController GetTank() {  return tank; }
 }
