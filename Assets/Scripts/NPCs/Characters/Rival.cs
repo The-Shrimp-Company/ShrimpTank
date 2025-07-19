@@ -120,9 +120,9 @@ public class Rival : NPC
                 email.subjectLine = "You Sly Dog";
                 email.mainText = "How dare you distract me with talk while you go ahead and win the challenge! This isn't sportsmanlike at all!\nAlthough...\n I guess that would be " +
                     "very rivallike...\nSo I guess I must say well done! You've got one over on me, but by tomorrow, I'll be at my first star too!";
-                email.CreateEmailButton("Sorry, I didn't mean to cheat!", () => { }, true);
-                email.CreateEmailButton("Yes! I win! I tricked you, and I did it good!", () => { }, true);
-                email.CreateEmailButton("I distracted you? Wait so we hadn't started yet?", () => { }, true);
+                email.CreateEmailButton("Sorry, I didn't mean to cheat!", () => { completion = 23; }, true);
+                email.CreateEmailButton("Yes! I win! I tricked you, and I did it good!", () => { completion = 24; }, true);
+                email.CreateEmailButton("I distracted you? Wait so we hadn't started yet?", () => { completion = 25; }, true);
             }
 
             if(Reputation.GetReputation() >= 20 && completion < 10)
@@ -132,10 +132,23 @@ public class Rival : NPC
                 email.mainText = "How <i>could</i> you? You've been ignoring me completely, and you've beaten my first competition before I could even properly challenge you. " +
                     "This is simply too cruel. I just want to have a proper rivallry with you, ok? Give me a couple of days to get my first reputation star as well, and then we can " +
                     "continue on again, competing fairly. Just, don't get another star until I've got my first ok?";
-                email.CreateEmailButton("Wait we were competing? Oh I'm so sorry, I didn't realise! I'll definitely wait", () => { }, true);
-                email.CreateEmailButton("You Fool. You fell this far behind, and now you're begging to catch up? I will wait, but only so I can more thouroughly destroy you!!!", () => { }, true);
+                email.CreateEmailButton("Wait we were competing? Oh I'm so sorry, I didn't realise! I'll definitely wait", () => 
+                {
+                    completion = 23;
+                    flags.Add("promise");
+                }, true);
+                email.CreateEmailButton("You Fool. You fell this far behind, and now you're begging to catch up? I will wait, but only so I can more " +
+                    "thouroughly destroy you!!!", () => 
+                    { 
+                        completion = 24;
+                        flags.Add("promise");
+                    }, true);
                 email.CreateEmailButton("Why would I wait for someone who's fallen so far behind? *scoffs* Obviously, I'm just going to go ahead and get that next star before you can" +
-                    " even get your first.", () => { }, true);
+                    " even get your first.", () => 
+                    {
+                        completion = 26;
+                        flags.Add("threat");
+                    }, true);
             }
 
             // Actually sending the email

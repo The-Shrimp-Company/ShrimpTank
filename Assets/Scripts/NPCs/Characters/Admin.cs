@@ -43,11 +43,20 @@ public class Admin : NPC
                 }, true);
             }
 
+            if(Reputation.GetReputation() >= 20 && Reputation.GetReputation() < 40 && !flags.Contains("star1"))
+            {
+                email.subjectLine = "You have achieved Star 1";
+                email.mainText = "Congratulations " + Store.StoreName + ", on achieving the first reputation star! This is a big achievment, and now you can access many " +
+                    "new features of the community, like the tank store.";
+                email.CreateEmailButton("Thanks!", () => { flags.Add("star1"); }, true);
+                important = true;
+            }
+
             if (email.mainText != null)
             {
                 email.mainText += "\n\nAdmin";
 
-                NpcEmail(email, important);
+                NpcEmail(email, 0, important);
             }
         }
     }
