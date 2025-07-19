@@ -110,6 +110,8 @@ public static class EmailTools
         //Debug.Log("Added button");
     }
 
+    
+
     static public Email CreateEmail()
     {
         Email email = new Email();

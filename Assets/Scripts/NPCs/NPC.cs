@@ -20,6 +20,12 @@ public class NPC
         Debug.LogWarning("Empty NPC Check called from:" + this.GetType());
     }
 
+    protected void NpcEmail(Email email, float delay, bool important = true)
+    {
+        sent = true;
+        EmailManager.SendEmail(email, important, delay);
+    }
+
     protected void NpcEmail(Email email, bool important = true)
     {
         sent = true;

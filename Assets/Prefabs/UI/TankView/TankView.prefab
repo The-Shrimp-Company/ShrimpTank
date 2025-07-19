@@ -7609,11 +7609,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2188633905309961520, guid: 2228a3ce52e830b4db84bcfb96252faa,
-        type: 3}
-      propertyPath: options.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6653226671276036610, guid: 2228a3ce52e830b4db84bcfb96252faa,
         type: 3}
       propertyPath: m_PreferredWidth

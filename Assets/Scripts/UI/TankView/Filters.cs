@@ -31,7 +31,7 @@ public class Filters : MonoBehaviour
                 case "LegsFilter":
                     foreach(TraitSO trait in GeneManager.instance.legsSOs)
                     {
-                        MyDropdown.OptionData option = new MyDropdown.OptionData(trait.name);
+                        MyDropdown.OptionData option = new MyDropdown.OptionData(trait.traitName);
                         SetOptionFunc(option, trait.ID);
                         filter.options.Add(option);
                     }
@@ -39,7 +39,7 @@ public class Filters : MonoBehaviour
                 case "BodyFilter":
                     foreach (TraitSO trait in GeneManager.instance.bodySOs)
                     {
-                        MyDropdown.OptionData option = new MyDropdown.OptionData(trait.name);
+                        MyDropdown.OptionData option = new MyDropdown.OptionData(trait.traitName);
                         SetOptionFunc(option, trait.ID);
                         filter.options.Add(option);
                     }
@@ -47,7 +47,7 @@ public class Filters : MonoBehaviour
                 case "EyesFilter":
                     foreach (TraitSO trait in GeneManager.instance.eyeSOs)
                     {
-                        MyDropdown.OptionData option = new MyDropdown.OptionData(trait.name);
+                        MyDropdown.OptionData option = new MyDropdown.OptionData(trait.traitName);
                         SetOptionFunc(option, trait.ID);
                         filter.options.Add(option);
                     }
@@ -55,7 +55,7 @@ public class Filters : MonoBehaviour
                 case "HeadFilter":
                     foreach (TraitSO trait in GeneManager.instance.headSOs)
                     {
-                        MyDropdown.OptionData option = new MyDropdown.OptionData(trait.name);
+                        MyDropdown.OptionData option = new MyDropdown.OptionData(trait.traitName);
                         SetOptionFunc(option, trait.ID);
                         filter.options.Add(option);
                     }
@@ -63,7 +63,7 @@ public class Filters : MonoBehaviour
                 case "TailFilter":
                     foreach (TraitSO trait in GeneManager.instance.tailSOs)
                     {
-                        MyDropdown.OptionData option = new MyDropdown.OptionData(trait.name);
+                        MyDropdown.OptionData option = new MyDropdown.OptionData(trait.traitName);
                         SetOptionFunc(option, trait.ID);
                         filter.options.Add(option);
                     }
@@ -71,7 +71,7 @@ public class Filters : MonoBehaviour
                 case "TFanFilter":
                     foreach (TraitSO trait in GeneManager.instance.tailFanSOs)
                     {
-                        MyDropdown.OptionData option = new MyDropdown.OptionData(trait.name);
+                        MyDropdown.OptionData option = new MyDropdown.OptionData(trait.traitName);
                         SetOptionFunc(option, trait.ID);
                         filter.options.Add(option);
                     }
@@ -79,7 +79,7 @@ public class Filters : MonoBehaviour
                 case "PatternFilter":
                     foreach (TraitSO trait in GeneManager.instance.patternSOs)
                     {
-                        MyDropdown.OptionData option = new MyDropdown.OptionData(trait.name);
+                        MyDropdown.OptionData option = new MyDropdown.OptionData(trait.traitName);
                         SetOptionFunc(option, trait.ID);
                         filter.options.Add(option);
                     }
@@ -87,7 +87,7 @@ public class Filters : MonoBehaviour
                 case "PColourFilter":
                     foreach (TraitSO trait in GeneManager.instance.colourSOs)
                     {
-                        MyDropdown.OptionData option = new MyDropdown.OptionData(trait.name);
+                        MyDropdown.OptionData option = new MyDropdown.OptionData(trait.traitName);
                         SetOptionFunc(option, trait.ID);
                         filter.options.Add(option);
                     }
@@ -112,11 +112,11 @@ public class Filters : MonoBehaviour
         {
             if (set)
             {
-                traits.Remove(traitID);
+                traits.Add(traitID);
             }
             else
             {
-                traits.Add(traitID);
+                traits.Remove(traitID);
             }
 
             tank.ApplyFilters();

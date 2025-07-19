@@ -351,9 +351,7 @@ MonoBehaviour:
     type: 3}
   check: {fileID: 21300000, guid: 4da6043e0be1a2d42a436d71bcb17e3f, type: 3}
   uncheck: {fileID: 21300000, guid: 95d3143cf0139fc4d84a9d236475764d, type: 3}
-  options:
-  - m_Text: 
-  - m_Text: 
+  options: []
 --- !u!114 &6653226671276036610
 MonoBehaviour:
   m_ObjectHideFlags: 0

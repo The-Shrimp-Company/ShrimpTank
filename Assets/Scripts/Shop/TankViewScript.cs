@@ -135,7 +135,7 @@ public class TankViewScript : ScreenView
         {
             foreach (Shrimp shrimp in tank.shrimpInTank)
             {
-                if(!(traits.Contains(shrimp.stats.primaryColour.activeGene.ID)
+                if((traits.Contains(shrimp.stats.primaryColour.activeGene.ID)
                     || traits.Contains(shrimp.stats.secondaryColour.activeGene.ID)
                     || traits.Contains(shrimp.stats.legs.activeGene.ID)
                     || traits.Contains(shrimp.stats.eyes.activeGene.ID)
@@ -165,7 +165,7 @@ public class TankViewScript : ScreenView
         }
         else
         {
-            if (!(traits.Contains(shrimp.stats.primaryColour.activeGene.ID)
+            if ((traits.Contains(shrimp.stats.primaryColour.activeGene.ID)
                     || traits.Contains(shrimp.stats.secondaryColour.activeGene.ID)
                     || traits.Contains(shrimp.stats.legs.activeGene.ID)
                     || traits.Contains(shrimp.stats.eyes.activeGene.ID)

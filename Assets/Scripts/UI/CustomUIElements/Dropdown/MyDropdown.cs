@@ -23,7 +23,7 @@ public class MyDropdown : MonoBehaviour
         [SerializeField]
         private string m_Text;
 
-        private bool m_set = true;
+        private bool m_set;
 
         /// <summary>
         /// The text associated with the option.
