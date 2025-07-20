@@ -81,7 +81,7 @@ public class TankViewScript : ScreenView
 
     private void OnEnable()
     {
-        upgrades.Tank = tank;
+        upgrades.Tank = tank ?? GetComponentInParent<TankController>();
         UpdateContent();
     }
 
