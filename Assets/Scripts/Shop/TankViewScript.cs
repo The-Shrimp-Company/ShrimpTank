@@ -81,6 +81,7 @@ public class TankViewScript : ScreenView
 
     private void OnEnable()
     {
+        upgrades.Tank = tank;
         UpdateContent();
     }
 
