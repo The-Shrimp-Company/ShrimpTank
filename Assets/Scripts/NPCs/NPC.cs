@@ -7,7 +7,7 @@ public class NPC
     protected int reputation;
     protected int reliability;
     protected int completion;
-    protected List<string> flags;
+    protected List<string> flags = new List<string>();
     public string name = "UnSet";
 
     protected bool sent = false;
