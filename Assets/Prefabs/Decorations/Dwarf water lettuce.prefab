@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1031109933172743503}
   - component: {fileID: 3817191575724906976}
   - component: {fileID: 8170368816792602976}
+  - component: {fileID: 4259052636586413358}
   m_Layer: 9
   m_Name: Dwarf water lettuce
   m_TagString: Untagged
@@ -106,3 +107,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3672145598263680957, guid: 19f91df2903d6a241b42bd00d35710bb, type: 3}
+--- !u!114 &4259052636586413358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4984127487984152811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36aa02d38bb10b548bc7b8879596b15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WaterVolumeHelper: {fileID: 0}
+  heightOffset: -0.14
