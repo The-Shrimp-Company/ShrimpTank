@@ -19,6 +19,9 @@ public class TankController : MonoBehaviour
     private float updateTimer;
     public float updateTime;  // The time between each shrimp update, 0 will be every frame
 
+    [Header("Decorations")]
+    public List<GameObject> decorationsInTank = new List<GameObject>();
+
     [Header("Food")]
     public List<ShrimpFood> foodInTank = new List<ShrimpFood>();
     public int FoodStore = 0;
@@ -60,6 +63,7 @@ public class TankController : MonoBehaviour
     [SerializeField] private GameObject camDock;
     [SerializeField] private GameObject tankViewPrefab;
     [HideInInspector] public TankViewScript tankViewScript;
+    [HideInInspector] public TankDecorateViewScript tankDecorateViewScript;
     [HideInInspector] public bool tankNameChanged;
 
     [Header("Capacity")]
@@ -306,6 +310,7 @@ public class TankController : MonoBehaviour
 
     public void toggleTankOpen()
     {
+        if (CustomerManager.Instance == null) return;
         openTank = !openTank;
         if (openTank) CustomerManager.Instance.openTanks.Add(this);
         else CustomerManager.Instance.openTanks.Remove(this);

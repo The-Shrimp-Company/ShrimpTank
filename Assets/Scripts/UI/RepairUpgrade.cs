@@ -16,6 +16,7 @@ public class RepairUpgrade : MonoBehaviour
     {
         button = GetComponent<Button>();
         controller = GetComponentInParent<TankUpgradeController>();
+        if (controller == null) return;
         button.onClick.AddListener(() =>
         {
             if (Money.instance.WithdrawMoney(controller.GetUpgrade(upgradeType).upgrade.repairCost))
@@ -30,6 +31,9 @@ public class RepairUpgrade : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (controller == null) controller = GetComponentInParent<TankUpgradeController>();
+        if (controller == null) return;
+
         if (controller.CheckForUpgrade(upgradeType) && controller.GetUpgrade(upgradeType).IsBroken()) button.interactable = true;
         else button.interactable = false;
     }

@@ -43,3 +43,9 @@ public class UpgradeItem : Item
 {
 
 }
+
+[System.Serializable]
+public class DecorationItem : Item
+{
+
+}

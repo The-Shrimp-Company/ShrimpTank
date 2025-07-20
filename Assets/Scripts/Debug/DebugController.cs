@@ -73,6 +73,8 @@ public class DebugController : MonoBehaviour
     public static DebugCommand BREAK_HEATER;
     public static DebugCommand FIX_UPGRADES;
 
+    public static DebugCommand EDIT_DECORATIONS;
+
 
 
     public static DebugCommand<string> NAME_SHRIMP;
@@ -448,6 +450,14 @@ public class DebugController : MonoBehaviour
 
 
 
+        EDIT_DECORATIONS = new DebugCommand("edit_decorations", "Open the decoration edit screen", "edit_decorations", () =>
+        {
+            DecorateTankController.StartDecorating(focussedTank.GetTank());
+        });
+
+
+
+
         tankCommandList = new List<object>
         {
             NAME_TANK,
@@ -466,6 +476,10 @@ public class DebugController : MonoBehaviour
             BREAK_FILTER,
             BREAK_HEATER,
             FIX_UPGRADES,
+
+            Spacer,
+
+            EDIT_DECORATIONS,
 
             Spacer,
         };

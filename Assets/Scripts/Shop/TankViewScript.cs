@@ -16,6 +16,7 @@ public class TankViewScript : ScreenView
     private TankController tank;
     [SerializeField] private GameObject leftPanel;
     [SerializeField] protected GameObject shrimpView;
+    public GameObject tankDecorateView;
     protected Shrimp _shrimp;
     [SerializeField] protected TextMeshProUGUI tankPop;
     [SerializeField] private GameObject _content;
