@@ -465,6 +465,7 @@ Transform:
   - {fileID: 358445018689480702}
   - {fileID: 489485880703759014}
   - {fileID: 8707153858353793039}
+  - {fileID: 1678890148067129417}
   - {fileID: 6421506423354189709}
   - {fileID: 7623248954326440091}
   - {fileID: 2203429193121671375}
@@ -491,12 +492,14 @@ MonoBehaviour:
   shrimpParent: {fileID: 4423233220053350138}
   tankName: 
   updateTime: 0
+  decorationsInTank: []
   foodInTank: []
   FoodStore: 0
   foodToAdd: []
   foodToRemove: []
   foodParent: {fileID: 1724462573742006033}
   waterLevel: {fileID: 358445018689480702}
+  waterObject: {fileID: 1771025907783654827}
   waterQuality: 100
   waterQualityDecreaseSpeed: 5
   waterTemperature: 50
@@ -514,7 +517,9 @@ MonoBehaviour:
   tankViewPrefab: {fileID: 4927723591345053280, guid: 89d7b0e4c6dd7814aa2cc254ba712ae0,
     type: 3}
   tankViewScript: {fileID: 0}
+  tankDecorateViewScript: {fileID: 0}
   tankNameChanged: 0
+  decorationCamDock: {fileID: 1752594557242056825}
   roughShrimpCapacity: 31
   chanceToKillAShrimpOverCapacity:
     serializedVersion: 2
@@ -884,7 +889,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1274
+  m_VersionIndex: 1289
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1108,6 +1113,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3672145598263680957, guid: 19f91df2903d6a241b42bd00d35710bb, type: 3}
+--- !u!1 &1752594557242056825
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1678890148067129417}
+  m_Layer: 6
+  m_Name: DecoratingCameraDock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1678890148067129417
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1752594557242056825}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.80636317, z: -0.5914207, w: 0}
+  m_LocalPosition: {x: -0.077, y: 0.388, z: 0.146}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2235153865005791252}
+  m_LocalEulerAnglesHint: {x: 72.516, y: 180, z: 0}
 --- !u!1 &1771025907783654827
 GameObject:
   m_ObjectHideFlags: 0

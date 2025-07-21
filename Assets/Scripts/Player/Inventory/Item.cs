@@ -18,6 +18,13 @@ public enum ItemTags
     TankDecoration,
 }
 
+public enum FloatingItem
+{
+    Grounded,
+    Floats,
+    Either,
+}
+
 [System.Serializable]
 public class Item
 {

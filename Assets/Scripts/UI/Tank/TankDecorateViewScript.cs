@@ -90,7 +90,7 @@ public class TankDecorateViewScript : ScreenView
         // Filter items here
 
 
-        foreach (DecorationItem i in items)
+        foreach (Item i in items)
         {
             DecorationItemSO so = Inventory.GetSOForItem(i) as DecorationItemSO;
 
@@ -121,27 +121,13 @@ public class TankDecorateViewScript : ScreenView
     }
 
 
-
-    
-    public void MouseClick(Vector3 point, bool pressed)
+    public override void Exit()
     {
-        RaycastHit ray;
-        if(Physics.Raycast(Camera.main.ScreenPointToRay(point), out ray, 3f, LayerMask.GetMask("Decoration")))
-        {
-            if (tank.decorationsInTank.Contains(ray.transform.gameObject))
-            {
-                DecorationItem item = ray.transform.GetComponent<DecorationItem>();
-                if (item == null) 
-                {
-                    Debug.Log(ray.transform.name + " prefab is missing a decoration item script");
-                    return;
-                }
-
-                selectedItemGameObject = ray.transform.gameObject;
-                selectedItemType = Inventory.GetSOForItem(item) as DecorationItemSO;
-                ChangeSelectedItem();
-            }
-        }
+        TankController tank = _shrimp.tank.GetComponent<TankController>();
+        Camera.main.transform.position = tank.GetCam().transform.position;
+        Camera.main.transform.rotation = tank.GetCam().transform.rotation;
+        DecorateTankController.StopDecorating();
+        UIManager.instance.CloseScreen();
     }
 
 

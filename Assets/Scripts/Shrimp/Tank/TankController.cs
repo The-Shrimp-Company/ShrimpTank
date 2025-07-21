@@ -31,6 +31,7 @@ public class TankController : MonoBehaviour
 
     [Header("Water")]
     public Transform waterLevel;
+    public GameObject waterObject;
 
     public float waterQuality = 100;
     [SerializeField] float waterQualityDecreaseSpeed = 5;
@@ -65,6 +66,9 @@ public class TankController : MonoBehaviour
     [HideInInspector] public TankViewScript tankViewScript;
     [HideInInspector] public TankDecorateViewScript tankDecorateViewScript;
     [HideInInspector] public bool tankNameChanged;
+
+    [Header("Decorating")]
+    [SerializeField] private GameObject decorationCamDock;
 
     [Header("Capacity")]
     public int roughShrimpCapacity;
@@ -432,10 +436,8 @@ public class TankController : MonoBehaviour
     }
 
 
-    public GameObject GetCam()
-    {
-        return camDock;
-    }
+    public GameObject GetCam() { return camDock; }
+    public GameObject GetDecorationCam() { return decorationCamDock; }
 
 
     public void FocusTank()

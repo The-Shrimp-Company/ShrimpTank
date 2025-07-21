@@ -4,16 +4,24 @@ using UnityEngine;
 
 public class TankGrid : MonoBehaviour
 {
-    [SerializeField] GameObject gridPointPrefab;
-    [SerializeField] int gridWidth;
-    [SerializeField] int gridHeight;
-    [SerializeField] int gridLength;
+    public int gridWidth;
+    public int gridHeight;
+    public int gridLength;
     public GridNode[][][] grid;
     public float pointDistance;
     public float pointSize;
     public float invalidPointSize;
     Vector3 startPoint;
+
+    [Header("Decorating")]
+    public GameObject decoratingGridPrefab;
+    public Material decoratingGridMat;
+    public Material decoratingGridValidMat;
+    public Material decoratingGridInvalidMat;
+
+    [Header("Debugging")]
     [SerializeField] bool debugGrid;
+    [SerializeField] GameObject gridPointPrefab;
 
 
     private void Awake()
