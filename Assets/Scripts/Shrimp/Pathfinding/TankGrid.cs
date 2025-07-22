@@ -13,12 +13,6 @@ public class TankGrid : MonoBehaviour
     public float invalidPointSize;
     Vector3 startPoint;
 
-    [Header("Decorating")]
-    public GameObject decoratingGridPrefab;
-    public Material decoratingGridMat;
-    public Material decoratingGridValidMat;
-    public Material decoratingGridInvalidMat;
-
     [Header("Debugging")]
     [SerializeField] bool debugGrid;
     [SerializeField] GameObject gridPointPrefab;

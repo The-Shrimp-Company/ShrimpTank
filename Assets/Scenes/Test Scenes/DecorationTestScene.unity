@@ -23513,6 +23513,7 @@ GameObject:
   - component: {fileID: 1448892065}
   - component: {fileID: 1448892064}
   - component: {fileID: 1448892063}
+  - component: {fileID: 1448892067}
   - component: {fileID: 1448892062}
   - component: {fileID: 1448892061}
   m_Layer: 0
@@ -24043,6 +24044,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1448892067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448892060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8d837e2dcf6cba47a0643dee968014f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decoratingGridPrefab: {fileID: 7075755009106335745, guid: b11972cef56dd6c4591d1010203b990d,
+    type: 3}
+  decoratingGridMat: {fileID: 2100000, guid: f03d301c5c6c02642b6cd4ce25e5e2f1, type: 2}
+  decoratingGridHovered: {fileID: 2100000, guid: 93a0e191e5f3add49a45a62238320d94,
+    type: 2}
+  decoratingGridValidMat: {fileID: 2100000, guid: 761ce1f3695178f40ace67a7323838ff,
+    type: 2}
+  decoratingGridInvalidMat: {fileID: 2100000, guid: 6c1f2fe24c3af5941b4a5df25a2e6d74,
+    type: 2}
 --- !u!1001 &1455200156
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40858,11 +40880,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TankSmall
       objectReference: {fileID: 0}
-    - target: {fileID: 1463401828186235566, guid: a23975896a78f054f90dc35cb57f895f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2235153865005791252, guid: a23975896a78f054f90dc35cb57f895f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -40926,34 +40943,8 @@ PrefabInstance:
     - target: {fileID: 8897738516793857238, guid: a23975896a78f054f90dc35cb57f895f,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1301
+      value: 1310
       objectReference: {fileID: 0}
-    - target: {fileID: 9135166761670337101, guid: a23975896a78f054f90dc35cb57f895f,
-        type: 3}
-      propertyPath: debugGrid
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9135166761670337101, guid: a23975896a78f054f90dc35cb57f895f,
-        type: 3}
-      propertyPath: decoratingGridMat
-      value: 
-      objectReference: {fileID: 2100000, guid: f03d301c5c6c02642b6cd4ce25e5e2f1, type: 2}
-    - target: {fileID: 9135166761670337101, guid: a23975896a78f054f90dc35cb57f895f,
-        type: 3}
-      propertyPath: decoratingGridPrefab
-      value: 
-      objectReference: {fileID: 7075755009106335745, guid: b11972cef56dd6c4591d1010203b990d,
-        type: 3}
-    - target: {fileID: 9135166761670337101, guid: a23975896a78f054f90dc35cb57f895f,
-        type: 3}
-      propertyPath: decoratingGridValidMat
-      value: 
-      objectReference: {fileID: 2100000, guid: 761ce1f3695178f40ace67a7323838ff, type: 2}
-    - target: {fileID: 9135166761670337101, guid: a23975896a78f054f90dc35cb57f895f,
-        type: 3}
-      propertyPath: decoratingGridInvalidMat
-      value: 
-      objectReference: {fileID: 2100000, guid: 6c1f2fe24c3af5941b4a5df25a2e6d74, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

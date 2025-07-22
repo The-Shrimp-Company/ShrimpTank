@@ -5,14 +5,32 @@ using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DecorateTankController
+public class DecorateTankController : MonoBehaviour
 {
-    private static TankController currentTank;
-    private static TankGrid currentGrid;
+    public static DecorateTankController Instance;
 
-    private static List<GameObject> bottomNodes = new List<GameObject>();
+    private TankController currentTank;
+    private TankGrid currentGrid;
 
-    public static void StartDecorating(TankController t)
+    private Dictionary<GridNode, GameObject> bottomNodes = new Dictionary<GridNode, GameObject>();
+    private GameObject hoveredNode, selectedNode;
+
+
+    [Header("Grid")]
+    public GameObject decoratingGridPrefab;
+    public Material decoratingGridMat;
+    public Material decoratingGridHovered;
+    public Material decoratingGridValidMat;
+    public Material decoratingGridInvalidMat;
+
+
+    public void Awake()
+    {
+        if (Instance == null) { Instance = this; }
+        else if (Instance != this) { Destroy(gameObject); }
+    }
+
+    public void StartDecorating(TankController t)
     {
         if (t == null) return;
         if (t.tankViewScript == null) return;
@@ -38,24 +56,27 @@ public class DecorateTankController
         {
             for (int l = 0; l < currentGrid.gridLength; l++)
             {
-                GameObject node = GameObject.Instantiate(currentGrid.decoratingGridPrefab, currentGrid.grid[w][h][l].worldPos + new Vector3(0, -(currentGrid.pointSize / 2), 0), Quaternion.identity);
+                GameObject node = GameObject.Instantiate(decoratingGridPrefab, currentGrid.grid[w][h][l].worldPos + new Vector3(0, -(currentGrid.pointSize / 2), 0), Quaternion.identity);
                 node.transform.parent = currentTank.transform;
                 node.transform.localScale = new Vector3(currentGrid.pointSize, currentGrid.pointSize / 10, currentGrid.pointSize);
-                bottomNodes.Add(node);
+                bottomNodes.Add(currentGrid.grid[w][h][l], node);
             }
         }
     }
 
 
-    public static void StopDecorating()
+    public void StopDecorating()
     {
         currentTank.waterObject.SetActive(true);
 
         currentTank = null;
         currentGrid = null;
 
+        hoveredNode = null;
+        selectedNode = null;
 
-        foreach(GameObject n in bottomNodes)
+
+        foreach(GameObject n in bottomNodes.Values)
         {
             GameObject.Destroy(n);
         }
@@ -66,32 +87,55 @@ public class DecorateTankController
 
 
 
-    //public static void Update()
-    //{
-    //    MouseDetection();
-    //}
+    public void Update()
+    {
+        if (currentTank == null) return;
+        if (currentGrid == null) return;
+
+        MouseDetection();
+    }
 
 
-    //public void MouseDetection()
-    //{
-    //    RaycastHit ray;
-    //    if (Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current), out ray, 3f, LayerMask.GetMask("Decoration")))
-    //    {
-    //        if (tank.decorationsInTank.Contains(ray.transform.gameObject))
-    //        {
-    //            DecorationItem item = ray.transform.GetComponent<DecorationItem>();
-    //            if (item == null)
-    //            {
-    //                Debug.Log(ray.transform.name + " prefab is missing a decoration item script");
-    //                return;
-    //            }
+    public void MouseDetection()
+    {
+        RaycastHit ray;
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        Ray originMouse = Camera.main.ScreenPointToRay(mousePos);
+        int layerMask = LayerMask.GetMask("GridNode");
+        if (Physics.Raycast(originMouse, out ray, 3f, layerMask))
+        {
+            if (hoveredNode == ray.collider.gameObject) return;
 
-    //            selectedItemGameObject = ray.transform.gameObject;
-    //            selectedItemType = Inventory.GetSOForItem(item) as DecorationItemSO;
-    //            ChangeSelectedItem();
-    //        }
-    //    }
-    //}
+
+            foreach (GameObject node in bottomNodes.Values)
+            {
+                if (node == ray.collider.gameObject)
+                {
+                    ChangeHoveredNode(node);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            if (hoveredNode != null) ChangeHoveredNode(null);
+        }
+    }
+
+
+    private void ChangeHoveredNode(GameObject node)
+    {
+        foreach (GameObject n in bottomNodes.Values)
+        {
+            n.GetComponent<MeshRenderer>().material = decoratingGridMat;
+        }
+
+        hoveredNode = node;
+        if (hoveredNode != null)
+        {
+            hoveredNode.GetComponent<MeshRenderer>().material = decoratingGridHovered;
+        }
+    }
 
 
     //public void MouseClick(Vector3 point, bool pressed)

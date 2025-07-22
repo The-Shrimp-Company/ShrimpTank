@@ -452,7 +452,7 @@ public class DebugController : MonoBehaviour
 
         EDIT_DECORATIONS = new DebugCommand("edit_decorations", "Open the decoration edit screen", "edit_decorations", () =>
         {
-            DecorateTankController.StartDecorating(focussedTank.GetTank());
+            DecorateTankController.Instance.StartDecorating(focussedTank.GetTank());
         });
 
 
