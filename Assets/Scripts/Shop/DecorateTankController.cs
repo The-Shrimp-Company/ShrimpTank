@@ -13,7 +13,7 @@ public class DecorateTankController : MonoBehaviour
     private TankGrid currentGrid;
 
     private Dictionary<GridNode, GameObject> bottomNodes = new Dictionary<GridNode, GameObject>();
-    private GameObject hoveredNode, selectedNode;
+    private GridNode hoveredNode, selectedNode;
 
 
     [Header("Grid")]
@@ -22,6 +22,9 @@ public class DecorateTankController : MonoBehaviour
     public Material decoratingGridHovered;
     public Material decoratingGridValidMat;
     public Material decoratingGridInvalidMat;
+
+    public GameObject testItem;
+
 
 
     public void Awake()
@@ -104,12 +107,12 @@ public class DecorateTankController : MonoBehaviour
         int layerMask = LayerMask.GetMask("GridNode");
         if (Physics.Raycast(originMouse, out ray, 3f, layerMask))
         {
-            if (hoveredNode == ray.collider.gameObject) return;
+            if (hoveredNode != null && bottomNodes[hoveredNode] == ray.collider.gameObject) return;
 
 
-            foreach (GameObject node in bottomNodes.Values)
+            foreach (GridNode node in bottomNodes.Keys)
             {
-                if (node == ray.collider.gameObject)
+                if (bottomNodes[node] == ray.collider.gameObject)
                 {
                     ChangeHoveredNode(node);
                     break;
@@ -123,39 +126,31 @@ public class DecorateTankController : MonoBehaviour
     }
 
 
-    private void ChangeHoveredNode(GameObject node)
+    private void ChangeHoveredNode(GridNode node)
     {
-        foreach (GameObject n in bottomNodes.Values)
+        foreach (GridNode n in bottomNodes.Keys)
         {
-            n.GetComponent<MeshRenderer>().material = decoratingGridMat;
+            if (n.invalid) bottomNodes[n].GetComponent<MeshRenderer>().material = decoratingGridInvalidMat;
+            else bottomNodes[n].GetComponent<MeshRenderer>().material = decoratingGridMat;
         }
 
         hoveredNode = node;
         if (hoveredNode != null)
         {
-            hoveredNode.GetComponent<MeshRenderer>().material = decoratingGridHovered;
+            bottomNodes[hoveredNode].GetComponent<MeshRenderer>().material = decoratingGridHovered;
         }
     }
 
 
-    //public void MouseClick(Vector3 point, bool pressed)
-    //{
-    //    RaycastHit ray;
-    //    if (Physics.Raycast(Camera.main.ScreenPointToRay(point), out ray, 3f, LayerMask.GetMask("Decoration")))
-    //    {
-    //        if (tank.decorationsInTank.Contains(ray.transform.gameObject))
-    //        {
-    //            DecorationItem item = ray.transform.GetComponent<DecorationItem>();
-    //            if (item == null)
-    //            {
-    //                Debug.Log(ray.transform.name + " prefab is missing a decoration item script");
-    //                return;
-    //            }
+    public void MouseClick(Vector3 point, bool pressed)
+    {
+        if (hoveredNode == null) return;
 
-    //            selectedItemGameObject = ray.transform.gameObject;
-    //            selectedItemType = Inventory.GetSOForItem(item) as DecorationItemSO;
-    //            ChangeSelectedItem();
-    //        }
-    //    }
-    //}
+        if (!hoveredNode.invalid)
+        {
+            GameObject t = GameObject.Instantiate(testItem, hoveredNode.worldPos, Quaternion.identity);
+            t.transform.localScale = new Vector3(currentGrid.pointSize * 2f, currentGrid.pointSize * 2f, currentGrid.pointSize * 2f);
+            currentGrid.RebakeGrid();
+        }
+    }
 }

@@ -889,7 +889,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1304
+  m_VersionIndex: 1313
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1138,7 +1138,7 @@ Transform:
   m_GameObject: {fileID: 1752594557242056825}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.80636317, z: -0.5914207, w: 0}
-  m_LocalPosition: {x: -0.077, y: 0.388, z: 0.146}
+  m_LocalPosition: {x: 0, y: 0.491, z: 0.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1649,15 +1649,6 @@ MonoBehaviour:
   pointDistance: 0.025
   pointSize: 0.025
   invalidPointSize: 0.025
-  decoratingGridPrefab: {fileID: 7075755009106335745, guid: b11972cef56dd6c4591d1010203b990d,
-    type: 3}
-  decoratingGridMat: {fileID: 2100000, guid: f03d301c5c6c02642b6cd4ce25e5e2f1, type: 2}
-  decoratingGridHovered: {fileID: 2100000, guid: 93a0e191e5f3add49a45a62238320d94,
-    type: 2}
-  decoratingGridValidMat: {fileID: 2100000, guid: 761ce1f3695178f40ace67a7323838ff,
-    type: 2}
-  decoratingGridInvalidMat: {fileID: 2100000, guid: 6c1f2fe24c3af5941b4a5df25a2e6d74,
-    type: 2}
   debugGrid: 0
   gridPointPrefab: {fileID: 7075755009106335745, guid: ad8a5b4c18b743d4fb0b4a14931031d2,
     type: 3}

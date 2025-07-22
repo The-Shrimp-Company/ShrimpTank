@@ -16,10 +16,17 @@ public class TankGrid : MonoBehaviour
     [Header("Debugging")]
     [SerializeField] bool debugGrid;
     [SerializeField] GameObject gridPointPrefab;
+    private GameObject gridParent;
 
 
     private void Awake()
     {
+        if (debugGrid)
+        {
+            gridParent = new GameObject("Grid Debug");
+            gridParent.transform.parent = transform;
+        }
+
         InitializeGrid();
     }
 
@@ -39,12 +46,6 @@ public class TankGrid : MonoBehaviour
     {
         startPoint = new Vector3(-gridWidth, -gridHeight, -gridLength) / 2f * pointDistance + transform.position;
 
-        GameObject gridParent = null;
-        if (debugGrid)
-        {
-            gridParent = new GameObject("Grid Debug");
-            gridParent.transform.parent = transform;
-        }
 
         grid = new GridNode[gridWidth][][];
         for (int i = 0; i < gridWidth; i++)
@@ -59,18 +60,9 @@ public class TankGrid : MonoBehaviour
                     grid[i][j][k] = new GridNode();
                     grid[i][j][k].coords = new Vector3Int(i, j, k);
                     grid[i][j][k].worldPos = pos;
-                    LayerMask layer = LayerMask.GetMask("Decoration");
-                    if (Physics.CheckBox(grid[i][j][k].worldPos, Vector3.one * pointDistance / 2f, Quaternion.identity, layer, QueryTriggerInteraction.Ignore))
-                    {
-                        grid[i][j][k].invalid = true;
 
-                        if (debugGrid)
-                        {
-                            GameObject invalidCube = Instantiate(gridPointPrefab, grid[i][j][k].worldPos, Quaternion.identity);
-                            invalidCube.transform.parent = gridParent.transform;
-                            invalidCube.transform.localScale = new Vector3(pointSize, pointSize, pointSize);
-                        }
-                    }
+                    CheckNodeValidity(grid[i][j][k]);
+
                     for (int p = -1; p <= 1; p++)
                     {
                         for (int q = -1; q <= 1; q++)
@@ -85,6 +77,49 @@ public class TankGrid : MonoBehaviour
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+
+
+    private void CheckNodeValidity(GridNode node)
+    {
+        node.invalid = false;
+
+        LayerMask layer = LayerMask.GetMask("Decoration");
+        if (Physics.CheckBox(node.worldPos, Vector3.one * pointDistance / 2f, Quaternion.identity, layer, QueryTriggerInteraction.Ignore))
+        {
+            node.invalid = true;
+
+            if (debugGrid && gridParent != null)
+            {
+                GameObject invalidCube = Instantiate(gridPointPrefab, node.worldPos, Quaternion.identity);
+                invalidCube.transform.parent = gridParent.transform;
+                invalidCube.transform.localScale = new Vector3(pointSize, pointSize, pointSize);
+            }
+        }
+    }
+
+
+    public void RebakeGrid()
+    {
+        if (debugGrid && gridParent != null)
+        {
+            foreach (MeshRenderer m in gridParent.GetComponentsInChildren<MeshRenderer>())
+            {
+                Destroy(m.gameObject);
+            }
+        }
+
+
+        for (int i = 0; i < gridWidth; i++)
+        {
+            for (int j = 0; j < gridHeight; j++)
+            {
+                for (int k = 0; k < gridLength; k++)
+                {
+                    CheckNodeValidity(grid[i][j][k]);
                 }
             }
         }

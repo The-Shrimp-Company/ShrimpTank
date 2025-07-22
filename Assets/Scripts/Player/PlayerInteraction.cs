@@ -129,6 +129,10 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (point.isPressed)
         {
+            if (UIManager.instance.GetScreen().TryGetComponent<TankDecorateViewScript>(out TankDecorateViewScript tdv))
+            {
+                DecorateTankController.Instance.MouseClick(Mouse.current.position.value, point.isPressed);
+            }
             if (UIManager.instance.GetScreen().TryGetComponent<TankViewScript>(out TankViewScript tv))
             {
                 tv.MouseClick(Mouse.current.position.value, point.isPressed);

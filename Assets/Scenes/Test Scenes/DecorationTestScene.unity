@@ -24065,6 +24065,8 @@ MonoBehaviour:
     type: 2}
   decoratingGridInvalidMat: {fileID: 2100000, guid: 6c1f2fe24c3af5941b4a5df25a2e6d74,
     type: 2}
+  testItem: {fileID: 7075755009106335745, guid: b222cf2c437d3b641821ec5249c58b41,
+    type: 3}
 --- !u!1001 &1455200156
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40943,7 +40945,7 @@ PrefabInstance:
     - target: {fileID: 8897738516793857238, guid: a23975896a78f054f90dc35cb57f895f,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1310
+      value: 1316
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
