@@ -49,10 +49,10 @@ public class DecorateTankController
 
     public static void StopDecorating()
     {
+        currentTank.waterObject.SetActive(true);
+
         currentTank = null;
         currentGrid = null;
-
-        currentTank.waterObject.SetActive(true);
 
 
         foreach(GameObject n in bottomNodes)

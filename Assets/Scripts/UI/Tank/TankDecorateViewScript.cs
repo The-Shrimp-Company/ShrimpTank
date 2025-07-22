@@ -14,7 +14,6 @@ public class TankDecorateViewScript : ScreenView
 {
     protected TankController tank;
     [SerializeField] private GameObject leftPanel;
-    protected Shrimp _shrimp;
     [SerializeField] private GameObject _content;
     [SerializeField] private GameObject _contentBlock;
     private List<DecorationContentBlock> contentBlocks = new List<DecorationContentBlock>();
@@ -121,13 +120,17 @@ public class TankDecorateViewScript : ScreenView
     }
 
 
-    public override void Exit()
+    public override void Close(bool switchTab) { CloseScreen(); }
+    public override void Close() { CloseScreen(); }
+
+    private void CloseScreen()
     {
-        TankController tank = _shrimp.tank.GetComponent<TankController>();
         Camera.main.transform.position = tank.GetCam().transform.position;
         Camera.main.transform.rotation = tank.GetCam().transform.rotation;
         DecorateTankController.StopDecorating();
         UIManager.instance.CloseScreen();
+        UIManager.instance.SetCursorMasking(true);
+        base.Close();
     }
 
 
@@ -141,10 +144,6 @@ public class TankDecorateViewScript : ScreenView
         player.GetComponent<PlayerInput>().SwitchCurrentActionMap("TankView");
     }
 
-    public override void Close(bool switchTab)
-    {
-        StartCoroutine(CloseTab(switchTab));
-    }
 
     public IEnumerator OpenTab(bool switchTab)
     {
@@ -191,51 +190,6 @@ public class TankDecorateViewScript : ScreenView
         //contextBox.enabled = true;
     }
 
-
-
-    public IEnumerator CloseTab(bool switchTab)
-    {
-        UIManager.instance.SetCursorMasking(true);  // Enable cursor masking
-        yield return new WaitForSeconds(0);
-        //if ((switchTab && switchAnimationSpeed != 0) || (!switchTab && openAnimationSpeed != 0))  // Setting anim speed to 0 disables the animation
-        //{
-        //    // End currently running tweens
-        //    DOTween.Kill(leftPanel);
-
-        //    // Remove extra sections of the menu
-        //    upgradeBox.enabled = false;
-        //    contextBox.enabled = false;
-
-        //    if (switchTab)  // If we are switching to another menu
-        //    {
-        //        // Move the panels offscreen
-        //        leftPanel.GetComponent<RectTransform>().DOAnchorPos(leftPanelSwitchOutPos, switchAnimationSpeed).SetEase(switchAnimationEase, 1.4f);
-        //        upgradeBox.GetComponent<RectTransform>().DOAnchorPos(upgradeBoxSwitchOutPos, switchAnimationSpeed).SetEase(switchAnimationEase, 1.4f);
-        //        contextBox.GetComponent<RectTransform>().DOAnchorPos(upgradeBoxSwitchOutPos, switchAnimationSpeed).SetEase(switchAnimationEase, 1.4f);
-
-        //        yield return new WaitForSeconds(switchAnimationSpeed);
-        //    }
-        //    else  // If we are fully closing the menu
-        //    {
-        //        // Move the panels offscreen
-        //        leftPanel.GetComponent<RectTransform>().DOAnchorPos(leftPanelClosePos, openAnimationSpeed).SetEase(Ease.InBack);
-        //        upgradeBox.GetComponent<RectTransform>().DOAnchorPos(upgradeBoxClosePos, openAnimationSpeed).SetEase(Ease.InBack);
-        //        contextBox.GetComponent<RectTransform>().DOAnchorPos(upgradeBoxClosePos, openAnimationSpeed).SetEase(Ease.InBack);
-                
-        //        GetComponent<CanvasGroup>().DOFade(0, openAnimationSpeed).SetEase(Ease.InCubic);  // Fade the menu out
-
-        //        yield return new WaitForSeconds(openAnimationSpeed);
-        //    }
-
-        //    // End the tweens
-        //    DOTween.Kill(leftPanel);
-        //    DOTween.Kill(upgradeBox);
-        //    DOTween.Kill(contextBox);
-        //}
-
-
-        base.Close(switchTab);
-    }
 
     public TankController GetTank() {  return tank; }
 }

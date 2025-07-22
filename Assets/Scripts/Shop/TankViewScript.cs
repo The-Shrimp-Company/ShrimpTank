@@ -295,7 +295,8 @@ public class TankViewScript : ScreenView
 
     public override void Close(bool switchTab)
     {
-        StartCoroutine(CloseTab(switchTab));
+        if (isActiveAndEnabled) StartCoroutine(CloseTab(switchTab));
+        else base.Close(switchTab);
     }
 
     public void AddFood()
