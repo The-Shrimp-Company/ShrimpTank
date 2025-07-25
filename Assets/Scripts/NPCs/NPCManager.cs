@@ -20,7 +20,7 @@ public class NPCManager : MonoBehaviour
             NPCs.Add(new CollectorTom());
             NPCs.Add(new SleazyJoe());
             NPCs.Add(new Rival());
-            //NPCs.Add(new DebugNPC());
+            NPCs.Add(new DebugNPC());
         }
         else
         {
@@ -31,10 +31,9 @@ public class NPCManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!Tutorial.instance.flags.activeAccount)
+        if (!Tutorial.instance.flags.Contains("activeAccount"))
         {
             NPCs[0].NpcCheck();
-            Debug.Log("Doing This");
         }
         else
         {
@@ -44,5 +43,10 @@ public class NPCManager : MonoBehaviour
 
             count++;
         }
+    }
+    
+    public NPC GetNPCFromName(string name)
+    {
+        return NPCs.Find(x => x.name == name);
     }
 }

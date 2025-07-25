@@ -1,18 +1,14 @@
 using SaveLoadSystem;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Tutorial : MonoBehaviour
 {
     public static Tutorial instance;
 
-    public struct TutorialFlags
-    {
-        public bool openTablet;
-        public bool boughtShrimp;
-        public bool activeAccount;
-    }
+    
 
-    public TutorialFlags flags = new TutorialFlags();
+    public List<string> flags = new();
 
     private void Awake()
     {
@@ -26,7 +22,7 @@ public class Tutorial : MonoBehaviour
         }
         if (!SaveManager.startNewGame)
         {
-            instance.flags.activeAccount = true;
+            instance.flags = SaveManager.CurrentSaveData.tutorialFlags ?? new();
         }
     }
 
@@ -46,14 +42,14 @@ public class Tutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!flags.openTablet)UIManager.instance.SendNotification("Press E to open tablet");
+        if(!flags.Contains("openTablet"))UIManager.instance.SendNotification("Press E to open tablet");
     }
 
     public void OpenedTablet()
     {
-        if (!flags.openTablet)
+        if (!flags.Contains("openTablet"))
         {
-            flags.openTablet = true;
+            flags.Add("openTablet");
             UIManager.instance.SendNotification("");
         }
     }

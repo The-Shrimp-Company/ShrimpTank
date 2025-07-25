@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class NPCTemplate : NPC
 {
-    public NPCTemplate()
+    public NPCTemplate() : base("Template", 0, 0, 0)
     {
-        reputation = 0;
-        reliability = 0;
-        completion = 0;
-        name = "Template";
+        
     }
 
     /// <summary>
@@ -18,7 +15,7 @@ public class NPCTemplate : NPC
     /// </summary>
     public override void NpcCheck()
     {
-        if(!sent && TimeManager.instance.day > LastDaySent)
+        if(!sent && TimeManager.instance.day > lastDaySent)
         {
             Email email = this.CreateEmail();
             bool important = false;

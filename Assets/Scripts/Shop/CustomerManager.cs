@@ -18,12 +18,12 @@ public class CustomerManager : MonoBehaviour
     [SerializeField]
     private float openSaleCoolDown = 5;
 
-    public List<TankController> openTanks = new List<TankController>();
+    public List<TankController> openTanks = new();
     public List<Shrimp> ToPurchase { get; private set; } = new List<Shrimp>();
 
-    private List<Request> requests = new List<Request>();
+    private List<Request> requests = new ();
 
-    private List<string> RandomEmails = new List<string>();
+    private List<string> RandomEmails = new();
 
     public EmailScreen emailScreen;
     private void Start()
@@ -83,10 +83,8 @@ public class CustomerManager : MonoBehaviour
     public void AddShrimpToPurchase(Shrimp shrimp)
     {
         ToPurchase.Add(shrimp);
-        if(UIManager.instance.GetScreen() != null && UIManager.instance.GetScreen().GetComponent<SellScreenView>() != null)
-        {
-            UIManager.instance.GetScreen().GetComponent<SellScreenView>().UpdateList(shrimp);
-        }
+
+        UIManager.instance.GetScreen()?.GetComponent<SellScreenView>()?.UpdateList(shrimp);
     }
 
     public void PurchaseShrimp(Shrimp shrimp)
@@ -129,7 +127,8 @@ public class CustomerManager : MonoBehaviour
             email.subjectLine = "I Love this shrimp!";
             email.mainText = "It's just what I wanted, so I got you this bonus!";
             email.value = Mathf.RoundToInt(shrimp.GetValue());
-            email.CreateEmailButton("Add money", email.GiveMoney, true);
+            MyButton button = email.CreateEmailButton("Add money", true);
+            button.SetFunc(EmailFunctions.FunctionIndexes.AddMoney, email.value);
             EmailManager.SendEmail(email, true, Random.Range(10, 30));
         }
     }
@@ -210,18 +209,20 @@ public class CustomerManager : MonoBehaviour
         float value = EconomyManager.instance.GetObfsShrimpValue(obfs);
         message += "I will pay " + value + " plus a bonus if the shrimp is very good";
 
-        Request request = new Request();
-        request.stats = s;
-        request.obfstats = obfs;
-        request.value = value;
+        Request request = new () {
+            stats = s,
+            obfstats = obfs,
+            value = value
+        };
         Email email = EmailTools.CreateEmail();
         int emailIndex = Random.Range(0, RandomEmails.Count);
         email.title = RandomEmails[emailIndex];
         email.subjectLine = "I would like a shrimp";
         email.mainText = message;
-        email.CreateEmailButton("Choose Shrimp", request.OpenShrimpSelection);
+        MyButton button = email.CreateEmailButton("Choose Shrimp");
+        button.SetFunc(EmailFunctions.FunctionIndexes.CompleteRequest, request);
         EmailManager.SendEmail(email, true);
-        request.email = email;
+        request.emailID = email.ID;
         requests.Add(request);
     }
 
@@ -248,6 +249,7 @@ public class CustomerManager : MonoBehaviour
 
 
 
+[System.Serializable]
 public class Request
 {
     public float value;
@@ -255,7 +257,7 @@ public class Request
     public ShrimpStats stats;
     public ShrimpStats obfstats;
 
-    public Email email;
+    public int emailID;
 
 
     static public string[] Words = { 

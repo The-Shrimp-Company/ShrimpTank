@@ -33,7 +33,7 @@ public class EmailContentBlock : ContentBlock
         _email = email;
         if (email.sender != null)
         {
-            title.text = _email.sender.name;
+            title.text = _email.sender;
         }
         else
         {

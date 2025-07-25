@@ -90,10 +90,8 @@ public class UIManager : MonoBehaviour
         else
         {
             ScreenView oldScreen = _screenStack.Pop();
-            if(oldScreen != null)
-            {
-                oldScreen.Close(false);
-            }
+            
+            oldScreen?.Close(false);
         }
 
         if(_screenStack.Count != 0)
@@ -126,10 +124,8 @@ public class UIManager : MonoBehaviour
             else
             {
                 ScreenView oldScreen = _screenStack.Pop();
-                if (oldScreen != null)
-                {
-                    oldScreen.Close(false);
-                }
+                
+                oldScreen?.Close(false);
             }
             OpenScreen(newScreen);
         }

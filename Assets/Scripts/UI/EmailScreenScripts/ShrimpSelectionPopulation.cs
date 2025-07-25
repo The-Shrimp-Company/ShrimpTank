@@ -14,7 +14,7 @@ public class ShrimpSelectionPopulation : ContentPopulation
     {
         _request = request;
         _window = window;
-        _email = request.email;
+        _email = EmailManager.instance.emails.Find((x) => { return x.ID == request.emailID; });
         List<Shrimp> shrimp = ShrimpManager.instance.allShrimp;
         if (request.obfstats.tail.obfuscated)
         {
@@ -78,7 +78,7 @@ public class ShrimpSelectionPopulation : ContentPopulation
             {
                 if(TempEmail.sender != null)
                 {
-                    TempEmail.sender.BoughtShrimp(TempStats);
+                    NPCManager.Instance.GetNPCFromName(TempEmail.sender).BoughtShrimp(TempStats);
                 }
                 foreach (Email email in EmailManager.instance.emails)
                 {

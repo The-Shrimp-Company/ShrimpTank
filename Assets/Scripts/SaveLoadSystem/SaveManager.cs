@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Text.Json;
 
 namespace SaveLoadSystem
 {
@@ -29,6 +30,7 @@ namespace SaveLoadSystem
         public static UnityAction OnLoadGameFinish;
 
 
+
         public static bool SaveGame(string _fileName)
         {
             string dir = Application.persistentDataPath + directory;
@@ -41,8 +43,7 @@ namespace SaveLoadSystem
             if (!Directory.Exists(dir))  // If the directory does not exist
                 Directory.CreateDirectory(dir);  // Create this directory
 
-
-            string json = JsonUtility.ToJson(CurrentSaveData, true);  // Convert the save to json format
+            string json = JsonSerializer.Serialize(CurrentSaveData, new JsonSerializerOptions() { IncludeFields = true, WriteIndented = true });  // Convert the save to json format
 
 
             if (createBackupFile && File.Exists(file))
@@ -109,7 +110,7 @@ namespace SaveLoadSystem
             if (File.Exists(fullPath))
             {
                 string json = File.ReadAllText(fullPath);
-                tempData = JsonUtility.FromJson<SaveData>(json);
+                tempData = JsonSerializer.Deserialize<SaveData>(json, new JsonSerializerOptions() { IncludeFields = true });
 
                 if (tempData.fileIntegrityCheck == fileIntegrityChecker)
                 {
@@ -134,7 +135,7 @@ namespace SaveLoadSystem
                 if (File.Exists(backupPath))
                 {
                     string json = File.ReadAllText(backupPath);
-                    tempData = JsonUtility.FromJson<SaveData>(json);
+                    tempData = JsonSerializer.Deserialize<SaveData>(json, new JsonSerializerOptions() { IncludeFields = true });
 
                     if (tempData.fileIntegrityCheck == fileIntegrityChecker)
                     {
@@ -168,7 +169,7 @@ namespace SaveLoadSystem
             if (File.Exists(fullPath))
             {
                 string json = File.ReadAllText(fullPath);
-                tempData = JsonUtility.FromJson<SaveData>(json);
+                tempData = JsonSerializer.Deserialize<SaveData>(json, new JsonSerializerOptions() { IncludeFields = true });
 
                 if (tempData.fileIntegrityCheck == fileIntegrityChecker)
                 {

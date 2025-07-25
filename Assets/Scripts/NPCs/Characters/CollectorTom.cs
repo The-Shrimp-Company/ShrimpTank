@@ -1,3 +1,4 @@
+using SaveLoadSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,12 +8,9 @@ public class CollectorTom : NPC
 
     private float lastHourSent;
 
-    public CollectorTom()
+    public CollectorTom() : base("Tom@ShrimpMail.com", 80, 80, 0)
     {
-        reputation = 80;
-        reliability = 80;
-        completion = 0;
-        name = "Tom@ShrimpMail.com";
+        
     }
 
     public override void EmailDestroyed()
@@ -23,7 +21,7 @@ public class CollectorTom : NPC
 
     public override void NpcCheck()
     {
-        if (!sent && (TimeManager.instance.day > LastDaySent || TimeManager.instance.hour > lastHourSent + 1))
+        if (!sent && (TimeManager.instance.day > lastDaySent || TimeManager.instance.hour > lastHourSent + 1))
         {
             Email email = this.CreateEmail();
             bool important = false;
@@ -34,11 +32,7 @@ public class CollectorTom : NPC
                 email.mainText = "You seem like a nice enough shrimper, so I thought I'd reach out. I like to keep up to" +
                     " date with all of the new shrimpers around here, keep my finger on the pulse you know.\nSo I really like shrimp" +
                     " and if you happen to find yourself with some spare shrimp around, you let me know, mkay?\n";
-                email.CreateEmailButton("That's good to know", () =>
-                {
-                    completion = 1;
-                },
-                true);
+                email.CreateEmailButton("That's good to know", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 1);
                 important = true;
             }
 
@@ -53,11 +47,7 @@ public class CollectorTom : NPC
                     " your own shops stats in the your shop page, which is where you can see your own reputation. " +
                     " \nAnother useful tool is the vet. There are several paid services there, but there's also a free compendium of" +
                     " shrimp tips.";
-                email.CreateEmailButton("Thanks for the advice", () =>
-                {
-                    completion++;
-                },
-                true);
+                email.CreateEmailButton("Thanks for the advice", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 2);
                 important = true;
             }
 

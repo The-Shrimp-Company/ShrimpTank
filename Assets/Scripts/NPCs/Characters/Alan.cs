@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class Alan : NPC
 {
-    public Alan()
+    public Alan() : base("Alan@ShrimpMail.com", 40, 40, 0)
     {
-        reputation = 40;
-        reliability = 40;
-        completion = 0;
-        name = "Alan@ShrimpMail.com";
+
     }
 
     public override void NpcCheck()
     {
-        if (!sent && TimeManager.instance.day > LastDaySent)
+        if (!sent && TimeManager.instance.day > lastDaySent)
         {
             Email email = this.CreateEmail();
             bool important = false;
@@ -24,27 +21,15 @@ public class Alan : NPC
                 email.title = "Press E to open your tablet";
                 email.subjectLine = "My name is Alan";
                 email.mainText = "I have an offer for you~!";
-                email.CreateEmailButton("press here for FRIENDS", () =>
-                {
-                    completion = 10;
-                },
-                true);
-                email.CreateEmailButton("press here to disappoint me", () =>
-                {
-                    completion = -1;
-                },
-                true);
+                email.CreateEmailButton("press here for FRIENDS", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 10);
+                email.CreateEmailButton("press here to disappoint me", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, -1);
             }
             else if (completion == 10)
             {
                 email.subjectLine = "I'm glad you said yes!";
                 email.title = "Alan is HAPPY";
                 email.mainText = "Have some money!";
-                email.CreateEmailButton("Press here for MONEY", () =>
-                {
-                    Money.instance.AddMoney(100);
-                },
-                true);
+                email.CreateEmailButton("Press here for MONEY", true).SetFunc(EmailFunctions.FunctionIndexes.AddMoney, 100);
                 completion = 12;
                 important = true;
             }
@@ -53,16 +38,8 @@ public class Alan : NPC
                 email.subjectLine = "WHY????!!!??!!?! :(";
                 email.title = "Alan";
                 email.mainText = "Sad Now :(";
-                email.CreateEmailButton("Continue to disapoint", () =>
-                {
-                    completion = -1;
-                },
-                true);
-                email.CreateEmailButton("press here for FRIENDS", () =>
-                {
-                    completion = 10;
-                },
-                true);
+                email.CreateEmailButton("Continue to disapoint", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, -1);
+                email.CreateEmailButton("press here for FRIENDS", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 10);
                 important = true;
             }
             else if (completion > 10)

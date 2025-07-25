@@ -6,21 +6,17 @@ using UnityEngine;
 
 public class SleazyJoe : NPC
 {
-    private float totalShrimpLoss;
+    public float totalShrimpLoss;
 
 
-    public SleazyJoe()
+    public SleazyJoe() : base("Joe@ShrimpMail.com", 10, 50, 0)
     {
-        reputation = 10;
-        reliability = 50;
-        completion = 0;
-        name = "Joe@ShrimpMail.com";
-
+        
     }
 
     public override void NpcCheck()
     {
-        if (!sent && TimeManager.instance.day > LastDaySent)
+        if (!sent && TimeManager.instance.day > lastDaySent)
         {
             Email email = this.CreateEmail();
             bool important = true;
@@ -30,11 +26,7 @@ public class SleazyJoe : NPC
                 email.mainText = "Hey, I noticed you had some shrimp, is there uhhhh, any chance you could ummmmm, sell some to me for ummm, dirt cheap maybe?";
                 email.title = "New shrimp shop!";
                 email.subjectLine = "YEAAAAAAHHHH";
-                email.CreateEmailButton("Yes", () =>
-                {
-                    completion = 1;
-                }
-                , true);
+                email.CreateEmailButton("Yes", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 1);
                 important = true;
             }
             else if (totalShrimpLoss >= 30 && completion == 1)
@@ -44,11 +36,8 @@ public class SleazyJoe : NPC
                 email.mainText = "I really appreciate all of the shrimp you've given me now, and I know that they've been worth more than I was paying you." +
                     "\nI still don't have much money, but you've inspired me to get out of my current job, and try and get into shrimp breeding as well! I hope" +
                     " I can do as well as you, and I hope you like the gift!";
-                email.CreateEmailButton("Accept the gift", () =>
-                {
-                    ShrimpManager.instance.destTank.SpawnShrimp(ShrimpManager.instance.CreateRandomShrimp(true));
-                }, true);
-                completion++;
+                email.CreateEmailButton("Accept the gift", true).SetFunc(EmailFunctions.FunctionIndexes.SpawnShrimp, ShrimpManager.instance.CreateRandomShrimp(true));
+                completion = 2;
                 important = true;
             }
             else if(completion >= 1)
@@ -56,10 +45,7 @@ public class SleazyJoe : NPC
                 email.mainText = "Thanks for offering me some shrimp. I'd really like one, but I don't have much cash. Could you sell me one of your shrimp for £" + Math.Round(completion + totalShrimpLoss/10, 2) + ". I don't mind which one.";
                 email.title = "Please";
                 email.subjectLine = "Please";
-                email.CreateEmailButton("I will sell you this one", () =>
-                {
-                    CustomerManager.Instance.emailScreen.OpenFullSelection(completion + totalShrimpLoss/10, email);
-                }, false);
+                email.CreateEmailButton("I will sell you this one", false).SetFunc(EmailFunctions.FunctionIndexes.GiveAnyShrimp, completion + totalShrimpLoss/10);
                 important = true;
             }
 

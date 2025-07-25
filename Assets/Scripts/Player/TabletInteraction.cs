@@ -38,7 +38,7 @@ public class TabletInteraction : ScreenView
 
     private void Update()
     {
-        if(Tutorial.instance.flags.activeAccount != true)
+        if(!Tutorial.instance.flags.Contains("activeAccount"))
         {
             BuyButton.SetActive(false);
             SellButton.SetActive(false);

@@ -1,6 +1,7 @@
 using SaveLoadSystem;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using UnityEngine;
 
@@ -105,7 +106,7 @@ public class SaveController : MonoBehaviour
 
         // Player
         Transform player = GameObject.Find("Player").transform;
-        d.playerPosition = player.position;
+        d.playerPosition = new System.Numerics.Vector3(player.position.x, player.position.y, player.position.z);
         d.playerRotation = player.GetComponent<CameraControls>().GetRotationX();
 
         // Stats & Settings
@@ -174,8 +175,20 @@ public class SaveController : MonoBehaviour
             d.shelves = shelfList.ToArray();
         }
 
+        // NPCs
+        List<NPC.NPCData> npcdata = new List<NPC.NPCData>();
+        foreach(NPC npc in NPCManager.Instance.NPCs)
+        {
+            npcdata.Add(npc.Data);
+        }
+        d.npcs = npcdata.ToArray();
+
+        // Emails
+        d.emails = EmailManager.instance.emails.ToArray();
 
 
+        // Tutorial
+        d.tutorialFlags = Tutorial.instance.flags;
 
         SaveManager.CurrentSaveData = d;
     }
@@ -194,7 +207,7 @@ public class SaveController : MonoBehaviour
 
         // Player
         Transform player = GameObject.Find("Player").transform;
-        if (loadPlayerPosition) player.position = d.playerPosition;
+        if (loadPlayerPosition) player.position = new Vector3(d.playerPosition.X, d.playerPosition.Y, d.playerPosition.Z);
         if (loadPlayerPosition) player.GetComponent<CameraControls>().SetRotationX(d.playerRotation);
 
         // Stats & Settings
@@ -209,6 +222,7 @@ public class SaveController : MonoBehaviour
 
         // Reputation
         Reputation.SetReputation(d.reputation);
+
     }
 
 

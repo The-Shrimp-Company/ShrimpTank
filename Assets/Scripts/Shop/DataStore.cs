@@ -19,9 +19,10 @@ public class DataStore : MonoBehaviour
 
     public void OnLoad(Scene scene, LoadSceneMode mode)
     {
-        if(scene.name != "ShopScene")
+        if(scene.name != "OldShopScene")
         {
             Assigned = false;
+            SceneManager.sceneLoaded -= OnLoad;
             Destroy(gameObject);
         }
         else
