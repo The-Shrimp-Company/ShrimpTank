@@ -223,6 +223,8 @@ public class SaveController : MonoBehaviour
         // Reputation
         Reputation.SetReputation(d.reputation);
 
+        // Tutorial
+        Tutorial.instance.init();
     }
 
 

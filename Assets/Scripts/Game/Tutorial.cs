@@ -20,10 +20,6 @@ public class Tutorial : MonoBehaviour
         {
             Destroy(this);
         }
-        if (!SaveManager.startNewGame)
-        {
-            instance.flags = SaveManager.CurrentSaveData.tutorialFlags ?? new();
-        }
     }
 
     // Start is called before the first frame update
@@ -37,6 +33,11 @@ public class Tutorial : MonoBehaviour
         {
             Debug.Log(SaveManager.CurrentSaveData.storeName);
         }
+    }
+
+    public void init()
+    {
+        instance.flags = SaveManager.CurrentSaveData.tutorialFlags;
     }
 
     // Update is called once per frame
