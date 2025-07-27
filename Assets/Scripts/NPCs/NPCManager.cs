@@ -17,10 +17,10 @@ public class NPCManager : MonoBehaviour
             Instance = this;
             NPCs.Add(new Admin());
             NPCs.Add(new Alan());
-            NPCs.Add(new CollectorTom());
+            NPCs.Add(new CollectorSue());
             NPCs.Add(new SleazyJoe());
             NPCs.Add(new Rival());
-            NPCs.Add(new DebugNPC());
+            //NPCs.Add(new DebugNPC());
         }
         else
         {
