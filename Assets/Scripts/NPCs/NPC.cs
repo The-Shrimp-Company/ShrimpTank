@@ -45,9 +45,9 @@ public class NPC
         this.reliability = reliability;
         this.completion = completion;
 
+
         Data = this.NpcValidation(SaveManager.CurrentSaveData.npcs) ?? Data;
 
-        Debug.Log(this.name + this.completion);
 
     }
 

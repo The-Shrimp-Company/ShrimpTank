@@ -6,6 +6,7 @@ using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.Rendering;
 using System.IO;
+using System.Text.Json.Serialization;
 
 public class CustomerManager : MonoBehaviour 
 {
@@ -21,7 +22,8 @@ public class CustomerManager : MonoBehaviour
     public List<TankController> openTanks = new();
     public List<Shrimp> ToPurchase { get; private set; } = new List<Shrimp>();
 
-    private List<Request> requests = new ();
+
+    public List<Request> requests = new() ;
 
     private List<string> RandomEmails = new();
 

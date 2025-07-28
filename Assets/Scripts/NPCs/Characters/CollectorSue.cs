@@ -8,7 +8,7 @@ public class CollectorSue : NPC
 
     private float lastHourSent;
 
-    public CollectorSue() : base("Tom@ShrimpMail.com", 80, 80, 0)
+    public CollectorSue() : base("Sue@ShrimpMail.com", 80, 80, 0)
     {
         
     }
@@ -27,7 +27,7 @@ public class CollectorSue : NPC
             bool important = false;
             if (completion == 0)
             {
-                email.title = "My name is Tom";
+                email.title = "My name is Sue";
                 email.subjectLine = "Hi, I like shrimp";
                 email.mainText = "You seem like a nice enough shrimper, so I thought I'd reach out. I like to keep up to" +
                     " date with all of the new shrimpers around here, keep my finger on the pulse you know.\nSo I really like shrimp" +
@@ -54,7 +54,7 @@ public class CollectorSue : NPC
 
             if(email.mainText != null)
             {
-                email.mainText += "\nThanks,\nTom (Three time Shrimper of the Year Award winner, 17 times nominee)";
+                email.mainText += "\nThanks,\nSue (Three time Shrimper of the Year Award winner, 17 times nominee)";
 
                 NpcEmail(email, important);
             }

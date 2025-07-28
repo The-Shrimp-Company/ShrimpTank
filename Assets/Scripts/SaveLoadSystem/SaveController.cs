@@ -217,6 +217,9 @@ public class SaveController : MonoBehaviour
         // Inventory
         Inventory.instance.Initialize(d.inventoryItems);
 
+        // Npcs
+        NPCManager.Instance.Initialize();
+
         // Emails
         EmailManager.instance.Initialize();
 
@@ -233,6 +236,7 @@ public class SaveController : MonoBehaviour
         PlayerStats.stats = new Stats();
         Inventory.instance.Initialize();
         EmailManager.instance.Initialize();
+        NPCManager.Instance.Initialize();
         Money.instance.SetStartingMoney();
         Reputation.SetReputation(0);
         SaveManager.NewGame();

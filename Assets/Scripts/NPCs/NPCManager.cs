@@ -15,12 +15,6 @@ public class NPCManager : MonoBehaviour
         if(Instance == null)
         {
             Instance = this;
-            NPCs.Add(new Admin());
-            NPCs.Add(new Alan());
-            NPCs.Add(new CollectorSue());
-            NPCs.Add(new SleazyJoe());
-            NPCs.Add(new Rival());
-            //NPCs.Add(new DebugNPC());
         }
         else
         {
@@ -28,20 +22,33 @@ public class NPCManager : MonoBehaviour
         }
     }
 
+    public void Initialize()
+    {
+        NPCs.Add(new Admin());
+        NPCs.Add(new Alan());
+        NPCs.Add(new CollectorSue());
+        NPCs.Add(new SleazyJoe());
+        NPCs.Add(new Rival());
+        //NPCs.Add(new DebugNPC());
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (!Tutorial.instance.flags.Contains("activeAccount"))
+        if(NPCs.Count > 0)
         {
-            NPCs[0].NpcCheck();
-        }
-        else
-        {
-            if (count >= NPCs.Count) count = 0;
+            if (!Tutorial.instance.flags.Contains("activeAccount"))
+            {
+                NPCs[0]?.NpcCheck();
+            }
+            else
+            {
+                if (count >= NPCs.Count) count = 0;
 
-            NPCs[count].NpcCheck();
+                NPCs[count].NpcCheck();
 
-            count++;
+                count++;
+            }
         }
     }
     
