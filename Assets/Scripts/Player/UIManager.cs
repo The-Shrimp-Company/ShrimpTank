@@ -261,4 +261,18 @@ public class UIManager : MonoBehaviour
         }
         Cursor.visible = false;
     }
+
+
+    public void ToggleUIVisibility()  // Hides and shows the UI (ONLY FOR GETTING SCREENSHOTS, MAY BREAK THE GAME)
+    {
+        if (MainCanvas == null) return;
+
+        bool enable = !MainCanvas.gameObject.activeInHierarchy;
+
+        MainCanvas.gameObject.SetActive(enable);
+        Cursor.visible = enable;
+        TabletView.gameObject.SetActive(enable);
+        _screenStack.Peek().gameObject.SetActive(enable);
+        _tabletStack.Peek().gameObject.SetActive(enable);
+    }
 }
