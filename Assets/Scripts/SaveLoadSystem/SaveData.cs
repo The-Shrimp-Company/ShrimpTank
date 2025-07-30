@@ -30,6 +30,7 @@ namespace SaveLoadSystem
 
         public Email[] emails;
 
+        public Request[] requests;
 
         public List<string> tutorialFlags;
 

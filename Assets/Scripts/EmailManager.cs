@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Text.Json.Serialization;
+using System;
 
 [System.Serializable]
 public class MyButton
@@ -92,7 +93,7 @@ public class EmailManager
 
     public int CreateID()
     {
-        return (int)Time.time + instance.IdChaff++;
+        return (int)DateTime.UtcNow.Ticks + instance.IdChaff++;
     }
 
     static public void SendEmail(Email email, bool important = false, float delay = 0, NPC sender = null)

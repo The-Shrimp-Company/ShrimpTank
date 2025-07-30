@@ -186,6 +186,8 @@ public class SaveController : MonoBehaviour
         // Emails
         d.emails = EmailManager.instance.emails.ToArray();
 
+        // Requests
+        d.requests = CustomerManager.Instance.requests.ToArray();
 
         // Tutorial
         d.tutorialFlags = Tutorial.instance.flags;
@@ -217,6 +219,9 @@ public class SaveController : MonoBehaviour
         // Inventory
         Inventory.instance.Initialize(d.inventoryItems);
 
+        // Requests
+        CustomerManager.Instance.Initialize(d.requests);
+
         // Npcs
         NPCManager.Instance.Initialize();
 
@@ -235,6 +240,7 @@ public class SaveController : MonoBehaviour
     {
         PlayerStats.stats = new Stats();
         Inventory.instance.Initialize();
+        CustomerManager.Instance.Initialize();
         EmailManager.instance.Initialize();
         NPCManager.Instance.Initialize();
         Money.instance.SetStartingMoney();
