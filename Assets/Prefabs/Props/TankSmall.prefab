@@ -465,6 +465,7 @@ Transform:
   - {fileID: 358445018689480702}
   - {fileID: 489485880703759014}
   - {fileID: 8707153858353793039}
+  - {fileID: 5779290906097663038}
   - {fileID: 6421506423354189709}
   - {fileID: 7623248954326440091}
   - {fileID: 2203429193121671375}
@@ -493,12 +494,14 @@ MonoBehaviour:
   shrimpParent: {fileID: 4423233220053350138}
   tankName: 
   updateTime: 0
+  decorationsInTank: []
   foodInTank: []
   FoodStore: 0
   foodToAdd: []
   foodToRemove: []
   foodParent: {fileID: 1724462573742006033}
   waterLevel: {fileID: 358445018689480702}
+  waterObject: {fileID: 5122782647130388157}
   waterQuality: 100
   waterQualityDecreaseSpeed: 5
   waterTemperature: 50
@@ -516,7 +519,9 @@ MonoBehaviour:
   tankViewPrefab: {fileID: 4927723591345053280, guid: 89d7b0e4c6dd7814aa2cc254ba712ae0,
     type: 3}
   tankViewScript: {fileID: 0}
+  tankDecorateViewScript: {fileID: 0}
   tankNameChanged: 0
+  decorationCamDock: {fileID: 4518696556723750466}
   roughShrimpCapacity: 31
   chanceToKillAShrimpOverCapacity:
     serializedVersion: 2
@@ -1676,8 +1681,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebf93b530651ba140a87aa146cb539bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridPointPrefab: {fileID: 7075755009106335745, guid: ad8a5b4c18b743d4fb0b4a14931031d2,
-    type: 3}
   gridWidth: 22
   gridHeight: 15
   gridLength: 14
@@ -1685,6 +1688,8 @@ MonoBehaviour:
   pointSize: 0.025
   invalidPointSize: 0.025
   debugGrid: 0
+  gridPointPrefab: {fileID: 7075755009106335745, guid: ad8a5b4c18b743d4fb0b4a14931031d2,
+    type: 3}
 --- !u!1 &4098344220443592499
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,6 +1858,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2235153865005791252}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4518696556723750466
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5779290906097663038}
+  m_Layer: 6
+  m_Name: DecorateCameraDock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 1
+  m_IsActive: 1
+--- !u!4 &5779290906097663038
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4518696556723750466}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.015179909, y: 0.73973376, z: -0.6725844, w: 0.013921183}
+  m_LocalPosition: {x: -0, y: 0.436, z: 0.037}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2235153865005791252}
+  m_LocalEulerAnglesHint: {x: 84.556, y: 179.893, z: 2.254}
 --- !u!1 &4595576537860867106
 GameObject:
   m_ObjectHideFlags: 0

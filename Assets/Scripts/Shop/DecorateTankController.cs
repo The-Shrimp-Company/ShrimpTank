@@ -14,6 +14,9 @@ public class DecorateTankController : MonoBehaviour
 
     private Dictionary<GridNode, GameObject> bottomNodes = new Dictionary<GridNode, GameObject>();
     private GridNode hoveredNode, selectedNode;
+    private GameObject selectedObject, objectPreview;
+
+    private bool selectionValid;
 
 
     [Header("Grid")]
@@ -22,6 +25,8 @@ public class DecorateTankController : MonoBehaviour
     public Material decoratingGridHovered;
     public Material decoratingGridValidMat;
     public Material decoratingGridInvalidMat;
+    public Material objectPreviewValidMat;
+    public Material objectPreviewInvalidMat;
 
     public GameObject testItem;
 
@@ -65,6 +70,8 @@ public class DecorateTankController : MonoBehaviour
                 bottomNodes.Add(currentGrid.grid[w][h][l], node);
             }
         }
+
+        StartPlacing(testItem);
     }
 
 
@@ -77,6 +84,9 @@ public class DecorateTankController : MonoBehaviour
 
         hoveredNode = null;
         selectedNode = null;
+
+        if (objectPreview)
+            Destroy(objectPreview);
 
 
         foreach(GameObject n in bottomNodes.Values)
@@ -138,19 +148,89 @@ public class DecorateTankController : MonoBehaviour
         if (hoveredNode != null)
         {
             bottomNodes[hoveredNode].GetComponent<MeshRenderer>().material = decoratingGridHovered;
+
+            selectionValid = !hoveredNode.invalid;
+            objectPreview.transform.position = hoveredNode.worldPos;
         }
+        else
+        {
+            selectionValid = false;
+            objectPreview.transform.position = new Vector3(0, 100000, 0);
+        }
+
+
+        SetObjectMaterials(objectPreview, selectionValid ? objectPreviewValidMat : objectPreviewInvalidMat);
     }
 
 
     public void MouseClick(Vector3 point, bool pressed)
     {
         if (hoveredNode == null) return;
+        if (selectedObject == null) return;
 
-        if (!hoveredNode.invalid)
+        if (selectionValid)
         {
-            GameObject t = GameObject.Instantiate(testItem, hoveredNode.worldPos, Quaternion.identity);
+            GameObject t = GameObject.Instantiate(selectedObject, hoveredNode.worldPos, Quaternion.identity);
             t.transform.localScale = new Vector3(currentGrid.pointSize * 2f, currentGrid.pointSize * 2f, currentGrid.pointSize * 2f);
             currentGrid.RebakeGrid();
         }
+    }
+
+
+    private void StartPlacing(GameObject d)
+    {
+        selectedObject = d;
+
+        objectPreview = GameObject.Instantiate(selectedObject);
+        objectPreview.name = "Object Preview";
+        objectPreview.transform.localScale = new Vector3(currentGrid.pointSize * 2f, currentGrid.pointSize * 2f, currentGrid.pointSize * 2f);
+        SetObjectMaterials(objectPreview, objectPreviewValidMat);
+    }
+
+
+    private void StopPlacing()
+    {
+        if (objectPreview) Destroy(objectPreview);
+    }
+
+
+    private void SetObjectMaterials(GameObject obj, Material mat)
+    {
+        if (obj == null) return;
+        if (mat == null) return;
+
+        MeshRenderer[] meshes = obj.GetComponentsInChildren<MeshRenderer>();
+
+        if (meshes[0] == null || meshes[0].material == mat) return;
+
+        foreach (MeshRenderer me in meshes)
+        {
+            var materials = me.materials;
+
+            for (var i = 0; i < materials.Length; i++)
+            {
+                materials[i] = mat;
+            }
+
+            me.materials = materials;
+        }
+    }
+
+
+    public void CheckPlacementValidity()
+    {
+        // Sphere check with all nodes to see if it overlaps
+
+
+        // Box check sides of tank
+
+
+        // Overlapped nodes added to list
+
+
+        // Valid ones are blue, invalid are red
+
+
+        // If no invalid then it can be placed
     }
 }
