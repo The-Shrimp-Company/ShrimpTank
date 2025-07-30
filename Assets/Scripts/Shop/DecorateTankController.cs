@@ -16,6 +16,7 @@ public class DecorateTankController : MonoBehaviour
     private GridNode hoveredNode, selectedNode;
     private GameObject selectedObject, objectPreview;
 
+    private bool placementMode;
     private bool selectionValid;
     private float currentRotation;
     public float rotationSnap = 90;
@@ -143,40 +144,39 @@ public class DecorateTankController : MonoBehaviour
 
     private void ChangeHoveredNode(GridNode node)
     {
-        foreach (GridNode n in bottomNodes.Keys)
-        {
-            if (n.invalid) bottomNodes[n].GetComponent<MeshRenderer>().material = decoratingGridInvalidMat;
-            else bottomNodes[n].GetComponent<MeshRenderer>().material = decoratingGridMat;
-        }
-
         hoveredNode = node;
-        if (hoveredNode != null)
-        {
-            bottomNodes[hoveredNode].GetComponent<MeshRenderer>().material = decoratingGridHovered;
 
-            objectPreview.transform.position = hoveredNode.worldPos;
-        }
-        else
+        if (!placementMode)
         {
-            objectPreview.transform.position = new Vector3(0, 100000, 0);
+            GreyOutGrid();
+
+            if (hoveredNode != null) bottomNodes[hoveredNode].GetComponent<MeshRenderer>().material = decoratingGridHovered;
         }
 
+        else  // Placement Mode
+        {
+            if (hoveredNode != null) objectPreview.transform.position = hoveredNode.worldPos;
+            else objectPreview.transform.position = new Vector3(0, 100000, 0);
 
-        CheckPlacementValidity();
+            CheckPlacementValidity();
+        }
     }
 
 
     public void MouseClick(Vector3 point, bool pressed)
     {
         if (hoveredNode == null) return;
-        if (selectedObject == null) return;
 
-        if (selectionValid)
+        if (placementMode)
         {
-            GameObject t = GameObject.Instantiate(selectedObject, hoveredNode.worldPos, Quaternion.identity);
-            t.transform.localScale = new Vector3(currentGrid.pointSize * 2f, currentGrid.pointSize * 2f, currentGrid.pointSize * 2f);
-            t.transform.rotation = objectPreview.transform.rotation;
-            currentGrid.RebakeGrid();
+            if (selectionValid && selectedObject != null)
+            {
+                GameObject t = GameObject.Instantiate(selectedObject, hoveredNode.worldPos, Quaternion.identity);
+                t.transform.localScale = new Vector3(currentGrid.pointSize * 2f, currentGrid.pointSize * 2f, currentGrid.pointSize * 2f);
+                t.transform.rotation = objectPreview.transform.rotation;
+                currentGrid.RebakeGrid();
+                ChangeHoveredNode(hoveredNode);
+            }
         }
     }
 
@@ -184,6 +184,7 @@ public class DecorateTankController : MonoBehaviour
     private void StartPlacing(GameObject d)
     {
         selectedObject = d;
+        placementMode = true;
 
         currentRotation = 0;
 
@@ -196,6 +197,7 @@ public class DecorateTankController : MonoBehaviour
 
     private void StopPlacing()
     {
+        placementMode = false;
         if (objectPreview) Destroy(objectPreview);
     }
 
@@ -228,32 +230,42 @@ public class DecorateTankController : MonoBehaviour
         if (objectPreview == null) return;
         if (currentGrid == null) return;
 
-        // Sphere check with all nodes to see if it overlaps
+        GreyOutGrid();
 
-        List<GridNode> nodes = currentGrid.CheckForObjectCollisions(objectPreview);
-        if (nodes.Count == 0)
+        //Check for colliding nodes and walls, if they are invalid then invalidate the placement
+
+        Transform[] transforms = objectPreview.GetComponentsInChildren<Transform>();
+        List<GridNode> nodes = currentGrid.CheckForObjectCollisions(transforms);
+        selectionValid = true;
+
+        foreach (GridNode node in nodes)
         {
-            selectionValid = true;
+            if (node.invalid)
+            {
+                selectionValid = false;
+
+                if (node.worldPos != null && node.worldPos != Vector3.zero)  // If it is not a wall
+                {
+                    bottomNodes[node].GetComponent<MeshRenderer>().material = decoratingGridInvalidMat;
+                }
+            }
+
+            else
+            {
+                bottomNodes[node].GetComponent<MeshRenderer>().material = decoratingGridValidMat;
+            }
         }
-        else
-        {
-            selectionValid = false;
-        }
 
-        SetObjectMaterials(objectPreview, selectionValid ? objectPreviewValidMat : objectPreviewInvalidMat);
-
-
-        // Box check sides of tank
-
-
-        // Overlapped nodes added to list
-
-
-        // Valid ones are blue, invalid are red
-
-
-        // If no invalid then it can be placed
+        SetObjectMaterials(objectPreview, selectionValid ? objectPreviewValidMat : objectPreviewInvalidMat);    
     }
+
+
+
+    // Selecting when not placing
+
+    // Raycast for objects
+
+    // If not, check for objects on the highlighted node
 
 
     public void OnRotate(InputValue value)
@@ -267,9 +279,17 @@ public class DecorateTankController : MonoBehaviour
     private void RotateObject()
     {
         if (objectPreview == null) return;
+        if (!placementMode) return;
 
         currentRotation += rotationSnap;
 
         objectPreview.transform.Rotate(new Vector3(0, rotationSnap, 0));
+
+        CheckPlacementValidity();
+    }
+
+    private void GreyOutGrid()
+    {
+        foreach (GridNode n in bottomNodes.Keys) bottomNodes[n].GetComponent<MeshRenderer>().material = decoratingGridMat;
     }
 }

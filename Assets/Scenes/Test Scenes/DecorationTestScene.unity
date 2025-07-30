@@ -24253,7 +24253,7 @@ MonoBehaviour:
     type: 2}
   objectPreviewInvalidMat: {fileID: 2100000, guid: 645dd24fa2be03b46a6a9d2294902b84,
     type: 2}
-  showNodes: 0
+  showNodes: 1
   testItem: {fileID: 7075755009106335745, guid: b222cf2c437d3b641821ec5249c58b41,
     type: 3}
 --- !u!1001 &1455200156
@@ -41139,7 +41139,7 @@ PrefabInstance:
     - target: {fileID: 8897738516793857238, guid: a23975896a78f054f90dc35cb57f895f,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1382
+      value: 1409
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -127,32 +128,83 @@ public class TankGrid : MonoBehaviour
     }
 
 
-    public List<GridNode> CheckForObjectCollisions(GameObject obj)
+    public List<GridNode> CheckForObjectCollisions(Transform[] objects)
     {
         List<GridNode> collidingNodes = new List<GridNode>();
         LayerMask layer = LayerMask.GetMask("Decoration");
         RaycastHit[] hit;
 
+        // Nodes
         for (int i = 0; i < gridWidth; i++)
         {
             int j = 0;
             for (int k = 0; k < gridLength; k++)
             {
-                if (!grid[i][j][k].invalid) continue;
+                //if (!grid[i][j][k].invalid) continue;
 
                 hit = Physics.BoxCastAll(grid[i][j][k].worldPos, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 1, layer, QueryTriggerInteraction.Ignore);
                 foreach (RaycastHit h in hit)
                 {
-                    if (h.collider.gameObject == obj)
+                    if (objects.Contains(h.transform))
                     {
                         collidingNodes.Add(grid[i][j][k]);
-                        continue;
+                        break;
                     }
                 }
             }
         }
 
+
+
+        GridNode wall = new GridNode();
+        wall.invalid = true;
+
+        // Back
+        Vector3 pos = transform.position + new Vector3(0, 0, (gridLength + 1) / 2) * pointDistance;
+        hit = Physics.BoxCastAll(pos, new Vector3(gridWidth * 2, gridHeight * 2, 0.1f) * pointDistance / 2f, Vector3.up, Quaternion.identity, 1, layer, QueryTriggerInteraction.Ignore);
+        foreach (RaycastHit h in hit)
+            if (objects.Contains(h.transform))
+                collidingNodes.Add(wall);
+
+        // Front
+        pos = transform.position + new Vector3(0, 0, (-gridLength - 2) / 2) * pointDistance;
+        hit = Physics.BoxCastAll(pos, new Vector3(gridWidth * 2, gridHeight * 2, 0.1f) * pointDistance / 2f, Vector3.up, Quaternion.identity, 1, layer, QueryTriggerInteraction.Ignore);
+        foreach (RaycastHit h in hit)
+            if (objects.Contains(h.transform))
+                collidingNodes.Add(wall);
+
+        // Right
+        pos = transform.position + new Vector3((gridWidth + 1) / 2, 0, 0) * pointDistance;
+        hit = Physics.BoxCastAll(pos, new Vector3(0.1f, gridHeight * 2, gridLength * 2) * pointDistance / 2f, Vector3.up, Quaternion.identity, 1, layer, QueryTriggerInteraction.Ignore);
+        foreach (RaycastHit h in hit)
+            if (objects.Contains(h.transform))
+                collidingNodes.Add(wall);
+
+        // Left
+        pos = transform.position + new Vector3((-gridWidth - 2) / 2, 0, 0) * pointDistance;
+        hit = Physics.BoxCastAll(pos, new Vector3(0.1f, gridHeight * 2, gridLength * 2) * pointDistance / 2f, Vector3.up, Quaternion.identity, 1, layer, QueryTriggerInteraction.Ignore);
+        foreach (RaycastHit h in hit)
+            if (objects.Contains(h.transform))
+                collidingNodes.Add(wall);
+
+
         return collidingNodes;
+    }
+
+
+    public List<GameObject> CheckNodeForObject(GridNode node)
+    {
+        List<GameObject> collidingObjects = new List<GameObject>();
+        LayerMask layer = LayerMask.GetMask("Decoration");
+        RaycastHit[] hit;
+
+        hit = Physics.BoxCastAll(node.worldPos, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 1, layer, QueryTriggerInteraction.Ignore);
+        foreach (RaycastHit h in hit)
+        {
+            collidingObjects.Add(h.transform.gameObject);
+        }
+
+        return collidingObjects;
     }
 
 
