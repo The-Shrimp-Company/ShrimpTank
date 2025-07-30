@@ -10044,6 +10044,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &439833910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439833895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b20dd542d2e93f4dab07cbfa6c4440e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &452673829
 Mesh:
   m_ObjectHideFlags: 0
@@ -12730,7 +12742,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2873474120732443855, guid: 95854f16d1017c34eaac405f4651506b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 439833910}
   m_SourcePrefab: {fileID: 100100000, guid: 95854f16d1017c34eaac405f4651506b, type: 3}
 --- !u!43 &707697976
 Mesh:
@@ -24223,6 +24239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d837e2dcf6cba47a0643dee968014f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSnap: 90
   decoratingGridPrefab: {fileID: 7075755009106335745, guid: b11972cef56dd6c4591d1010203b990d,
     type: 3}
   decoratingGridMat: {fileID: 2100000, guid: f03d301c5c6c02642b6cd4ce25e5e2f1, type: 2}
@@ -24236,6 +24253,7 @@ MonoBehaviour:
     type: 2}
   objectPreviewInvalidMat: {fileID: 2100000, guid: 645dd24fa2be03b46a6a9d2294902b84,
     type: 2}
+  showNodes: 0
   testItem: {fileID: 7075755009106335745, guid: b222cf2c437d3b641821ec5249c58b41,
     type: 3}
 --- !u!1001 &1455200156
@@ -41121,7 +41139,7 @@ PrefabInstance:
     - target: {fileID: 8897738516793857238, guid: a23975896a78f054f90dc35cb57f895f,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1364
+      value: 1382
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

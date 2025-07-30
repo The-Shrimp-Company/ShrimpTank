@@ -1102,6 +1102,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Rotate",
+                    "type": "Button",
+                    "id": "c146e560-6d55-4bf1-a3e7-93e154fb0d0b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1399,6 +1408,17 @@
                     "processors": "",
                     "groups": "K&M",
                     "action": "ToggleDebug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "50d7a64c-b42d-41cb-a853-d5ea122ac566",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "K&M",
+                    "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

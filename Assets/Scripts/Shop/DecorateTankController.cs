@@ -17,6 +17,8 @@ public class DecorateTankController : MonoBehaviour
     private GameObject selectedObject, objectPreview;
 
     private bool selectionValid;
+    private float currentRotation;
+    public float rotationSnap = 90;
 
 
     [Header("Grid")]
@@ -173,6 +175,7 @@ public class DecorateTankController : MonoBehaviour
         {
             GameObject t = GameObject.Instantiate(selectedObject, hoveredNode.worldPos, Quaternion.identity);
             t.transform.localScale = new Vector3(currentGrid.pointSize * 2f, currentGrid.pointSize * 2f, currentGrid.pointSize * 2f);
+            t.transform.rotation = objectPreview.transform.rotation;
             currentGrid.RebakeGrid();
         }
     }
@@ -181,6 +184,8 @@ public class DecorateTankController : MonoBehaviour
     private void StartPlacing(GameObject d)
     {
         selectedObject = d;
+
+        currentRotation = 0;
 
         objectPreview = GameObject.Instantiate(selectedObject);
         objectPreview.name = "Object Preview";
@@ -248,5 +253,23 @@ public class DecorateTankController : MonoBehaviour
 
 
         // If no invalid then it can be placed
+    }
+
+
+    public void OnRotate(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            RotateObject();
+        }
+    }
+
+    private void RotateObject()
+    {
+        if (objectPreview == null) return;
+
+        currentRotation += rotationSnap;
+
+        objectPreview.transform.Rotate(new Vector3(0, rotationSnap, 0));
     }
 }
