@@ -193,8 +193,8 @@ public class ShrimpBreeding : ShrimpActivity
             if (debugBreeding) Debug.Log(shrimp.name + " has had a shrimp");
 
             Email email = EmailTools.CreateEmail();
-            email.title = "A new shrimp has been born";
-            email.subjectLine = "Wow!";
+            email.title = "YourStore@notifSystem.store";
+            email.subjectLine = "A new shrimp has been born";
             email.mainText = "The shrimp is in " + shrimp.tank.tankName + ", the parents are " + shrimp.stats.name + " and " + otherShrimp.stats.name;
             EmailManager.SendEmail(email);
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class FullEmail : MonoBehaviour
@@ -20,14 +21,7 @@ public class FullEmail : MonoBehaviour
         _email = email;
         EmailManager.instance.openEmail = this;
         body.text = email.mainText;
-        if(email.sender != null)
-        {
-            title.text = email.sender.name;
-        }
-        else
-        {
-            title.text = email.title;
-        }
+        title.text = email.sender ?? email.title ?? "WhoKnows";
         subject.text = email.subjectLine;
         body.fontSize = 30;
         if(email.buttons != null)
@@ -39,7 +33,11 @@ public class FullEmail : MonoBehaviour
                 GameObject obj = Instantiate(_button, buttonParent);
                 obj.GetComponentInChildren<TextMeshProUGUI>().text = button.text;
                 FontTools.SizeFont(obj.GetComponentInChildren<TextMeshProUGUI>());
-                obj.GetComponent<Button>().onClick.AddListener(button.action);
+                button.ButtonFunc();
+                foreach(UnityAction action in button.actions)
+                {
+                    obj.GetComponent<Button>().onClick.AddListener(action);
+                }
                 if(button.destroy == true)
                 {
                     obj.GetComponent<Button>().onClick.AddListener(DeleteEmail);

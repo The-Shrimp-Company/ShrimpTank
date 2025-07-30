@@ -62,7 +62,7 @@ public class ShrimpManager : MonoBehaviour
     {
         instance = this;
         geneManager = GetComponent<GeneManager>();
-        foreach(string line in File.ReadLines("Assets/ShrimpNames.txt"))
+        foreach (string line in File.ReadLines(Path.Combine(Application.streamingAssetsPath, "ShrimpNames.txt")))
         {
             names.Add(line);
         }
@@ -383,7 +383,7 @@ public class ShrimpManager : MonoBehaviour
                 return "Shrimp " + allShrimp.Count.ToString();
             }
 
-            shrimpWithName = allShrimp.Where(x => { return x.name == names[index]; }).ToArray();
+            shrimpWithName = allShrimp.Where(x => { return (x != null && x.name == names[index]); }).ToArray();
 
         } while (shrimpWithName.Length != 0);
 

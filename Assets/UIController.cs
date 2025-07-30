@@ -9,12 +9,6 @@ using UnityEngine.InputSystem.Composites;
 
 public class UIController : MonoBehaviour
 {
-
-    private Button newGameButton;
-    private Button continueButton;
-    private Button saveButton;
-    private Button backButton;
-    private Button QuitButton;
     private Label loadingText;
     private VisualElement mainScreen;
     private VisualElement loadingScreen;
@@ -26,27 +20,21 @@ public class UIController : MonoBehaviour
     private bool loading = false;
     private int count;
 
+    private AsyncOperation operation;
+
     // Start is called before the first frame update
     void Start()
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
 
+        // Assigning functions
+        root.Q<Button>("MainMenuButton").clicked += NewGame;
+        root.Q<Button>("ContinueButton").clicked += ContinueGame;
+        root.Q<Button>("SaveButton").clicked += OpenSaveScreen;
+        root.Q<Button>("BackMainMenu").clicked += OpenMainMenu;
+        root.Q<Button>("QuitButton").clicked += QuitGame;
 
-        newGameButton = root.Q<Button>("MainMenuButton");
-        newGameButton.clicked += NewGame;
-
-        continueButton = root.Q<Button>("ContinueButton");
-        continueButton.clicked += ContinueGame;
-
-        saveButton = root.Q<Button>("SaveButton");
-        saveButton.clicked += OpenSaveScreen;
-
-        backButton = root.Q<Button>("BackMainMenu");
-        backButton.clicked += OpenMainMenu;
-
-        QuitButton = root.Q<Button>("QuitButton");
-        QuitButton.clicked += QuitGame;
-
+        // Storing Values for later
         loadingText = root.Q<Label>("LoadingText");
 
         saveFiles[0] = root.Q<Button>("SaveFile1");
@@ -57,6 +45,7 @@ public class UIController : MonoBehaviour
         loadingScreen = root.Q<VisualElement>("LoadingScreen");
         saveScreen = root.Q<VisualElement>("SaveMenu");
 
+        // Ensuring correct order
         mainScreen.BringToFront();
     }
 
@@ -64,13 +53,17 @@ public class UIController : MonoBehaviour
     {
         if (loading)
         {
-            if(count >= 10)
+            if(count >= 1)
             {
                 loadingText.text += ".";
                 count = 0;
             }
             count++;
-            Debug.Log("here");
+            Debug.Log("Here");
+            if (operation.isDone)
+            {
+                SceneManager.UnloadSceneAsync(0);
+            }
         }
     }
 
@@ -78,7 +71,7 @@ public class UIController : MonoBehaviour
     {
         LoadingScreen();
         SaveManager.startNewGame = true;
-        SceneManager.LoadScene("ShopScene");
+        operation = SceneManager.LoadSceneAsync("OpeningMenu");
     }
 
     private void ContinueGame()
@@ -86,7 +79,7 @@ public class UIController : MonoBehaviour
         LoadingScreen();
         SaveManager.startNewGame = false;
         SaveManager.gameInitialized = false;
-        SceneManager.LoadScene("ShopScene");
+        operation = SceneManager.LoadSceneAsync("OldShopScene");
     }
 
     private void QuitGame()

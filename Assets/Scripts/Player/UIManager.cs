@@ -90,10 +90,8 @@ public class UIManager : MonoBehaviour
         else
         {
             ScreenView oldScreen = _screenStack.Pop();
-            if(oldScreen != null)
-            {
-                oldScreen.Close(false);
-            }
+            
+            oldScreen?.Close(false);
         }
 
         if(_screenStack.Count != 0)
@@ -126,10 +124,8 @@ public class UIManager : MonoBehaviour
             else
             {
                 ScreenView oldScreen = _screenStack.Pop();
-                if (oldScreen != null)
-                {
-                    oldScreen.Close(false);
-                }
+                
+                oldScreen?.Close(false);
             }
             OpenScreen(newScreen);
         }
@@ -264,5 +260,19 @@ public class UIManager : MonoBehaviour
             _cursor.SetActive(true);
         }
         Cursor.visible = false;
+    }
+
+
+    public void ToggleUIVisibility()  // Hides and shows the UI (ONLY FOR GETTING SCREENSHOTS, MAY BREAK THE GAME)
+    {
+        if (MainCanvas == null) return;
+
+        bool enable = !MainCanvas.gameObject.activeInHierarchy;
+
+        MainCanvas.gameObject.SetActive(enable);
+        Cursor.visible = enable;
+        TabletView.gameObject.SetActive(enable);
+        _screenStack.Peek().gameObject.SetActive(enable);
+        _tabletStack.Peek().gameObject.SetActive(enable);
     }
 }

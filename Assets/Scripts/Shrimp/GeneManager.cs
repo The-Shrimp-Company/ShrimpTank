@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -52,6 +53,15 @@ public class GeneManager : MonoBehaviour
     public List<TraitSO> legsSOs = new List<TraitSO>();
 
     private List<GlobalGene> loadedGlobalGenes = new List<GlobalGene>();
+
+    public List<string> allTraits { get { List<TraitSO> traits = colourSOs.Concat(patternSOs.Concat(bodySOs.Concat(headSOs.Concat(eyeSOs.Concat(tailSOs.Concat(tailFanSOs.Concat(legsSOs))))))).ToList();
+            List<string> traitIDs = new List<string>();
+            foreach(TraitSO trait in traits)
+            {
+                traitIDs.Add(trait.ID);
+            }
+            return traitIDs;
+        } }
 
 
     public void Awake()
@@ -815,4 +825,5 @@ public class GeneManager : MonoBehaviour
     {
         return loadedGlobalGenes.ToArray();
     }
+
 }

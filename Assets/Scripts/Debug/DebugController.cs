@@ -53,6 +53,7 @@ public class DebugController : MonoBehaviour
     public static DebugCommand<float> SET_AUTOSAVE_DELAY;
     public static DebugCommand DELETE_PLAYERPREFS;
 
+    public static DebugCommand TOGGLEUIVISIBILITY;
     public static DebugCommand RELOAD;
     public static DebugCommand FREEZE;
     public static DebugCommand MAIN_MENU;
@@ -255,6 +256,12 @@ public class DebugController : MonoBehaviour
             Time.timeScale = 0;
         });
 
+        TOGGLEUIVISIBILITY = new DebugCommand("toggle_ui", "Toggles UI visibility (Only for getting screenshots, may break the game)", "toggle_ui", () =>
+        {
+            if (UIManager.instance != null) 
+                UIManager.instance.ToggleUIVisibility();
+        });
+
 
 
 
@@ -379,6 +386,7 @@ public class DebugController : MonoBehaviour
 
             Spacer,
 
+            TOGGLEUIVISIBILITY,
             RELOAD,
             FREEZE,
             MAIN_MENU,

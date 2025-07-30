@@ -1,3 +1,4 @@
+using SaveLoadSystem;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,6 +9,7 @@ public class SellContent : ContentPopulation
     [SerializeField] private TextMeshProUGUI shrimpCount;
     [SerializeField] private TextMeshProUGUI shrimpPrice;
     [SerializeField] private TextMeshProUGUI reputation;
+    [SerializeField] private TextMeshProUGUI storeName;
 
     // Start is called before the first frame update
     void Awake()
@@ -21,6 +23,7 @@ public class SellContent : ContentPopulation
         }
         shrimpPrice.text = "You have [£" + price + "] total value of shrimp.";
         reputation.text = "You have [" + Reputation.GetReputation() + "] Reputation";
+        storeName.text = Store.StoreName;
     }
 
     /// <summary>

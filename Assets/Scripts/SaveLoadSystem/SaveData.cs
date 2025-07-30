@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SaveLoadSystem
@@ -10,8 +11,10 @@ namespace SaveLoadSystem
         public float totalTime;
         public int day;
         public int year;
-        public Vector3 playerPosition;
+        public System.Numerics.Vector3 playerPosition;
         public float playerRotation;
+
+        public string storeName;
 
 
         public Stats playerStats;
@@ -22,6 +25,13 @@ namespace SaveLoadSystem
         public ShelfSaveData[] shelves;
 
         public GlobalGene[] globalGenes;
+
+        public NPC.NPCData[] npcs;
+
+        public Email[] emails;
+
+
+        public List<string> tutorialFlags;
 
         public string versionNumber;
         public string fileIntegrityCheck;

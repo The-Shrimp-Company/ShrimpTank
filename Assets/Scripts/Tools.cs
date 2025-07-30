@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json;
 using UnityEngine;
+using System.Linq;
 
 public static class Tools
 {
@@ -25,5 +27,53 @@ public static class Tools
         }
 
         return list;
+    }
+
+    static public NPC.NPCData NpcValidation(this NPC npc, NPC.NPCData[] data)
+    {
+        if(data != null)
+        {
+            data = data.Where((x) => { return x.name == npc.name; }).ToArray();
+        }
+        else
+        {
+            return null;
+        }
+        if (data.Length > 0)
+        {
+            return data[0];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+
+    #nullable enable
+    static public T? TryCast<T>(this object obj)
+    {
+        if (obj.GetType() == typeof(JsonElement))
+        {
+            try
+            {
+                return JsonSerializer.Deserialize<T>((JsonElement)obj, new JsonSerializerOptions() { IncludeFields = true });
+            }
+            catch
+            {
+                return default(T);
+            }
+        }
+        else
+        {
+            try
+            {
+                return (T)obj;
+            }
+            catch
+            {
+                return default(T);
+            }
+        }
     }
 }

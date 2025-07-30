@@ -6,6 +6,13 @@ using TMPro;
 [RequireComponent(typeof(TankUpgradeController))]
 public class TankController : MonoBehaviour
 {
+    public delegate void shrimpChanged(Shrimp shrimp);
+    public event shrimpChanged OnShrimpRemoved;
+    public event shrimpChanged OnShrimpAdded;
+
+
+
+
     [Header("Shrimp")]
     public List<Shrimp> shrimpInTank = new List<Shrimp>();
     [HideInInspector] public List<Shrimp> shrimpToAdd = new List<Shrimp>();
@@ -210,11 +217,14 @@ public class TankController : MonoBehaviour
             for (int i = shrimpToAdd.Count - 1; i >= 0; i--)
             {
                 shrimpInTank.Add(shrimpToAdd[i]);
+                if(OnShrimpAdded != null)
+                {
+                    OnShrimpAdded(shrimpToAdd[i]);
+                }
                 ShrimpManager.instance.allShrimp.Add(shrimpToAdd[i]);
                 shrimpToAdd[i].SwitchLODLevel(currentLODLevel);
                 shrimpToAdd.RemoveAt(i);
 
-                if (tankViewScript != null) tankViewScript.UpdateContent();
             }
         }
     }
@@ -242,10 +252,12 @@ public class TankController : MonoBehaviour
             {
                 if (shrimpInTank.Contains(shrimpToRemove[i]))
                 {
+                    if(OnShrimpRemoved != null)
+                    {
+                        OnShrimpRemoved(shrimpToRemove[i]);
+                    }
                     shrimpInTank.Remove(shrimpToRemove[i]);
                     ShrimpManager.instance.RemoveShrimpFromStore(shrimpToRemove[i]);
-
-                    if (tankViewScript != null) tankViewScript.UpdateContent();
                 }
 
                 shrimpToRemove.RemoveAt(i);
@@ -416,8 +428,8 @@ public class TankController : MonoBehaviour
                 int r = Random.Range(0, shrimpInTank.Count);
 
                 Email email = EmailTools.CreateEmail();
-                email.title = shrimpInTank[r].stats.name + " has died due to overpopulation";
-                email.subjectLine = "Please move some shrimp out of the tank";
+                email.title = "YourStore@notifSystem.store";
+                email.subjectLine = shrimpInTank[r].stats.name + " has died due to overpopulation";
                 email.mainText = shrimpInTank[r].stats.name + " was in " + tankName;
                 EmailManager.SendEmail(email);
 

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DebugNPC : NPC
 {
-    public DebugNPC()
+    public DebugNPC() : base("Debug")
     {
-        name = "DebugNPC";
+
     }
 
     public override void NpcCheck()
@@ -15,50 +15,9 @@ public class DebugNPC : NPC
         {
             Email email = this.CreateEmail();
             bool important = false;
-            email.title = "DEBUG";
             email.subjectLine = "fghfghgghf";
-            email.mainText = "ahhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n" +
-                "ahhhhhh\n";
+            email.mainText = completion.ToString();
+            completion += 1;
 
 
             if (email.mainText != null)

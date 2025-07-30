@@ -6,7 +6,7 @@ using UnityEngine;
 public class Body : PartScript
 {
     public Transform headNode, tailNode;
-    [SerializeField] private bool debug = false;
+    //[SerializeField] private bool debug = false;
 
     
 

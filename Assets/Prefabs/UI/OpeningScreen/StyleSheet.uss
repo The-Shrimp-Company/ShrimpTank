@@ -1,0 +1,70 @@
+.VisualBox {
+    flex-grow: 0;
+    flex-shrink: 0;
+    align-items: center;
+    align-self: center;
+    overflow: hidden;
+    justify-content: center;
+    background-color: rgb(209, 145, 194);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 2px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-left-color: rgb(116, 205, 205);
+    border-right-color: rgb(116, 205, 205);
+    border-top-color: rgb(116, 205, 205);
+    border-bottom-color: rgb(116, 205, 205);
+}
+
+.my-text-field > .unity-base-field__input {
+    background-color: rgba(56, 56, 56, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    color: rgb(0, 84, 87);
+    font-size: 21px;
+    -unity-text-align: upper-center;
+    -unity-font-style: bold-and-italic;
+}
+
+.TextBox:hover {
+    flex-grow: 0;
+    flex-shrink: 0;
+    align-items: center;
+    align-self: center;
+    overflow: hidden;
+    justify-content: center;
+    background-color: rgb(130, 77, 117);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 2px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-left-color: rgb(116, 205, 205);
+    border-right-color: rgb(116, 205, 205);
+    border-top-color: rgb(116, 205, 205);
+    border-bottom-color: rgb(116, 205, 205);
+}
+
+.TextBox {
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 2px;
+    flex-shrink: 0;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+}
