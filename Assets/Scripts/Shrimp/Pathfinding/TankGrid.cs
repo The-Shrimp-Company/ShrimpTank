@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class TankGrid : MonoBehaviour
@@ -123,6 +124,35 @@ public class TankGrid : MonoBehaviour
                 }
             }
         }
+    }
+
+
+    public List<GridNode> CheckForObjectCollisions(GameObject obj)
+    {
+        List<GridNode> collidingNodes = new List<GridNode>();
+        LayerMask layer = LayerMask.GetMask("Decoration");
+        RaycastHit[] hit;
+
+        for (int i = 0; i < gridWidth; i++)
+        {
+            int j = 0;
+            for (int k = 0; k < gridLength; k++)
+            {
+                if (!grid[i][j][k].invalid) continue;
+
+                hit = Physics.BoxCastAll(grid[i][j][k].worldPos, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 1, layer, QueryTriggerInteraction.Ignore);
+                foreach (RaycastHit h in hit)
+                {
+                    if (h.collider.gameObject == obj)
+                    {
+                        collidingNodes.Add(grid[i][j][k]);
+                        continue;
+                    }
+                }
+            }
+        }
+
+        return collidingNodes;
     }
 
 

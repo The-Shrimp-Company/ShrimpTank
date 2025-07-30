@@ -28,6 +28,8 @@ public class DecorateTankController : MonoBehaviour
     public Material objectPreviewValidMat;
     public Material objectPreviewInvalidMat;
 
+    [Header("Debug")]
+    public bool showNodes = true;
     public GameObject testItem;
 
 
@@ -67,6 +69,7 @@ public class DecorateTankController : MonoBehaviour
                 GameObject node = GameObject.Instantiate(decoratingGridPrefab, currentGrid.grid[w][h][l].worldPos + new Vector3(0, -(currentGrid.pointSize / 2), 0), Quaternion.identity);
                 node.transform.parent = currentTank.transform;
                 node.transform.localScale = new Vector3(currentGrid.pointSize, currentGrid.pointSize / 10, currentGrid.pointSize);
+                node.GetComponent<MeshRenderer>().enabled = showNodes;
                 bottomNodes.Add(currentGrid.grid[w][h][l], node);
             }
         }
@@ -149,17 +152,15 @@ public class DecorateTankController : MonoBehaviour
         {
             bottomNodes[hoveredNode].GetComponent<MeshRenderer>().material = decoratingGridHovered;
 
-            selectionValid = !hoveredNode.invalid;
             objectPreview.transform.position = hoveredNode.worldPos;
         }
         else
         {
-            selectionValid = false;
             objectPreview.transform.position = new Vector3(0, 100000, 0);
         }
 
 
-        SetObjectMaterials(objectPreview, selectionValid ? objectPreviewValidMat : objectPreviewInvalidMat);
+        CheckPlacementValidity();
     }
 
 
@@ -219,7 +220,22 @@ public class DecorateTankController : MonoBehaviour
 
     public void CheckPlacementValidity()
     {
+        if (objectPreview == null) return;
+        if (currentGrid == null) return;
+
         // Sphere check with all nodes to see if it overlaps
+
+        List<GridNode> nodes = currentGrid.CheckForObjectCollisions(objectPreview);
+        if (nodes.Count == 0)
+        {
+            selectionValid = true;
+        }
+        else
+        {
+            selectionValid = false;
+        }
+
+        SetObjectMaterials(objectPreview, selectionValid ? objectPreviewValidMat : objectPreviewInvalidMat);
 
 
         // Box check sides of tank
