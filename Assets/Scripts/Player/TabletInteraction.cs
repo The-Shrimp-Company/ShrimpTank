@@ -38,7 +38,7 @@ public class TabletInteraction : ScreenView
 
     private void Update()
     {
-        if(!Tutorial.instance.flags.Contains("activeAccount"))
+        if(!Tutorial.instance.flags.Contains("ShrimpStoreOpen"))
         {
             BuyButton.SetActive(false);
             SellButton.SetActive(false);
