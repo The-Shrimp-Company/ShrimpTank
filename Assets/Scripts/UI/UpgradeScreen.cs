@@ -24,6 +24,10 @@ public class UpgradeScreen : ScreenView
         if (Money.instance.WithdrawMoney(so.purchaseValue))
         {
             Inventory.AddItem(Inventory.GetItemUsingSO(so), so.purchaseQuantity);
+            if (so.tags.Contains(ItemTags.Food))
+            {
+                PlayerStats.stats.timesBoughtFood++;
+            }
         }
     }
 

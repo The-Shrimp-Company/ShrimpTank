@@ -37,7 +37,7 @@ public class NPCManager : MonoBehaviour
     {
         if(NPCs.Count > 0)
         {
-            if (!Tutorial.instance.flags.Contains("ShrimpStoreOpen"))
+            if (!Tutorial.instance.flags.Contains("AccountActivated"))
             {
                 NPCs[0]?.NpcCheck();
             }

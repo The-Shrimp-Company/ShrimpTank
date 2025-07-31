@@ -38,20 +38,10 @@ public class TabletInteraction : ScreenView
 
     private void Update()
     {
-        if(!Tutorial.instance.flags.Contains("ShrimpStoreOpen"))
-        {
-            BuyButton.SetActive(false);
-            SellButton.SetActive(false);
-            VetButton.SetActive(false);
-            UpgradeButton.SetActive(false);
-        }
-        else
-        {
-            BuyButton.SetActive(true);
-            SellButton.SetActive(true);
-            VetButton.SetActive(true);
-            UpgradeButton.SetActive(true);
-        }
+        BuyButton.SetActive(Tutorial.instance.flags.Contains("ShrimpStoreOpen"));
+        SellButton.SetActive(Tutorial.instance.flags.Contains("OwnStoreOpen"));
+        VetButton.SetActive(Tutorial.instance.flags.Contains("VetOpen"));
+        UpgradeButton.SetActive(Tutorial.instance.flags.Contains("UpgradeStoreOpen"));
     }
 
     public void OpenSell()
@@ -106,6 +96,7 @@ public class TabletInteraction : ScreenView
     {
         GameObject vetScreen = Instantiate(VetScreen, transform.parent.transform);
         UIManager.instance.OpenScreen(vetScreen.GetComponent<ScreenView>());
+        PlayerStats.stats.timesVetOpened++;
     }
     
     public override void Close(bool switchTab)
