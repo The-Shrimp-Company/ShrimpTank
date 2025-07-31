@@ -1,11 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class EmailContent : ContentPopulation
 {
     public EmailContentWindow window;
+
+    public List<Email.EmailTags> tagsToShow = new() { Email.EmailTags.Important };
 
     private int count = 0;
 
@@ -49,7 +53,7 @@ public class EmailContent : ContentPopulation
                 flag = false;
                 foreach(Email email in EmailManager.instance.emails)
                 {
-                    if(block.GetEmail().ID == email.ID)
+                    if(block.GetEmail().ID == email.ID && tagsToShow.Contains(email.tag))
                     {
                         flag = true;
                     }
@@ -73,7 +77,7 @@ public class EmailContent : ContentPopulation
                         }
                     }
                 }
-                if (!flag)
+                if (!flag && tagsToShow.Contains(email.tag))
                 {
                     ContentBlock block = Instantiate(contentBlock, transform).GetComponent<ContentBlock>();
                     block.GetComponent<EmailContentBlock>().SetEmail(email, window);
@@ -98,11 +102,29 @@ public class EmailContent : ContentPopulation
         {
             if (block != null)
             {
-                if (!block.GetComponent<EmailContentBlock>().isImportant())
+                if (block.GetComponent<EmailContentBlock>().GetEmail().tag == Email.EmailTags.Spam)
                 {
                     block.GetComponent<EmailContentBlock>().DeleteEmail();
                 }
             }
         }
+    }
+
+    public void ShowOnlyImportant()
+    {
+        tagsToShow = new() { Email.EmailTags.Important };
+        count++;
+    }
+    
+    public void ShowOnlySpam()
+    {
+        tagsToShow = new() { Email.EmailTags.Spam };
+        count++;
+    }
+
+    public void ShowAll()
+    {
+        tagsToShow = Enum.GetValues(typeof(Email.EmailTags)).Cast<Email.EmailTags>().ToList();
+        count++;
     }
 }

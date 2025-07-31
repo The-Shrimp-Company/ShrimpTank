@@ -51,11 +51,6 @@ public class EmailContentBlock : ContentBlock
         window.OpenEmail(fullEmail, _email, this);
     }
 
-    public bool isImportant()
-    {
-        return _email.important;
-    }
-
     public void DeleteEmail()
     {
         EmailManager.RemoveEmail(_email);

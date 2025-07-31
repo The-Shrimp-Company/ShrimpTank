@@ -38,6 +38,12 @@ public class DataList
 [System.Serializable]
 public class Email
 {
+    public enum EmailTags
+    {
+        Spam,
+        Important
+    }
+
     public int ID;
 
     public string sender;
@@ -49,6 +55,7 @@ public class Email
     public int value;
 
     public bool important;
+    public EmailTags tag;
 
     public List<MyButton> buttons;
 
@@ -104,7 +111,7 @@ public class EmailManager
     static IEnumerator SendEmailDelayed(Email email, bool important = false, float delay = 0)
     {
         yield return new WaitForSeconds(delay);
-        email.important = important;
+        if (important) email.tag = Email.EmailTags.Important;
         instance.emails.Add(email);
         UIManager.instance.SendNotification(email.subjectLine);
     }

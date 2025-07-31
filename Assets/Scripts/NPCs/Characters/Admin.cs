@@ -36,10 +36,7 @@ public class Admin : NPC
                 email.CreateEmailButton("Walk me through the systems", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 2)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "ShrimpStoreOpen");
                 email.CreateEmailButton("Give me everything (Not recommended for new players)", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 10)
-                    .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "ShrimpStoreOpen")
-                    .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "OwnStoreOpen")
-                    .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "UpgradeStoreOpen")
-                    .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "VetOpen");
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "ShrimpStoreOpen", "OwnStoreOpen", "UpgradeStoreOpen", "VetOpen");
                 important = true;
             }
 

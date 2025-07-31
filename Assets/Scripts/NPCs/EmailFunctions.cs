@@ -122,7 +122,7 @@ static public class EmailFunctions
     {
         button.actions.Add(() =>
         {
-            Tutorial.instance.flags.Add(button.data[(int)FunctionIndexes.SetTutorialFlag].data[0].TryCast<string>());
+            foreach (object obj in button.data[(int)FunctionIndexes.SetTutorialFlag].data) Tutorial.instance.flags.Add(obj.TryCast<string>());
         });
     }
 }
