@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3102602320824298499}
   - component: {fileID: 8000869784464985452}
   - component: {fileID: 6464277331434162019}
+  - component: {fileID: -3663278491819560993}
   m_Layer: 9
   m_Name: Anubias
   m_TagString: Untagged
@@ -105,3 +106,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0011054171, y: 0.0005955704, z: 0.0009687199}
   m_Center: {x: -0.0002976846, y: 0.000029399562, z: 0.00048435753}
+--- !u!114 &-3663278491819560993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969630005840922781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd70da28c0b37f4cabcbe90f62741c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decorationSO: {fileID: 11400000, guid: 0b95eaa2416da3a4eaccb0a955cddde0, type: 2}

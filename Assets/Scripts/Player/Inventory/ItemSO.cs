@@ -6,6 +6,7 @@ using UnityEngine;
 public class ItemSO : ScriptableObject
 {
     [SerializeReference] public string itemName;
+    [SerializeReference] public Sprite itemImage;
     [SerializeReference] public float purchaseValue;
     [SerializeReference] public int purchaseQuantity = 1;
     [SerializeReference] public float sellValue;

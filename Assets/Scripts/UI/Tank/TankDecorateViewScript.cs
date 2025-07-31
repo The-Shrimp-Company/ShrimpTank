@@ -18,6 +18,12 @@ public class TankDecorateViewScript : ScreenView
     [SerializeField] private GameObject _contentBlock;
     private List<DecorationContentBlock> contentBlocks = new List<DecorationContentBlock>();
 
+    [SerializeField] GameObject selectedItemInfoBox;
+    [SerializeField] TMP_Text selectedItemNameText;
+    [SerializeField] Image selectedItemImage;
+    [SerializeField] GameObject selectedItemButtons;
+    [SerializeField] GameObject placingItemButtons;
+
     [HideInInspector] public DecorationItemSO selectedItemType;
     [HideInInspector] public GameObject selectedItemGameObject;
 
@@ -39,7 +45,7 @@ public class TankDecorateViewScript : ScreenView
 
     private void OnEnable()
     {
-        UpdateContent();
+        UpdateContent(); 
     }
 
     public virtual void Update()
@@ -114,20 +120,63 @@ public class TankDecorateViewScript : ScreenView
 
         if (selectedItemType != null)
         {
+            selectedItemInfoBox.SetActive(true);
+            selectedItemNameText.text = selectedItemType.itemName;
+            selectedItemImage.sprite = selectedItemType.itemImage;
 
+            if (DecorateTankController.Instance.placementMode)
+            {
+                placingItemButtons.SetActive(true);
+                selectedItemButtons.SetActive(false);
+            }
+            else
+            {
+                placingItemButtons.SetActive(false);
+                selectedItemButtons.SetActive(true);
+            }
+        }
+        else
+        {
+            selectedItemInfoBox.SetActive(false);
         }
     }
 
 
     public void ClearTank()
     {
-
+        for (int i = tank.decorationsInTank.Count - 1; i >= 0; i--)
+        {
+            if (tank.decorationsInTank[i] == null) continue;
+            DecorateTankController.Instance.selectedObject = tank.decorationsInTank[i];
+            ChangeSelectedItem(tank.decorationsInTank[i].GetComponent<Decoration>().decorationSO, tank.decorationsInTank[i]);
+            PutAway();
+        }
     }
 
 
     public void ChangeCamera()
     {
 
+    }
+
+    public void ToggleDecorationTransparency()
+    {
+        DecorateTankController.Instance.ToggleTransparentDecorarions();
+    }
+
+    public void PutAway()
+    {
+        DecorateTankController.Instance.PutDecorationAway();
+    }
+
+    public void Move()
+    {
+        DecorateTankController.Instance.MoveDecoration();
+    }
+
+    public void Rotate()
+    {
+        DecorateTankController.Instance.RotateObject();
     }
 
 

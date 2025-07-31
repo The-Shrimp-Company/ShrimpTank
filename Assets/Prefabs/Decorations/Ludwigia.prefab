@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3397281364594895415}
   - component: {fileID: 8999385885550140606}
   - component: {fileID: 2162870833049397946}
+  - component: {fileID: -3877025449308845462}
   m_Layer: 9
   m_Name: Ludwigia
   m_TagString: Untagged
@@ -128,3 +129,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.00009934426, y: 0.00012171978, z: 0.0026733158}
   m_Center: {x: -0.0000032138914, y: 0.0000033532874, z: 0.0013366571}
+--- !u!114 &-3877025449308845462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2365947059943908405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd70da28c0b37f4cabcbe90f62741c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decorationSO: {fileID: 11400000, guid: 846708f8a6e1fdc48b3b64d4745c1572, type: 2}

@@ -45,7 +45,8 @@ public class Money
     public void SetMoney(float money)
     {
         _money = money;
-        _money = EconomyManager.instance.RoundMoney(_money);
+        if (EconomyManager.instance != null)
+            _money = EconomyManager.instance.RoundMoney(_money);
     }
 
     public void SetStartingMoney()

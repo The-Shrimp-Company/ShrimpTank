@@ -14,23 +14,26 @@ public class DecorateTankController : MonoBehaviour
     public TankDecorateViewScript decorateView;
 
     private Dictionary<GridNode, GameObject> bottomNodes = new Dictionary<GridNode, GameObject>();
-    private GridNode hoveredNode, selectedNode;
-    private GameObject selectedObject, objectPreview;
+    private GridNode hoveredNode;
+    [HideInInspector] public GameObject selectedObject;
+    private GameObject objectPreview;
 
-    private bool placementMode;
+    [HideInInspector] public bool placementMode;
     private bool selectionValid;
-    private float currentRotation;
     public float rotationSnap = 90;
+    private bool transparentDecorations;
 
 
     [Header("Grid")]
     public GameObject decoratingGridPrefab;
     public Material decoratingGridMat;
+    public Material decoratingGridTakenMat;
     public Material decoratingGridHovered;
     public Material decoratingGridValidMat;
     public Material decoratingGridInvalidMat;
     public Material objectPreviewValidMat;
     public Material objectPreviewInvalidMat;
+    public Material objectTransparentMat;
 
     [Header("Debug")]
     public bool showNodes = true;
@@ -43,6 +46,8 @@ public class DecorateTankController : MonoBehaviour
         if (Instance == null) { Instance = this; }
         else if (Instance != this) { Destroy(gameObject); }
     }
+
+
 
     public void StartDecorating(TankController t)
     {
@@ -62,6 +67,7 @@ public class DecorateTankController : MonoBehaviour
         Camera.main.transform.rotation = currentTank.GetDecorationCam().transform.rotation;
 
         currentTank.waterObject.SetActive(false);
+        transparentDecorations = false;
 
 
 
@@ -80,15 +86,16 @@ public class DecorateTankController : MonoBehaviour
     }
 
 
+
     public void StopDecorating()
     {
         currentTank.waterObject.SetActive(true);
+        SetTransparentDecorations(false);
 
         currentTank = null;
         currentGrid = null;
-
         hoveredNode = null;
-        selectedNode = null;
+
 
         if (objectPreview)
             Destroy(objectPreview);
@@ -103,8 +110,6 @@ public class DecorateTankController : MonoBehaviour
 
 
 
-
-
     public void Update()
     {
         if (currentTank == null) return;
@@ -112,6 +117,7 @@ public class DecorateTankController : MonoBehaviour
 
         MouseDetection();
     }
+
 
 
     public void MouseDetection()
@@ -147,17 +153,19 @@ public class DecorateTankController : MonoBehaviour
 
     private void UpdateGridMaterials()
     {
+        GreyOutGrid();
+
+        foreach (GridNode n in bottomNodes.Keys)
+        {
+            if (n.invalid)
+                bottomNodes[n].GetComponent<MeshRenderer>().material = decoratingGridTakenMat;
+        }
+
+
         if (!placementMode)
         {
-            GreyOutGrid();
-
             // Raycast for objects first?
 
-            foreach (GridNode n in bottomNodes.Keys)
-            {
-                if (n.invalid)
-                    bottomNodes[n].GetComponent<MeshRenderer>().material = decoratingGridInvalidMat;
-            }
 
             if (hoveredNode != null)
             {
@@ -220,8 +228,9 @@ public class DecorateTankController : MonoBehaviour
                 if (selectedObject != objects[0])
                 {
                     selectedObject = objects[0];
-                    if (selectedObject.GetComponent<Decoration>())
-                        decorateView.ChangeSelectedItem(selectedObject.GetComponent<Decoration>().decorationSO, selectedObject);  // Add item type here
+                    if (selectedObject.GetComponent<Decoration>() && selectedObject.GetComponent<Decoration>().decorationSO != null)
+                        decorateView.ChangeSelectedItem(selectedObject.GetComponent<Decoration>().decorationSO, selectedObject);
+                    else Debug.LogWarning(selectedObject + " is missing the decoration script on it's root");
                 }
                 else  // Click on the same object again
                 {
@@ -240,11 +249,8 @@ public class DecorateTankController : MonoBehaviour
         selectedObject = d;
         placementMode = true;
 
-        currentRotation = 0;
-
         objectPreview = GameObject.Instantiate(selectedObject);
         objectPreview.name = "Object Preview";
-        //objectPreview.transform.localScale = new Vector3(currentGrid.pointSize * 2f, currentGrid.pointSize * 2f, currentGrid.pointSize * 2f);
         SetObjectMaterials(objectPreview, objectPreviewValidMat);
     }
 
@@ -265,9 +271,11 @@ public class DecorateTankController : MonoBehaviour
 
     private void PlaceDecoration()
     {
-        GameObject t = GameObject.Instantiate(selectedObject, hoveredNode.worldPos, Quaternion.identity);
-        t.transform.localScale = objectPreview.transform.localScale;
-        t.transform.rotation = objectPreview.transform.rotation;
+        GameObject d = GameObject.Instantiate(selectedObject, hoveredNode.worldPos, Quaternion.identity);
+        d.transform.localScale = objectPreview.transform.localScale;
+        d.transform.rotation = objectPreview.transform.rotation;
+        currentTank.decorationsInTank.Add(d);
+        SetTransparentDecorations(transparentDecorations);
         currentGrid.RebakeGrid();
         StopPlacing();
     }
@@ -278,7 +286,9 @@ public class DecorateTankController : MonoBehaviour
         if (obj == null) return;
         if (mat == null) return;
 
+        Decoration decoration = obj.GetComponent<Decoration>();
         MeshRenderer[] meshes = obj.GetComponentsInChildren<MeshRenderer>();
+        if (decoration == null) return;
 
         if (meshes[0] == null || meshes[0].material == mat) return;
 
@@ -302,7 +312,6 @@ public class DecorateTankController : MonoBehaviour
         if (currentGrid == null) return;
         if (decorateView == null) return;
 
-        GreyOutGrid();
 
         selectionValid = true;
 
@@ -358,37 +367,74 @@ public class DecorateTankController : MonoBehaviour
         }
     }
 
-    private void RotateObject()
+    public void RotateObject()
     {
         if (objectPreview == null) return;
         if (!placementMode) return;
         if (decorateView == null) return;
 
-        currentRotation += rotationSnap;
-
         objectPreview.transform.Rotate(Vector3.Scale(decorateView.selectedItemType.rotationAxis, new Vector3(rotationSnap, rotationSnap, rotationSnap)));
 
-        CheckPlacementValidity();
+        UpdateGridMaterials();
     }
 
     public void MoveDecoration()
     {
-        if (selectedObject == null) return;
-
-        // Put decoration away
-        // Start placing that decoration
+        DecorationItemSO so = decorateView.selectedItemType;
+        PutDecorationAway();
+        decorateView.ChangeSelectedItem(so, so.decorationPrefab);
+        StartPlacing(so.decorationPrefab);
     }
 
     public void PutDecorationAway()
     {
         if (selectedObject == null) return;
+        if (currentGrid == null) return;
+        if (decorateView == null) return;
+        if (decorateView.selectedItemType == null) return;
 
-        // Add to inventory
-        // Destroy the decoration
+        Inventory.AddItem(decorateView.selectedItemType.itemName);
+
+        currentTank.decorationsInTank.Remove(selectedObject);
+        selectedObject.gameObject.SetActive(false);
+        Destroy(selectedObject.gameObject);
+
+        selectedObject = null;
+        decorateView.ChangeSelectedItem(null, null);
+        UpdateGridMaterials();
+        currentGrid.RebakeGrid();
+        decorateView.UpdateContent();
     }
 
     private void GreyOutGrid()
     {
         foreach (GridNode n in bottomNodes.Keys) bottomNodes[n].GetComponent<MeshRenderer>().material = decoratingGridMat;
+    }
+
+    public void ToggleTransparentDecorarions()
+    {
+        SetTransparentDecorations(!transparentDecorations);
+    }
+
+    private void SetTransparentDecorations(bool s)
+    {
+        transparentDecorations = s;
+
+        if (transparentDecorations)
+        {
+            // Iterate through decorations and set mat
+            foreach (GameObject obj in currentTank.decorationsInTank)
+            {
+                SetObjectMaterials(obj, objectTransparentMat);
+            }
+        }
+
+        else
+        {
+            foreach (GameObject obj in currentTank.decorationsInTank)
+            {
+                obj.GetComponent<Decoration>().ResetMaterials();
+            }
+        }
     }
 }

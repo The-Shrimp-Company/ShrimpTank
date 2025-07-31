@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: U_Improved Filter
   m_EditorClassIdentifier: 
   itemName: Improved Filter
+  itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
   purchaseValue: 70
   purchaseQuantity: 1
   sellValue: 70
   tags: 0400000005000000
-  decor: 0
   upgradeType: 0
   upgradePrefab: {fileID: 9034102042131325629, guid: f4c51c8568374664190c2c65813780e3,
     type: 3}
