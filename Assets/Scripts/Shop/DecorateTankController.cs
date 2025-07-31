@@ -117,6 +117,8 @@ public class DecorateTankController : MonoBehaviour
 
     public void MouseDetection()
     {
+        if (bottomNodes == null || bottomNodes.Count == 0) return;
+
         RaycastHit ray;
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray originMouse = Camera.main.ScreenPointToRay(mousePos);
@@ -130,27 +132,49 @@ public class DecorateTankController : MonoBehaviour
             {
                 if (bottomNodes[node] == ray.collider.gameObject)
                 {
-                    ChangeHoveredNode(node);
+                    hoveredNode = node;
                     break;
                 }
             }
         }
         else
         {
-            if (hoveredNode != null) ChangeHoveredNode(null);
+            if (hoveredNode != null) hoveredNode = null;
         }
+
+        UpdateGridMaterials();
     }
 
 
-    private void ChangeHoveredNode(GridNode node)
+    private void UpdateGridMaterials()
     {
-        hoveredNode = node;
-
         if (!placementMode)
         {
             GreyOutGrid();
 
-            if (hoveredNode != null) bottomNodes[hoveredNode].GetComponent<MeshRenderer>().material = decoratingGridHovered;
+            // Raycast for objects first?
+
+            if (hoveredNode != null)
+            {
+                foreach (GameObject obj in currentGrid.CheckNodeForObject(hoveredNode))
+                {
+                    Transform[] transforms = obj.GetComponentsInChildren<Transform>();
+                    foreach (GridNode n in currentGrid.CheckForObjectCollisions(transforms))
+                        if (n.worldPos != null && n.worldPos != Vector3.zero)  // If it is not a wall
+                            bottomNodes[n].GetComponent<MeshRenderer>().material = decoratingGridHovered;
+                }
+            }
+
+            if (selectedObject != null)
+            {
+                Transform[] transforms = selectedObject.GetComponentsInChildren<Transform>();
+                foreach (GridNode n in currentGrid.CheckForObjectCollisions(transforms))
+                    if (n.worldPos != null && n.worldPos != Vector3.zero)  // If it is not a wall
+                        bottomNodes[n].GetComponent<MeshRenderer>().material = decoratingGridValidMat;
+            }
+
+
+            //if (hoveredNode != null) bottomNodes[hoveredNode].GetComponent<MeshRenderer>().material = decoratingGridHovered;
         }
 
         else  // Placement Mode
@@ -175,9 +199,26 @@ public class DecorateTankController : MonoBehaviour
                 t.transform.localScale = new Vector3(currentGrid.pointSize * 2f, currentGrid.pointSize * 2f, currentGrid.pointSize * 2f);
                 t.transform.rotation = objectPreview.transform.rotation;
                 currentGrid.RebakeGrid();
-                ChangeHoveredNode(hoveredNode);
+                StopPlacing();
             }
         }
+        else  // Selection mode
+        {
+            List<GameObject> objects = currentGrid.CheckNodeForObject(hoveredNode);
+            if (objects.Count != 0)
+            {
+                if (selectedObject != objects[0])
+                {
+                    selectedObject = objects[0];
+                }
+                else  // Click on the same object again
+                {
+                    selectedObject = null;
+                }
+            }
+        }
+
+        UpdateGridMaterials();
     }
 
 
@@ -198,6 +239,7 @@ public class DecorateTankController : MonoBehaviour
     private void StopPlacing()
     {
         placementMode = false;
+        selectedObject = null;
         if (objectPreview) Destroy(objectPreview);
     }
 
@@ -286,6 +328,22 @@ public class DecorateTankController : MonoBehaviour
         objectPreview.transform.Rotate(new Vector3(0, rotationSnap, 0));
 
         CheckPlacementValidity();
+    }
+
+    public void MoveDecoration()
+    {
+        if (selectedObject == null) return;
+
+        // Put decoration away
+        // Start placing that decoration
+    }
+
+    public void PutDecorationAway()
+    {
+        if (selectedObject == null) return;
+
+        // Add to inventory
+        // Destroy the decoration
     }
 
     private void GreyOutGrid()

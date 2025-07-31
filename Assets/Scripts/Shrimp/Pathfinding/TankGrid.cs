@@ -194,6 +194,7 @@ public class TankGrid : MonoBehaviour
 
     public List<GameObject> CheckNodeForObject(GridNode node)
     {
+        if (node == null) return null;
         List<GameObject> collidingObjects = new List<GameObject>();
         LayerMask layer = LayerMask.GetMask("Decoration");
         RaycastHit[] hit;
@@ -201,7 +202,14 @@ public class TankGrid : MonoBehaviour
         hit = Physics.BoxCastAll(node.worldPos, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 1, layer, QueryTriggerInteraction.Ignore);
         foreach (RaycastHit h in hit)
         {
-            collidingObjects.Add(h.transform.gameObject);
+            GameObject selection = h.transform.gameObject;
+            while (selection.transform.parent != null && (layer & 1 << selection.transform.parent.gameObject.layer) == 1 << selection.transform.parent.gameObject.layer)  // Iterate up through parents to find the root of the decoration
+            {
+                selection = selection.transform.parent.gameObject;
+            }
+
+            if (!collidingObjects.Contains(selection))
+                collidingObjects.Add(selection);
         }
 
         return collidingObjects;
