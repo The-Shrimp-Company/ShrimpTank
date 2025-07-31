@@ -11,6 +11,7 @@ public class DecorateTankController : MonoBehaviour
 
     private TankController currentTank;
     private TankGrid currentGrid;
+    public TankDecorateViewScript decorateView;
 
     private Dictionary<GridNode, GameObject> bottomNodes = new Dictionary<GridNode, GameObject>();
     private GridNode hoveredNode, selectedNode;
@@ -76,8 +77,6 @@ public class DecorateTankController : MonoBehaviour
                 bottomNodes.Add(currentGrid.grid[w][h][l], node);
             }
         }
-
-        StartPlacing(testItem);
     }
 
 
@@ -154,6 +153,12 @@ public class DecorateTankController : MonoBehaviour
 
             // Raycast for objects first?
 
+            foreach (GridNode n in bottomNodes.Keys)
+            {
+                if (n.invalid)
+                    bottomNodes[n].GetComponent<MeshRenderer>().material = decoratingGridInvalidMat;
+            }
+
             if (hoveredNode != null)
             {
                 foreach (GameObject obj in currentGrid.CheckNodeForObject(hoveredNode))
@@ -190,16 +195,21 @@ public class DecorateTankController : MonoBehaviour
     public void MouseClick(Vector3 point, bool pressed)
     {
         if (hoveredNode == null) return;
+        if (decorateView == null) return;
 
         if (placementMode)
         {
             if (selectionValid && selectedObject != null)
             {
-                GameObject t = GameObject.Instantiate(selectedObject, hoveredNode.worldPos, Quaternion.identity);
-                t.transform.localScale = new Vector3(currentGrid.pointSize * 2f, currentGrid.pointSize * 2f, currentGrid.pointSize * 2f);
-                t.transform.rotation = objectPreview.transform.rotation;
-                currentGrid.RebakeGrid();
-                StopPlacing();
+                if (Inventory.HasItem(decorateView.selectedItemType.itemName))
+                {
+                    Inventory.RemoveItem(decorateView.selectedItemType.itemName);
+                    PlaceDecoration();
+                }
+                else if (Money.instance.WithdrawMoney(decorateView.selectedItemType.purchaseValue))
+                {
+                    PlaceDecoration();
+                }
             }
         }
         else  // Selection mode
@@ -210,10 +220,13 @@ public class DecorateTankController : MonoBehaviour
                 if (selectedObject != objects[0])
                 {
                     selectedObject = objects[0];
+                    if (selectedObject.GetComponent<Decoration>())
+                        decorateView.ChangeSelectedItem(selectedObject.GetComponent<Decoration>().decorationSO, selectedObject);  // Add item type here
                 }
                 else  // Click on the same object again
                 {
                     selectedObject = null;
+                    decorateView.ChangeSelectedItem(null, null);
                 }
             }
         }
@@ -222,7 +235,7 @@ public class DecorateTankController : MonoBehaviour
     }
 
 
-    private void StartPlacing(GameObject d)
+    public void StartPlacing(GameObject d)
     {
         selectedObject = d;
         placementMode = true;
@@ -231,16 +244,32 @@ public class DecorateTankController : MonoBehaviour
 
         objectPreview = GameObject.Instantiate(selectedObject);
         objectPreview.name = "Object Preview";
-        objectPreview.transform.localScale = new Vector3(currentGrid.pointSize * 2f, currentGrid.pointSize * 2f, currentGrid.pointSize * 2f);
+        //objectPreview.transform.localScale = new Vector3(currentGrid.pointSize * 2f, currentGrid.pointSize * 2f, currentGrid.pointSize * 2f);
         SetObjectMaterials(objectPreview, objectPreviewValidMat);
     }
 
 
-    private void StopPlacing()
+    public void StopPlacing()
     {
         placementMode = false;
         selectedObject = null;
         if (objectPreview) Destroy(objectPreview);
+
+        if (decorateView != null)
+        {
+            decorateView.ChangeSelectedItem(null, null);
+            decorateView.UpdateContent();
+        }
+    }
+
+
+    private void PlaceDecoration()
+    {
+        GameObject t = GameObject.Instantiate(selectedObject, hoveredNode.worldPos, Quaternion.identity);
+        t.transform.localScale = objectPreview.transform.localScale;
+        t.transform.rotation = objectPreview.transform.rotation;
+        currentGrid.RebakeGrid();
+        StopPlacing();
     }
 
 
@@ -271,14 +300,16 @@ public class DecorateTankController : MonoBehaviour
     {
         if (objectPreview == null) return;
         if (currentGrid == null) return;
+        if (decorateView == null) return;
 
         GreyOutGrid();
 
-        //Check for colliding nodes and walls, if they are invalid then invalidate the placement
+        selectionValid = true;
 
+
+        //Check for colliding nodes and walls, if they are invalid then invalidate the placement
         Transform[] transforms = objectPreview.GetComponentsInChildren<Transform>();
         List<GridNode> nodes = currentGrid.CheckForObjectCollisions(transforms);
-        selectionValid = true;
 
         foreach (GridNode node in nodes)
         {
@@ -297,6 +328,15 @@ public class DecorateTankController : MonoBehaviour
                 bottomNodes[node].GetComponent<MeshRenderer>().material = decoratingGridValidMat;
             }
         }
+
+
+        // Check Money
+        if (decorateView.selectedItemType.purchaseValue > Money.instance.money)
+        {
+            selectionValid = false;  // Cannot afford
+        }
+
+
 
         SetObjectMaterials(objectPreview, selectionValid ? objectPreviewValidMat : objectPreviewInvalidMat);    
     }
@@ -322,10 +362,11 @@ public class DecorateTankController : MonoBehaviour
     {
         if (objectPreview == null) return;
         if (!placementMode) return;
+        if (decorateView == null) return;
 
         currentRotation += rotationSnap;
 
-        objectPreview.transform.Rotate(new Vector3(0, rotationSnap, 0));
+        objectPreview.transform.Rotate(Vector3.Scale(decorateView.selectedItemType.rotationAxis, new Vector3(rotationSnap, rotationSnap, rotationSnap)));
 
         CheckPlacementValidity();
     }

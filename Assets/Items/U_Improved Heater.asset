@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6099156fd9ecf7144bc7e5b7786f22b3, type: 3}
-  m_Name: Improved Filter
+  m_Name: U_Improved Heater
   m_EditorClassIdentifier: 
-  itemName: Improved Filter
+  itemName: Improved Heater
   purchaseValue: 70
   purchaseQuantity: 1
   sellValue: 70
-  tags: 0400000005000000
+  tags: 0400000006000000
   decor: 0
-  upgradeType: 0
-  upgradePrefab: {fileID: 9034102042131325629, guid: f4c51c8568374664190c2c65813780e3,
+  upgradeType: 1
+  upgradePrefab: {fileID: 9034102042131325629, guid: f52fe44497ffafa41a3d31298ab2002f,
     type: 3}
-  breakRate: 2
-  repairCost: 30
+  breakRate: 3
+  repairCost: 15
   energyCost: 0
-  filterCapacity: 20
-  heaterOutput: 0
+  filterCapacity: 0
+  heaterOutput: 20
   thermometer: 0

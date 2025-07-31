@@ -142,7 +142,7 @@ public class TankGrid : MonoBehaviour
             {
                 //if (!grid[i][j][k].invalid) continue;
 
-                hit = Physics.BoxCastAll(grid[i][j][k].worldPos, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 1, layer, QueryTriggerInteraction.Ignore);
+                hit = Physics.BoxCastAll(grid[i][j][k].worldPos, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 0.01f, layer, QueryTriggerInteraction.Ignore);
                 foreach (RaycastHit h in hit)
                 {
                     if (objects.Contains(h.transform))
@@ -199,7 +199,7 @@ public class TankGrid : MonoBehaviour
         LayerMask layer = LayerMask.GetMask("Decoration");
         RaycastHit[] hit;
 
-        hit = Physics.BoxCastAll(node.worldPos, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 1, layer, QueryTriggerInteraction.Ignore);
+        hit = Physics.BoxCastAll(node.worldPos, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 0.01f, layer, QueryTriggerInteraction.Ignore);
         foreach (RaycastHit h in hit)
         {
             GameObject selection = h.transform.gameObject;

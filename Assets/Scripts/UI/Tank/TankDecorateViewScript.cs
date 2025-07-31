@@ -18,8 +18,8 @@ public class TankDecorateViewScript : ScreenView
     [SerializeField] private GameObject _contentBlock;
     private List<DecorationContentBlock> contentBlocks = new List<DecorationContentBlock>();
 
-    private DecorationItemSO selectedItemType;
-    private GameObject selectedItemGameObject;
+    [HideInInspector] public DecorationItemSO selectedItemType;
+    [HideInInspector] public GameObject selectedItemGameObject;
 
 
     public override void Open(bool switchTab)
@@ -31,7 +31,7 @@ public class TankDecorateViewScript : ScreenView
         tank.tankDecorateViewScript = this;
         selectedItemType = null;
         selectedItemGameObject = null;
-        ChangeSelectedItem();
+        ChangeSelectedItem(null, null);
         StartCoroutine(OpenTab(switchTab));
         UpdateContent();
         base.Open(switchTab);
@@ -48,32 +48,6 @@ public class TankDecorateViewScript : ScreenView
     }
 
 
-    public void SelectAll()
-    {
-        //if (allSelected)
-        //{
-        //    selectedShrimp = new List<Shrimp>();
-        //    foreach(TankContentBlock block in contentBlocks)
-        //    {
-        //        block.checkbutton.GetComponent<Checkbox>().Uncheck();
-        //    }
-        //    multiSelect.Uncheck();
-        //}
-        //else
-        //{
-        //    foreach (Shrimp shrimp in tank.shrimpInTank)
-        //    {
-        //        selectedShrimp.Add(shrimp);
-        //    }
-        //    foreach(TankContentBlock block in contentBlocks)
-        //    {
-        //        block.checkbutton.GetComponent<Checkbox>().Check();
-        //    }
-        //    multiSelect.Check();
-        //}
-        //allSelected = !allSelected;
-    }
-
     public void UpdateContent()
     {
         Debug.Log("Updating tank decorate view content");
@@ -87,6 +61,7 @@ public class TankDecorateViewScript : ScreenView
         List<Item> items = Inventory.GetInventory(false, true);
 
         // Filter items here
+        items = Inventory.FilterItemsWithTag(items, ItemTags.TankDecoration);
 
 
         foreach (Item i in items)
@@ -101,22 +76,58 @@ public class TankDecorateViewScript : ScreenView
              
             DecorationContentBlock content = Instantiate(_contentBlock, _content.transform).GetComponent<DecorationContentBlock>();
             contentBlocks.Add(content);
-            content.main.onClick.AddListener(() =>
+            content.SetText(i.itemName);
+            content.SetDecoration(so);
+            content.ownedText.text = i.quantity.ToString();
+            content.priceText.text = so.purchaseValue.ToString();
+
+            if (selectedItemType == so) content.buttonSprite.color = content.selectedColour;
+            else if (i.quantity > 0) content.buttonSprite.color = content.inInventoryColour;
+            else if (so.purchaseValue <= Money.instance.money) content.buttonSprite.color = content.notInInventoryColour;
+            else if (so.purchaseValue > Money.instance.money) content.buttonSprite.color = content.cannotAffordColour;
+
+            content.button.onClick.AddListener(() =>
             {
-                //GameObject newitem = Instantiate(shrimpView);
-                //UIManager.instance.OpenScreen(newitem.GetComponent<ScreenView>());
-                //newitem.GetComponent<ShrimpView>().Populate(thisShrimp);
-                //thisShrimp.GetComponentInChildren<ShrimpCam>().SetCam();
-                //newitem.GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
-                //newitem.GetComponent<Canvas>().planeDistance = 1;
-                //UIManager.instance.SetCursorMasking(false);
+                if (content.buttonSprite.color != content.selectedColour)  // If it isn't already selected
+                {
+                    ChangeSelectedItem(so, content.gameObject);
+
+                    DecorateTankController.Instance.decorateView = this;
+                    DecorateTankController.Instance.StartPlacing(so.decorationPrefab);
+                }
+                else  // If it is already selected
+                {
+                    ChangeSelectedItem(null, null);
+
+                    DecorateTankController.Instance.StopPlacing();
+                }
+
+                UpdateContent();
             });
         }
     }
 
-    public void ChangeSelectedItem()
+    public void ChangeSelectedItem(DecorationItemSO so, GameObject obj)
     {
-        
+        selectedItemType = so;
+        selectedItemGameObject = obj;
+
+        if (selectedItemType != null)
+        {
+
+        }
+    }
+
+
+    public void ClearTank()
+    {
+
+    }
+
+
+    public void ChangeCamera()
+    {
+
     }
 
 

@@ -16,7 +16,7 @@ MonoBehaviour:
   purchaseValue: 30
   purchaseQuantity: 1
   sellValue: 30
-  tags: 0400000008000000
+  tags: 04000000
   upgradeType: 7
   upgradePrefab: {fileID: 2905897715263716655, guid: 572b36fb3fd105b4ab65e72d7ee98ce0,
     type: 3}

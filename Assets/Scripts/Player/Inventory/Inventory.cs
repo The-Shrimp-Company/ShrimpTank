@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 
 public class Inventory
@@ -19,12 +20,13 @@ public class Inventory
 
     public void Initialize(Item[] saveData = null)
     {
-        LoadItemsFromResources();
+        LoadItemsFromResources();  // Gets a list of all items from the resources folder
 
-        if (saveData == null)
-            GenerateInventory();
-        else
-            LoadInventoryFromFile(saveData);
+        GenerateInventory();  // Initialises inventory with all items at 0 quantity
+
+        if (saveData != null)
+            LoadInventoryFromFile(saveData);  // Changes values such as quantity using the saved data
+
         activeTanks = new List<TankController>();
     }
 
@@ -51,6 +53,9 @@ public class Inventory
             else if (loadedItemList[i] as UpgradeItemSO != null)
                 item = new UpgradeItem();
 
+            else if (loadedItemList[i] as DecorationItemSO != null)
+                item = new DecorationItem();
+
             else if (loadedItemList[i] as FoodItemSO != null)
                 item = new FoodItem();
 
@@ -66,30 +71,53 @@ public class Inventory
 
     private void LoadInventoryFromFile(Item[] saveData)
     {
-        if (loadedItemList == null || loadedItemList.Length == 0) return;
+        if (inventory == null || inventory.Count == 0) return;
+        if (saveData == null || saveData.Length == 0) return;
 
-        if (inventory == null) inventory = new List<Item>();
-        else inventory.Clear();
-
-        for (int i = 0; i < loadedItemList.Length; i++)
+        for (int i = inventory.Count - 1; i >= 0; i--)
         {
-            Item item;
-            if (loadedItemList[i] as MedicineItemSO != null)
-                item = new MedicineItem();
-
-            else if (loadedItemList[i] as UpgradeItemSO != null)
-                item = new UpgradeItem();
-
-            else if (loadedItemList[i] as FoodItemSO != null)
-                item = new FoodItem();
-
-            else
-                item = new Item();
-
-            item = Array.Find(saveData, item => item.itemName == loadedItemList[i].itemName);
-
-            inventory.Add(item);
+            if (inventory[i] == null) continue;
+            for (int x = saveData.Length - 1; x >= 0; x--)
+            {
+                if (saveData[x] == null) continue;
+                if (saveData[x].itemName == inventory[i].itemName)
+                {
+                    inventory[i] = saveData[x];
+                    break;
+                }
+            }
         }
+
+
+
+
+        //if (loadedItemList == null || loadedItemList.Length == 0) return;
+
+        //if (inventory == null) inventory = new List<Item>();
+        //else inventory.Clear();
+
+        //for (int i = 0; i < loadedItemList.Length; i++)
+        //{
+        //    Item item;
+        //    if (loadedItemList[i] as MedicineItemSO != null)
+        //        item = new MedicineItem();
+
+        //    else if (loadedItemList[i] as UpgradeItemSO != null)
+        //        item = new UpgradeItem();
+
+        //    else if (loadedItemList[i] as DecorationItemSO != null)
+        //        item = new DecorationItem();
+
+        //    else if (loadedItemList[i] as FoodItemSO != null)
+        //        item = new FoodItem();
+
+        //    else
+        //        item = new Item();
+
+        //    //item = Array.Find(saveData, item => item.itemName == loadedItemList[i].itemName);
+
+        //    inventory.Add(item);
+        //}
     }
 
     public static void AddItem(Item newItem, int quantity = 1)

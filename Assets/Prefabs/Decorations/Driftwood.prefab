@@ -12,6 +12,10 @@ GameObject:
   - component: {fileID: 3136566847100859822}
   - component: {fileID: 1527606684295316231}
   - component: {fileID: 3224675020105216806}
+  - component: {fileID: 395396453305015272}
+  - component: {fileID: 974187404655139652}
+  - component: {fileID: 695866252590546563}
+  - component: {fileID: 2473883873520316491}
   m_Layer: 9
   m_Name: Driftwood
   m_TagString: Untagged
@@ -101,8 +105,92 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 3435369040858636224, guid: ebbd60656d405b347b9f80f6f56f86a5, type: 3}
+--- !u!65 &395396453305015272
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8225099896835639060}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0013852381, y: 0.0013020751, z: 0.0015350084}
+  m_Center: {x: -0.00013123867, y: 0.00003392324, z: 0.000769753}
+--- !u!65 &974187404655139652
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8225099896835639060}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0021060514, y: 0.001068632, z: 0.00060632004}
+  m_Center: {x: 0.0015516495, y: 0.000026559084, z: 0.001619675}
+--- !u!65 &695866252590546563
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8225099896835639060}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0009239876, y: 0.0007831499, z: 0.0011359211}
+  m_Center: {x: 0.0030504744, y: -0.00009312693, z: 0.0013666728}
+--- !u!65 &2473883873520316491
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8225099896835639060}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0013454306, y: 0.0005641123, z: 0.00069969066}
+  m_Center: {x: 0.003606588, y: 0.0000355798, z: 0.0004556438}

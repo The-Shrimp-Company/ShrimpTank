@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3856818109012726518}
   - component: {fileID: 5702292708975098670}
   m_Layer: 9
-  m_Name: Peble
+  m_Name: Pebble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

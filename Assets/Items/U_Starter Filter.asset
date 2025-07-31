@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6099156fd9ecf7144bc7e5b7786f22b3, type: 3}
-  m_Name: Starter Filter
+  m_Name: U_Starter Filter
   m_EditorClassIdentifier: 
   itemName: Starter Filter
   purchaseValue: 30
