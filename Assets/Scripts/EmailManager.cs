@@ -54,7 +54,6 @@ public class Email
 
     public int value;
 
-    public bool important;
     public EmailTags tag;
 
     public List<MyButton> buttons;

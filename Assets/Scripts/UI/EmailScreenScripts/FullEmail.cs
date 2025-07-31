@@ -45,7 +45,7 @@ public class FullEmail : MonoBehaviour
                 buttons.Add(obj.GetComponent<Button>());
             }
         }
-        if (!email.important)
+        if (email.tag == Email.EmailTags.Spam)
         {
             deleteButton.SetActive(true);
         }
