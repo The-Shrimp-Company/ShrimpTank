@@ -79,7 +79,12 @@ public class TankDecorateViewScript : ScreenView
                 Debug.LogWarning("Cannot find SO for " + i.itemName);
                 return;
             }
-             
+
+
+            if (DecorateTankController.Instance.editingTop && so.canFloat == FloatingItem.Grounded) continue;
+            if (!DecorateTankController.Instance.editingTop && so.canFloat == FloatingItem.Floats) continue;
+
+
             DecorationContentBlock content = Instantiate(_contentBlock, _content.transform).GetComponent<DecorationContentBlock>();
             contentBlocks.Add(content);
             content.SetText(i.itemName);
@@ -151,6 +156,14 @@ public class TankDecorateViewScript : ScreenView
             ChangeSelectedItem(tank.decorationsInTank[i].GetComponent<Decoration>().decorationSO, tank.decorationsInTank[i]);
             PutAway();
         }
+    }
+
+
+    public void ChangeEditLayer(bool top)
+    {
+        ChangeSelectedItem(null, null);
+        DecorateTankController.Instance.ChangeEditLayer(top);
+        UpdateContent();
     }
 
 

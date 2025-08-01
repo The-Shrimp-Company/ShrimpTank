@@ -14,16 +14,30 @@ namespace Bitgem.VFX.StylisedWater
 
         public WaterVolumeHelper WaterVolumeHelper = null;
         public float heightOffset = 0;
+        private Vector3 startingPosition;
 
         #endregion
 
         #region MonoBehaviour events
+
+
+        private void Awake()
+        {
+            startingPosition = transform.position;
+        }
+
 
         void Update()
         {
             var instance = WaterVolumeHelper ? WaterVolumeHelper : WaterVolumeHelper.Instance;
             if (!instance)
             {
+                return;
+            }
+
+            if (DecorateTankController.Instance.decorating)
+            {
+                transform.position = startingPosition;
                 return;
             }
 

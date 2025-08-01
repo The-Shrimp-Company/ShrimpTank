@@ -134,4 +134,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd70da28c0b37f4cabcbe90f62741c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  decorationSO: {fileID: 0}
+  decorationSO: {fileID: 11400000, guid: c013c8e9606e62942b26fdea1a4bba07, type: 2}

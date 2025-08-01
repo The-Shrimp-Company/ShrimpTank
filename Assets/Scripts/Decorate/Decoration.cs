@@ -6,6 +6,7 @@ public class Decoration : MonoBehaviour
 {
     public DecorationItemSO decorationSO;
     [HideInInspector] public Dictionary<MeshRenderer, Material[]> materials = new Dictionary<MeshRenderer, Material[]>();
+    [HideInInspector] public bool floating;
 
     private void Awake()
     {

@@ -1,3 +1,4 @@
+using Bitgem.VFX.StylisedWater;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
@@ -14,16 +15,19 @@ public class DecorateTankController : MonoBehaviour
     public TankDecorateViewScript decorateView;
 
     private Dictionary<GridNode, GameObject> bottomNodes = new Dictionary<GridNode, GameObject>();
+    private Dictionary<GridNode, GameObject> topNodes = new Dictionary<GridNode, GameObject>();
+    private Dictionary<GridNode, GameObject> allNodes = new Dictionary<GridNode, GameObject>();
     private GridNode hoveredNode;
     [HideInInspector] public GameObject selectedObject;
     private GameObject objectPreview;
 
+    [HideInInspector] public bool decorating;
     [HideInInspector] public bool placementMode;
+    [HideInInspector] public bool editingTop;
     private bool selectionValid;
     public float rotationSnap = 90;
     private bool transparentDecorations;
     private bool transparentShrimp;
-    private bool viewingTop;
     private int camAngle = 0;
 
 
@@ -52,14 +56,15 @@ public class DecorateTankController : MonoBehaviour
 
 
 
-    public void StartDecorating(TankController t)
+    public void StartDecorating(TankController tank)
     {
-        if (t == null) return;
-        if (t.tankViewScript == null) return;
-        currentTank = t;
-        currentGrid = t.tankGrid;
+        if (tank == null) return;
+        if (tank.tankViewScript == null) return;
+        currentTank = tank;
+        currentGrid = tank.tankGrid;
+        decorating = true;
 
-        GameObject newMenu = GameObject.Instantiate(t.tankViewScript.tankDecorateView, t.transform);
+        GameObject newMenu = GameObject.Instantiate(tank.tankViewScript.tankDecorateView, tank.transform);
         UIManager.instance.OpenScreen(newMenu.GetComponent<ScreenView>());
         newMenu.GetComponent<TankDecorateViewScript>().UpdateContent();
         newMenu.GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
@@ -71,23 +76,34 @@ public class DecorateTankController : MonoBehaviour
 
         currentTank.waterObject.SetActive(false);
         transparentDecorations = false;
-        viewingTop = false;
+        transparentShrimp = false;
 
 
-
-        int h = 0;  // Height
+        int b = 0;  // Bottom Layer
+        int t = currentGrid.gridHeight - 1;  // Top Layer
         for (int w = 0; w < currentGrid.gridWidth; w++)
         {
             for (int l = 0; l < currentGrid.gridLength; l++)
             {
-                GameObject node = GameObject.Instantiate(decoratingGridPrefab, currentGrid.grid[w][h][l].worldPos + new Vector3(0, -(currentGrid.pointSize / 2), 0), Quaternion.identity);
+                // Bottom Layer
+                GameObject node = GameObject.Instantiate(decoratingGridPrefab, currentGrid.grid[w][b][l].worldPos + new Vector3(0, -(currentGrid.pointSize / 2), 0), Quaternion.identity);
                 node.transform.parent = currentTank.transform;
                 node.transform.localScale = new Vector3(currentGrid.pointSize, currentGrid.pointSize / 10, currentGrid.pointSize);
                 node.GetComponent<MeshRenderer>().enabled = showNodes;
-                bottomNodes.Add(currentGrid.grid[w][h][l], node);
+                bottomNodes.Add(currentGrid.grid[w][b][l], node);
+                allNodes.Add(currentGrid.grid[w][b][l], node);
+
+                // Top Layer
+                node = GameObject.Instantiate(decoratingGridPrefab, currentGrid.grid[w][t][l].worldPos + new Vector3(0, -(currentGrid.pointSize / 2), 0), Quaternion.identity);
+                node.transform.parent = currentTank.transform;
+                node.transform.localScale = new Vector3(currentGrid.pointSize, currentGrid.pointSize / 10, currentGrid.pointSize);
+                node.GetComponent<MeshRenderer>().enabled = showNodes;
+                topNodes.Add(currentGrid.grid[w][t][l], node);
+                allNodes.Add(currentGrid.grid[w][t][l], node);
             }
         }
 
+        ChangeEditLayer(false);
 
         foreach (Shrimp shrimp in currentTank.shrimpInTank)
         {
@@ -115,16 +131,19 @@ public class DecorateTankController : MonoBehaviour
             Destroy(objectPreview);
 
 
-        foreach(GameObject n in bottomNodes.Values)
+        foreach(GameObject n in allNodes.Values)
         {
             GameObject.Destroy(n);
         }
         bottomNodes.Clear();
+        topNodes.Clear();
+        allNodes.Clear();
 
 
         currentTank = null;
         currentGrid = null;
         hoveredNode = null;
+        decorating = false;
     }
 
 
@@ -141,7 +160,7 @@ public class DecorateTankController : MonoBehaviour
 
     public void MouseDetection()
     {
-        if (bottomNodes == null || bottomNodes.Count == 0) return;
+        if (allNodes == null || allNodes.Count == 0) return;
 
         RaycastHit ray;
         Vector2 mousePos = Mouse.current.position.ReadValue();
@@ -149,12 +168,12 @@ public class DecorateTankController : MonoBehaviour
         int layerMask = LayerMask.GetMask("GridNode");
         if (Physics.Raycast(originMouse, out ray, 3f, layerMask))
         {
-            if (hoveredNode != null && bottomNodes[hoveredNode] == ray.collider.gameObject) return;
+            if (hoveredNode != null && allNodes[hoveredNode] == ray.collider.gameObject) return;
 
 
-            foreach (GridNode node in bottomNodes.Keys)
+            foreach (GridNode node in allNodes.Keys)
             {
-                if (bottomNodes[node] == ray.collider.gameObject)
+                if (allNodes[node] == ray.collider.gameObject)
                 {
                     hoveredNode = node;
                     break;
@@ -174,10 +193,10 @@ public class DecorateTankController : MonoBehaviour
     {
         GreyOutGrid();
 
-        foreach (GridNode n in bottomNodes.Keys)
+        foreach (GridNode n in allNodes.Keys)
         {
             if (n.invalid)
-                bottomNodes[n].GetComponent<MeshRenderer>().material = decoratingGridTakenMat;
+                allNodes[n].GetComponent<MeshRenderer>().material = decoratingGridTakenMat;
         }
 
 
@@ -193,7 +212,7 @@ public class DecorateTankController : MonoBehaviour
                     Transform[] transforms = obj.GetComponentsInChildren<Transform>();
                     foreach (GridNode n in currentGrid.CheckForObjectCollisions(transforms))
                         if (n.worldPos != null && n.worldPos != Vector3.zero)  // If it is not a wall
-                            bottomNodes[n].GetComponent<MeshRenderer>().material = decoratingGridHovered;
+                            allNodes[n].GetComponent<MeshRenderer>().material = decoratingGridHovered;
                 }
             }
 
@@ -202,7 +221,7 @@ public class DecorateTankController : MonoBehaviour
                 Transform[] transforms = selectedObject.GetComponentsInChildren<Transform>();
                 foreach (GridNode n in currentGrid.CheckForObjectCollisions(transforms))
                     if (n.worldPos != null && n.worldPos != Vector3.zero)  // If it is not a wall
-                        bottomNodes[n].GetComponent<MeshRenderer>().material = decoratingGridValidMat;
+                        allNodes[n].GetComponent<MeshRenderer>().material = decoratingGridValidMat;
             }
 
 
@@ -302,6 +321,17 @@ public class DecorateTankController : MonoBehaviour
         d.transform.localScale = objectPreview.transform.localScale;
         d.transform.rotation = objectPreview.transform.rotation;
         currentTank.decorationsInTank.Add(d);
+
+        // Set up decoration
+        Decoration decoration;
+        d.TryGetComponent(out decoration);
+        if (decoration != null) decoration.floating = editingTop;
+
+        // Set up floater
+        WateverVolumeFloater floater;
+        d.TryGetComponent(out floater);
+        if (floater != null) floater.WaterVolumeHelper = currentTank.waterObject.GetComponent<WaterVolumeHelper>();
+
         SetTransparentDecorations(transparentDecorations);
         currentGrid.RebakeGrid();
         StopPlacing();
@@ -356,13 +386,13 @@ public class DecorateTankController : MonoBehaviour
 
                 if (node.worldPos != null && node.worldPos != Vector3.zero)  // If it is not a wall
                 {
-                    bottomNodes[node].GetComponent<MeshRenderer>().material = decoratingGridInvalidMat;
+                    allNodes[node].GetComponent<MeshRenderer>().material = decoratingGridInvalidMat;
                 }
             }
 
             else
             {
-                bottomNodes[node].GetComponent<MeshRenderer>().material = decoratingGridValidMat;
+                allNodes[node].GetComponent<MeshRenderer>().material = decoratingGridValidMat;
             }
         }
 
@@ -428,7 +458,7 @@ public class DecorateTankController : MonoBehaviour
 
     private void GreyOutGrid()
     {
-        foreach (GridNode n in bottomNodes.Keys) bottomNodes[n].GetComponent<MeshRenderer>().material = decoratingGridMat;
+        foreach (GridNode n in allNodes.Keys) allNodes[n].GetComponent<MeshRenderer>().material = decoratingGridMat;
     }
 
     public void ToggleTransparentDecorarions()
@@ -440,20 +470,24 @@ public class DecorateTankController : MonoBehaviour
     {
         transparentDecorations = s;
 
-        if (transparentDecorations)
+        if (transparentDecorations)  // All decorations are transparent
         {
-            // Iterate through decorations and set mat
             foreach (GameObject obj in currentTank.decorationsInTank)
             {
                 SetObjectMaterials(obj, objectTransparentMat);
             }
         }
 
-        else
+        else  // Decorations on the level you aren't editing are transparent
         {
             foreach (GameObject obj in currentTank.decorationsInTank)
             {
-                obj.GetComponent<Decoration>().ResetMaterials();
+                if ((editingTop && !obj.GetComponent<Decoration>().floating) ||  // If it isn't on the level you are editing
+                    (!editingTop && obj.GetComponent<Decoration>().floating))
+                    SetObjectMaterials(obj, objectTransparentMat);
+
+                else
+                    obj.GetComponent<Decoration>().ResetMaterials();
             }
         }
     }
@@ -491,6 +525,25 @@ public class DecorateTankController : MonoBehaviour
         }
     }
 
+    public void ChangeEditLayer(bool top)
+    {
+        selectedObject = null;
+        StopPlacing();
+        editingTop = top;
+        ChangeCam(0);
+        SetTransparentDecorations(transparentDecorations);
+
+        foreach(GridNode n in bottomNodes.Keys)
+        {
+            bottomNodes[n].gameObject.SetActive(!top);
+        }
+
+        foreach (GridNode n in topNodes.Keys)
+        {
+            topNodes[n].gameObject.SetActive(top);
+        }
+    }
+
     public void OnChangeCam(InputValue value)
     {
         if (value.isPressed)
@@ -511,7 +564,7 @@ public class DecorateTankController : MonoBehaviour
         if (camAngle < 0) camAngle = limit;
 
         Vector3 pos = currentTank.decorationCamDock[camAngle].transform.position;
-        if (viewingTop) pos.y += currentTank.decorateSurfaceCamHeight;
+        if (editingTop) pos.y += currentTank.decorateSurfaceCamHeight;
 
         Camera.main.transform.position = pos;
         if (camAngle <= 3) Camera.main.transform.LookAt(currentTank.decorationCamLookPoint.transform, Vector3.up);
