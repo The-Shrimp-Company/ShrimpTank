@@ -164,6 +164,11 @@ public class TankDecorateViewScript : ScreenView
         DecorateTankController.Instance.ToggleTransparentDecorarions();
     }
 
+    public void ToggleShrimpTransparency()
+    {
+        DecorateTankController.Instance.ToggleTransparentShrimp();
+    }
+
     public void PutAway()
     {
         DecorateTankController.Instance.PutDecorationAway();

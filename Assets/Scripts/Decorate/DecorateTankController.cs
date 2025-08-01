@@ -22,6 +22,7 @@ public class DecorateTankController : MonoBehaviour
     private bool selectionValid;
     public float rotationSnap = 90;
     private bool transparentDecorations;
+    private bool transparentShrimp;
     private bool viewingTop;
     private int camAngle = 0;
 
@@ -86,6 +87,12 @@ public class DecorateTankController : MonoBehaviour
                 bottomNodes.Add(currentGrid.grid[w][h][l], node);
             }
         }
+
+
+        foreach (Shrimp shrimp in currentTank.shrimpInTank)
+        {
+            shrimp.gameObject.AddComponent<Decoration>();
+        }
     }
 
 
@@ -94,10 +101,14 @@ public class DecorateTankController : MonoBehaviour
     {
         currentTank.waterObject.SetActive(true);
         SetTransparentDecorations(false);
+        SetTransparentShrimp(false);
 
-        currentTank = null;
-        currentGrid = null;
-        hoveredNode = null;
+        Decoration d;
+        foreach (Shrimp shrimp in currentTank.shrimpInTank)
+        {
+            shrimp.gameObject.TryGetComponent<Decoration>(out d);
+            if (d != null) Destroy(d);
+        }
 
 
         if (objectPreview)
@@ -109,6 +120,11 @@ public class DecorateTankController : MonoBehaviour
             GameObject.Destroy(n);
         }
         bottomNodes.Clear();
+
+
+        currentTank = null;
+        currentGrid = null;
+        hoveredNode = null;
     }
 
 
@@ -438,6 +454,39 @@ public class DecorateTankController : MonoBehaviour
             foreach (GameObject obj in currentTank.decorationsInTank)
             {
                 obj.GetComponent<Decoration>().ResetMaterials();
+            }
+        }
+    }
+
+    public void ToggleTransparentShrimp()
+    {
+        SetTransparentShrimp(!transparentShrimp);
+    }
+
+    private void SetTransparentShrimp(bool s)
+    {
+        if (currentTank == null) return;
+        if (currentTank.shrimpInTank == null || currentTank.shrimpInTank.Count == 0) return;
+
+        transparentShrimp = s;
+
+        if (transparentShrimp)
+        {
+            Decoration d;
+            foreach (Shrimp shrimp in currentTank.shrimpInTank)
+            {
+                shrimp.gameObject.TryGetComponent<Decoration>(out d);
+                if (d != null) SetObjectMaterials(shrimp.gameObject, objectTransparentMat);
+            }
+        }
+
+        else
+        {
+            Decoration d;
+            foreach (Shrimp shrimp in currentTank.shrimpInTank)
+            {
+                shrimp.gameObject.TryGetComponent<Decoration>(out d);
+                if (d != null) d.ResetMaterials();
             }
         }
     }
