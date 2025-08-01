@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &555028115333040380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3898040730660556159}
+  m_Layer: 6
+  m_Name: DecorateCameraDock (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 1
+  m_IsActive: 1
+--- !u!4 &3898040730660556159
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555028115333040380}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: 0.15, y: 0.57, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 643293507717361367}
+  m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
 --- !u!1 &706235523590806765
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,8 +495,7 @@ Transform:
   - {fileID: 3236464512067332295}
   - {fileID: 358445018689480702}
   - {fileID: 489485880703759014}
-  - {fileID: 8707153858353793039}
-  - {fileID: 5779290906097663038}
+  - {fileID: 643293507717361367}
   - {fileID: 6421506423354189709}
   - {fileID: 7623248954326440091}
   - {fileID: 2203429193121671375}
@@ -495,6 +525,14 @@ MonoBehaviour:
   tankName: 
   updateTime: 0
   decorationsInTank: []
+  decorationCamDock:
+  - {fileID: 4518696556723750466}
+  - {fileID: 8713289044763389695}
+  - {fileID: 4033242764324365157}
+  - {fileID: 555028115333040380}
+  - {fileID: 6189607209558575305}
+  decorationCamLookPoint: {fileID: 1463401828186235566}
+  decorateSurfaceCamHeight: 0.4
   foodInTank: []
   FoodStore: 0
   foodToAdd: []
@@ -521,7 +559,6 @@ MonoBehaviour:
   tankViewScript: {fileID: 0}
   tankDecorateViewScript: {fileID: 0}
   tankNameChanged: 0
-  decorationCamDock: {fileID: 4518696556723750466}
   roughShrimpCapacity: 31
   chanceToKillAShrimpOverCapacity:
     serializedVersion: 2
@@ -891,7 +928,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1421
+  m_VersionIndex: 1508
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1637,6 +1674,37 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &4033242764324365157
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 335441154209353132}
+  m_Layer: 6
+  m_Name: DecorateCameraDock (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 1
+  m_IsActive: 1
+--- !u!4 &335441154209353132
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4033242764324365157}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: 0, y: 0.53129995, z: -0.07210004}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 643293507717361367}
+  m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
 --- !u!1 &4070435165852887687
 GameObject:
   m_ObjectHideFlags: 0
@@ -1882,13 +1950,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4518696556723750466}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7398895, z: -0.6727285, w: 0}
-  m_LocalPosition: {x: -0, y: 0.5313, z: 0.0721}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: 0, y: 0.53129995, z: 0.07210004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2235153865005791252}
-  m_LocalEulerAnglesHint: {x: 84.556, y: 180, z: 0}
+  m_Father: {fileID: 643293507717361367}
+  m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
 --- !u!1 &4595576537860867106
 GameObject:
   m_ObjectHideFlags: 0
@@ -1913,12 +1981,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4595576537860867106}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0, y: 0.212, z: 1.012}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 0.21200001, z: 1.0120001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2235153865005791252}
+  m_Father: {fileID: 643293507717361367}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &4907309792417144510
 GameObject:
@@ -2067,6 +2135,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaterVolume: {fileID: 878463418287008977}
+--- !u!1 &5493673229173392552
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 643293507717361367}
+  m_Layer: 6
+  m_Name: Cameras
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &643293507717361367
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5493673229173392552}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8707153858353793039}
+  - {fileID: 5779290906097663038}
+  - {fileID: 3246246983418312581}
+  - {fileID: 335441154209353132}
+  - {fileID: 3898040730660556159}
+  - {fileID: 1043974724986574476}
+  m_Father: {fileID: 2235153865005791252}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6162119374815838363
 GameObject:
   m_ObjectHideFlags: 0
@@ -2150,6 +2255,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &6189607209558575305
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1043974724986574476}
+  m_Layer: 6
+  m_Name: DecorateCameraDock (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 1
+  m_IsActive: 1
+--- !u!4 &1043974724986574476
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6189607209558575305}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 0.21200001, z: 0.737}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 643293507717361367}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &6293455274891807653
 GameObject:
   m_ObjectHideFlags: 0
@@ -3082,6 +3218,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4104380202958562290, guid: 226d4a600f124f442847aea727c96c02, type: 3}
+--- !u!1 &8713289044763389695
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3246246983418312581}
+  m_Layer: 6
+  m_Name: DecorateCameraDock (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 1
+  m_IsActive: 1
+--- !u!4 &3246246983418312581
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8713289044763389695}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: -0.15, y: 0.57, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 643293507717361367}
+  m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
 --- !u!1 &9174037134118809532
 GameObject:
   m_ObjectHideFlags: 0

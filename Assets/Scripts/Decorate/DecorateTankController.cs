@@ -22,6 +22,8 @@ public class DecorateTankController : MonoBehaviour
     private bool selectionValid;
     public float rotationSnap = 90;
     private bool transparentDecorations;
+    private bool viewingTop;
+    private int camAngle = 0;
 
 
     [Header("Grid")]
@@ -63,11 +65,12 @@ public class DecorateTankController : MonoBehaviour
         newMenu.GetComponent<Canvas>().planeDistance = 1;
         UIManager.instance.SetCursorMasking(false);
 
-        Camera.main.transform.position = currentTank.GetDecorationCam().transform.position;
-        Camera.main.transform.rotation = currentTank.GetDecorationCam().transform.rotation;
+        camAngle = 0;
+        ChangeCam(0);
 
         currentTank.waterObject.SetActive(false);
         transparentDecorations = false;
+        viewingTop = false;
 
 
 
@@ -279,7 +282,7 @@ public class DecorateTankController : MonoBehaviour
 
     private void PlaceDecoration()
     {
-        GameObject d = GameObject.Instantiate(selectedObject, hoveredNode.worldPos, Quaternion.identity);
+        GameObject d = GameObject.Instantiate(selectedObject, hoveredNode.worldPos, Quaternion.identity, currentTank.decorationParent);
         d.transform.localScale = objectPreview.transform.localScale;
         d.transform.rotation = objectPreview.transform.rotation;
         currentTank.decorationsInTank.Add(d);
@@ -437,5 +440,32 @@ public class DecorateTankController : MonoBehaviour
                 obj.GetComponent<Decoration>().ResetMaterials();
             }
         }
+    }
+
+    public void OnChangeCam(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            ChangeCam();
+        }
+    }
+
+    public void ChangeCam(int c = 1)
+    {
+        if (currentTank == null) return;
+
+        int limit = currentTank.decorationCamDock.Length - 1;
+
+        camAngle += c;
+
+        if (camAngle > limit) camAngle = 0;
+        if (camAngle < 0) camAngle = limit;
+
+        Vector3 pos = currentTank.decorationCamDock[camAngle].transform.position;
+        if (viewingTop) pos.y += currentTank.decorateSurfaceCamHeight;
+
+        Camera.main.transform.position = pos;
+        if (camAngle <= 3) Camera.main.transform.LookAt(currentTank.decorationCamLookPoint.transform, Vector3.up);
+        else Camera.main.transform.rotation = currentTank.decorationCamDock[camAngle].transform.rotation;
     }
 }

@@ -156,7 +156,7 @@ public class TankDecorateViewScript : ScreenView
 
     public void ChangeCamera()
     {
-
+        DecorateTankController.Instance.ChangeCam(1);
     }
 
     public void ToggleDecorationTransparency()

@@ -28,6 +28,10 @@ public class TankController : MonoBehaviour
 
     [Header("Decorations")]
     public List<GameObject> decorationsInTank = new List<GameObject>();
+    public GameObject[] decorationCamDock;
+    public GameObject decorationCamLookPoint;
+    public float decorateSurfaceCamHeight;
+    public Transform decorationParent;
 
     [Header("Food")]
     public List<ShrimpFood> foodInTank = new List<ShrimpFood>();
@@ -73,9 +77,6 @@ public class TankController : MonoBehaviour
     [HideInInspector] public TankViewScript tankViewScript;
     [HideInInspector] public TankDecorateViewScript tankDecorateViewScript;
     [HideInInspector] public bool tankNameChanged;
-
-    [Header("Decorating")]
-    [SerializeField] private GameObject decorationCamDock;
 
     [Header("Capacity")]
     public int roughShrimpCapacity;
@@ -449,7 +450,6 @@ public class TankController : MonoBehaviour
 
 
     public GameObject GetCam() { return camDock; }
-    public GameObject GetDecorationCam() { return decorationCamDock; }
 
 
     public void FocusTank()

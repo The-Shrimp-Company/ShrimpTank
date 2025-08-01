@@ -10,4 +10,9 @@ public class InputReader : MonoBehaviour
     {
         DecorateTankController.Instance.OnRotate(value);
     }
+
+    public void OnChangeCam(InputValue value)
+    {
+        DecorateTankController.Instance.OnChangeCam(value);
+    }
 }

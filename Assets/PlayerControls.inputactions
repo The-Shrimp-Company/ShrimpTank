@@ -1111,6 +1111,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeCam",
+                    "type": "Button",
+                    "id": "30467ae6-8fe4-4eaf-bc46-6278713fda5b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1419,6 +1428,17 @@
                     "processors": "",
                     "groups": "K&M",
                     "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bf2c8f35-508b-43e1-bed9-fdccbe28361a",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "K&M",
+                    "action": "ChangeCam",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
