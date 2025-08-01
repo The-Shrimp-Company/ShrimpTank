@@ -192,8 +192,11 @@ public class DecorateTankController : MonoBehaviour
 
         else  // Placement Mode
         {
-            if (hoveredNode != null) objectPreview.transform.position = hoveredNode.worldPos;
-            else objectPreview.transform.position = new Vector3(0, 100000, 0);
+            if (objectPreview != null)
+            {
+                if (hoveredNode != null) objectPreview.transform.position = hoveredNode.worldPos;
+                else objectPreview.transform.position = new Vector3(0, 100000, 0);
+            }
 
             CheckPlacementValidity();
         }
@@ -237,6 +240,11 @@ public class DecorateTankController : MonoBehaviour
                     selectedObject = null;
                     decorateView.ChangeSelectedItem(null, null);
                 }
+            }
+            else  // Click on an empty node
+            {
+                selectedObject = null;
+                decorateView.ChangeSelectedItem(null, null);
             }
         }
 
@@ -311,6 +319,7 @@ public class DecorateTankController : MonoBehaviour
         if (objectPreview == null) return;
         if (currentGrid == null) return;
         if (decorateView == null) return;
+        if (decorateView.selectedItemType == null) return;
 
 
         selectionValid = true;
@@ -340,23 +349,15 @@ public class DecorateTankController : MonoBehaviour
 
 
         // Check Money
-        if (decorateView.selectedItemType.purchaseValue > Money.instance.money)
-        {
-            selectionValid = false;  // Cannot afford
-        }
+        if (!Inventory.HasItem(decorateView.selectedItemType.itemName))
+            if (decorateView.selectedItemType.purchaseValue > Money.instance.money)
+                selectionValid = false;  // Cannot afford
 
 
 
         SetObjectMaterials(objectPreview, selectionValid ? objectPreviewValidMat : objectPreviewInvalidMat);    
     }
 
-
-
-    // Selecting when not placing
-
-    // Raycast for objects
-
-    // If not, check for objects on the highlighted node
 
 
     public void OnRotate(InputValue value)

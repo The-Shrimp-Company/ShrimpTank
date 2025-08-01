@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -48,7 +49,6 @@ public class TankGrid : MonoBehaviour
     {
         startPoint = new Vector3(-gridWidth, -gridHeight, -gridLength) / 2f * pointDistance + transform.position;
 
-
         grid = new GridNode[gridWidth][][];
         for (int i = 0; i < gridWidth; i++)
         {
@@ -59,6 +59,10 @@ public class TankGrid : MonoBehaviour
                 for (int k = 0; k < gridLength; k++)
                 {
                     Vector3 pos = startPoint + new Vector3(i, j, k) * pointDistance;
+                    Vector3 r = pos - transform.position;  // Get the relative vector from point to pivot
+                    r = transform.rotation * r;  // Rotate around the point
+                    pos = transform.position + r;  // Return to world space
+
                     grid[i][j][k] = new GridNode();
                     grid[i][j][k].coords = new Vector3Int(i, j, k);
                     grid[i][j][k].worldPos = pos;
@@ -98,6 +102,7 @@ public class TankGrid : MonoBehaviour
             {
                 GameObject invalidCube = Instantiate(gridPointPrefab, node.worldPos, Quaternion.identity);
                 invalidCube.transform.parent = gridParent.transform;
+                invalidCube.transform.rotation = transform.rotation;
                 invalidCube.transform.localScale = new Vector3(pointSize, pointSize, pointSize);
             }
         }
@@ -161,28 +166,40 @@ public class TankGrid : MonoBehaviour
 
         // Back
         Vector3 pos = transform.position + new Vector3(0, 0, (gridLength + 1) / 2) * pointDistance;
-        hit = Physics.BoxCastAll(pos, new Vector3(gridWidth * 2, gridHeight * 2, 0.1f) * pointDistance / 2f, Vector3.up, Quaternion.identity, 1, layer, QueryTriggerInteraction.Ignore);
+        Vector3 r = pos - transform.position;  // Get the relative vector from point to pivot
+        r = transform.rotation * r;  // Rotate around the point
+        pos = transform.position + r;  // Return to world space
+        hit = Physics.BoxCastAll(pos, new Vector3(gridWidth * 2, gridHeight * 2, 0.1f) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
         foreach (RaycastHit h in hit)
             if (objects.Contains(h.transform))
                 collidingNodes.Add(wall);
 
         // Front
         pos = transform.position + new Vector3(0, 0, (-gridLength - 2) / 2) * pointDistance;
-        hit = Physics.BoxCastAll(pos, new Vector3(gridWidth * 2, gridHeight * 2, 0.1f) * pointDistance / 2f, Vector3.up, Quaternion.identity, 1, layer, QueryTriggerInteraction.Ignore);
+        r = pos - transform.position;  // Get the relative vector from point to pivot
+        r = transform.rotation * r;  // Rotate around the point
+        pos = transform.position + r;  // Return to world space
+        hit = Physics.BoxCastAll(pos, new Vector3(gridWidth * 2, gridHeight * 2, 0.1f) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
         foreach (RaycastHit h in hit)
             if (objects.Contains(h.transform))
                 collidingNodes.Add(wall);
 
         // Right
         pos = transform.position + new Vector3((gridWidth + 1) / 2, 0, 0) * pointDistance;
-        hit = Physics.BoxCastAll(pos, new Vector3(0.1f, gridHeight * 2, gridLength * 2) * pointDistance / 2f, Vector3.up, Quaternion.identity, 1, layer, QueryTriggerInteraction.Ignore);
+        r = pos - transform.position;  // Get the relative vector from point to pivot
+        r = transform.rotation * r;  // Rotate around the point
+        pos = transform.position + r;  // Return to world space
+        hit = Physics.BoxCastAll(pos, new Vector3(0.1f, gridHeight * 2, gridLength * 2) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
         foreach (RaycastHit h in hit)
             if (objects.Contains(h.transform))
                 collidingNodes.Add(wall);
 
         // Left
         pos = transform.position + new Vector3((-gridWidth - 2) / 2, 0, 0) * pointDistance;
-        hit = Physics.BoxCastAll(pos, new Vector3(0.1f, gridHeight * 2, gridLength * 2) * pointDistance / 2f, Vector3.up, Quaternion.identity, 1, layer, QueryTriggerInteraction.Ignore);
+        r = pos - transform.position;  // Get the relative vector from point to pivot
+        r = transform.rotation * r;  // Rotate around the point
+        pos = transform.position + r;  // Return to world space
+        hit = Physics.BoxCastAll(pos, new Vector3(0.1f, gridHeight * 2, gridLength * 2) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
         foreach (RaycastHit h in hit)
             if (objects.Contains(h.transform))
                 collidingNodes.Add(wall);
