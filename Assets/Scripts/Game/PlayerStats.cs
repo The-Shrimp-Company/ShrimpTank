@@ -53,6 +53,7 @@ public struct Stats
     public int timesItemShopAppOpened;
     public int timesInventoryAppOpened;
     public int timesSettingsAppOpened;
+    public int timesVetOpened;
 
     public float timeSpentMoving;
     public float timeSpentFocusingTank;
@@ -62,4 +63,5 @@ public struct Stats
     public int currentSongPlaying;
     public int timesRadioToggled;
 
+    public int timesBoughtFood;
 }

@@ -1,8 +1,8 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.Rendering;
 using System.IO;
@@ -10,6 +10,7 @@ using System.Text.Json.Serialization;
 
 public class CustomerManager : MonoBehaviour 
 {
+
     static public CustomerManager Instance;
 
     private int count = 0;
@@ -28,18 +29,20 @@ public class CustomerManager : MonoBehaviour
     private List<string> RandomEmails = new();
 
     public EmailScreen emailScreen;
-    private void Start()
+
+
+    public void Awake()
     {
-        if (Instance == null)
+        if(Instance == null)
         {
             Instance = this;
         }
-
-        foreach (string line in File.ReadLines(Path.Combine(Application.streamingAssetsPath, "NPCEmailAddresses.txt")))
+        else
         {
-            RandomEmails.Add(line);
+            Destroy(this.gameObject);
         }
     }
+
 
     private void Update()
     {
@@ -72,7 +75,7 @@ public class CustomerManager : MonoBehaviour
         }
         openSaleCoolDownCount += Time.deltaTime;
 
-        if(Random.Range(0, 1000) == 1 && requests.Count < 5 && coolDown < 0 && ShrimpManager.instance.allShrimp.Count > 5)
+        if(Random.Range(0, 1000) == 1 && requests.Count < 5 && coolDown < 0 && ShrimpManager.instance.allShrimp.Count > 5 && Tutorial.instance.flags.Contains("AccountActivated"))
         {
             coolDown = 300;
             MakeRequest();
@@ -80,7 +83,16 @@ public class CustomerManager : MonoBehaviour
         coolDown--;
     }
 
+    public void Initialize(Request[] requests = null)
+    {
 
+        Instance.requests = requests?.ToList() ?? Instance.requests;
+
+        foreach (string line in File.ReadLines(Path.Combine(Application.streamingAssetsPath, "NPCEmailAddresses.txt")))
+        {
+            Instance.RandomEmails.Add(line);
+        }
+    }
 
     public void AddShrimpToPurchase(Shrimp shrimp)
     {
@@ -226,6 +238,7 @@ public class CustomerManager : MonoBehaviour
         EmailManager.SendEmail(email, true);
         request.emailID = email.ID;
         requests.Add(request);
+        Debug.Log(requests.Count);
     }
 
     public void EmailOpen(EmailScreen newEmailScreen)

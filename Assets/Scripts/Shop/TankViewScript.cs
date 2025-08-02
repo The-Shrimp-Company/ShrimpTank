@@ -488,6 +488,10 @@ public class TankViewScript : ScreenView
 
     }
 
+    public void ToggleLights()
+    {
+        foreach (Light light in tank.transform.GetComponentsInChildren<Light>()) light.enabled = !light.enabled;
+    }
 
     public TankController GetTank() {  return tank; }
 }

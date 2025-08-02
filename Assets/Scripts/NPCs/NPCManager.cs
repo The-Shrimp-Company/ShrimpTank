@@ -29,6 +29,7 @@ public class NPCManager : MonoBehaviour
         NPCs.Add(new CollectorSue());
         NPCs.Add(new SleazyJoe());
         NPCs.Add(new Rival());
+        NPCs.Add(new StableJemma());
         //NPCs.Add(new DebugNPC());
     }
 
@@ -37,7 +38,7 @@ public class NPCManager : MonoBehaviour
     {
         if(NPCs.Count > 0)
         {
-            if (!Tutorial.instance.flags.Contains("activeAccount"))
+            if (!Tutorial.instance.flags.Contains("AccountActivated"))
             {
                 NPCs[0]?.NpcCheck();
             }

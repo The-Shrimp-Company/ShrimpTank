@@ -1,11 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class EmailContent : ContentPopulation
 {
     public EmailContentWindow window;
+
+    public List<Email.EmailTags> tagsToShow = new() { Email.EmailTags.Important };
 
     private int count = 0;
 
@@ -89,6 +93,9 @@ public class EmailContent : ContentPopulation
             }
 
             count = contentBlocks.Count;
+
+            // Apply the filter to the emails, while maintaining order.
+            foreach(EmailContentBlock block in contentBlocks) block.gameObject.SetActive(tagsToShow.Contains(block.GetEmail().tag));
         }
     }
 
@@ -98,11 +105,29 @@ public class EmailContent : ContentPopulation
         {
             if (block != null)
             {
-                if (!block.GetComponent<EmailContentBlock>().isImportant())
+                if (block.GetComponent<EmailContentBlock>().GetEmail().tag == Email.EmailTags.Spam)
                 {
                     block.GetComponent<EmailContentBlock>().DeleteEmail();
                 }
             }
         }
+    }
+
+    public void ShowOnlyImportant()
+    {
+        tagsToShow = new() { Email.EmailTags.Important };
+        count++;
+    }
+    
+    public void ShowOnlySpam()
+    {
+        tagsToShow = new() { Email.EmailTags.Spam };
+        count++;
+    }
+
+    public void ShowAll()
+    {
+        tagsToShow = Enum.GetValues(typeof(Email.EmailTags)).Cast<Email.EmailTags>().ToList();
+        count++;
     }
 }

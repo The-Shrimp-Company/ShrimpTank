@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Text.Json.Serialization;
+using System;
 
 [System.Serializable]
 public class MyButton
@@ -37,6 +38,12 @@ public class DataList
 [System.Serializable]
 public class Email
 {
+    public enum EmailTags
+    {
+        Spam,
+        Important
+    }
+
     public int ID;
 
     public string sender;
@@ -47,7 +54,7 @@ public class Email
 
     public int value;
 
-    public bool important;
+    public EmailTags tag;
 
     public List<MyButton> buttons;
 
@@ -92,7 +99,7 @@ public class EmailManager
 
     public int CreateID()
     {
-        return (int)Time.time + instance.IdChaff++;
+        return (int)DateTime.UtcNow.Ticks + instance.IdChaff++;
     }
 
     static public void SendEmail(Email email, bool important = false, float delay = 0, NPC sender = null)
@@ -103,7 +110,7 @@ public class EmailManager
     static IEnumerator SendEmailDelayed(Email email, bool important = false, float delay = 0)
     {
         yield return new WaitForSeconds(delay);
-        email.important = important;
+        if (important) email.tag = Email.EmailTags.Important;
         instance.emails.Add(email);
         UIManager.instance.SendNotification(email.subjectLine);
     }
