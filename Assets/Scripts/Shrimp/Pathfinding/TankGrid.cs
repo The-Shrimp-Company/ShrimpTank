@@ -142,7 +142,7 @@ public class TankGrid : MonoBehaviour
         // Nodes
         for (int i = 0; i < gridWidth; i++)
         {
-            int j = 0;
+            int j = DecorateTankController.Instance.editingLayer;
             for (int k = 0; k < gridLength; k++)
             {
                 //if (!grid[i][j][k].invalid) continue;

@@ -24,6 +24,7 @@ public class DecorateTankController : MonoBehaviour
     [HideInInspector] public bool decorating;
     [HideInInspector] public bool placementMode;
     [HideInInspector] public bool editingTop;
+    [HideInInspector] public int editingLayer;
     private bool selectionValid;
     public float rotationSnap = 90;
     private bool transparentDecorations;
@@ -88,7 +89,7 @@ public class DecorateTankController : MonoBehaviour
                 // Bottom Layer
                 GameObject node = GameObject.Instantiate(decoratingGridPrefab, currentGrid.grid[w][b][l].worldPos + new Vector3(0, -(currentGrid.pointSize / 2), 0), Quaternion.identity);
                 node.transform.parent = currentTank.transform;
-                node.transform.localScale = new Vector3(currentGrid.pointSize, currentGrid.pointSize / 10, currentGrid.pointSize);
+                node.transform.localScale = new Vector3(currentGrid.pointSize / 1.025f, currentGrid.pointSize / 10, currentGrid.pointSize / 1.025f);
                 node.GetComponent<MeshRenderer>().enabled = showNodes;
                 bottomNodes.Add(currentGrid.grid[w][b][l], node);
                 allNodes.Add(currentGrid.grid[w][b][l], node);
@@ -168,7 +169,7 @@ public class DecorateTankController : MonoBehaviour
         int layerMask = LayerMask.GetMask("GridNode");
         if (Physics.Raycast(originMouse, out ray, 3f, layerMask))
         {
-            if (hoveredNode != null && allNodes[hoveredNode] == ray.collider.gameObject) return;
+            if (hoveredNode != null && allNodes.ContainsKey(hoveredNode) && allNodes[hoveredNode] == ray.collider.gameObject) return;
 
 
             foreach (GridNode node in allNodes.Keys)
@@ -199,12 +200,8 @@ public class DecorateTankController : MonoBehaviour
                 allNodes[n].GetComponent<MeshRenderer>().material = decoratingGridTakenMat;
         }
 
-
         if (!placementMode)
         {
-            // Raycast for objects first?
-
-
             if (hoveredNode != null)
             {
                 foreach (GameObject obj in currentGrid.CheckNodeForObject(hoveredNode))
@@ -232,7 +229,7 @@ public class DecorateTankController : MonoBehaviour
         {
             if (objectPreview != null)
             {
-                if (hoveredNode != null) objectPreview.transform.position = hoveredNode.worldPos;
+                if (hoveredNode != null) objectPreview.transform.position = hoveredNode.worldPos + decorateView.selectedItemType.gridSnapOffset;
                 else objectPreview.transform.position = new Vector3(0, 100000, 0);
             }
 
@@ -298,6 +295,12 @@ public class DecorateTankController : MonoBehaviour
         objectPreview = GameObject.Instantiate(selectedObject);
         objectPreview.name = "Object Preview";
         SetObjectMaterials(objectPreview, objectPreviewValidMat);
+
+        // Disable the floater if it has one
+        WateverVolumeFloater floater;
+        d.TryGetComponent(out floater);
+        if (floater != null) floater.enabled = false;
+
     }
 
 
@@ -306,6 +309,7 @@ public class DecorateTankController : MonoBehaviour
         placementMode = false;
         selectedObject = null;
         if (objectPreview) Destroy(objectPreview);
+        objectPreview = null;
 
         if (decorateView != null)
         {
@@ -317,7 +321,7 @@ public class DecorateTankController : MonoBehaviour
 
     private void PlaceDecoration()
     {
-        GameObject d = GameObject.Instantiate(selectedObject, hoveredNode.worldPos, Quaternion.identity, currentTank.decorationParent);
+        GameObject d = GameObject.Instantiate(selectedObject, hoveredNode.worldPos + decorateView.selectedItemType.gridSnapOffset, Quaternion.identity, currentTank.decorationParent);
         d.transform.localScale = objectPreview.transform.localScale;
         d.transform.rotation = objectPreview.transform.rotation;
         currentTank.decorationsInTank.Add(d);
@@ -542,6 +546,11 @@ public class DecorateTankController : MonoBehaviour
         {
             topNodes[n].gameObject.SetActive(top);
         }
+
+        if (!top)
+            editingLayer = 0;
+        else
+            editingLayer = currentGrid.gridHeight - 1;
     }
 
     public void OnChangeCam(InputValue value)
