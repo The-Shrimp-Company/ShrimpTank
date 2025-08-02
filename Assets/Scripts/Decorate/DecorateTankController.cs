@@ -1,5 +1,6 @@
 using Bitgem.VFX.StylisedWater;
 using DG.Tweening;
+using SaveLoadSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
@@ -71,6 +72,7 @@ public class DecorateTankController : MonoBehaviour
         newMenu.GetComponent<TankDecorateViewScript>().UpdateContent();
         newMenu.GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
         newMenu.GetComponent<Canvas>().planeDistance = 1;
+        decorateView = newMenu.GetComponent<ScreenView>() as TankDecorateViewScript;
         UIManager.instance.SetCursorMasking(false);
 
         camAngle = 0;
@@ -253,11 +255,11 @@ public class DecorateTankController : MonoBehaviour
                 if (Inventory.HasItem(decorateView.selectedItemType.itemName))
                 {
                     Inventory.RemoveItem(decorateView.selectedItemType.itemName);
-                    PlaceDecoration();
+                    PlaceDecoration(decorateView.selectedItemType);
                 }
                 else if (Money.instance.WithdrawMoney(decorateView.selectedItemType.purchaseValue))
                 {
-                    PlaceDecoration();
+                    PlaceDecoration(decorateView.selectedItemType);
                 }
             }
         }
@@ -322,9 +324,9 @@ public class DecorateTankController : MonoBehaviour
     }
 
 
-    private void PlaceDecoration()
+    private void PlaceDecoration(DecorationItemSO so)
     {
-        GameObject d = GameObject.Instantiate(selectedObject, hoveredNode.worldPos + decorateView.selectedItemType.gridSnapOffset, Quaternion.identity, currentTank.decorationParent);
+        GameObject d = GameObject.Instantiate(selectedObject, hoveredNode.worldPos + so.gridSnapOffset, Quaternion.identity, currentTank.decorationParent);
 
         Sequence sequence = DOTween.Sequence(d);
         d.transform.localScale = objectPreview.transform.localScale;
@@ -443,6 +445,7 @@ public class DecorateTankController : MonoBehaviour
 
     public void MoveDecoration()
     {
+        if (decorateView.selectedItemType == null) return;
         DecorationItemSO so = decorateView.selectedItemType;
         PutDecorationAway();
         decorateView.ChangeSelectedItem(so, so.decorationPrefab);
@@ -610,5 +613,37 @@ public class DecorateTankController : MonoBehaviour
             else
                 Camera.main.transform.rotation = cam.transform.rotation;
         }
+    }
+
+    public void LoadDecorations(TankController tank, TankSaveData data)
+    {
+        if (tank == null) return;
+        if (data == null || data.decorations == null || data.decorations.Length == 0) return;
+
+        currentTank = tank;
+        currentGrid = tank.tankGrid;
+
+        foreach (TankDecorationSaveData decorationSave in data.decorations)
+        {
+            GameObject d = GameObject.Instantiate(((DecorationItemSO)Inventory.GetSOForItem(Inventory.GetItemUsingName(decorationSave.name))).decorationPrefab, 
+                new Vector3(decorationSave.position.X, decorationSave.position.Y, decorationSave.position.Z), 
+                Quaternion.Euler(new Vector3(decorationSave.rotation.X, decorationSave.rotation.Y, decorationSave.rotation.Z)), 
+                currentTank.decorationParent);
+
+            currentTank.decorationsInTank.Add(d);
+
+            // Set up decoration
+            Decoration decoration;
+            d.TryGetComponent(out decoration);
+            if (decoration != null) decoration.floating = decorationSave.floating;
+
+            // Set up floater
+            WateverVolumeFloater floater;
+            d.TryGetComponent(out floater);
+            if (floater != null) floater.WaterVolumeHelper = currentTank.waterObject.GetComponent<WaterVolumeHelper>();
+        }
+
+        currentGrid.RebakeGrid();
+        StopDecorating();
     }
 }

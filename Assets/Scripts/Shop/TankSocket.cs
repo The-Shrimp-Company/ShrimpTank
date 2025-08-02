@@ -1,6 +1,7 @@
 using SaveLoadSystem;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 public class TankSocket : MonoBehaviour
@@ -80,6 +81,8 @@ public class TankSocket : MonoBehaviour
         {
             tank.SpawnShrimp(s, true);
         }
+
+        DecorateTankController.Instance.LoadDecorations(tank, data);
 
         tank.GetComponent<TankUpgradeController>().LoadUpgrades(data.upgradeIDs);
     }

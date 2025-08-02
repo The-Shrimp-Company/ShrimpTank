@@ -153,8 +153,21 @@ public class SaveController : MonoBehaviour
                                 s.illnessCont.SaveIllnesses();
                                 shrimpInTank.Add(s.stats);
                             }
-
                             tankSave.shrimp = shrimpInTank.ToArray();
+
+                            List<TankDecorationSaveData> decorationsInTank = new List<TankDecorationSaveData>();
+                            foreach (GameObject obj in socket.tank.decorationsInTank)
+                            {
+                                Decoration decoration = obj.GetComponent<Decoration>();
+                                TankDecorationSaveData decorationSaveData = new TankDecorationSaveData();
+                                decorationSaveData.name = decoration.decorationSO.itemName;
+                                decorationSaveData.position = new System.Numerics.Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
+                                decorationSaveData.rotation = new System.Numerics.Vector3(obj.transform.rotation.eulerAngles.x, obj.transform.rotation.eulerAngles.y, obj.transform.rotation.eulerAngles.z);
+                                decorationSaveData.floating = decoration.floating;
+                                decorationsInTank.Add(decorationSaveData);
+                            }
+                            tankSave.decorations = decorationsInTank.ToArray();
+
                             tankSave.tankName = socket.tank.tankName;
                             tankSave.destinationTank = socket.tank.destinationTank;
                             tankSave.openTank = socket.tank.openTank;

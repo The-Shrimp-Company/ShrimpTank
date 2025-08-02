@@ -60,10 +60,20 @@ namespace SaveLoadSystem
     public class TankSaveData
     {
         public ShrimpStats[] shrimp;
+        public TankDecorationSaveData[] decorations;
         public string tankName;
         public bool destinationTank;
         public bool openTank;
         public float openTankPrice;
         public string[] upgradeIDs;
+    }
+
+    [System.Serializable]
+    public class TankDecorationSaveData
+    {
+        public string name;
+        public System.Numerics.Vector3 position;
+        public System.Numerics.Vector3 rotation;
+        public bool floating;
     }
 }
