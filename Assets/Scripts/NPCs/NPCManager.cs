@@ -29,6 +29,7 @@ public class NPCManager : MonoBehaviour
         NPCs.Add(new CollectorSue());
         NPCs.Add(new SleazyJoe());
         NPCs.Add(new Rival());
+        NPCs.Add(new StableJemma());
         //NPCs.Add(new DebugNPC());
     }
 

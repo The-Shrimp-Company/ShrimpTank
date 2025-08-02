@@ -6,12 +6,14 @@ using UnityEngine;
 
 public class SleazyJoe : NPC
 {
-    public float totalShrimpLoss;
 
 
     public SleazyJoe() : base("Joe@ShrimpMail.com", 10, 50, 0)
     {
-        
+        if (flags.Count < 1)
+        {
+            flags.Add("0");
+        }
     }
 
     public override void NpcCheck()
@@ -29,7 +31,7 @@ public class SleazyJoe : NPC
                 email.CreateEmailButton("Yes", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 1);
                 important = true;
             }
-            else if (totalShrimpLoss >= 30 && completion == 1)
+            else if (flags[0].TryCast<int>() >= 30 && completion == 1)
             {
                 email.title = "Thanks so much";
                 email.subjectLine = "The shrimp have been great";
@@ -42,10 +44,10 @@ public class SleazyJoe : NPC
             }
             else if(completion >= 1)
             {
-                email.mainText = "Thanks for offering me some shrimp. I'd really like one, but I don't have much cash. Could you sell me one of your shrimp for £" + Math.Round(completion + totalShrimpLoss/10, 2) + ". I don't mind which one.";
+                email.mainText = "Thanks for offering me some shrimp. I'd really like one, but I don't have much cash. Could you sell me one of your shrimp for £" + Math.Round((float)completion + flags[0].TryCast<int>()/10, 2) + ". I don't mind which one.";
                 email.title = "Please";
                 email.subjectLine = "Please";
-                email.CreateEmailButton("I will sell you this one", false).SetFunc(EmailFunctions.FunctionIndexes.GiveAnyShrimp, completion + totalShrimpLoss/10);
+                email.CreateEmailButton("I will sell you this one", false).SetFunc(EmailFunctions.FunctionIndexes.GiveAnyShrimp, completion + flags[0].TryCast<int>()/10);
                 important = true;
             }
 
@@ -60,7 +62,6 @@ public class SleazyJoe : NPC
 
     public override void BoughtShrimp(ShrimpStats stats)
     {
-        totalShrimpLoss += EconomyManager.instance.GetShrimpValue(stats) - completion + totalShrimpLoss / 10;
-        Debug.Log(totalShrimpLoss);
+        flags[0] = (flags[0].TryCast<int>() + EconomyManager.instance.GetShrimpValue(stats) - completion + flags[0].TryCast<int>() / 10).ToShortString();
     }
 }

@@ -113,8 +113,11 @@ static public class EmailFunctions
     {
         button.actions.Add(() =>
         {
-            List<object> objs = button.data[(int)FunctionIndexes.SetFlag].data;
-            NPCManager.Instance.NPCs.Where((x) => { return x.name == objs[0].TryCast<string>(); }).ToList()[0]?.SetFlag(objs[1].TryCast<string>());
+            // for each object in the functions data pool past the first (we drop the first object with the GetRange function, because it should be the
+            // name of the NPC calling the function), we then find the NPC in question, and add the flag to them. For the most part, this will only
+            // add one flag at a time, but this accounts for someone setting multiple flags in a single function call.
+            foreach (object obj in button.data[(int)FunctionIndexes.SetFlag].data.GetRange(1, button.data[(int)FunctionIndexes.SetFlag].data.Count - 1))
+                NPCManager.Instance.NPCs.Find((x) => { return x.name == button.data[(int)FunctionIndexes.SetFlag].data[0].TryCast<string>(); }).SetFlag(obj.TryCast<string>());
         });
     }
 

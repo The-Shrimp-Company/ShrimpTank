@@ -53,7 +53,7 @@ public class EmailContent : ContentPopulation
                 flag = false;
                 foreach(Email email in EmailManager.instance.emails)
                 {
-                    if(block.GetEmail().ID == email.ID && tagsToShow.Contains(email.tag))
+                    if(block.GetEmail().ID == email.ID)
                     {
                         flag = true;
                     }
@@ -77,7 +77,7 @@ public class EmailContent : ContentPopulation
                         }
                     }
                 }
-                if (!flag && tagsToShow.Contains(email.tag))
+                if (!flag)
                 {
                     ContentBlock block = Instantiate(contentBlock, transform).GetComponent<ContentBlock>();
                     block.GetComponent<EmailContentBlock>().SetEmail(email, window);
@@ -93,6 +93,9 @@ public class EmailContent : ContentPopulation
             }
 
             count = contentBlocks.Count;
+
+            // Apply the filter to the emails, while maintaining order.
+            foreach(EmailContentBlock block in contentBlocks) block.gameObject.SetActive(tagsToShow.Contains(block.GetEmail().tag));
         }
     }
 
