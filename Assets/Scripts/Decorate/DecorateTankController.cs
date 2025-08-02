@@ -14,7 +14,7 @@ public class DecorateTankController : MonoBehaviour
 
     private TankController currentTank;
     private TankGrid currentGrid;
-    public TankDecorateViewScript decorateView;
+    [HideInInspector] public TankDecorateViewScript decorateView;
 
     private Dictionary<GridNode, GameObject> bottomNodes = new Dictionary<GridNode, GameObject>();
     private Dictionary<GridNode, GameObject> topNodes = new Dictionary<GridNode, GameObject>();

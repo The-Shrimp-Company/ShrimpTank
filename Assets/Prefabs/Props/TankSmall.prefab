@@ -43,7 +43,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 235884192790218677}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 235884192790218677}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d1bc949ada500e40a47e0e6f07b2d86, type: 3}
   m_Name: 
@@ -2415,7 +2415,7 @@ MonoBehaviour:
   IncludeFaces: -1
   IncludeFoam: -1
   TileSize: 0.1
-  ShowDebug: 1
+  ShowDebug: 0
   RealtimeUpdates: 0
 --- !u!114 &6781926875782775690
 MonoBehaviour:
