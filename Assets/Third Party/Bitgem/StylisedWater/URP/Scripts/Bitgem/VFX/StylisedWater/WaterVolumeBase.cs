@@ -100,13 +100,13 @@ namespace Bitgem.VFX.StylisedWater
             // convert the position to a tile
             var x = Mathf.FloorToInt((_position.x - transform.position.x + 0.5f) / TileSize);
             var z = Mathf.FloorToInt((_position.z - transform.position.z + 0.5f) / TileSize);
-
+            
             // check if out of bounds
             if (x < 0 || x >= MAX_TILES_X || z < 0 || z >= MAX_TILES_Z)
             {
                 return null;
             }
-
+            
             // find the highest active water block in the column
             // TODO : could be reworked to cater for gaps
             for (var y = MAX_TILES_Y - 1; y >= 0; y--)
@@ -116,7 +116,7 @@ namespace Bitgem.VFX.StylisedWater
                     return transform.position.y + y * TileSize * transform.localScale.y;
                 }
             }
-
+            
             // no water in the column
             return null;
         }

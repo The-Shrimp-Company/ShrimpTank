@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaterVolumeHelper: {fileID: 0}
-  heightOffset: -0.14
+  heightOffset: -0.3
 --- !u!114 &-4130692371683456443
 MonoBehaviour:
   m_ObjectHideFlags: 0

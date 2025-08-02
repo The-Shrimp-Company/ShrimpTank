@@ -29,8 +29,6 @@ public class TankController : MonoBehaviour
     [Header("Decorations")]
     public List<GameObject> decorationsInTank = new List<GameObject>();
     public GameObject[] decorationCamDock;
-    public GameObject decorationCamLookPoint;
-    public float decorateSurfaceCamHeight;
     public Transform decorationParent;
 
     [Header("Food")]

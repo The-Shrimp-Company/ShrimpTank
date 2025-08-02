@@ -116,9 +116,12 @@ public class DecorateTankController : MonoBehaviour
 
     public void StopDecorating()
     {
+        decorating = false;
+        editingTop = false;
         currentTank.waterObject.SetActive(true);
         SetTransparentDecorations(false);
         SetTransparentShrimp(false);
+        Camera.main.nearClipPlane = 0.01f;
 
         Decoration d;
         foreach (Shrimp shrimp in currentTank.shrimpInTank)
@@ -144,7 +147,6 @@ public class DecorateTankController : MonoBehaviour
         currentTank = null;
         currentGrid = null;
         hoveredNode = null;
-        decorating = false;
     }
 
 
@@ -298,7 +300,7 @@ public class DecorateTankController : MonoBehaviour
 
         // Disable the floater if it has one
         WateverVolumeFloater floater;
-        d.TryGetComponent(out floater);
+        objectPreview.TryGetComponent(out floater);
         if (floater != null) floater.enabled = false;
 
     }
@@ -486,8 +488,8 @@ public class DecorateTankController : MonoBehaviour
         {
             foreach (GameObject obj in currentTank.decorationsInTank)
             {
-                if ((editingTop && !obj.GetComponent<Decoration>().floating) ||  // If it isn't on the level you are editing
-                    (!editingTop && obj.GetComponent<Decoration>().floating))
+                if (((editingTop && !obj.GetComponent<Decoration>().floating) ||  // If it isn't on the level you are editing
+                    (!editingTop && obj.GetComponent<Decoration>().floating)) && decorating)
                     SetObjectMaterials(obj, objectTransparentMat);
 
                 else
@@ -572,11 +574,26 @@ public class DecorateTankController : MonoBehaviour
         if (camAngle > limit) camAngle = 0;
         if (camAngle < 0) camAngle = limit;
 
-        Vector3 pos = currentTank.decorationCamDock[camAngle].transform.position;
-        if (editingTop) pos.y += currentTank.decorateSurfaceCamHeight;
+        DecorateCamera cam;
+        currentTank.decorationCamDock[camAngle].TryGetComponent(out cam);
+        if (cam != null)
+        {
+            Vector3 pos = cam.transform.position;
+            if (editingTop)
+            {
+                pos.y += cam.topCamHeight;
+                Camera.main.nearClipPlane = cam.topCamClippingPlane;
+            }
+            else
+                Camera.main.nearClipPlane = 0.01f;
 
-        Camera.main.transform.position = pos;
-        if (camAngle <= 3) Camera.main.transform.LookAt(currentTank.decorationCamLookPoint.transform, Vector3.up);
-        else Camera.main.transform.rotation = currentTank.decorationCamDock[camAngle].transform.rotation;
+            Camera.main.transform.position = pos;
+            if (cam.lookAt != null)
+            {
+                Camera.main.transform.LookAt(editingTop ? cam.lookAt : cam.topCamLookAt, Vector3.up);
+            }
+            else
+                Camera.main.transform.rotation = cam.transform.rotation;
+        }
     }
 }
