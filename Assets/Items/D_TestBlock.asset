@@ -20,7 +20,7 @@ MonoBehaviour:
   tags: 08000000
   decorationPrefab: {fileID: 7075755009106335745, guid: b222cf2c437d3b641821ec5249c58b41,
     type: 3}
-  gridSnapOffset: {x: 0, y: 0, z: 0}
+  gridSnapOffset: {x: 0, y: -0.01, z: 0}
   rotationAxis: {x: 0, y: 1, z: 0}
   canFloat: 0
   canSitOnShelf: 0

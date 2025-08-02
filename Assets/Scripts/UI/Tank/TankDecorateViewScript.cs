@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using System;
 using System.Xml;
 using DG.Tweening;
+using System.Threading.Tasks;
 
 public class TankDecorateViewScript : ScreenView
 {
@@ -17,12 +18,15 @@ public class TankDecorateViewScript : ScreenView
     [SerializeField] private GameObject _content;
     [SerializeField] private GameObject _contentBlock;
     private List<DecorationContentBlock> contentBlocks = new List<DecorationContentBlock>();
+    [SerializeField] private CanvasGroup infoCanvasGroup;
 
     [SerializeField] GameObject selectedItemInfoBox;
     [SerializeField] TMP_Text selectedItemNameText;
     [SerializeField] Image selectedItemImage;
     [SerializeField] GameObject selectedItemButtons;
     [SerializeField] GameObject placingItemButtons;
+
+    [SerializeField] float infoFadeSpeed = 0.5f;
 
     [HideInInspector] public DecorationItemSO selectedItemType;
     [HideInInspector] public GameObject selectedItemGameObject;
@@ -37,6 +41,7 @@ public class TankDecorateViewScript : ScreenView
         tank.tankDecorateViewScript = this;
         selectedItemType = null;
         selectedItemGameObject = null;
+        infoCanvasGroup.alpha = 0;
         ChangeSelectedItem(null, null);
         StartCoroutine(OpenTab(switchTab));
         UpdateContent();
@@ -125,7 +130,6 @@ public class TankDecorateViewScript : ScreenView
 
         if (selectedItemType != null)
         {
-            selectedItemInfoBox.SetActive(true);
             selectedItemNameText.text = selectedItemType.itemName;
             selectedItemImage.sprite = selectedItemType.itemImage;
 
@@ -139,22 +143,28 @@ public class TankDecorateViewScript : ScreenView
                 placingItemButtons.SetActive(false);
                 selectedItemButtons.SetActive(true);
             }
+
+            infoCanvasGroup.DOKill();
+            infoCanvasGroup.DOFade(1, infoFadeSpeed).SetEase(Ease.InOutSine);
         }
         else
         {
-            selectedItemInfoBox.SetActive(false);
+            infoCanvasGroup.DOKill();
+            infoCanvasGroup.DOFade(0, infoFadeSpeed).SetEase(Ease.InOutSine);
         }
     }
 
 
-    public void ClearTank()
+    public async void ClearTank()
     {
+        int delay = 400 / tank.decorationsInTank.Count;
         for (int i = tank.decorationsInTank.Count - 1; i >= 0; i--)
         {
             if (tank.decorationsInTank[i] == null) continue;
             DecorateTankController.Instance.selectedObject = tank.decorationsInTank[i];
             ChangeSelectedItem(tank.decorationsInTank[i].GetComponent<Decoration>().decorationSO, tank.decorationsInTank[i]);
             PutAway();
+            await Task.Delay(delay);
         }
     }
 
@@ -206,7 +216,6 @@ public class TankDecorateViewScript : ScreenView
         Camera.main.transform.position = tank.GetCam().transform.position;
         Camera.main.transform.rotation = tank.GetCam().transform.rotation;
         DecorateTankController.Instance.StopDecorating();
-        UIManager.instance.CloseScreen();
         UIManager.instance.SetCursorMasking(true);
         base.Close();
     }

@@ -3129,7 +3129,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.049000002, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00009012222}
+  m_AnchoredPosition: {x: 0, y: 0.00001001358}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7980642890986439462
@@ -3277,11 +3277,13 @@ MonoBehaviour:
   _content: {fileID: 4688405094533237825}
   _contentBlock: {fileID: 7910999055945845404, guid: 21436e777cf15224e853d8a398b5c5b1,
     type: 3}
+  infoCanvasGroup: {fileID: 7576333446725313692}
   selectedItemInfoBox: {fileID: 7313032334132157660}
   selectedItemNameText: {fileID: 7306499266072595680}
   selectedItemImage: {fileID: 1361215288835927805}
   selectedItemButtons: {fileID: 1631940907861334519}
   placingItemButtons: {fileID: 1490054911312013600}
+  infoFadeSpeed: 0.2
   selectedItemType: {fileID: 0}
   selectedItemGameObject: {fileID: 0}
 --- !u!114 &6387445573526290414
@@ -5094,6 +5096,7 @@ GameObject:
   - component: {fileID: 6569283635007372652}
   - component: {fileID: 5231590359670138676}
   - component: {fileID: 5412711931485133056}
+  - component: {fileID: 7576333446725313692}
   m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
@@ -5172,6 +5175,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
+--- !u!225 &7576333446725313692
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7313032334132157660}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7685929077465846334
 GameObject:
   m_ObjectHideFlags: 0

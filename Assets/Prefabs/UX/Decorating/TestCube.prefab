@@ -225,3 +225,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decorationSO: {fileID: 11400000, guid: c278031371222584babfaf1231c70ed7, type: 2}
+  floating: 0

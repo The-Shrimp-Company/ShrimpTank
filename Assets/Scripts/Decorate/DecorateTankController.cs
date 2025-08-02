@@ -1,4 +1,5 @@
 using Bitgem.VFX.StylisedWater;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
@@ -229,7 +230,7 @@ public class DecorateTankController : MonoBehaviour
 
         else  // Placement Mode
         {
-            if (objectPreview != null)
+            if (objectPreview != null && decorateView.selectedItemType != null)
             {
                 if (hoveredNode != null) objectPreview.transform.position = hoveredNode.worldPos + decorateView.selectedItemType.gridSnapOffset;
                 else objectPreview.transform.position = new Vector3(0, 100000, 0);
@@ -324,7 +325,12 @@ public class DecorateTankController : MonoBehaviour
     private void PlaceDecoration()
     {
         GameObject d = GameObject.Instantiate(selectedObject, hoveredNode.worldPos + decorateView.selectedItemType.gridSnapOffset, Quaternion.identity, currentTank.decorationParent);
+
+        Sequence sequence = DOTween.Sequence(d);
         d.transform.localScale = objectPreview.transform.localScale;
+        sequence.Join(d.transform.DOScale(objectPreview.transform.localScale / 2, 0.1f).SetEase(Ease.InOutSine));
+        sequence.Join(d.transform.DOScale(objectPreview.transform.localScale, 0.5f).SetEase(Ease.OutBounce));
+
         d.transform.rotation = objectPreview.transform.rotation;
         currentTank.decorationsInTank.Add(d);
 
@@ -337,6 +343,7 @@ public class DecorateTankController : MonoBehaviour
         WateverVolumeFloater floater;
         d.TryGetComponent(out floater);
         if (floater != null) floater.WaterVolumeHelper = currentTank.waterObject.GetComponent<WaterVolumeHelper>();
+
 
         SetTransparentDecorations(transparentDecorations);
         currentGrid.RebakeGrid();
@@ -452,14 +459,22 @@ public class DecorateTankController : MonoBehaviour
         Inventory.AddItem(decorateView.selectedItemType.itemName);
 
         currentTank.decorationsInTank.Remove(selectedObject);
-        selectedObject.gameObject.SetActive(false);
-        Destroy(selectedObject.gameObject);
+
+        GameObject obj = selectedObject;
+        selectedObject.gameObject.transform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InBack).OnComplete(()=>DestroyDecoration(obj));
 
         selectedObject = null;
         decorateView.ChangeSelectedItem(null, null);
+        decorateView.UpdateContent();
+    }
+
+    private void DestroyDecoration(GameObject obj)
+    {
+        if (obj == null) return;
+        obj.SetActive(false);
+        Destroy(obj.gameObject);
         UpdateGridMaterials();
         currentGrid.RebakeGrid();
-        decorateView.UpdateContent();
     }
 
     private void GreyOutGrid()
