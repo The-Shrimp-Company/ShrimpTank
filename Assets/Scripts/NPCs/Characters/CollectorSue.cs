@@ -10,7 +10,8 @@ public class CollectorSue : NPC
 
     public CollectorSue() : base("Sue@ShrimpMail.com", 80, 80, 0)
     {
-        
+        fallsAsleep = 19;
+        wakesUp = 8;
     }
 
     public override void EmailDestroyed()
@@ -21,7 +22,7 @@ public class CollectorSue : NPC
 
     public override void NpcCheck()
     {
-        if (!sent && (TimeManager.instance.day > lastDaySent || TimeManager.instance.hour > lastHourSent + 1))
+        if (!sent && (TimeManager.instance.day > lastDaySent || TimeManager.instance.hour > lastHourSent + 1) && IsAwake())
         {
             Email email = this.CreateEmail();
             bool important = false;

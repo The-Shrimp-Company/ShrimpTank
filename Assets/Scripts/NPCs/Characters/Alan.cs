@@ -6,12 +6,13 @@ public class Alan : NPC
 {
     public Alan() : base("Alan@ShrimpMail.com", 40, 40, 0)
     {
-
+        fallsAsleep = 23;
+        wakesUp = 12;
     }
 
     public override void NpcCheck()
     {
-        if (!sent && TimeManager.instance.day > lastDaySent)
+        if (!sent && TimeManager.instance.day > lastDaySent && IsAwake())
         {
             Email email = this.CreateEmail();
             bool important = true;
