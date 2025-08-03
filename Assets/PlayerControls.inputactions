@@ -1105,12 +1105,12 @@
                 },
                 {
                     "name": "Rotate",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "c146e560-6d55-4bf1-a3e7-93e154fb0d0b",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "ChangeCam",
@@ -1421,15 +1421,59 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "50d7a64c-b42d-41cb-a853-d5ea122ac566",
+                    "name": "1D Axis",
+                    "id": "0131764e-4958-4d11-ab0e-f8f7a073cc68",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "2bb2fa29-e312-4351-bf74-705fd4ad7e31",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "K&M",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "c1a27caa-ae14-4db0-9cf5-cb0160007bb2",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "K&M",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "fd362c5e-4bcd-4642-8bcc-2edf8e8da4f4",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Positive",
+                    "id": "0970c2f7-3b0b-402a-8bb7-f9fcafbbee80",
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "K&M",
                     "action": "Rotate",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",

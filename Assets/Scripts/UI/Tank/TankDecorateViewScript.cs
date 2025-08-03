@@ -204,7 +204,7 @@ public class TankDecorateViewScript : ScreenView
 
     public void Rotate()
     {
-        DecorateTankController.Instance.RotateObject();
+        DecorateTankController.Instance.RotateObject(1);
     }
 
 

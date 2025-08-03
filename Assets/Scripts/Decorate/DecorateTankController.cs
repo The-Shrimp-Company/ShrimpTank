@@ -424,19 +424,23 @@ public class DecorateTankController : MonoBehaviour
 
     public void OnRotate(InputValue value)
     {
-        if (value.isPressed)
-        {
-            RotateObject();
-        }
+        if (hoveredNode == null) return;
+
+        float r = value.Get<float>();
+        if (r > 0.1)
+            r = 1;
+        else if (r < -0.1)
+            r = -1;
+        RotateObject(r);
     }
 
-    public void RotateObject()
+    public void RotateObject(float dir)
     {
         if (objectPreview == null) return;
         if (!placementMode) return;
         if (decorateView == null) return;
 
-        objectPreview.transform.Rotate(Vector3.Scale(decorateView.selectedItemType.rotationAxis, new Vector3(rotationSnap, rotationSnap, rotationSnap)));
+        objectPreview.transform.Rotate(Vector3.Scale(decorateView.selectedItemType.rotationAxis, (new Vector3(rotationSnap, rotationSnap, rotationSnap) * dir)));
 
         UpdateGridMaterials();
     }
