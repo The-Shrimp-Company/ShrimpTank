@@ -178,7 +178,7 @@ Material:
     - _GradientCenterY: 0
     - _GradientEnabled: 0
     - _GradientSize: 10
-    - _LightContribution: 0.11
+    - _LightContribution: 0.152
     - _LightmapDirectionPitch: 0
     - _LightmapDirectionYaw: 0
     - _Metallic: 0
@@ -194,7 +194,7 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 0
     - _RimEnabled: 0
-    - _SelfShadingSize: 0.258
+    - _SelfShadingSize: 0.121
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularEnabled: 0
