@@ -1362,7 +1362,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5498419945340878120
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1378,9 +1378,9 @@ RectTransform:
   - {fileID: 801843095373034692}
   m_Father: {fileID: 531993628390266300}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 244.533, y: -14.340729}
   m_SizeDelta: {x: 163.022, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6453574206273994572
@@ -3757,13 +3757,11 @@ MonoBehaviour:
   buttons:
   - {fileID: 1110484842930510925}
   - {fileID: 8498744553137596563}
-  - {fileID: 33795618001039475}
   - {fileID: 4412381894887546939}
   panel: {fileID: 1972707548052535278}
   windows:
   - {fileID: 9121421329790613819}
   - {fileID: 4611399112656828514}
-  - {fileID: 2416310607430770243}
   - {fileID: 6837742552874418531}
   BackButton: {fileID: 2707391985555907553}
 --- !u!1 &8782207580539630952
