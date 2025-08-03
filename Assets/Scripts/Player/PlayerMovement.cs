@@ -17,10 +17,6 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-
-
-
-    // Start is called before the first frame update
     void Start()
     {
         CC = GetComponent<CharacterController>();
@@ -35,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        CC.SimpleMove(transform.TransformVector(move.x, 0, move.y));
+        CC.Move(transform.TransformVector(move.x, 0, move.y) * Time.deltaTime);
         //GetComponent<Rigidbody>().MovePosition(transform.position + transform.TransformVector(new Vector3(move.x, 0, move.y)));
 
         if (move != Vector2.zero) PlayerStats.stats.timeSpentMoving += Time.deltaTime;
