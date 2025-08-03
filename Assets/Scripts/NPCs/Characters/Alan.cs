@@ -49,7 +49,7 @@ public class Alan : NPC
                     .SetFunc(EmailFunctions.FunctionIndexes.AddMoney, 100)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 20)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, name, "TookMoney", "Took100");
-                email.CreateEmailButton("Wait, what do you mean \"in exchange\"? You're not gonna pay me to be friends with you, are you?")
+                email.CreateEmailButton("Wait, what do you mean \"in exchange\"? You're not gonna pay me to be friends with you, are you?", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 11);
                 important = true;
             }
@@ -76,9 +76,9 @@ public class Alan : NPC
                     "It's clear you want more, so I'll give you £200 instead. But I won't take no for an answer.";
                 email.CreateEmailButton("Wait £200! Sign me up!")
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 20)
-                    .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, name, "TookMoney", "Took200")
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, name, "TookMoney", "Took200", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.AddMoney, 200);
-                email.CreateEmailButton("Look, I'll be your friend, but I'm not taking any money for it.")
+                email.CreateEmailButton("Look, I'll be your friend, but I'm not taking any money for it.", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 25)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, name, "NoMoney");
             }
