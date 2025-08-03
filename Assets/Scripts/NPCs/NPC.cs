@@ -1,6 +1,7 @@
 using SaveLoadSystem;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -19,6 +20,9 @@ public class NPC
 
         public bool sent = false;
 
+        public int wakesUp = 10;
+        public int fallsAsleep = 22;
+
         public int lastDaySent = -1;
 
         public List<ShrimpStats> shrimpBought = new();
@@ -35,6 +39,8 @@ public class NPC
     protected bool sent { get { return data.sent; } set { data.sent = value; } }
     protected int lastDaySent { get { return data.lastDaySent; } set { data.lastDaySent = value; } }
     protected List<ShrimpStats> shrimpBought { get { return data.shrimpBought; } set { data.shrimpBought = value; } }
+    protected int wakesUp { get { return data.wakesUp; } set { data.wakesUp = value; } }
+    protected int fallsAsleep { get { return data.fallsAsleep; } set { data.wakesUp = value; } }
     public NPCData Data { get { return data; } protected set { data = value; } }
     #endregion
 
@@ -56,6 +62,11 @@ public class NPC
     {
         Debug.LogWarning("Empty NPC Check called from:" + this.GetType());
         
+    }
+
+    public virtual bool IsAwake()
+    {
+        return (TimeManager.instance.hour > wakesUp && TimeManager.instance.hour < fallsAsleep);
     }
 
     protected void NpcEmail(Email email, float delay, bool important = true)

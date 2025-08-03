@@ -64,9 +64,9 @@ public class BuyContentBlock : ContentBlock
         if (shop == null)
         {
             shop = Instantiate(shopPrefab, transform.parent.transform);
-            if(shrimp.Count < 10)
+            if(shrimp.Count < 4)
             {
-                while(shrimp.Count < 10)
+                while(shrimp.Count < 4)
                 {
                     shrimp.Add(GenerateShrimp(false));
                 }

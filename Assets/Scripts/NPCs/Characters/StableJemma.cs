@@ -15,7 +15,7 @@ public class StableJemma : NPC
     /// </summary>
     public override void NpcCheck()
     {
-        if(!sent && TimeManager.instance.day > lastDaySent)
+        if(!sent && TimeManager.instance.day > lastDaySent && IsAwake())
         {
             Email email = this.CreateEmail();
             bool important = false;
