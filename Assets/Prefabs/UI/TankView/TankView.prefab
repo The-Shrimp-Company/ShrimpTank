@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4582662167672511472}
   - component: {fileID: 3835024251256523861}
   - component: {fileID: 2436600047626463044}
-  - component: {fileID: 1891579366721621904}
   m_Layer: 5
   m_Name: DecorButton
   m_TagString: Untagged
@@ -35,10 +34,10 @@ RectTransform:
   - {fileID: 6958389594908177397}
   m_Father: {fileID: 6954820022852948552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -20}
-  m_SizeDelta: {x: 0, y: 40}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4582662167672511472
 CanvasRenderer:
@@ -124,7 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 131927633617552070}
         m_TargetAssemblyTypeName: TankViewScript, Assembly-CSharp
-        m_MethodName: ChangeDecor
+        m_MethodName: EditDecorations
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -134,26 +133,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1891579366721621904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 173223105919234404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreLayout: 0
-  m_MinWidth: -1
-  m_MinHeight: -1
-  m_PreferredWidth: -1
-  m_PreferredHeight: 40
-  m_FlexibleWidth: -1
-  m_FlexibleHeight: -1
-  m_LayoutPriority: 1
 --- !u!1 &570523640963030231
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,7 +687,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Lights
+  m_text: Toggle Lights
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1193,8 +1172,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1242,7 +1221,7 @@ GameObject:
   - component: {fileID: 4022231331314711732}
   - component: {fileID: 8184709040759761314}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1476,7 +1455,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
-  m_PreferredHeight: 120
+  m_PreferredHeight: 100
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -1600,7 +1579,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3693816031302594156}
   m_HandleRect: {fileID: 5881836059078495782}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2227,9 +2206,9 @@ RectTransform:
   m_Father: {fileID: 7023659602469975413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -17, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1661525689144566334
 CanvasRenderer:
@@ -2406,11 +2385,11 @@ RectTransform:
   - {fileID: 5492668547299531604}
   - {fileID: 8298180450452148524}
   - {fileID: 5082969301425267130}
+  - {fileID: 2958451988076839585}
   - {fileID: 7023659602469975413}
   - {fileID: 4604070641747164987}
   - {fileID: 2956687947137424118}
   - {fileID: 484168393971387323}
-  - {fileID: 2958451988076839585}
   m_Father: {fileID: 77507769931753864}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.015145834, y: 0.1}
@@ -2629,7 +2608,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 16.190002}
-  m_SizeDelta: {x: 0, y: 30.376}
+  m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4448160175045411674
 CanvasRenderer:
@@ -2885,7 +2864,7 @@ GameObject:
   - component: {fileID: 6310601032968947746}
   - component: {fileID: 436435840460654725}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Select All Checkbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2906,8 +2885,8 @@ RectTransform:
   - {fileID: 5633018032279590254}
   m_Father: {fileID: 1160506725339480958}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.020833332, y: 0.7812593}
-  m_AnchorMax: {x: 0.1, y: 0.81620365}
+  m_AnchorMin: {x: 0.026, y: 0.80215824}
+  m_AnchorMax: {x: 0.1077105, y: 0.83931637}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3810,7 +3789,7 @@ GameObject:
   - component: {fileID: 4577490547199252926}
   - component: {fileID: 4720198625650587878}
   m_Layer: 5
-  m_Name: Scroll View
+  m_Name: Shrimp List
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3899,7 +3878,7 @@ MonoBehaviour:
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 8662618630762520872}
   m_HorizontalScrollbarVisibility: 2
-  m_VerticalScrollbarVisibility: 2
+  m_VerticalScrollbarVisibility: 0
   m_HorizontalScrollbarSpacing: -3
   m_VerticalScrollbarSpacing: -3
   m_OnValueChanged:
@@ -3970,7 +3949,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Repair
+  m_text: Repair Heater
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4104,7 +4083,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Repair
+  m_text: Repair Filter
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4186,7 +4165,7 @@ GameObject:
   - component: {fileID: 3321332015383039479}
   - component: {fileID: 9199025524054111098}
   m_Layer: 5
-  m_Name: InputField (TMP)
+  m_Name: Tank Name
   m_TagString: Input
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4208,7 +4187,7 @@ RectTransform:
   m_Father: {fileID: 1160506725339480958}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.036458332, y: 0.90678704}
-  m_AnchorMax: {x: 0.9274866, y: 0.9867871}
+  m_AnchorMax: {x: 0.9274866, y: 0.98}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4557,7 +4536,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 16.190002}
-  m_SizeDelta: {x: 0, y: 30.376}
+  m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &623769995700134456
 CanvasRenderer:
@@ -4797,7 +4776,7 @@ GameObject:
   - component: {fileID: 5285556760562174238}
   - component: {fileID: 8449303503775246756}
   m_Layer: 5
-  m_Name: Scroll View
+  m_Name: Shrimp Filters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4819,10 +4798,10 @@ RectTransform:
   - {fileID: 391644147067563902}
   m_Father: {fileID: 1160506725339480958}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.036458332, y: 0.75931484}
-  m_AnchorMax: {x: 0.9274866, y: 0.8777315}
-  m_AnchoredPosition: {x: 0, y: 15.715}
-  m_SizeDelta: {x: 0, y: -31.4299}
+  m_AnchorMin: {x: 0.133421, y: 0.7812593}
+  m_AnchorMax: {x: 0.9274866, y: 0.86}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7784205262403569399
 CanvasRenderer:
@@ -5365,7 +5344,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Decoration
+  m_text: Decorate
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5691,8 +5670,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7429803288333087775}
   m_HandleRect: {fileID: 8831197776778143200}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 0.5383752
+  m_Value: 0.00000018220273
+  m_Size: 0.47978866
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6770,8 +6749,8 @@ RectTransform:
   - {fileID: 44957270647892787}
   - {fileID: 8308521278717933841}
   - {fileID: 381383120942664736}
-  - {fileID: 6954820022852948552}
   - {fileID: 1342829493661915213}
+  - {fileID: 6954820022852948552}
   m_Father: {fileID: 4371924038272621075}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -6794,10 +6773,10 @@ MonoBehaviour:
   m_Padding:
     m_Left: 20
     m_Right: 20
-    m_Top: 10
-    m_Bottom: 10
+    m_Top: 20
+    m_Bottom: 20
   m_ChildAlignment: 0
-  m_Spacing: 5
+  m_Spacing: 10
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
@@ -7462,8 +7441,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1160506725339480958}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.036458332, y: 0.8777315}
-  m_AnchorMax: {x: 0.9274866, y: 0.90678704}
+  m_AnchorMin: {x: 0.036458332, y: 0.87200004}
+  m_AnchorMax: {x: 0.9274866, y: 0.8963673}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7659,7 +7638,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
-  m_PreferredHeight: 40
+  m_PreferredHeight: 80
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1

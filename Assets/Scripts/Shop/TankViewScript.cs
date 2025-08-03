@@ -334,7 +334,12 @@ public class TankViewScript : ScreenView
         }
     }
 
-    
+    public void EditDecorations()
+    {
+        DecorateTankController.Instance.StartDecorating(GetTank());
+    }
+
+
     public void MouseClick(Vector3 point, bool pressed)
     {
         RaycastHit ray;
