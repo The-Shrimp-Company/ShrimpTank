@@ -30,6 +30,9 @@ public class DecorateTankController : MonoBehaviour
     private bool transparentDecorations;
     private bool transparentShrimp;
     private int camAngle = 0;
+    private bool movingObject;
+
+    public bool deselectOnPlace;
 
 
     [Header("Grid")]
@@ -248,7 +251,7 @@ public class DecorateTankController : MonoBehaviour
 
         if (placementMode)
         {
-            if (selectionValid && selectedObject != null)
+            if (selectionValid && selectedObject != null)  // Clicking on a valid space
             {
                 if (Inventory.HasItem(decorateView.selectedItemType.itemName))
                 {
@@ -258,6 +261,20 @@ public class DecorateTankController : MonoBehaviour
                 else if (Money.instance.WithdrawMoney(decorateView.selectedItemType.purchaseValue))
                 {
                     PlaceDecoration(decorateView.selectedItemType);
+                }
+            }
+            else  // Clicking on a different object whilst placing
+            {
+                List<GameObject> objects = currentGrid.CheckNodeForObject(hoveredNode);
+                if (objects.Contains(objectPreview)) objects.Remove(objectPreview);
+                if (objects.Count != 0 && selectedObject != objects[0])
+                {
+                    StopPlacing();
+                    selectedObject = objects[0];
+                    if (selectedObject.GetComponent<Decoration>() && selectedObject.GetComponent<Decoration>().decorationSO != null)
+                        decorateView.ChangeSelectedItem(selectedObject.GetComponent<Decoration>().decorationSO, selectedObject);
+                    else Debug.LogWarning(selectedObject + " is missing the decoration script on it's root");
+                    UpdateGridMaterials();
                 }
             }
         }
@@ -311,10 +328,16 @@ public class DecorateTankController : MonoBehaviour
     {
         placementMode = false;
         selectedObject = null;
-        if (objectPreview) Destroy(objectPreview);
-        objectPreview = null;
+        movingObject = false;
 
-        if (decorateView != null)
+        if (objectPreview)
+        {
+            objectPreview.SetActive(false);
+            Destroy(objectPreview);
+            objectPreview = null;
+        }
+
+        if (decorateView)
         {
             decorateView.ChangeSelectedItem(null, null);
             decorateView.UpdateContent();
@@ -347,7 +370,9 @@ public class DecorateTankController : MonoBehaviour
 
         SetTransparentDecorations(transparentDecorations);
         currentGrid.RebakeGrid();
-        StopPlacing();
+
+        if (deselectOnPlace || movingObject)
+            StopPlacing();
     }
 
 
@@ -447,11 +472,16 @@ public class DecorateTankController : MonoBehaviour
 
     public void MoveDecoration()
     {
+        if (selectedObject == null) return;
         if (decorateView.selectedItemType == null) return;
         DecorationItemSO so = decorateView.selectedItemType;
+        Quaternion rot = selectedObject.transform.rotation;
         PutDecorationAway();
         decorateView.ChangeSelectedItem(so, so.decorationPrefab);
+        movingObject = true;
         StartPlacing(so.decorationPrefab);
+        if (objectPreview != null)
+            objectPreview.transform.rotation = rot;
     }
 
     public void PutDecorationAway()
