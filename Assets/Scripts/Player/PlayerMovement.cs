@@ -14,27 +14,39 @@ public class PlayerMovement : MonoBehaviour
 
 
     private Vector2 move = new Vector2(0, 0);
+    private Vector3 startingPosition;
 
 
 
     void Start()
     {
         CC = GetComponent<CharacterController>();
+        startingPosition = transform.position;
     }
 
 
     private void Update()
     {
-        if (UIManager.instance.GetScreen())  
-        {
+        if (CC.enabled == false) CC.enabled = true;  // Teleporting requires the character controller to be disabled between updates
+
+        if (UIManager.instance.GetScreen())  // Player cannot move while a menu is open
             move = Vector2.zero;
+
+
+        CC.Move(transform.TransformVector(move.x, 0, move.y) * Time.deltaTime);  // Move the player
+
+
+        if (move != Vector2.zero) PlayerStats.stats.timeSpentMoving += Time.deltaTime;  // Update the TimeSpentMoving tracker
+
+
+
+        // Check in case the player leaves the map
+        if (Vector3.Distance(startingPosition, transform.position) > 100)
+        {
+            Debug.LogWarning("Player has fallen out of map, teleporting back");
+            CC.enabled = false;
+            transform.position = startingPosition;
         }
-
-
-        CC.Move(transform.TransformVector(move.x, 0, move.y) * Time.deltaTime);
-        //GetComponent<Rigidbody>().MovePosition(transform.position + transform.TransformVector(new Vector3(move.x, 0, move.y)));
-
-        if (move != Vector2.zero) PlayerStats.stats.timeSpentMoving += Time.deltaTime;
     }
 
     
