@@ -233,8 +233,9 @@ public class CustomerManager : MonoBehaviour
         email.title = RandomEmails[emailIndex];
         email.subjectLine = "I would like a shrimp";
         email.mainText = message;
-        MyButton button = email.CreateEmailButton("Choose Shrimp");
-        button.SetFunc(EmailFunctions.FunctionIndexes.CompleteRequest, request);
+        email.CreateEmailButton("Choose Shrimp")
+            .SetFunc(EmailFunctions.FunctionIndexes.CompleteRequest, request);
+        email.CreateEmailButton("I don't want to sell you that, actually.", true);
         EmailManager.SendEmail(email, true);
         request.emailID = email.ID;
         requests.Add(request);
