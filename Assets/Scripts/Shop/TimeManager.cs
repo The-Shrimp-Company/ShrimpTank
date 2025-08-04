@@ -11,6 +11,7 @@ public class TimeManager : MonoBehaviour
 
     [HideInInspector] public float totalTime;
     public int year;
+    public int month;
     public int day;
     public float hour;
     public int minute;
@@ -24,8 +25,8 @@ public class TimeManager : MonoBehaviour
         instance = this;
         totalTime = 365;
 
-        year = Mathf.FloorToInt(totalTime / 365);
-        day = Mathf.FloorToInt(totalTime) - 364;
+        year = Mathf.FloorToInt(totalTime / 360);
+        day = Mathf.FloorToInt(totalTime) - 359;
         prevYear = year;
         prevDay = day;
     }
@@ -35,8 +36,9 @@ public class TimeManager : MonoBehaviour
     {
         totalTime += Time.deltaTime / secondsInADay;
 
-        year = Mathf.FloorToInt(totalTime / 365);
-        day = Mathf.FloorToInt(totalTime) - 364;
+        year = Mathf.FloorToInt(totalTime / 360);
+        month = Mathf.FloorToInt(totalTime / 30 % 12);
+        day = Mathf.FloorToInt(totalTime) - 359;
         hour = Mathf.FloorToInt(totalTime * 24 % 24);
         minute = Mathf.FloorToInt(totalTime * 1440 % 60);
 
@@ -51,6 +53,30 @@ public class TimeManager : MonoBehaviour
         prevYear = year;
     }
 
+    public static int YearFromTime(float time)
+    {
+        return Mathf.FloorToInt(time / 360);
+    }
+
+    public static int MonthFromTime(float time)
+    {
+        return Mathf.FloorToInt(time / 30 % 12);
+    }
+
+    public static int DayFromTime(float time)
+    {
+        return Mathf.FloorToInt(time) - 359;
+    }
+
+    public static int HourFromTime(float time)
+    {
+        return Mathf.FloorToInt(time * 24 % 24);
+    }
+
+    public static int MinuteFromTime(float time)
+    {
+        return Mathf.FloorToInt(time * 1440 % 60);
+    }
 
     private void NewDay()
     {
