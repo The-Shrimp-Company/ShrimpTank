@@ -54,6 +54,8 @@ public class Email
 
     public int value;
 
+    public float timeSent;
+
     public EmailTags tag;
 
     public List<MyButton> buttons;
@@ -112,6 +114,7 @@ public class EmailManager
         yield return new WaitForSeconds(delay);
         if (important) email.tag = Email.EmailTags.Important;
         instance.emails.Add(email);
+        email.timeSent = TimeManager.instance.GetTotalTime();
         UIManager.instance.SendNotification(email.subjectLine);
     }
 

@@ -6,7 +6,7 @@ using UnityEngine.Device;
 
 public class EmailContentBlock : ContentBlock
 {
-    [SerializeField] private TextMeshProUGUI title, subjectLine;
+    [SerializeField] private TextMeshProUGUI title, subjectLine, timeStamp;
     [SerializeField] private GameObject fullEmail;
 
     private EmailContentWindow window;
@@ -42,6 +42,7 @@ public class EmailContentBlock : ContentBlock
         subjectLine.text = _email.subjectLine;
         FontTools.SizeFont(title);
         FontTools.SizeFont(subjectLine);
+        timeStamp.text = TimeManager.HourFromTime(_email.timeSent) + ":" + TimeManager.MinuteFromTime(_email.timeSent) + " " + TimeManager.DayFromTime(_email.timeSent) + "/" + TimeManager.MonthFromTime(_email.timeSent) + "/" + (TimeManager.YearFromTime(_email.timeSent) + 2020);
         subjectLine.fontSize *= 0.8f;
         window = newWindow;
     }
