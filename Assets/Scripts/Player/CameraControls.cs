@@ -10,6 +10,7 @@ public class CameraControls : MonoBehaviour
     public Transform cameraTransform;
     public float lookSenstivity;
     [SerializeField][Range(50f, 200f)] private float startingSensitivity = 100f;
+    [SerializeField] private float cameraHeight = 2.3f;
 
     private PlayerInput _playerInput;
 
@@ -50,7 +51,7 @@ public class CameraControls : MonoBehaviour
 
         
 
-        cameraTransform.position = new Vector3(cameraTransform.position.x, 2.3f, cameraTransform.position.z);
+        cameraTransform.position = new Vector3(cameraTransform.position.x, cameraHeight, cameraTransform.position.z);
         _look = Vector2.zero;
         if(_rotX > 360)
         {
