@@ -13,6 +13,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 7
+--- !u!28 &-5384065468910972533
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: z__GradientRampTex{"mode":0,"colorKeys":[{"color":{"r":0.5094339847564697,"g":0.44633543491363528,"b":0.0,"a":1.0},"time":0.18471045792102815},{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}]}
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: b4e93895537e3ed8ef3d81188d4c0b3a
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 2
+  m_Width: 256
+  m_Height: 1
+  m_CompleteImageSize: 1024
+  m_MipsStripped: 0
+  m_TextureFormat: 5
+  m_MipCount: 1
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMipmapLimit: 0
+  m_MipmapLimitGroupName: 
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_LightmapFormat: 0
+  m_ColorSpace: 1
+  m_PlatformBlob: 
+  image data: 1024
+  _typelessdata: ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827200ff827201ff837302ff847404ff847405ff857506ff857607ff867708ff87770aff87780bff88790cff88790dff897a0fff8a7b10ff8a7b11ff8b7c12ff8b7d14ff8c7d15ff8d7e16ff8d7f17ff8e7f18ff8e801aff8f811bff90811cff90821dff91831fff918320ff928421ff938522ff938523ff948625ff948726ff958727ff968828ff96892aff978a2bff988a2cff988b2dff998c2eff998c30ff9a8d31ff9b8e32ff9b8e33ff9c8f35ff9c9036ff9d9037ff9e9138ff9e923aff9f923bff9f933cffa0943dffa1943effa19540ffa29641ffa29642ffa39743ffa49845ffa49846ffa59947ffa59a48ffa69a49ffa79b4bffa79c4cffa89d4dffa89d4effa99e50ffaa9f51ffaa9f52ffaba053ffaba155ffaca156ffada257ffada358ffaea359ffaea45bffafa55cffb0a55dffb0a65effb1a760ffb1a761ffb2a862ffb3a963ffb3a964ffb4aa66ffb4ab67ffb5ab68ffb6ac69ffb6ad6bffb7ae6cffb7ae6dffb8af6effb9b06fffb9b071ffbab172ffbab273ffbbb274ffbcb376ffbcb477ffbdb478ffbdb579ffbeb67bffbfb67cffbfb77dffc0b87effc0b87fffc1b981ffc2ba82ffc2ba83ffc3bb84ffc3bc86ffc4bc87ffc5bd88ffc5be89ffc6be8affc6bf8cffc7c08dffc8c18effc8c18fffc9c291ffc9c392ffcac393ffcbc494ffcbc596ffccc597ffccc698ffcdc799ffcec79affcec89cffcfc99dffcfc99effd0ca9fffd1cba1ffd1cba2ffd2cca3ffd2cda4ffd3cda5ffd4cea7ffd4cfa8ffd5cfa9ffd5d0aaffd6d1acffd7d2adffd7d2aeffd8d3afffd8d4b1ffd9d4b2ffdad5b3ffdad6b4ffdbd6b5ffdbd7b7ffdcd8b8ffddd8b9ffddd9baffdedabcffdfdabdffdfdbbeffe0dcbfffe0dcc0ffe1ddc2ffe2dec3ffe2dec4ffe3dfc5ffe3e0c7ffe4e0c8ffe5e1c9ffe5e2caffe6e2cbffe6e3cdffe7e4ceffe8e5cfffe8e5d0ffe9e6d2ffe9e7d3ffeae7d4ffebe8d5ffebe9d7ffece9d8ffecead9ffedebdaffeeebdbffeeecddffefeddeffefeddffff0eee0fff1efe2fff1efe3fff2f0e4fff2f1e5fff3f1e6fff4f2e8fff4f3e9fff5f3eafff5f4ebfff6f5edfff7f5eefff7f6effff8f7f0fff8f8f2fff9f8f3fffaf9f4fffafaf5fffbfaf6fffbfbf8fffcfcf9fffdfcfafffdfdfbfffefefdfffefefeffffffff
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -46,7 +94,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 7f96e812d8946c0439569f7119031d61, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8be158e33a10e7244aee58d6b77dbd56, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -74,7 +122,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GradientRamp:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: -5384065468910972533}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -142,7 +190,7 @@ Material:
     - _GradientCenterY: 0
     - _GradientEnabled: 0
     - _GradientSize: 10
-    - _LightContribution: 0.02
+    - _LightContribution: 0
     - _LightmapDirectionPitch: 0
     - _LightmapDirectionYaw: 0
     - _Metallic: 0
