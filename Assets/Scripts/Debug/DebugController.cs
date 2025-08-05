@@ -43,6 +43,8 @@ public class DebugController : MonoBehaviour
     public static DebugCommand MAX_INVENTORY;
     public static DebugCommand CLEAR_INVENTORY;
 
+    public static DebugCommand EDIT_STORE_DECORATIONS;
+
     public static DebugCommand<float> WALK_SPEED;
     public static DebugCommand<float> GAME_SPEED;
 
@@ -235,6 +237,13 @@ public class DebugController : MonoBehaviour
 
 
 
+        EDIT_STORE_DECORATIONS = new DebugCommand("edit_store_decorations", "Open the decoration edit screen", "edit_store_decorations", () =>
+        {
+            DecorateShopController.Instance.StartDecorating();
+        });
+
+
+
 
         PlayerMovement movement = null;
         if (GameObject.Find("Player")) movement = GameObject.Find("Player").GetComponent<PlayerMovement>();
@@ -369,6 +378,10 @@ public class DebugController : MonoBehaviour
             GIVE_ITEM,
             MAX_INVENTORY,
             CLEAR_INVENTORY,
+
+            Spacer,
+
+            EDIT_STORE_DECORATIONS,
 
             Spacer,
 
