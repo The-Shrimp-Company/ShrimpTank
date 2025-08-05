@@ -22,6 +22,7 @@ public class EmailContent : ContentPopulation
             ContentBlock block = Instantiate(contentBlock, transform) .GetComponent<ContentBlock>();
             block.GetComponent<EmailContentBlock>().SetEmail(email, window);
             contentBlocks.Add(block);
+            block.transform.SetAsFirstSibling();
         }
     }
 
@@ -36,6 +37,7 @@ public class EmailContent : ContentPopulation
         ContentBlock block = Instantiate(contentBlock, transform).GetComponent<ContentBlock>();
         block.GetComponent<EmailContentBlock>().SetEmail(email, window);
         contentBlocks.Add(block);
+        block.transform.SetAsFirstSibling();
     }
 
     public void RemoveEmail(Email email)
