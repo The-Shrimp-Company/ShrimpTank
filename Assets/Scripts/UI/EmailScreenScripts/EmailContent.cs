@@ -9,105 +9,51 @@ public class EmailContent : ContentPopulation
 {
     public EmailContentWindow window;
 
-    public List<Email.EmailTags> tagsToShow = new() { Email.EmailTags.Important };
-
-    private int count = 0;
+    public List<Email.EmailTags> tagsToShow = new List<Email.EmailTags>() { Email.EmailTags.Important };
 
     // Start is called before the first frame update
     void Start()
     {
+        tagsToShow = new List<Email.EmailTags>() { Email.EmailTags.Important };
+        EmailManager.instance.OnEmailSent += AddEmail;
+        EmailManager.instance.OnEmailRemoved += RemoveEmail;
         foreach (Email email in EmailManager.instance.emails)
         {
             ContentBlock block = Instantiate(contentBlock, transform) .GetComponent<ContentBlock>();
             block.GetComponent<EmailContentBlock>().SetEmail(email, window);
             contentBlocks.Add(block);
         }
-        count = contentBlocks.Count;
     }
 
     private void Update()
     {
-        
-        if(count != EmailManager.instance.emails.Count)
-        {
-            /* Old way of doing this
-            foreach(ContentBlock block in contentBlocks)
-            {
-                Destroy(block.gameObject);
-            }
-            contentBlocks.Clear();
-            foreach (Email email in EmailManager.instance.emails)
-            {
-                ContentBlock block = Instantiate(contentBlock, transform).GetComponent<ContentBlock>();
-                block.GetComponent<EmailContentBlock>().SetEmail(email, window);
-                contentBlocks.Add(block);
-            }
-            count = contentBlocks.Count;
-            */
-        
+        // Apply the filter to the emails, while maintaining order.
+        foreach(EmailContentBlock block in contentBlocks) block.gameObject.SetActive(tagsToShow.Contains(block.GetEmail().tag));
+    }
 
-            bool flag;
+    public void AddEmail(Email email)
+    {
+        ContentBlock block = Instantiate(contentBlock, transform).GetComponent<ContentBlock>();
+        block.GetComponent<EmailContentBlock>().SetEmail(email, window);
+        contentBlocks.Add(block);
+    }
 
-            foreach(EmailContentBlock block in contentBlocks)
-            {
-                flag = false;
-                foreach(Email email in EmailManager.instance.emails)
-                {
-                    if(block.GetEmail().ID == email.ID)
-                    {
-                        flag = true;
-                    }
-                }
-                if (!flag && block != null)
-                {
-                    Destroy(block.gameObject);
-                }
-            }
-
-            foreach(Email email in EmailManager.instance.emails)
-            {
-                flag = false;
-                foreach(EmailContentBlock block in contentBlocks)
-                {
-                    if(block != null)
-                    {
-                        if(block.GetEmail().ID == email.ID)
-                        {
-                            flag = true;
-                        }
-                    }
-                }
-                if (!flag)
-                {
-                    ContentBlock block = Instantiate(contentBlock, transform).GetComponent<ContentBlock>();
-                    block.GetComponent<EmailContentBlock>().SetEmail(email, window);
-                    contentBlocks.Add(block);
-                }
-            }
-            for(int i = contentBlocks.Count-1; i >= 0; i--)
-            {
-                if (contentBlocks[i] == null)
-                {
-                    contentBlocks.RemoveAt(i);
-                }
-            }
-
-            count = contentBlocks.Count;
-
-            // Apply the filter to the emails, while maintaining order.
-            foreach(EmailContentBlock block in contentBlocks) block.gameObject.SetActive(tagsToShow.Contains(block.GetEmail().tag));
-        }
+    public void RemoveEmail(Email email)
+    {
+        ContentBlock block = contentBlocks.Find(x => x.GetComponent<EmailContentBlock>().GetEmail().ID == email.ID);
+        contentBlocks.Remove(block);
+        Destroy(block.gameObject);
     }
 
     public void ClearSpam()
     {
-        foreach(ContentBlock block in contentBlocks)
+        for(int i = contentBlocks.Count - 1; i >= 0; i--)
         {
-            if (block != null)
+            if (contentBlocks[i] != null)
             {
-                if (block.GetComponent<EmailContentBlock>().GetEmail().tag == Email.EmailTags.Spam)
+                if (contentBlocks[i].GetComponent<EmailContentBlock>().GetEmail().tag == Email.EmailTags.Spam)
                 {
-                    block.GetComponent<EmailContentBlock>().DeleteEmail();
+                    contentBlocks[i].GetComponent<EmailContentBlock>().DeleteEmail();
                 }
             }
         }
@@ -116,18 +62,21 @@ public class EmailContent : ContentPopulation
     public void ShowOnlyImportant()
     {
         tagsToShow = new() { Email.EmailTags.Important };
-        count++;
     }
     
     public void ShowOnlySpam()
     {
         tagsToShow = new() { Email.EmailTags.Spam };
-        count++;
     }
 
     public void ShowAll()
     {
         tagsToShow = Enum.GetValues(typeof(Email.EmailTags)).Cast<Email.EmailTags>().ToList();
-        count++;
+    }
+
+    public void OnDestroy()
+    {
+        EmailManager.instance.OnEmailSent -= AddEmail;
+        EmailManager.instance.OnEmailRemoved -= RemoveEmail;
     }
 }

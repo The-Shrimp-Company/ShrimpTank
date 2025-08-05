@@ -67,9 +67,16 @@ public class Email
 
 }
 
+
+public delegate void EmailEvent(Email email);
+
 public class EmailManager
 {
     static public EmailManager instance = new EmailManager();
+
+
+    public event EmailEvent OnEmailSent;
+    public event EmailEvent OnEmailRemoved;
 
     private int IdChaff = 0;
 
@@ -116,6 +123,10 @@ public class EmailManager
         instance.emails.Add(email);
         email.timeSent = TimeManager.instance.GetTotalTime();
         UIManager.instance.SendNotification(email.subjectLine);
+        if(instance.OnEmailSent != null)
+        {
+            instance.OnEmailSent(email);
+        }
     }
 
     static public void RemoveEmail(Email email)
@@ -123,7 +134,12 @@ public class EmailManager
 
         NPCManager.Instance.GetNPCFromName(email.sender)?.EmailDestroyed();
 
-        if(instance.openEmail != null)
+        if (instance.OnEmailRemoved != null)
+        {
+            instance.OnEmailRemoved(email);
+        }
+
+        if (instance.openEmail != null)
         {
             GameObject.Destroy(instance.openEmail.gameObject);
         }
