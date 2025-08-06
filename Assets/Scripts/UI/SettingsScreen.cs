@@ -54,4 +54,20 @@ public class SettingsScreen : ScreenView
         PlayerPrefs.SetFloat("FOV", value.value);
         Camera.main.fieldOfView = value.value;
     }
+
+    public void WindowChange(int option)
+    {
+        switch (option)
+        {
+            case 0:
+                Screen.fullScreen = true;
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                Screen.SetResolution(Display.main.systemWidth, Display.main.systemHeight, true);
+                break;
+            case 1:
+                Screen.fullScreen = false;
+                Screen.SetResolution(Display.main.systemWidth/2, Display.main.systemHeight/2, false);
+                break;
+        }
+    }
 }
