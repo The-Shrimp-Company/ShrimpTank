@@ -718,10 +718,21 @@
                 {
                     "name": "",
                     "id": "59e052cc-afec-45ba-a026-27fc6fe47b4b",
-                    "path": "*/{Cancel}",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "69db1d41-6259-4ded-9b71-df769ed85efa",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -829,17 +840,6 @@
                     "name": "",
                     "id": "1386d69d-dc57-4fc2-90c8-d7cdfeacb8af",
                     "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CloseTablet",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3619a8ce-6faf-4f23-a6ca-cfb01eaee9b9",
-                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1116,6 +1116,15 @@
                     "name": "ChangeCam",
                     "type": "Button",
                     "id": "30467ae6-8fe4-4eaf-bc46-6278713fda5b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "f85d6cb8-ac04-4966-8fc7-b3ad8d1250c3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -1483,6 +1492,28 @@
                     "processors": "",
                     "groups": "K&M",
                     "action": "ChangeCam",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d165566f-13d9-4dbb-90eb-2468d73df34b",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9faaaf81-5dcf-4562-a40c-505ba68a2e7e",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

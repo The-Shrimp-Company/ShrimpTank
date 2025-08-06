@@ -57,9 +57,24 @@ public class PlayerTablet : PlayerUIController
             UIManager.instance.GetCanvas().GetComponent<MainCanvas>().LowerTablet();
             UIManager.instance.ClearScreens();
         }
-        
-        _input.SwitchCurrentActionMap("Move");
     }
 
-
+    public void OnCancel()
+    {
+        if (UIManager.instance.IsTabletScreen())
+        {
+            if(UIManager.instance.CheckLevel() == 1)
+            {
+                UIManager.instance.AssignNotifBar(notifBar);
+                _tabletRect.gameObject.SetActive(true);
+                UIManager.instance.GetCanvas().GetComponent<MainCanvas>().LowerTablet();
+                UIManager.instance.CloseTabletScreen();
+            }
+            else
+            {
+                UIManager.instance.AssignNotifBar(notifBar);
+                UIManager.instance.CloseScreen();
+            }
+        }
+    }
 }

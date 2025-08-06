@@ -145,4 +145,12 @@ public class PlayerInteraction : MonoBehaviour
             //UIManager.instance.GetFocus().GetComponent<TankViewScript>().MouseClick(Mouse.current.position.value, point.isPressed);
         }
     }
+
+    public void OnCancel()
+    {
+        if (!UIManager.instance.IsTabletScreen())
+        {
+            UIManager.instance.GetScreen().Exit();
+        }
+    }
 }

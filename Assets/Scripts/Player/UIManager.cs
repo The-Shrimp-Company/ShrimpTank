@@ -258,6 +258,14 @@ public class UIManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Confined;
             tooltips.SetActive(false);
             _cursor.SetActive(true);
+            if (IsTabletScreen())
+            {
+                input.SwitchCurrentActionMap("UI");
+            }
+            else
+            {
+                input.SwitchCurrentActionMap("TankView");
+            }
         }
         Cursor.visible = false;
     }
