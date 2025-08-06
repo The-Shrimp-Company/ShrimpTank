@@ -49,15 +49,20 @@ public class EmailContent : ContentPopulation
 
     public void ClearSpam()
     {
+        List<int> indexesToRemove = new();
         for(int i = contentBlocks.Count - 1; i >= 0; i--)
         {
             if (contentBlocks[i] != null)
             {
                 if (contentBlocks[i].GetComponent<EmailContentBlock>().GetEmail().tag == Email.EmailTags.Spam)
                 {
-                    contentBlocks[i].GetComponent<EmailContentBlock>().DeleteEmail();
+                    indexesToRemove.Add(i);
                 }
             }
+        }
+        foreach(int index in indexesToRemove)
+        {
+            contentBlocks[index].GetComponent<EmailContentBlock>().DeleteEmail();
         }
     }
 

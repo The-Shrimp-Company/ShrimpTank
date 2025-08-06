@@ -40,8 +40,8 @@ public class EmailContentBlock : ContentBlock
             title.text = _email.title;
         }
         subjectLine.text = _email.subjectLine;
-        FontTools.SizeFont(title);
-        FontTools.SizeFont(subjectLine);
+        //FontTools.SizeFont(title);
+        //FontTools.SizeFont(subjectLine);
         timeStamp.text = TimeManager.HourFromTime(_email.timeSent) + ":" + TimeManager.MinuteFromTime(_email.timeSent) + " " + TimeManager.DayFromTime(_email.timeSent) + "/" + TimeManager.MonthFromTime(_email.timeSent) + "/" + (TimeManager.YearFromTime(_email.timeSent) + 2020);
         subjectLine.fontSize *= 0.8f;
         window = newWindow;
@@ -55,6 +55,7 @@ public class EmailContentBlock : ContentBlock
     public void DeleteEmail()
     {
         EmailManager.RemoveEmail(_email);
+        Debug.Log(EmailManager.instance.emails.Contains(_email));
     }
 
     public Email GetEmail()

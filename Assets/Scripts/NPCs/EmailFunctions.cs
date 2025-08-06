@@ -1,3 +1,4 @@
+using SaveLoadSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ static public class EmailFunctions
         GiveAnyShrimp,
         SetFlag,
         SetTutorialFlag,
+        SpamEmailBlackout,
         Count
     }
 
@@ -51,6 +53,9 @@ static public class EmailFunctions
                     break;
                 case FunctionIndexes.SetTutorialFlag:
                     SetTutorialFlag(button);
+                    break;
+                case FunctionIndexes.SpamEmailBlackout:
+                    SpamEmailBlackout(button);
                     break;
                 default:
                     break;
@@ -126,6 +131,16 @@ static public class EmailFunctions
         button.actions.Add(() =>
         {
             foreach (object obj in button.data[(int)FunctionIndexes.SetTutorialFlag].data) Tutorial.instance.flags.Add(obj.TryCast<string>());
+        });
+    }
+
+    static private void SpamEmailBlackout(MyButton button)
+    {
+        button.actions.Add(() =>
+        {
+            TimeManager.instance.totalTime += 0.04f;
+            SaveManager.SaveGame("Autosave");
+            Application.Quit();
         });
     }
 }
