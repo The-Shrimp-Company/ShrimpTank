@@ -13,7 +13,7 @@ public class NPC
     {
         public int reputation;
         public int reliability;
-        public int completion;
+        public Queue<int> completion;
         public List<string> flags = new();
         public string name;
 
@@ -32,7 +32,19 @@ public class NPC
     #region Getters/Setters
     protected int reputation { get { return data.reputation; } set { data.reputation = value; } }
     protected int reliability { get { return data.reliability; } set { data.reliability = value; } }
-    protected int completion { get { return data.completion; } set { data.completion = value; } }
+    protected int completion { 
+        get 
+        {
+            if (data.completion.Count > 0)
+            {
+                return data.completion.Peek();
+            }
+            else
+            {
+                return -10;
+            }
+        } 
+        set { data.completion.Enqueue(value); } }
     protected List<string> flags { get { return data.flags; } set { data.flags = value; } }
     public string name { get { return data.name; } protected set { data.name = value; } }
     protected bool sent { get { return data.sent; } set { data.sent = value; } }
@@ -43,13 +55,13 @@ public class NPC
     public NPCData Data { get { return data; } protected set { data = value; } }
     #endregion
 
-    public NPC(string name, int reputation = 0, int reliability = 0, int completion = 0)
+    public NPC(string name, int reputation = 0, int reliability = 0, Queue<int> completion = null)
     {
         this.name = name;
         this.reputation = reputation;
         this.reliability = reliability;
-        this.completion = completion;
-
+        this.data.completion = completion ?? new Queue<int>();
+        this.completion = 0;
 
         Data = this.NpcValidation(SaveManager.CurrentSaveData.npcs) ?? Data;
 

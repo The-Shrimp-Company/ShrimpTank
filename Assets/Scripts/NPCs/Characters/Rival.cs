@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Rival : NPC
 {
-    public Rival() : base("John@YourRivalMail.com", 0, 0, 0)
+    public Rival() : base("John@YourRivalMail.com", 0, 0)
     {
         
     }
@@ -17,7 +17,7 @@ public class Rival : NPC
     /// </summary>
     public override void NpcCheck()
     {
-        if(!sent && TimeManager.instance.day > lastDaySent && IsAwake())
+        if(TimeManager.instance.day > lastDaySent && IsAwake())
         {
             Email email = this.CreateEmail();
             bool important = true;
@@ -140,6 +140,7 @@ public class Rival : NPC
 
             // Actually sending the email
             if (email.mainText != null) {
+                data.completion.Dequeue();
                 email.mainText += "\n\nYour hateful rival";
                 NpcEmail(email, important);
             }

@@ -8,7 +8,7 @@ public class SleazyJoe : NPC
 {
 
 
-    public SleazyJoe() : base("Joe@ShrimpMail.com", 10, 50, 0)
+    public SleazyJoe() : base("Joe@ShrimpMail.com", 10, 50)
     {
         if (flags.Count < 1)
         {
@@ -18,7 +18,7 @@ public class SleazyJoe : NPC
 
     public override void NpcCheck()
     {
-        if (!sent && TimeManager.instance.day > lastDaySent && IsAwake())
+        if (TimeManager.instance.day > lastDaySent && IsAwake())
         {
             Email email = this.CreateEmail();
             bool important = true;
@@ -42,17 +42,20 @@ public class SleazyJoe : NPC
                 completion = 2;
                 important = true;
             }
-            else if(completion >= 1 && TimeManager.instance.day > lastDaySent + 1)
+            else if(completion == 1 && TimeManager.instance.day > lastDaySent + 1)
             {
                 email.mainText = "Thanks for offering me some shrimp. I'd really like one, but I don't have much cash. Could you sell me one of your shrimp for £" + Math.Round((float)completion + flags[0].TryCast<int>()/10, 2) + ". I don't mind which one.";
                 email.title = "Please";
                 email.subjectLine = "Please";
-                email.CreateEmailButton("I will sell you this one", false).SetFunc(EmailFunctions.FunctionIndexes.GiveAnyShrimp, completion + flags[0].TryCast<int>()/10);
+                email.CreateEmailButton("I will sell you this one", false)
+                    .SetFunc(EmailFunctions.FunctionIndexes.GiveAnyShrimp, completion + flags[0].TryCast<int>()/10)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 1);
                 important = true;
             }
 
             if (email.mainText != null)
             {
+                data.completion.Dequeue();
                 email.mainText += "\n\nI love SHRIMP (also my name is Joe)";
 
                 NpcEmail(email, important);

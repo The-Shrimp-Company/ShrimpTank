@@ -13,7 +13,7 @@ public class SpamEmailer : MonoBehaviour
 
     private void Update()
     {
-        if(TimeManager.instance.hour > lastHour)
+        if(TimeManager.instance.hour > lastHour && Tutorial.instance.flags.Contains("AccountActivated"))
         {
             if(Random.value > 0.5)
             {

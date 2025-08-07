@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Alan : NPC
 {
-    public Alan() : base("Alan@ShrimpMail.com", 40, 40, 0)
+    public Alan() : base("Alan@ShrimpMail.com", 40, 40)
     {
         fallsAsleep = 23;
         wakesUp = 12;
@@ -12,7 +12,7 @@ public class Alan : NPC
 
     public override void NpcCheck()
     {
-        if (!sent && TimeManager.instance.day > lastDaySent && IsAwake())
+        if (TimeManager.instance.day > lastDaySent && IsAwake())
         {
             Email email = this.CreateEmail();
             bool important = true;
@@ -86,6 +86,7 @@ public class Alan : NPC
             // Actually send the email
             if (email.mainText != null)
             {
+                data.completion.Dequeue();
                 email.mainText += "\nAlan";
 
                 NpcEmail(email, important);

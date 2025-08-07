@@ -8,7 +8,7 @@ public class CollectorSue : NPC
 
     private float lastHourSent;
 
-    public CollectorSue() : base("Sue@ShrimpMail.com", 80, 80, 0)
+    public CollectorSue() : base("Sue@ShrimpMail.com", 80, 80)
     {
         fallsAsleep = 19;
         wakesUp = 8;
@@ -22,7 +22,7 @@ public class CollectorSue : NPC
 
     public override void NpcCheck()
     {
-        if (!sent && (TimeManager.instance.day > lastDaySent || TimeManager.instance.hour > lastHourSent + 1) && IsAwake())
+        if ((TimeManager.instance.day > lastDaySent || TimeManager.instance.hour > lastHourSent + 1) && IsAwake())
         {
             Email email = this.CreateEmail();
             bool important = false;
@@ -55,6 +55,7 @@ public class CollectorSue : NPC
 
             if(email.mainText != null)
             {
+                data.completion.Dequeue();
                 email.mainText += "\nThanks,\nSue (Three time Shrimper of the Year Award winner, 17 times nominee)";
 
                 NpcEmail(email, important);

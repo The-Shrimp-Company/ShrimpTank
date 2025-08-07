@@ -5,7 +5,7 @@ using UnityEngine.InputSystem.LowLevel;
 
 public class Admin : NPC
 {
-    public Admin() : base("Admin@admin.ShrimpCo.com", 100, 100, 0)
+    public Admin() : base("Admin@admin.ShrimpCo.com", 100, 100)
     {
         if(completion == 0)
         {
@@ -98,6 +98,7 @@ public class Admin : NPC
 
         if (email.mainText != null)
         {
+            data.completion.Dequeue();
             email.mainText += "\n\nAdmin";
 
             NpcEmail(email, 0, important);

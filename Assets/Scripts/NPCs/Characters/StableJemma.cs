@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StableJemma : NPC
 {
-    public StableJemma() : base("I.Love.Horses@HorseMail.com", 40, 50, 0)
+    public StableJemma() : base("I.Love.Horses@HorseMail.com", 40, 50)
     {
         
     }
@@ -15,7 +15,7 @@ public class StableJemma : NPC
     /// </summary>
     public override void NpcCheck()
     {
-        if(!sent && TimeManager.instance.day > lastDaySent && IsAwake())
+        if(TimeManager.instance.day > lastDaySent && IsAwake())
         {
             Email email = this.CreateEmail();
             bool important = false;
@@ -85,7 +85,9 @@ public class StableJemma : NPC
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 12);
             }
 
-            if(email.mainText != null) {
+            if(email.mainText != null)
+            {
+                data.completion.Dequeue();
                 email.mainText += "Jemma";
                 NpcEmail(email, important);
             }
