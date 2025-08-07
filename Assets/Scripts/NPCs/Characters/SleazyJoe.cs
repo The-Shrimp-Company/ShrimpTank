@@ -42,7 +42,7 @@ public class SleazyJoe : NPC
                 completion = 2;
                 important = true;
             }
-            else if(completion >= 1)
+            else if(completion >= 1 && TimeManager.instance.day > lastDaySent + 1)
             {
                 email.mainText = "Thanks for offering me some shrimp. I'd really like one, but I don't have much cash. Could you sell me one of your shrimp for £" + Math.Round((float)completion + flags[0].TryCast<int>()/10, 2) + ". I don't mind which one.";
                 email.title = "Please";
