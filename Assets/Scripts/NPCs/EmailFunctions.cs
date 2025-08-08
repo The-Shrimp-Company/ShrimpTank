@@ -17,6 +17,7 @@ static public class EmailFunctions
         SetCompletion,
         SpawnShrimp,
         GiveAnyShrimp,
+        GiveSueShrimp,
         SetFlag,
         SetTutorialFlag,
         SpamEmailBlackout,
@@ -47,6 +48,9 @@ static public class EmailFunctions
                     break;
                 case FunctionIndexes.GiveAnyShrimp:
                     GiveAnyShrimp(button);
+                    break;
+                case FunctionIndexes.GiveSueShrimp:
+                    GiveSueShrimp(button);
                     break;
                 case FunctionIndexes.SetFlag:
                     SetFlag(button);
@@ -111,6 +115,15 @@ static public class EmailFunctions
         {
             CustomerManager.Instance.emailScreen.OpenFullSelection(button.data[(int)FunctionIndexes.GiveAnyShrimp].data[0].TryCast<float>(), EmailManager.instance.emails
                 .Find((x) => { return x.ID == button.emailID; }));
+        });
+    }
+
+    static private void GiveSueShrimp(MyButton button)
+    {
+        button.actions.Add(() =>
+        {
+            CustomerManager.Instance.emailScreen.OpenSelectionExcluding(EmailManager.instance.emails.Find((x) => { return x.ID == button.emailID; }),
+                button.data[(int)FunctionIndexes.GiveSueShrimp].data[0].TryCast<List<ShrimpStats>>());
         });
     }
 

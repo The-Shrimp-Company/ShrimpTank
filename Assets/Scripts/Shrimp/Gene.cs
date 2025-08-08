@@ -43,6 +43,17 @@ public struct Trait
         this.inactiveGene = GeneManager.instance.GlobalGeneToGene(i);
         obfuscated = false;
     }
+
+    public static bool operator ==(Trait t1, Trait t2)
+    {
+        return t1.activeGene.ID == t2.activeGene.ID;
+    }
+
+    public static bool operator !=(Trait t1, Trait t2)
+    {
+        return !(t1 == t2);
+    }
+
 }
 
 

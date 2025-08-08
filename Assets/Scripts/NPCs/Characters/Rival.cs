@@ -138,6 +138,27 @@ public class Rival : NPC
                     .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, "threat");
             }
 
+            if(completion == 1001)
+            {
+                email.subjectLine = "So you helped Joe";
+                email.mainText = "Look, I'm sure you were trying to be nice, but if you didn't pick up on it, people around here don't really like Joe. " +
+                    "It's his own fault really, although I will admit that the others are quite harsh to him. But then again, that's the community for you. " +
+                    "Rotten to the core. But you haven't proven anything, except showing that you're better than most of the people here. Perfect for being <i>my</i> rival!";
+                email.CreateEmailButton("Wait you're not helping him too? That means I'm being nicer than you!", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 1002);
+                email.CreateEmailButton("Yeah he is a bit annoying to be honest. I've been thinking about stopping", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, name, "WontHelp");
+            }
+
+            if(completion == 1002)
+            {
+                email.subjectLine = "How dare you!";
+                email.mainText = "How dare you imply you are a nicer person than me! I am absolutely the nicer person! In fact, I'm going to start trading with joe right now! And, " +
+                    "what's more, I'll give him even <i>better</i> prices than you! To prove that I'm nicer!";
+                email.CreateEmailButton("Oh that's nice of you!", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, NPCManager.Instance.NPCs.Find(x => x.GetType() == typeof(SleazyJoe)), "HelpFromRival");
+            }
+
             // Actually sending the email
             if (email.mainText != null) {
                 data.completion.Dequeue();

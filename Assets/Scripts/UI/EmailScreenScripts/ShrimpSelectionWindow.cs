@@ -15,4 +15,9 @@ public class ShrimpSelectionWindow : MonoBehaviour
     {
         screen.PopulateFull(price, emailScreen, email);
     }
+
+    public void PopulateExcluding(EmailScreen emailScreen, Email email, List<ShrimpStats> shrimpToExclude)
+    {
+        screen.PopulateExcluding(emailScreen, email, shrimpToExclude);
+    }
 }

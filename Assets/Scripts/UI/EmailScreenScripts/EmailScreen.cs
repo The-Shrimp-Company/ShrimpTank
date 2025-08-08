@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Device;
 
 public class EmailScreen : ScreenView
 {
@@ -29,6 +30,14 @@ public class EmailScreen : ScreenView
         activeSelection = screen;
         window.interactable = false;
         screen.PopulateFull(price, this, email);
+    }
+
+    public void OpenSelectionExcluding(Email email, List<ShrimpStats> shrimpToExclude)
+    {
+        ShrimpSelectionWindow screen = Instantiate(ShrimpSelection, transform).GetComponent<ShrimpSelectionWindow>();
+        activeSelection = screen;
+        window.interactable = false;
+        screen.PopulateExcluding(this, email, shrimpToExclude);
     }
 
     public void CloseSelection()

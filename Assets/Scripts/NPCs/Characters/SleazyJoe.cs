@@ -38,8 +38,10 @@ public class SleazyJoe : NPC
                 email.mainText = "I really appreciate all of the shrimp you've given me now, and I know that they've been worth more than I was paying you." +
                     "\nI still don't have much money, but you've inspired me to get out of my current job, and try and get into shrimp breeding as well! I hope" +
                     " I can do as well as you, and I hope you like the gift!";
-                email.CreateEmailButton("Accept the gift", true).SetFunc(EmailFunctions.FunctionIndexes.SpawnShrimp, ShrimpManager.instance.CreateRandomShrimp(true));
-                completion = 2;
+                email.CreateEmailButton("Accept the gift", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SpawnShrimp, ShrimpManager.instance.CreateRandomShrimp(true))
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 2)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, NPCManager.Instance.NPCs.Find(x => x.GetType() == typeof(Rival)), 1001);
                 important = true;
             }
             else if(completion == 1 && TimeManager.instance.day > lastDaySent + 1)

@@ -41,4 +41,21 @@ public struct ShrimpStats
 
     public bool[] illness;
     public float[] symptoms;
+
+    public bool CompareTraits(ShrimpStats other)
+    {
+        if(primaryColour == other.primaryColour
+            && secondaryColour == other.secondaryColour
+            && body == other.body
+            && head == other.head
+            && eyes == other.eyes
+            && pattern == other.pattern
+            && tail == other.tail
+            && tailFan == other.tailFan
+            && legs == other.legs)
+        {
+            return true;
+        }
+        return false;
+    }
 }

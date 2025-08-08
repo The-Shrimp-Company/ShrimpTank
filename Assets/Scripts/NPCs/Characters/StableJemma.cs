@@ -42,6 +42,7 @@ public class StableJemma : NPC
                     "I don't mean it personally, I just need to know before I can get them off my hands!";
                 email.CreateEmailButton("No, I meant it seems a bit mean calling shrimp disgusting", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 3);
+                important = true;
             }
 
             if(completion == 2)
@@ -52,6 +53,7 @@ public class StableJemma : NPC
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 4);
                 email.CreateEmailButton("Well I don't think I can trust you then.")
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 10);
+                important = true;
             }
 
             if(completion == 3)
@@ -61,6 +63,7 @@ public class StableJemma : NPC
                     "I can trust you.";
                 email.CreateEmailButton("Well how do I know I can trust you, then?", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 10);
+                important = true;
             }
 
             if(completion == 4)
@@ -69,6 +72,7 @@ public class StableJemma : NPC
                 email.mainText = "I don't think I can trust someone who's so eager to look after these horrible shrimp properly. Why would anyone want that?";
                 email.CreateEmailButton("Actually, you don't seem very trustworthy right now!", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 10);
+                important = true;
             }
 
             if(completion == 10)
@@ -83,12 +87,13 @@ public class StableJemma : NPC
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 11);
                 email.CreateEmailButton("It's nice that you trust me!", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 12);
+                important = true;
             }
 
             if(email.mainText != null)
             {
                 data.completion.Dequeue();
-                email.mainText += "Jemma";
+                email.mainText += "\nJemma";
                 NpcEmail(email, important);
             }
         }

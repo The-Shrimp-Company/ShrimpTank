@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -76,7 +77,7 @@ public class ShrimpSelectionPopulation : ContentPopulation
             block.GetComponent<Button>().onClick.AddListener(s.HardSellShrimp);
             block.GetComponent<Button>().onClick.AddListener(() =>
             {
-                if(TempEmail.sender != null)
+                if(NPCManager.Instance.GetNPCFromName(TempEmail.sender) != null)
                 {
                     NPCManager.Instance.GetNPCFromName(TempEmail.sender).BoughtShrimp(TempStats);
                 }
@@ -93,6 +94,56 @@ public class ShrimpSelectionPopulation : ContentPopulation
         }
     }
 
+    public void PopulateExcluding(EmailScreen emailScreen, Email email, List<ShrimpStats> shrimpToExclude)
+    {
+        _window = emailScreen;
+        _email = email;
+        List<Shrimp> shrimpToShow = new();
+        if(shrimpToExclude.Count > 0)
+        {
+            foreach(Shrimp s in ShrimpManager.instance.allShrimp)
+            {
+                bool flag = true;
+                foreach(ShrimpStats check in shrimpToExclude)
+                {
+                    if (s.stats.CompareTraits(check)) flag = false;
+                }
+                if (flag) shrimpToShow.Add(s);
+            }
+        }
+        else
+        {
+            shrimpToShow = ShrimpManager.instance.allShrimp;
+        }
+
+        foreach (Shrimp s in shrimpToShow)
+        {
+            GameObject block = Instantiate(contentBlock, transform);
+            block.GetComponent<ShrimpSelectionBlock>().Populate(s.stats);
+            contentBlocks.Add(block.GetComponent<ContentBlock>());
+            s.currentValue = EconomyManager.instance.GetShrimpValue(s.stats) * 1.5f;
+            Email TempEmail = _email;
+            TempEmail.sender = _email.sender;
+            ShrimpStats TempStats = s.stats;
+            block.GetComponent<Button>().onClick.AddListener(s.SellShrimp);
+            block.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                if(NPCManager.Instance.GetNPCFromName(TempEmail.sender) != null)
+                {
+                    NPCManager.Instance.GetNPCFromName(TempEmail.sender).BoughtShrimp(TempStats);
+                }
+                foreach (Email email in EmailManager.instance.emails)
+                {
+                    if (email.ID == TempEmail.ID)
+                    {
+                        EmailManager.RemoveEmail(email);
+                        break;
+                    }
+                }
+                emailScreen.CloseSelection();
+            });
+        }
+    }
     protected void CreateContent()
     {
         foreach ( Shrimp shrimp in ShrimpManager.instance.allShrimp)
