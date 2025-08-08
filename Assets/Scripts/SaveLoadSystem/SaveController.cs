@@ -252,6 +252,7 @@ public class SaveController : MonoBehaviour
     private void NewGame()
     {
         PlayerStats.stats = new Stats();
+        SaveManager.CurrentSaveData = new SaveData();
         Inventory.instance.Initialize();
         CustomerManager.Instance.Initialize();
         EmailManager.instance.Initialize();
