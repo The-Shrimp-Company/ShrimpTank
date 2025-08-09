@@ -34,7 +34,7 @@ public class ShopDecorateViewScript : ScreenView
 
     public override void Open(bool switchTab)
     {
-        Debug.Log("Opening tank decorate");
+        Debug.Log("Opening shop decorate");
         player = GameObject.Find("Player");
         shelves = GetComponentInParent<ShelfSpawn>();
         selectedItemType = null;
@@ -57,14 +57,12 @@ public class ShopDecorateViewScript : ScreenView
     }
 
 
-    // Shrimp cannot be added with no water
-    // Tanks without water can be moved
-    // Water can be added or removed in the UI
+
 
 
     public void UpdateContent()
     {
-        Debug.Log("Updating tank decorate view content");
+        Debug.Log("Updating shop decorate view content");
         foreach (Transform child in _content.transform)
         {
             Destroy(child.gameObject);
