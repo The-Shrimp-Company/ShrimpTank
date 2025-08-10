@@ -96,6 +96,13 @@ public class StableJemma : NPC
                 email.mainText += "\nJemma";
                 NpcEmail(email, important);
             }
+            else
+            {
+                if (data.completion.Count > 1)
+                {
+                    data.completion.Enqueue(data.completion.Dequeue());
+                }
+            }
         }
     }
 }

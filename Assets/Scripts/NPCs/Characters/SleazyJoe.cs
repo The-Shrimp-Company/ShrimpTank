@@ -62,6 +62,13 @@ public class SleazyJoe : NPC
 
                 NpcEmail(email, important);
             }
+            else
+            {
+                if (data.completion.Count > 1)
+                {
+                    data.completion.Enqueue(data.completion.Dequeue());
+                }
+            }
         }
     }
 

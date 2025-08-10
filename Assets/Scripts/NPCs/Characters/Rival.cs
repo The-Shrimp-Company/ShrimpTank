@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Rival : NPC
 {
-    public Rival() : base("John@YourRivalMail.com", 0, 0)
+    public Rival() : base("Rival@YourRivalMail.com", 0, 0)
     {
         
     }
@@ -64,8 +64,12 @@ public class Rival : NPC
                     " shrimp store, and I've given all the money away. This means that right now I have the same amount of stuff, and reputation, as you.\n\n" +
                     "However! I will not be at the same pitiful level as you for long! In fact, I will achieve the first star of reputation before you! And when I do get the first star," +
                     " I will gloat for <i>so long</i> that you'll probably have enough time to catch up to me! Because I'm a <i>really</i> good rival! Ahahahahahahahahahahahaha!";
-                email.CreateEmailButton("Yes! A real challenge! I will achieve this \"first star of reputation\" long before you get your hands on it!", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 20);
-                email.CreateEmailButton("What are reputation stars? Also, did you really sell of <i>all</i> of your stuff for this rivalry?", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 11);
+                email.CreateEmailButton("Yes! A real challenge! I will achieve this \"first star of reputation\" long before you get your hands on it!", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 20)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, NPCManager.Instance.NPCs.Find((x) => x.GetType() == typeof(CollectorSue)), 3000);
+                email.CreateEmailButton("What are reputation stars? Also, did you really sell of <i>all</i> of your stuff for this rivalry?", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 11)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, NPCManager.Instance.NPCs.Find((x) => x.GetType() == typeof(CollectorSue)), 3000);
             }
 
             // Explaining what a "reputation star" is
@@ -74,7 +78,8 @@ public class Rival : NPC
                 email.subjectLine = "Reputation stars";
                 email.mainText = "Wait, you <i>don't</i> know what reputation stars are? Didn't the admin explain already? Look, you can see your reputation when you go to your store page." +
                     " You <i>do</i> know how to go to your store page right? It's really simple. It's the light blue shrimp app, the one where it's facing left. And reputation is shown in stars, " +
-                    "and at each star you can access new services in the community. I told you it's a weird place to be. Getting the first star is a big deal, because it allows access to buying " +
+                    "and at each star you can access new services in the community. I told you it's a weird place to be. Getting the first " +
+                    "star is a big deal, because it allows access to buying " +
                     "more tanks, which is, I'm sure you can see, <i>very</i> useful.\n\n\nAlso: yes, of course I did. This had to be fair, after all.";
                 email.CreateEmailButton("Oh thanks, that's good to know.", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 20);
                 email.CreateEmailButton("Actually, if you're answering my questions, the admin mentioned I can get" +
@@ -159,11 +164,34 @@ public class Rival : NPC
                     .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, NPCManager.Instance.NPCs.Find(x => x.GetType() == typeof(SleazyJoe)), "HelpFromRival");
             }
 
+            if(completion == 6000)
+            {
+                email.subjectLine = "Complaint?";
+                email.mainText = "Hey I just got an email from the admin telling me to stop \"causing negative experiences\", whatever <i>that</i> means. I was just asking round to see " +
+                    "if anyone knew why. There's no chance you had anything to do with this, right";
+                email.CreateEmailButton("I haven't heard anything", true);
+            }
+
+            if(completion == 6001)
+            {
+                email.subjectLine = "Funny Feeling";
+                email.mainText = "Hey, I've had this funny feeling all day that someone, maybe the admin team, has been trying to project their intent into my head, and that they want me " +
+                    "to \"stop causing negative experiences\", whatever <i>that</i> means. You don't happen to know anything about that do you?";
+                email.CreateEmailButton("I haven't heard anything", true);
+            }
+
             // Actually sending the email
             if (email.mainText != null) {
                 data.completion.Dequeue();
                 email.mainText += "\n\nYour hateful rival";
                 NpcEmail(email, important);
+            }
+            else
+            {
+                if (data.completion.Count > 1)
+                {
+                    data.completion.Enqueue(data.completion.Dequeue());
+                }
             }
         }
     }
