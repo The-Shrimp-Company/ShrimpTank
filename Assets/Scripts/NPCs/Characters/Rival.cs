@@ -6,7 +6,10 @@ public class Rival : NPC
 {
     public Rival() : base("Rival@YourRivalMail.com", 0, 0)
     {
-        
+        if(flags.Count == 0)
+        {
+            flags.Add("start");
+        }
     }
 
 
@@ -32,6 +35,7 @@ public class Rival : NPC
                     " request anyway. Not in <i>this</i> community.";
                 email.CreateEmailButton("Who on earth are you?", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 1);
                 email.CreateEmailButton("Ahh, my old nemesis... So you found me already?", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 10);
+                flags.Add("started");
             }
 
             // If you don't recognise the rival
@@ -70,6 +74,8 @@ public class Rival : NPC
                 email.CreateEmailButton("What are reputation stars? Also, did you really sell of <i>all</i> of your stuff for this rivalry?", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 11)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, NPCManager.Instance.NPCs.Find((x) => x.GetType() == typeof(CollectorSue)), 3000);
+                flags.Remove("start");
+                flags.Add("continue");
             }
 
             // Explaining what a "reputation star" is
@@ -106,11 +112,12 @@ public class Rival : NPC
                     "Ahahahahahahahah";
                 email.CreateEmailButton("Wait I won! Yay!", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 21);
                 email.CreateEmailButton("Do I get something from winning? Is there some kind of prize?", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 22);
+                flags.Remove("continue");
             }
 
             // When the player has the reputation, and completion is below 20, but above 10, meaning the 
             // player has gotten the first star while talking to the rival about getting the first star
-            if(Reputation.GetReputation() >= 20 && completion < 20 && completion >= 10)
+            else if(Reputation.GetReputation() >= 20 && flags.Contains("continue"))
             {
                 email.buttons?.Clear();
                 email.subjectLine = "You Sly Dog";
@@ -119,9 +126,10 @@ public class Rival : NPC
                 email.CreateEmailButton("Sorry, I didn't mean to cheat!", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 23);
                 email.CreateEmailButton("Yes! I win! I tricked you, and I did it good!", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 24);
                 email.CreateEmailButton("I distracted you? Wait so we hadn't started yet?", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 25);
+                flags.Remove("continue");
             }
 
-            if(Reputation.GetReputation() >= 20 && completion < 10)
+            else if(Reputation.GetReputation() >= 20 && flags.Contains("start"))
             {
                 email.buttons?.Clear();
                 email.subjectLine = "You've been ignoring me";
@@ -141,6 +149,7 @@ public class Rival : NPC
                     " even get your first.", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 26)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, "threat");
+                flags.Remove("start");
             }
 
             if(completion == 1001)
