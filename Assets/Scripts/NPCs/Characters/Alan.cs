@@ -74,10 +74,10 @@ public class Alan : NPC
                 email.mainText = "Look, I'll make it simple. If you want more money, you can have more money. But that <i>is</i> how friendship works. You find someone you want " +
                     "to be friends with, and then you pay them to be friends with you. Simple and clean (and tax deductible as well). So if you want to be my friend, take the money. " +
                     "It's clear you want more, so I'll give you £200 instead. But I won't take no for an answer.";
-                email.CreateEmailButton("Wait £200! Sign me up!")
+                email.CreateEmailButton("Wait £200! Sign me up!", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 20)
-                    .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, name, "TookMoney", "Took200", true)
-                    .SetFunc(EmailFunctions.FunctionIndexes.AddMoney, 200);
+                    .SetFunc(EmailFunctions.FunctionIndexes.AddMoney, 200)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, name, "TookMoney", "Took200", true);
                 email.CreateEmailButton("Look, I'll be your friend, but I'm not taking any money for it.", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 25)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, name, "NoMoney");

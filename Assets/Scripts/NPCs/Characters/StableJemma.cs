@@ -51,7 +51,7 @@ public class StableJemma : NPC
                 email.mainText = "I'm not sure I can trust someone who's so eager about shrimp. I don't think you'll take good care of them.";
                 email.CreateEmailButton("Wait, no! You can trust me with shrimp! I promise I'll take really good care of them!", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 4);
-                email.CreateEmailButton("Well I don't think I can trust you then.")
+                email.CreateEmailButton("Well I don't think I can trust you then.", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 10);
                 important = true;
             }
