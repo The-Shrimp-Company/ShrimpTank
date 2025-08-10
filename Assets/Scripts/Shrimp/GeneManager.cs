@@ -403,6 +403,7 @@ public class GeneManager : MonoBehaviour
             g.dominance = WeightDominance(t.weightDominanceTowards);
             g.startingValue = em.SetInitialGeneValue(g.dominance);
             g.currentValue = g.startingValue;
+            g.trueValue = g.currentValue;
             loadedGlobalGenes.Add(g);
         }
     }
@@ -792,6 +793,13 @@ public class GeneManager : MonoBehaviour
         {
             int rand = Random.Range(0, loadedGlobalGenes.Count);
             EconomyManager.instance.DailyValueUpdate(loadedGlobalGenes[rand]);
+        }
+
+        for(int i = 0; i < loadedGlobalGenes.Count; i++)
+        {
+            GlobalGene gene = loadedGlobalGenes[i];
+            gene.currentValue = loadedGlobalGenes[i].trueValue;
+            loadedGlobalGenes[i] = gene;
         }
     }
 

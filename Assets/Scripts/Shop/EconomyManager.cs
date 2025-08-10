@@ -80,16 +80,16 @@ public class EconomyManager : MonoBehaviour
         float x = (minTraitValue + maxTraitValue) / 2;
         float min = global.startingValue - x;
         float max = global.startingValue + x;
-        float l = Mathf.InverseLerp(min, max, global.currentValue);
+        float l = Mathf.InverseLerp(min, max, global.trueValue);
 
         if (purchased)
         {
-            global.currentValue = Mathf.Clamp(global.currentValue + (valueFluctuation * valueFluctuationStrength.Evaluate(l)), minTraitValue, maxTraitValue);
+            global.trueValue = Mathf.Clamp(global.trueValue + (valueFluctuation * valueFluctuationStrength.Evaluate(l)), minTraitValue, maxTraitValue);
         }
 
         else if (!purchased)
         {
-            global.currentValue = Mathf.Clamp(global.currentValue - (valueFluctuation * valueFluctuationStrength.Evaluate(l)), minTraitValue, maxTraitValue);
+            global.trueValue = Mathf.Clamp(global.trueValue - (valueFluctuation * valueFluctuationStrength.Evaluate(l)), minTraitValue, maxTraitValue);
         }
 
         GeneManager.instance.SetGlobalGene(global);
@@ -152,22 +152,22 @@ public class EconomyManager : MonoBehaviour
 
     public void DailyValueUpdate(GlobalGene g)
     {
-        //float rand = Random.Range(-maxDailyValueUpdateAmount, maxDailyValueUpdateAmount);
-        //g.currentValue += rand;
+        float rand = Random.Range(-maxDailyValueUpdateAmount, maxDailyValueUpdateAmount);
+        g.trueValue += rand;
     }
 
     public void ValueReturn(GlobalGene g)
     {
-        //if (g.currentValue == g.startingValue) return;
+        if (g.trueValue == g.startingValue) return;
 
-        //float rand = Random.Range(0, 10);
-        //float r = valueReturnAmount / rand;
+        float rand = Random.Range(0, 10);
+        float r = valueReturnAmount / rand;
 
-        //if (g.currentValue > g.startingValue) 
-        //    g.currentValue = Mathf.Clamp(g.currentValue - r, g.startingValue, Mathf.Infinity);
+        if (g.trueValue > g.startingValue)
+            g.trueValue = Mathf.Clamp(g.trueValue - r, g.startingValue, Mathf.Infinity);
 
-        //else if (g.currentValue < g.startingValue)
-        //    g.currentValue = Mathf.Clamp(g.currentValue + r, g.startingValue, Mathf.Infinity);
+        else if (g.trueValue < g.startingValue)
+            g.trueValue = Mathf.Clamp(g.trueValue + r, g.startingValue, Mathf.Infinity);
     }
 
     public float RoundMoney(float m)

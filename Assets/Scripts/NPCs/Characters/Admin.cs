@@ -169,7 +169,8 @@ public class Admin : NPC
             email.subjectLine = "You have achieved Star 1";
             email.mainText = "Congratulations " + Store.StoreName + ", on achieving the first reputation star! This is a big achievment, and now you can access many " +
                 "new features of the community, like the tank store.";
-            email.CreateEmailButton("Thanks!", true).SetFunc(EmailFunctions.FunctionIndexes.SetFlag, name, "star1");
+            flags.Add("star1");
+            email.CreateEmailButton("Thanks!", true);
             important = true;
         }
 
@@ -178,13 +179,17 @@ public class Admin : NPC
             email.subjectLine = "You have achieved Star 2";
             email.mainText = "Congratulations " + Store.StoreName + ", on achieving the second reputation star! This is a big achievment, and now you can access many new features " +
                 "of the community, like the vet check.";
-            email.CreateEmailButton("Thanks!", true).SetFunc(EmailFunctions.FunctionIndexes.SetFlag, name, "star2");
+            flags.Add("star2");
+            email.CreateEmailButton("Thanks!", true);
             important = true;
         }
 
         if (email.mainText != null)
         {
-            data.completion.Dequeue();
+            if(data.completion.Count > 0)
+            {
+                data.completion.Dequeue();
+            }
             email.mainText += "\n\nAdmin";
 
             NpcEmail(email, 0, important);
@@ -195,25 +200,25 @@ public class Admin : NPC
             Email sentEmail = EmailManager.instance.emails.Find((x) => { return x.sender == name; });
             if (sentEmail != null && sentEmail.buttons == null)
             {
-                if (completion == 2 && PlayerStats.stats.shrimpBought > 0)
+                if (sentEmail.subjectLine == "Buying shrimp" && PlayerStats.stats.shrimpBought > 0)
                 {
                     sentEmail.CreateEmailButton("I've bought a shrimp", true)
                         .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "OwnStoreOpen")
                         .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 3);
                 }
-                if (completion == 3 && PlayerStats.stats.timesSellingAppOpened > 0)
+                if (sentEmail.subjectLine == "Checking your own store" && PlayerStats.stats.timesSellingAppOpened > 0)
                 {
                     sentEmail.CreateEmailButton("I've opened the store app", true)
                         .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "UpgradeStoreOpen")
                         .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 4);
                 }
-                if (completion == 4 && PlayerStats.stats.timesBoughtFood > 0)
+                if (sentEmail.subjectLine == "Buying shrimp apparatus" && PlayerStats.stats.timesBoughtFood > 0)
                 {
                     sentEmail.CreateEmailButton("I've bought some food", true)
                         .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "VetOpen")
                         .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 5);
                 }
-                if(completion == 5 && PlayerStats.stats.timesVetOpened > 0)
+                if(sentEmail.subjectLine == "Using the vet" && PlayerStats.stats.timesVetOpened > 0)
                 {
                     sentEmail.CreateEmailButton("I've opened the vet", true)
                         .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 10);

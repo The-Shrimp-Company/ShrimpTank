@@ -18,6 +18,7 @@ public struct GlobalGene
     public int dominance;
     public float startingValue;
     public float currentValue;
+    public float trueValue;
     public int instancesInStore;
     public int lifetimeInstances;
 }
