@@ -445,28 +445,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "There are several different types of shrimp which are suitable for breeding
-    and selling. The four main breeds are Cherry shrimp, Caridid shrimp, Nylon shrimp
-    and Anomalis shrimp.\nYou might think that you should be keeping these different
-    breeds seperate from each other, but actually this isn't necassary. In fact,
-    even having a pure breed of any of these shrimp is uncommon (and having a stable
-    line of them is very profitable). Mixing these different breeds is entirely acceptable,
-    and most shrimp owners are paying for shrimp that have specific combinations
-    of traits. A shrimp might have, for example, a Cherry head with a Caridid body,
-    and Cherry legs, and Anomalis eyes, and a Nylon tail and tail fan. And some customers
-    might like that very much indeed, and some might not. It's wise to keep a variety
-    of stock available to have something for everyone. \nWhen two shrimp breed, the
-    offspring will generally have some traits from one parent, and some from another.
-    However, sometimes you may something entirely new pop up: this can happen for
-    one of two reasons.\n1) Mutation. Mutation is perfectly normal in shrimp, although
-    it doesn't happen often. The new shrimp may have a completly different trait
-    to what it's parent had, and that's fine.\n2) A recessive gene. Every shrimp
-    has 2 possible genes for each trait, and one of them will be more dominant, and
-    will take effect on the shrimp. If two shrimp with the same recessive gene breed,
-    the recessive genes might show on the child, leading them to have different traits
-    from their parents. This is also perfectly normal, and if you can figure out
-    which parent had that recessive gene, could let you breed into the gene more
-    often!"
+  m_text: 'Shrimp in your tanks will breed as the game continues. They will have
+    kids in batches of up to 5. The offspring they have will tend to share traits
+    with their parents, but may have mutated into new traits. They may also display
+    recessive genes, which were invisible in the parents.
+
+    Shrimp will breed
+    quite fast, but if the tank they are in is at it''s maximum capacity, they will
+    stop. Most tanks have a maximum capacity of 15 shrimp, and adding more decorations
+    will change this. You can put more shrimp into the tank, but they won''t breed.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -493,8 +480,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 49.2
+  m_fontSizeBase: 49.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
