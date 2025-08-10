@@ -112,7 +112,7 @@ public class Rival : NPC
             // player has gotten the first star while talking to the rival about getting the first star
             if(Reputation.GetReputation() >= 20 && completion < 20 && completion >= 10)
             {
-                email.buttons.Clear();
+                email.buttons?.Clear();
                 email.subjectLine = "You Sly Dog";
                 email.mainText = "How dare you distract me with talk while you go ahead and win the challenge! This isn't sportsmanlike at all!\nAlthough...\n I guess that would be " +
                     "very rivallike...\nSo I guess I must say well done! You've got one over on me, but by tomorrow, I'll be at my first star too!";
@@ -123,7 +123,7 @@ public class Rival : NPC
 
             if(Reputation.GetReputation() >= 20 && completion < 10)
             {
-                email.buttons.Clear();
+                email.buttons?.Clear();
                 email.subjectLine = "You've been ignoring me";
                 email.mainText = "How <i>could</i> you? You've been ignoring me completely, and you've beaten my first competition before I could even properly challenge you. " +
                     "This is simply too cruel. I just want to have a proper rivallry with you, ok? Give me a couple of days to get my first reputation star as well, and then we can " +
