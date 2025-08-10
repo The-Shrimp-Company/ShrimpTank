@@ -182,7 +182,10 @@ public class Rival : NPC
 
             // Actually sending the email
             if (email.mainText != null) {
-                data.completion.Dequeue();
+                if(data.completion.Count > 0)
+                {
+                    data.completion.Dequeue();
+                }
                 email.mainText += "\n\nYour hateful rival";
                 NpcEmail(email, important);
             }

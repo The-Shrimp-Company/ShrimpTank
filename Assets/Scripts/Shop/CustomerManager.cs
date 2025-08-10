@@ -54,6 +54,10 @@ public class CustomerManager : MonoBehaviour
                 foreach (Shrimp shrimp in currentTank.shrimpInTank)
                 {
                     float value = EconomyManager.instance.GetShrimpValue(shrimp.stats);
+                    if (!shrimp.stats.bornInStore)
+                    {
+                        value /= 2;
+                    }
                     float chance = currentTank.openTankPrice / value;
                     //Debug.Log(chance);
                     if (Random.value * 2 > chance)

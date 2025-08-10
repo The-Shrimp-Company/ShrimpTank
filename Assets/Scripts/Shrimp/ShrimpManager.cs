@@ -75,6 +75,7 @@ public class ShrimpManager : MonoBehaviour
 
         s.name = GenerateShrimpName();
         s.gender = geneManager.RandomGender();
+        s.bornInStore = true;
         s.birthTime = TimeManager.instance.GetTotalTime();
         s.hunger = 100;
         s.illnessLevel = 0;
