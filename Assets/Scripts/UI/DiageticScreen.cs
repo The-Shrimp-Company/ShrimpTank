@@ -26,6 +26,6 @@ public class DiageticScreen : Interactable
 
     public override void OnHover()
     {
-        Debug.Log("This one works");
+        //Debug.Log("This one works");
     }
 }

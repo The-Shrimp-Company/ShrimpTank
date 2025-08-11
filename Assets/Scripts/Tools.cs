@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text.Json;
-using UnityEngine;
 using System.Linq;
+using System.Text.Json;
+using System.Text.RegularExpressions;
+using Unity.Mathematics;
+using UnityEngine;
 
 public static class Tools
 {
@@ -75,5 +78,22 @@ public static class Tools
                 return default(T);
             }
         }
+    }
+
+    static public string RoundMoney(this float num)
+    {
+        string str = Math.Round(num, 2).ToString();
+        string regEx = @"^\d*\.\d$";
+        Regex regex = new Regex(regEx);
+        if (regex.IsMatch(str))
+        {
+            str += "0";
+        }
+        else if (!str.Contains("."))
+        {
+            str += ".00";
+        }
+
+        return str;
     }
 }
