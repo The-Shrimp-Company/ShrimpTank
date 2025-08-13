@@ -199,6 +199,9 @@ public class SaveController : MonoBehaviour
         // Emails
         d.emails = EmailManager.instance.emails.ToArray();
 
+        // NPC Shops
+        d.shops = ShopManager.instance.shops.ToArray();
+
         // Requests
         d.requests = CustomerManager.Instance.requests.ToArray();
 
@@ -238,6 +241,9 @@ public class SaveController : MonoBehaviour
         // Npcs
         NPCManager.Instance.Initialize();
 
+        // Shops
+        ShopManager.instance.Initialize(d.shops.ToList());
+
         // Emails
         EmailManager.instance.Initialize();
 
@@ -256,6 +262,7 @@ public class SaveController : MonoBehaviour
         Inventory.instance.Initialize();
         CustomerManager.Instance.Initialize();
         EmailManager.instance.Initialize();
+        ShopManager.instance.Initialize();
         NPCManager.Instance.Initialize();
         Money.instance.SetStartingMoney();
         Reputation.SetReputation(0);

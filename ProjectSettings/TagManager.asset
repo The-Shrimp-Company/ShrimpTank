@@ -11,6 +11,7 @@ TagManager:
   - UI
   - Blocker
   - Input
+  - ShelfSpawn
   layers:
   - Default
   - TransparentFX

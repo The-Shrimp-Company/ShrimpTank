@@ -28,6 +28,8 @@ namespace SaveLoadSystem
 
         public NPC.NPCData[] npcs;
 
+        public Shop[] shops;
+
         public Email[] emails;
 
         public Request[] requests;

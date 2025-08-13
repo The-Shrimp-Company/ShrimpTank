@@ -10,6 +10,7 @@ public class TabletInteraction : ScreenView
     [SerializeField]
     private GameObject SellButton, BuyButton, VetButton, UpgradeButton;
 
+    [Space]
 
     [SerializeField]
     private GameObject SellScreen;

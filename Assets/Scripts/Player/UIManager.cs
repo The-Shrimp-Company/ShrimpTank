@@ -35,6 +35,7 @@ public class UIManager : MonoBehaviour
     private Stack<ScreenView> _tabletStack = new Stack<ScreenView>();
 
     [SerializeField] private ScreenView TabletView;
+    public Transform tabletParent;
 
     public void Awake()
     {

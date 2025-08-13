@@ -83,6 +83,11 @@ public class Alan : NPC
                     .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, name, "NoMoney");
             }
 
+            else if (completion == 20)
+            {
+                
+            }
+
             // Actually send the email
             if (email.mainText != null)
             {

@@ -85,6 +85,11 @@ public class ShrimpSelectionBlock : ContentBlock
         }
     }
 
+    public ShrimpStats GetShrimp()
+    {
+        return _shrimp;
+    }
+
     public void SellThis()
     {
         email.CloseSelection();

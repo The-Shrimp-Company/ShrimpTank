@@ -1,11 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+
+
+public delegate void TimeEvent();
 
 public class TimeManager : MonoBehaviour
 {
     public static TimeManager instance;
+    public event TimeEvent onNewDay;
 
     [SerializeField] float secondsInADay;
 
@@ -23,7 +29,7 @@ public class TimeManager : MonoBehaviour
     public void Awake()
     {
         instance = this;
-        totalTime = 365;
+        totalTime = 360;
 
         year = Mathf.FloorToInt(totalTime / 360);
         day = Mathf.FloorToInt(totalTime) - 359;
@@ -82,6 +88,10 @@ public class TimeManager : MonoBehaviour
     {
         prevDay = day;
         EconomyManager.instance.DailyUpdate();
+        if(onNewDay != null)
+        {
+            onNewDay();
+        }
     }
 
 

@@ -217,8 +217,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8986444441810471884}
   m_HandleRect: {fileID: 6187992125951271730}
   m_Direction: 2
-  m_Value: 1.0000019
-  m_Size: 0.53575325
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -882,7 +882,7 @@ PrefabInstance:
     - target: {fileID: 1791951336729276664, guid: d0509c493fec39445946c4123c97c903,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 804
+      value: 1863
       objectReference: {fileID: 0}
     - target: {fileID: 1791951336729276664, guid: d0509c493fec39445946c4123c97c903,
         type: 3}
@@ -1258,7 +1258,7 @@ PrefabInstance:
     - target: {fileID: 1791951336729276664, guid: d0509c493fec39445946c4123c97c903,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 804
+      value: 1863
       objectReference: {fileID: 0}
     - target: {fileID: 1791951336729276664, guid: d0509c493fec39445946c4123c97c903,
         type: 3}
@@ -2000,7 +2000,7 @@ PrefabInstance:
     - target: {fileID: 1791951336729276664, guid: d0509c493fec39445946c4123c97c903,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 804
+      value: 1863
       objectReference: {fileID: 0}
     - target: {fileID: 1791951336729276664, guid: d0509c493fec39445946c4123c97c903,
         type: 3}
@@ -2350,7 +2350,7 @@ PrefabInstance:
     - target: {fileID: 1791951336729276664, guid: d0509c493fec39445946c4123c97c903,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 804
+      value: 1863
       objectReference: {fileID: 0}
     - target: {fileID: 1791951336729276664, guid: d0509c493fec39445946c4123c97c903,
         type: 3}
