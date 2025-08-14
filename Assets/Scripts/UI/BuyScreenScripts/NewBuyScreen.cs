@@ -53,7 +53,6 @@ public class NewBuyScreen : ScreenView
 
     public void OnEnable()
     {
-        Debug.Log("Opening screen");
         foreach (GameObject label in shopLabels)
         {
             Shop shop = ShopManager.instance.shops.Find((x) => { return x.name == label.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text; });

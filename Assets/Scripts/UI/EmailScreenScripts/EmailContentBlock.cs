@@ -55,7 +55,6 @@ public class EmailContentBlock : ContentBlock
     public void DeleteEmail()
     {
         EmailManager.RemoveEmail(_email);
-        Debug.Log(EmailManager.instance.emails.Contains(_email));
     }
 
     public Email GetEmail()

@@ -122,7 +122,6 @@ public class SleazyJoe : NPC
 
     public override void BoughtShrimp(ShrimpStats stats)
     {
-        flags[0] = (flags[0].TryCast<float>() + EconomyManager.instance.GetShrimpValue(stats) - completion + flags[0].TryCast<float>() / 5).ToShortString();
-        Debug.Log(flags[0]);
+        flags[0] = (flags[0].TryCast<float>() + EconomyManager.instance.GetShrimpValue(stats) - completion + flags[0].TryCast<float>() / 5).ToShortString();\
     }
 }

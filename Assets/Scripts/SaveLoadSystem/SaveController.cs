@@ -58,7 +58,6 @@ public class SaveController : MonoBehaviour
             SaveGame("Autosave");
         }
 
-        //Debug.Log(GameSettings.settings.cameraSensitivity);
     }
 
     public void SaveGame(string _fileName)

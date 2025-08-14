@@ -10,8 +10,6 @@ public class FakePlayerScript : MonoBehaviour
     public void OnMouseMove()
     {
         Vector2 pos = Mouse.current.position.value;
-        Debug.Log(pos);
-        Debug.Log(uiPanel.rect.center);
         pos.x = Mathf.Clamp(pos.x, uiPanel.position.x - uiPanel.rect.width/2, uiPanel.position.x + uiPanel.rect.width/2);
         pos.y = Mathf.Clamp(pos.y, uiPanel.position.y - uiPanel.rect.height/2, uiPanel.position.y + uiPanel.rect.height/2);
         Mouse.current.WarpCursorPosition(pos);

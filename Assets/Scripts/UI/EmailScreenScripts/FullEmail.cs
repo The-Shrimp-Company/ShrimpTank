@@ -26,10 +26,8 @@ public class FullEmail : MonoBehaviour
         body.fontSize = 30;
         if(email.buttons != null)
         {
-            Debug.Log("Buttons");
             foreach(MyButton button in email.buttons)
             {
-                Debug.Log("One button");
                 GameObject obj = Instantiate(_button, buttonParent);
                 obj.GetComponentInChildren<TextMeshProUGUI>().text = button.text;
                 FontTools.SizeFont(obj.GetComponentInChildren<TextMeshProUGUI>());

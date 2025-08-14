@@ -128,6 +128,5 @@ public class PartScript : MonoBehaviour
         Animation.Play("current");
         
 
-        Debug.Log(Animation.isPlaying);
     }
 }

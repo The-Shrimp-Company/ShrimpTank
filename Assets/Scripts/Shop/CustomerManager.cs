@@ -59,7 +59,6 @@ public class CustomerManager : MonoBehaviour
                         value /= 2;
                     }
                     float chance = currentTank.openTankPrice / value;
-                    //Debug.Log(chance);
                     if (Random.value * 2 > chance)
                     {
                         PurchaseShrimp(shrimp);
@@ -131,13 +130,11 @@ public class CustomerManager : MonoBehaviour
         {
             ToPurchase.Remove(shrimp);
             shrimp.tank.shrimpToRemove.Add(shrimp);
-            Debug.Log(value);
             Money.instance.AddMoney(value);
             EconomyManager.instance.UpdateTraitValues(false, shrimp.stats);
             Destroy(shrimp.gameObject);
 
             Reputation.AddReputation(0.6f - shrimp.stats.illnessLevel / 100);
-            Debug.Log("Reputation: " + Reputation.GetReputation());
 
             Email email = EmailTools.CreateEmail();
             int index = Random.Range(0, RandomEmails.Count);
@@ -243,12 +240,10 @@ public class CustomerManager : MonoBehaviour
         EmailManager.SendEmail(email, true);
         request.emailID = email.ID;
         requests.Add(request);
-        Debug.Log(requests.Count);
     }
 
     public void EmailOpen(EmailScreen newEmailScreen)
     {
-        Debug.Log("Recieved");
         emailScreen = newEmailScreen;
     }
 

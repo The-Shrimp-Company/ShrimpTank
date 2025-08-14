@@ -10,7 +10,6 @@ public class CurrentTanksContent : ContentPopulation
     {
         CreateContent(Inventory.instance.activeTanks.Count - 1);
         int i = 0;
-        Debug.Log(Inventory.instance.activeTanks.Count);
         foreach(ContentBlock content in contentBlocks)
         {
             if (_shrimp[0].tank == Inventory.instance.activeTanks[i]) i++;

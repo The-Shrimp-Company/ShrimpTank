@@ -60,7 +60,6 @@ public class TankViewScript : ScreenView
 
     public override void Open(bool switchTab)
     {
-        Debug.Log("Opening tank");
         player = GameObject.Find("Player");
         shelves = GetComponentInParent<ShelfSpawn>();
         tank = GetComponentInParent<TankController>();
@@ -375,7 +374,6 @@ public class TankViewScript : ScreenView
 
     public void SetPrice()
     {
-        Debug.Log("input: " + salePrice.text);
         tank.SetTankPrice(float.Parse(salePrice.text));
     }
 

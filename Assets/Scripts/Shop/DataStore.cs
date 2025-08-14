@@ -27,7 +27,6 @@ public class DataStore : MonoBehaviour
         }
         else
         {
-            Debug.Log(StoreName);
             Store.StoreName = StoreName;
         }
     }

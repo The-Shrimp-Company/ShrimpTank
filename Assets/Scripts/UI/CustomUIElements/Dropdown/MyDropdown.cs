@@ -73,7 +73,6 @@ public class MyDropdown : MonoBehaviour
         if (myDropdown == null)
         {
             myDropdown = Instantiate(dropdownMenu, transform);
-            Debug.Log(myDropdown);
         }
 
         if(blocker != null) Destroy(blocker);

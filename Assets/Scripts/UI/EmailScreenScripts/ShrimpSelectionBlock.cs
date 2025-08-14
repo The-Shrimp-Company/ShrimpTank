@@ -64,7 +64,6 @@ public class ShrimpSelectionBlock : ContentBlock
         }
         else
         {
-            Debug.Log("HEEEEEEEE");
             price.text = thistext + ".00";
         }
     }
