@@ -85,7 +85,9 @@ public class Alan : NPC
 
             else if (completion == 20)
             {
-                
+                email.subjectLine = "Ok, we are friends now";
+                email.mainText = "Now that we are friends, you can have access to my store. It should have come through as you get this email.";
+                ShopManager.instance.shops.Add(new Shop() { NpcOwned = true, NpcName = name, maxShrimpStock = 4, name = "Alan's Shrimp Shop" });
             }
 
             // Actually send the email

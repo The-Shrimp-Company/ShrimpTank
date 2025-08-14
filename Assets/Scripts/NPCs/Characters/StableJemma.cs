@@ -18,7 +18,7 @@ public class StableJemma : NPC
         if(TimeManager.instance.day > lastDaySent && IsAwake())
         {
             Email email = this.CreateEmail();
-            bool important = false;
+            bool important = true;
 
             //Place the actual email logic here
             if(TimeManager.instance.day > 5 && completion == 0)
@@ -88,6 +88,36 @@ public class StableJemma : NPC
                 email.CreateEmailButton("It's nice that you trust me!", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 12);
                 important = true;
+            }
+
+            if(completion == 11)
+            {
+                email.subjectLine = "Don't worry about it";
+                email.mainText = "You don't Need to worry about That.";
+                email.CreateEmailButton("Oh, Ok. Well then it's nice that you trust me!", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 12);
+            }
+
+            if(completion == 12)
+            {
+                email.subjectLine = "Well I'm happy with that!";
+                email.mainText = "Yes. And as A mark of my trust, I will Allow you to purchase shrimp from me! As of recieving this email, you now have access to my Shrimp Store," +
+                    " aptly named the entirely accurate \"Horses are Better\". It is not fully set up yet, and may take me some time to put my stock up, but when it is there, you may " +
+                    "purchase from it!";
+                ShopManager.instance.shops.Add(new Shop() { NpcOwned = true, NpcName = name, maxShrimpStock = 4, name = "Horses are Better" });
+                email.CreateEmailButton("Thanks! I'll be sure to buy many shrimp!", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 20);
+                email.CreateEmailButton("Wait what? \"Horses are Better\"? Are they?", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 13);
+            }
+
+            if(completion == 13)
+            {
+                email.subjectLine = "Well, of course they are";
+                email.mainText = "The noble art of Horse Rearing is a venerable And ancient tradition, Which has been Maintained since the early times, At the beginning of our humble " +
+                    "Society, and it is much better than simply raising shrimp.\n I Will Speak No More Of The Matter";
+                email.CreateEmailButton("Oh Ok.", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 20);
             }
 
             if(email.mainText != null)

@@ -72,7 +72,8 @@ static public class EmailFunctions
     {
         button.actions.Add(() => 
         {
-            Money.instance.AddMoney(button.data[(int)FunctionIndexes.AddMoney].data[0].TryCast<float>());
+            Debug.Log(button.data[(int)FunctionIndexes.AddMoney].data[0]);
+            Money.instance.AddMoney(button.data[(int)FunctionIndexes.AddMoney].data[0].TryCast<int>());
         });
     }
 
