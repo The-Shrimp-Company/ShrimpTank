@@ -101,6 +101,9 @@ public class SleazyJoe : NPC
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 0);
                 email.CreateEmailButton("I'll try", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 0);
+                data.completion.Dequeue();
+                NpcEmail(email, important);
+                email.mainText = null;
             }
 
             if (email.mainText != null)

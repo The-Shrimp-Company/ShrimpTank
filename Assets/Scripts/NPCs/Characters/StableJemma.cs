@@ -120,6 +120,21 @@ public class StableJemma : NPC
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 20);
             }
 
+            if(completion == 20 && ShopManager.instance.FindNpcShop(name).shrimpSold > 5)
+            {
+                email.subjectLine = "You've bought many shrimp";
+                email.mainText = "I've seen you buying many shrimp From me, " + ShopManager.instance.FindNpcShop(name).shrimpSold.ToString() + " In fact! This is very Kind of you " +
+                    "And it is much Appreciated that you would buy so Many of my shrimp from me! Trusting you Has definitely been a worthwhile investment! But I still have very " +
+                    "many shrimp and very much shrimp Stock to sell.";
+            }
+
+            if (ShopManager.instance.FindNpcShop(name).shrimpSold >= 50)
+            {
+                email.subjectLine = "Thank You!";
+                email.mainText = "You have Bought all of My Shrimp from me! I no longer have a stupid number of shrimp! I am Very happy that this has happened! " +
+                    "I can finally start buying horses!";
+            }
+
             if(email.mainText != null)
             {
                 data.completion.Dequeue();
@@ -131,6 +146,19 @@ public class StableJemma : NPC
                 if (data.completion.Count > 1)
                 {
                     data.completion.Enqueue(data.completion.Dequeue());
+                }
+            }
+        }
+
+        if(ShopManager.instance.FindNpcShop(name) != null)
+        {
+            Shop shop = ShopManager.instance.FindNpcShop(name);
+            if(shop.maxShrimpStock > 50 - shop.shrimpSold)
+            {
+                shop.maxShrimpStock = 50 - shop.shrimpSold;
+                while (shop.maxShrimpStock > shop.shrimpStock.Count)
+                {
+                    shop.shrimpStock.RemoveAt(shop.shrimpStock.Count - 1);
                 }
             }
         }

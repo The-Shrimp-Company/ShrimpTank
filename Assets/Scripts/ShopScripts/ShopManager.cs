@@ -11,6 +11,7 @@ public class Shop
     public List<ShrimpStats> shrimpStock = new List<ShrimpStats>();
     public List<Item> otherStock;
     public int maxShrimpStock;
+    public int shrimpSold;
 
     public NPC npc 
     {
@@ -77,5 +78,10 @@ public class ShopManager : MonoBehaviour
                 shop.shrimpStock.Add(ShrimpManager.instance.CreateRandomShrimp(true, false));
             }
         }
+    }
+
+    public Shop FindNpcShop(string NpcName)
+    {
+        return shops.Find((x) => { return x.NpcOwned && x.NpcName == NpcName; });
     }
 }
