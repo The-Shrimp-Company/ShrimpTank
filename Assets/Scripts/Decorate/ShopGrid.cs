@@ -9,11 +9,18 @@ public class ShopGrid : MonoBehaviour
     public int gridWidth;
     public int gridHeight;
     public int gridLength;
-    public GridNode[][][] grid;
+    public RoomGridNode[][][] grid;
     public float pointDistance;
     public float pointSize;
     public float invalidPointSize;
     Vector3 startPoint;
+
+    [Header("Room Construction")]
+    [SerializeField] GameObject floorPrefab;
+    [SerializeField] GameObject ceilingPrefab;
+    [SerializeField] GameObject wallPrefab;
+
+
 
     [Header("Debugging")]
     [SerializeField] bool debugGrid;
@@ -41,6 +48,7 @@ public class ShopGrid : MonoBehaviour
         }
 
         InitializeGrid();
+        ConstructRoom();
     }
 
 
@@ -57,27 +65,30 @@ public class ShopGrid : MonoBehaviour
 
     public void InitializeGrid()
     {
-        startPoint = new Vector3(-gridWidth, -gridHeight, -gridLength) / 2f * pointDistance + transform.position;
+        //startPoint = new Vector3(-gridWidth, -gridHeight, -gridLength) / 2f * pointDistance + transform.position;  // Start generating from center
+        startPoint = transform.position;  // Start generating from corner
 
-        grid = new GridNode[gridWidth][][];
-        for (int i = 0; i < gridWidth; i++)
+        grid = new RoomGridNode[gridWidth][][];
+        for (int w = 0; w < gridWidth; w++)
         {
-            grid[i] = new GridNode[gridHeight][];
-            for (int j = 0; j < gridHeight; j++)
+            grid[w] = new RoomGridNode[gridHeight][];
+            for (int h = 0; h < gridHeight; h++)
             {
-                grid[i][j] = new GridNode[gridLength];
-                for (int k = 0; k < gridLength; k++)
+                grid[w][h] = new RoomGridNode[gridLength];
+                for (int l = 0; l < gridLength; l++)
                 {
-                    Vector3 pos = startPoint + new Vector3(i, j, k) * pointDistance;
+                    Vector3 pos = startPoint + new Vector3(w, h, l) * pointDistance;
                     Vector3 r = pos - transform.position;  // Get the relative vector from point to pivot
                     r = transform.rotation * r;  // Rotate around the point
                     pos = transform.position + r;  // Return to world space
 
-                    grid[i][j][k] = new GridNode();
-                    grid[i][j][k].coords = new Vector3Int(i, j, k);
-                    grid[i][j][k].worldPos = pos;
+                    grid[w][h][l] = new RoomGridNode();
+                    grid[w][h][l].coords = new Vector3Int(w, h, l);
+                    grid[w][h][l].worldPos = pos;
 
-                    CheckNodeValidity(grid[i][j][k]);
+                    CheckNodeValidity(grid[w][h][l]);
+
+                    CheckNodePosition(w, h, l);
 
                     for (int p = -1; p <= 1; p++)
                     {
@@ -85,11 +96,11 @@ public class ShopGrid : MonoBehaviour
                         {
                             for (int g = -1; g <= 1; g++)
                             {
-                                if (i == p && g == q && k == g)
+                                if (w == p && g == q && l == g)
                                 {
                                     continue;
                                 }
-                                AddNeighbour(grid[i][j][k], new Vector3Int(i + p, j + q, k + g));
+                                AddNeighbour(grid[w][h][l], new Vector3Int(w + p, h + q, l + g));
                             }
                         }
                     }
@@ -114,6 +125,57 @@ public class ShopGrid : MonoBehaviour
                 invalidCube.transform.parent = gridParent.transform;
                 invalidCube.transform.rotation = transform.rotation;
                 invalidCube.transform.localScale = new Vector3(pointSize, pointSize, pointSize);
+            }
+        }
+    }
+
+
+    private void CheckNodePosition(int w, int h, int l)
+    {
+        grid[w][h][l].floor = (h == 0);
+        grid[w][h][l].ceiling = (h == gridHeight - 1);
+
+        grid[w][h][l].nWall = (l == gridLength - 1);  // North
+        grid[w][h][l].eWall = (w == gridWidth - 1);  // East
+        grid[w][h][l].sWall = (l == 0);  // South
+        grid[w][h][l].wWall = (w == 0);  // West
+
+
+        grid[w][h][l].wall = (
+            grid[w][h][l].nWall ||
+            grid[w][h][l].eWall ||
+            grid[w][h][l].sWall ||
+            grid[w][h][l].wWall);
+
+    }
+
+
+    private void ConstructRoom()
+    {
+        if (gridParent == null) return;
+
+        // Remove the old room
+        while (gridParent.transform.childCount > 0)
+        {
+            DestroyImmediate(gridParent.transform.GetChild(0).gameObject);
+        }
+
+        // Create the new room
+        for (int w = 0; w < gridWidth; w++)
+        {
+            for (int h = 0; h < gridHeight; h++)
+            {
+                for (int l = 0; l < gridLength; l++)
+                {
+                    if (grid[w][h][l].floor) GameObject.Instantiate(floorPrefab, grid[w][h][l].worldPos, Quaternion.identity, gridParent.transform);
+                    if (grid[w][h][l].ceiling) GameObject.Instantiate(ceilingPrefab, grid[w][h][l].worldPos, Quaternion.identity, gridParent.transform);
+
+                    if (grid[w][h][l].nWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 180, 0)), gridParent.transform);
+                    if (grid[w][h][l].eWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 270, 0)), gridParent.transform);
+                    if (grid[w][h][l].sWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 0, 0)), gridParent.transform);
+                    if (grid[w][h][l].wWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 90, 0)), gridParent.transform);
+
+                }
             }
         }
     }
