@@ -6,9 +6,12 @@ using UnityEngine;
 
 public class ShopGrid : MonoBehaviour
 {
-    public int gridWidth;
-    public int gridHeight;
-    public int gridLength;
+    public static ShopGrid Instance;
+
+    public Vector3 startingRoomSize;
+    [HideInInspector] public Vector3 roomSize;
+    private Vector3 minRoomSize = new Vector3(3, 3, 3);
+
     public RoomGridNode[][][] grid;
     public float pointDistance;
     public float pointSize;
@@ -41,11 +44,17 @@ public class ShopGrid : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null) { Instance = this; }
+        else if (Instance != this) { Destroy(gameObject); }
+
+
         if (debugGrid)
         {
             gridParent = new GameObject("Grid Debug");
             gridParent.transform.parent = transform;
         }
+
+        roomSize = startingRoomSize;
 
         InitializeGrid();
         ConstructRoom();
@@ -54,9 +63,9 @@ public class ShopGrid : MonoBehaviour
 
     private void AddNeighbour(GridNode p, Vector3Int neighbour)
     {
-        if (neighbour.x > -1 && neighbour.x < gridWidth &&
-            neighbour.y > -1 && neighbour.y < gridHeight &&
-            neighbour.z > -1 && neighbour.z < gridLength)
+        if (neighbour.x > -1 && neighbour.x < roomSize.x &&
+            neighbour.y > -1 && neighbour.y < roomSize.y &&
+            neighbour.z > -1 && neighbour.z < roomSize.z)
         {
             p.neighbours.Add(neighbour);
         }
@@ -68,14 +77,14 @@ public class ShopGrid : MonoBehaviour
         //startPoint = new Vector3(-gridWidth, -gridHeight, -gridLength) / 2f * pointDistance + transform.position;  // Start generating from center
         startPoint = transform.position;  // Start generating from corner
 
-        grid = new RoomGridNode[gridWidth][][];
-        for (int w = 0; w < gridWidth; w++)
+        grid = new RoomGridNode[(int)roomSize.x][][];
+        for (int w = 0; w < roomSize.x; w++)
         {
-            grid[w] = new RoomGridNode[gridHeight][];
-            for (int h = 0; h < gridHeight; h++)
+            grid[w] = new RoomGridNode[(int)roomSize.y][];
+            for (int h = 0; h < roomSize.y; h++)
             {
-                grid[w][h] = new RoomGridNode[gridLength];
-                for (int l = 0; l < gridLength; l++)
+                grid[w][h] = new RoomGridNode[(int)roomSize.z];
+                for (int l = 0; l < roomSize.z; l++)
                 {
                     Vector3 pos = startPoint + new Vector3(w, h, l) * pointDistance;
                     Vector3 r = pos - transform.position;  // Get the relative vector from point to pivot
@@ -132,11 +141,13 @@ public class ShopGrid : MonoBehaviour
 
     private void CheckNodePosition(int w, int h, int l)
     {
-        grid[w][h][l].floor = (h == 0);
-        grid[w][h][l].ceiling = (h == gridHeight - 1);
+        if (grid[w][h][l] == null) return;
 
-        grid[w][h][l].nWall = (l == gridLength - 1);  // North
-        grid[w][h][l].eWall = (w == gridWidth - 1);  // East
+        grid[w][h][l].floor = (h == 0);
+        grid[w][h][l].ceiling = (h == roomSize.y - 1);
+
+        grid[w][h][l].nWall = (l == roomSize.z - 1);  // North
+        grid[w][h][l].eWall = (w == roomSize.x - 1);  // East
         grid[w][h][l].sWall = (l == 0);  // South
         grid[w][h][l].wWall = (w == 0);  // West
 
@@ -161,11 +172,11 @@ public class ShopGrid : MonoBehaviour
         }
 
         // Create the new room
-        for (int w = 0; w < gridWidth; w++)
+        for (int w = 0; w < roomSize.x; w++)
         {
-            for (int h = 0; h < gridHeight; h++)
+            for (int h = 0; h < roomSize.y; h++)
             {
-                for (int l = 0; l < gridLength; l++)
+                for (int l = 0; l < roomSize.z; l++)
                 {
                     if (grid[w][h][l].floor) GameObject.Instantiate(floorPrefab, grid[w][h][l].worldPos, Quaternion.identity, gridParent.transform);
                     if (grid[w][h][l].ceiling) GameObject.Instantiate(ceilingPrefab, grid[w][h][l].worldPos, Quaternion.identity, gridParent.transform);
@@ -181,6 +192,18 @@ public class ShopGrid : MonoBehaviour
     }
 
 
+    public void IncreaseRoomSize(Vector3 increase)
+    {
+        roomSize.x = Mathf.Clamp(roomSize.x + increase.x, minRoomSize.x, Mathf.Infinity);
+        roomSize.y = Mathf.Clamp(roomSize.y + increase.y, minRoomSize.y, Mathf.Infinity);
+        roomSize.z = Mathf.Clamp(roomSize.z + increase.z, minRoomSize.z, Mathf.Infinity);
+
+        InitializeGrid();
+
+        ConstructRoom();
+    }
+
+
     public void RebakeGrid()
     {
         if (debugGrid && gridParent != null)
@@ -192,11 +215,11 @@ public class ShopGrid : MonoBehaviour
         }
 
 
-        for (int i = 0; i < gridWidth; i++)
+        for (int i = 0; i < roomSize.x; i++)
         {
-            for (int j = 0; j < gridHeight; j++)
+            for (int j = 0; j < roomSize.y; j++)
             {
-                for (int k = 0; k < gridLength; k++)
+                for (int k = 0; k < roomSize.z; k++)
                 {
                     CheckNodeValidity(grid[i][j][k]);
                 }
@@ -212,10 +235,10 @@ public class ShopGrid : MonoBehaviour
         RaycastHit[] hit;
 
         // Nodes
-        for (int i = 0; i < gridWidth; i++)
+        for (int i = 0; i < roomSize.x; i++)
         {
             int j = DecorateTankController.Instance.editingLayer;
-            for (int k = 0; k < gridLength; k++)
+            for (int k = 0; k < roomSize.z; k++)
             {
                 //if (!grid[i][j][k].invalid) continue;
 
@@ -237,41 +260,41 @@ public class ShopGrid : MonoBehaviour
         wall.invalid = true;
 
         // Back
-        Vector3 pos = transform.position + new Vector3(0, 0, (gridLength + 1) / 2) * pointDistance;
+        Vector3 pos = transform.position + new Vector3(0, 0, (roomSize.z + 1) / 2) * pointDistance;
         Vector3 r = pos - transform.position;  // Get the relative vector from point to pivot
         r = transform.rotation * r;  // Rotate around the point
         pos = transform.position + r;  // Return to world space
-        hit = Physics.BoxCastAll(pos, new Vector3(gridWidth * 2, gridHeight * 2, 0.1f) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
+        hit = Physics.BoxCastAll(pos, new Vector3(roomSize.x * 2, roomSize.y * 2, 0.1f) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
         foreach (RaycastHit h in hit)
             if (objects.Contains(h.transform))
                 collidingNodes.Add(wall);
 
         // Front
-        pos = transform.position + new Vector3(0, 0, (-gridLength - 2) / 2) * pointDistance;
+        pos = transform.position + new Vector3(0, 0, (-roomSize.z - 2) / 2) * pointDistance;
         r = pos - transform.position;  // Get the relative vector from point to pivot
         r = transform.rotation * r;  // Rotate around the point
         pos = transform.position + r;  // Return to world space
-        hit = Physics.BoxCastAll(pos, new Vector3(gridWidth * 2, gridHeight * 2, 0.1f) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
+        hit = Physics.BoxCastAll(pos, new Vector3(roomSize.x * 2, roomSize.y * 2, 0.1f) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
         foreach (RaycastHit h in hit)
             if (objects.Contains(h.transform))
                 collidingNodes.Add(wall);
 
         // Right
-        pos = transform.position + new Vector3((gridWidth + 1) / 2, 0, 0) * pointDistance;
+        pos = transform.position + new Vector3((roomSize.x + 1) / 2, 0, 0) * pointDistance;
         r = pos - transform.position;  // Get the relative vector from point to pivot
         r = transform.rotation * r;  // Rotate around the point
         pos = transform.position + r;  // Return to world space
-        hit = Physics.BoxCastAll(pos, new Vector3(0.1f, gridHeight * 2, gridLength * 2) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
+        hit = Physics.BoxCastAll(pos, new Vector3(0.1f, roomSize.y * 2, roomSize.z * 2) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
         foreach (RaycastHit h in hit)
             if (objects.Contains(h.transform))
                 collidingNodes.Add(wall);
 
         // Left
-        pos = transform.position + new Vector3((-gridWidth - 2) / 2, 0, 0) * pointDistance;
+        pos = transform.position + new Vector3((-roomSize.x - 2) / 2, 0, 0) * pointDistance;
         r = pos - transform.position;  // Get the relative vector from point to pivot
         r = transform.rotation * r;  // Rotate around the point
         pos = transform.position + r;  // Return to world space
-        hit = Physics.BoxCastAll(pos, new Vector3(0.1f, gridHeight * 2, gridLength * 2) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
+        hit = Physics.BoxCastAll(pos, new Vector3(0.1f, roomSize.y * 2, roomSize.z * 2) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
         foreach (RaycastHit h in hit)
             if (objects.Contains(h.transform))
                 collidingNodes.Add(wall);
@@ -309,11 +332,11 @@ public class ShopGrid : MonoBehaviour
     {
         if (grid != null && debugGrid)
         {
-            for (int i = 0; i < gridWidth; i++)
+            for (int i = 0; i < roomSize.x; i++)
             {
-                for (int j = 0; j < gridHeight; j++)
+                for (int j = 0; j < roomSize.y; j++)
                 {
-                    for (int k = 0; k < gridLength; k++)
+                    for (int k = 0; k < roomSize.z; k++)
                     {
                         Gizmos.DrawWireCube(grid[i][j][k].worldPos, new Vector3(pointSize, pointSize, pointSize));
                     }
@@ -325,17 +348,17 @@ public class ShopGrid : MonoBehaviour
 
     public GridNode GetClosestNode(Vector3 position)
     {
-        float sizeX = pointDistance * gridWidth;
-        float sizeY = pointDistance * gridHeight;
-        float sizeZ = pointDistance * gridLength;
+        float sizeX = pointDistance * roomSize.x;
+        float sizeY = pointDistance * roomSize.y;
+        float sizeZ = pointDistance * roomSize.z;
 
         Vector3 pos = position - startPoint;
         float percentageX = Mathf.Clamp01(pos.x / sizeX);
         float percentageY = Mathf.Clamp01(pos.y / sizeY);
         float percentageZ = Mathf.Clamp01(pos.z / sizeZ);
-        int x = Mathf.Clamp(Mathf.RoundToInt(percentageX * gridWidth), 0, gridWidth - 1);
-        int y = Mathf.Clamp(Mathf.RoundToInt(percentageY * gridHeight), 0, gridHeight - 1);
-        int z = Mathf.Clamp(Mathf.RoundToInt(percentageZ * gridLength), 0, gridLength - 1);
+        int x = Mathf.Clamp(Mathf.RoundToInt(percentageX * roomSize.x), 0, (int)roomSize.x - 1);
+        int y = Mathf.Clamp(Mathf.RoundToInt(percentageY * roomSize.y), 0, (int)roomSize.y - 1);
+        int z = Mathf.Clamp(Mathf.RoundToInt(percentageZ * roomSize.z), 0, (int)roomSize.z - 1);
         GridNode result = grid[x][y][z];
         int step = 1;
         while (result.invalid)
@@ -354,9 +377,9 @@ public class ShopGrid : MonoBehaviour
                         int i = x + p;
                         int j = y + q;
                         int k = z + g;
-                        if (i > -1 && i < gridWidth &&
-                            j > -1 && j < gridHeight &&
-                            k > -1 && k < gridLength)
+                        if (i > -1 && i < roomSize.x &&
+                            j > -1 && j < roomSize.y &&
+                            k > -1 && k < roomSize.z)
                         {
                             if (!grid[x + p][y + q][z + g].invalid)
                             {

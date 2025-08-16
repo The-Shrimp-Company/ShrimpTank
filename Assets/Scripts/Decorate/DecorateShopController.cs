@@ -89,10 +89,10 @@ public class DecorateShopController : MonoBehaviour
 
 
         int b = 0;  // Bottom Layer
-        int t = currentGrid.gridHeight - 1;  // Top Layer
-        for (int w = 0; w < currentGrid.gridWidth; w++)
+        int t = (int)currentGrid.roomSize.y - 1;  // Top Layer
+        for (int w = 0; w < currentGrid.roomSize.x; w++)
         {
-            for (int l = 0; l < currentGrid.gridLength; l++)
+            for (int l = 0; l < currentGrid.roomSize.z; l++)
             {
                 // Bottom Layer
                 GameObject node = GameObject.Instantiate(decoratingGridPrefab, currentGrid.grid[w][b][l].worldPos + new Vector3(0, -(currentGrid.pointSize / 2), 0), Quaternion.identity);
