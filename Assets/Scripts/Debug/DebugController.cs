@@ -1,4 +1,5 @@
 using SaveLoadSystem;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -44,6 +45,9 @@ public class DebugController : MonoBehaviour
     public static DebugCommand CLEAR_INVENTORY;
 
     public static DebugCommand EDIT_STORE_DECORATIONS;
+    public static DebugCommand<int> INCREASE_STORE_WIDTH;
+    public static DebugCommand<int> INCREASE_STORE_HEIGHT;
+    public static DebugCommand<int> INCREASE_STORE_LENGTH;
 
     public static DebugCommand<float> WALK_SPEED;
     public static DebugCommand<float> GAME_SPEED;
@@ -58,6 +62,7 @@ public class DebugController : MonoBehaviour
     public static DebugCommand TOGGLEUIVISIBILITY;
     public static DebugCommand RELOAD;
     public static DebugCommand FREEZE;
+    public static DebugCommand<int> SCREENSHOT;
     public static DebugCommand MAIN_MENU;
     public static DebugCommand FORCE_CLOSE;
 
@@ -242,6 +247,25 @@ public class DebugController : MonoBehaviour
             DecorateShopController.Instance.StartDecorating();
         });
 
+        INCREASE_STORE_WIDTH = new DebugCommand<int>("increase_store_width", "Increases the width of the store by this amount", "increase_store_width", (x) =>
+        {
+            if (ShopGrid.Instance == null) return;
+            ShopGrid.Instance.IncreaseRoomSize(new Vector3(x, 0, 0));
+        });
+
+        INCREASE_STORE_HEIGHT = new DebugCommand<int>("increase_store_height", "Increases the height of the store by this amount", "increase_store_height", (x) =>
+        {
+            if (ShopGrid.Instance == null) return;
+            ShopGrid.Instance.IncreaseRoomSize(new Vector3(0, x, 0));
+        });
+
+        INCREASE_STORE_LENGTH = new DebugCommand<int>("increase_store_length", "Increases the length of the store by this amount", "increase_store_length", (x) =>
+        {
+            if (ShopGrid.Instance == null) return;
+            ShopGrid.Instance.IncreaseRoomSize(new Vector3(0, 0, x));
+        });
+
+
 
 
 
@@ -263,6 +287,13 @@ public class DebugController : MonoBehaviour
         FREEZE = new DebugCommand("freeze", "Set the gamespeed to 0 and freeze the game", "freeze", () =>
         {
             Time.timeScale = 0;
+        });
+
+        SCREENSHOT = new DebugCommand<int>("screenshot", "Save a screenshot at (resolution * int) to the screenshots folder (Next to saves)", "screenshot", (x) =>
+        {
+            ToggleDebug();
+
+            StartCoroutine(TakeScreenshot(x));
         });
 
         TOGGLEUIVISIBILITY = new DebugCommand("toggle_ui", "Toggles UI visibility (Only for getting screenshots, may break the game)", "toggle_ui", () =>
@@ -382,6 +413,9 @@ public class DebugController : MonoBehaviour
             Spacer,
 
             EDIT_STORE_DECORATIONS,
+            INCREASE_STORE_WIDTH,
+            INCREASE_STORE_HEIGHT,
+            INCREASE_STORE_LENGTH,
 
             Spacer,
 
@@ -402,6 +436,7 @@ public class DebugController : MonoBehaviour
             TOGGLEUIVISIBILITY,
             RELOAD,
             FREEZE,
+            SCREENSHOT,
             MAIN_MENU,
             FORCE_CLOSE,
 
@@ -686,6 +721,11 @@ public class DebugController : MonoBehaviour
 
     public void OnToggleDebug(InputValue value)
     {
+        ToggleDebug();
+    }
+
+    private void ToggleDebug()
+    {
         if (canShow)
         {
             showConsole = !showConsole;
@@ -877,5 +917,14 @@ public class DebugController : MonoBehaviour
                 }
             }
         }
+    }
+
+
+    public IEnumerator TakeScreenshot(int x)
+    {
+        yield return null;
+        if (x < 1) x = 1;
+        ScreenCapture.CaptureScreenshot(SaveManager.GetScreenshotFilepath(), x);
+        UnityEditor.AssetDatabase.Refresh();
     }
 }
