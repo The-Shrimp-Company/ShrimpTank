@@ -104,7 +104,7 @@ public class StableJemma : NPC
                 email.mainText = "Yes. And as A mark of my trust, I will Allow you to purchase shrimp from me! As of recieving this email, you now have access to my Shrimp Store," +
                     " aptly named the entirely accurate \"Horses are Better\". It is not fully set up yet, and may take me some time to put my stock up, but when it is there, you may " +
                     "purchase from it!";
-                ShopManager.instance.shops.Add(new Shop() { NpcOwned = true, NpcName = name, maxShrimpStock = 4, name = "Horses are Better" });
+                ShopManager.instance.shops.Add(new Shop(3) { NpcOwned = true, NpcName = name, maxShrimpStock = 4, name = "Horses are Better" });
                 email.CreateEmailButton("Thanks! I'll be sure to buy many shrimp!", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 20);
                 email.CreateEmailButton("Wait what? \"Horses are Better\"? Are they?", true)

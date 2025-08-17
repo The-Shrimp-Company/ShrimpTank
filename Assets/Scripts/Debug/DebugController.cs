@@ -925,6 +925,6 @@ public class DebugController : MonoBehaviour
         yield return null;
         if (x < 1) x = 1;
         ScreenCapture.CaptureScreenshot(SaveManager.GetScreenshotFilepath(), x);
-        UnityEditor.AssetDatabase.Refresh();
+        //UnityEditor.AssetDatabase.Refresh();
     }
 }

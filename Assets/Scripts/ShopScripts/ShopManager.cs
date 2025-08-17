@@ -13,6 +13,19 @@ public class Shop
     public int maxShrimpStock;
     public int shrimpSold;
 
+    public Shop()
+    {
+
+    }
+
+    public Shop(int count)
+    {
+        for(int i = 0; i < count; i++)
+        {
+            shrimpStock.Add(ShrimpManager.instance.CreateRandomShrimp(true, false));
+        }
+    }
+
     public NPC npc 
     {
         get
@@ -54,13 +67,10 @@ public class ShopManager : MonoBehaviour
         shops = shopsToLoad ?? new List<Shop>();
         if(shops.Count == 0)
         {
-            shops.Add(new Shop() { maxShrimpStock = 4, name = "ShrimpShopSupreme", NpcOwned = false, reputation = 2 });
-            shops.Add(new Shop() { maxShrimpStock = 4, name = "Not the only shrimp shop", NpcOwned = false, reputation = 2 });
-            shops.Add(new Shop() { maxShrimpStock = 4, name = "The best shrimp shop", NpcOwned = false, reputation = 1 });
+            shops.Add(new Shop(3) { maxShrimpStock = 4, name = "ShrimpShopSupreme", NpcOwned = false, reputation = 2 });
+            shops.Add(new Shop(3) { maxShrimpStock = 4, name = "Not the only shrimp shop", NpcOwned = false, reputation = 2 });
+            shops.Add(new Shop(3) { maxShrimpStock = 4, name = "The best shrimp shop", NpcOwned = false, reputation = 1 });
 
-            UpdateShops();
-            UpdateShops();
-            UpdateShops();
         }
     }
 

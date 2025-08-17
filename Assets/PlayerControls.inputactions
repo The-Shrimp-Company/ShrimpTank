@@ -739,6 +739,17 @@
                 },
                 {
                     "name": "",
+                    "id": "0a53aa8e-e5a8-4d42-8c08-8262781cfa74",
+                    "path": "*/{Cancel}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "9e5fb241-3f67-4738-a2a4-2f6b83acc1d7",
                     "path": "<Mouse>/position",
                     "interactions": "",
@@ -1268,17 +1279,6 @@
                     "name": "",
                     "id": "ff02dd7a-c9a7-420d-ab69-050ce62123c6",
                     "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ExitView",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "79871006-94b0-4511-9ea8-b5cb13df028f",
-                    "path": "<Keyboard>/m",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

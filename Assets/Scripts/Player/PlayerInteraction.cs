@@ -148,9 +148,10 @@ public class PlayerInteraction : MonoBehaviour
 
     public void OnCancel()
     {
+        Debug.Log("Function Called");
         if (!UIManager.instance.IsTabletScreen())
         {
-            UIManager.instance.GetScreen().Exit();
+            UIManager.instance.GetScreen()?.Exit();
         }
     }
 }
