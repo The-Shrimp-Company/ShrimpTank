@@ -16,3 +16,16 @@ public class GridNode
         neighbours = new List<Vector3Int>();
     }
 }
+
+
+[System.Serializable]
+public class RoomGridNode : GridNode
+{
+    public bool floor;
+    public bool ceiling;
+    public bool wall;
+    public bool nWall;
+    public bool eWall;
+    public bool sWall;
+    public bool wWall;
+}

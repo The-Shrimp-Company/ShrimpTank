@@ -15,6 +15,9 @@ namespace SaveLoadSystem
         public const string fileNameSuffix = ".save";
         public const string fileIntegrityChecker = "Pikselere";
 
+        public const string screenshotDirectory = "/Screenshots/";
+
+
         private const bool createBackupFile = true;  // Whether the game should create extra backup save files incase something goes wrong
         private const bool getLastPlayedTimeInUTC = false;  // Whether the last played time for a save file should be shown in universal standard time
         private const bool debugSaving = true;  // Whether the saving and loading should output extra messages
@@ -208,7 +211,7 @@ namespace SaveLoadSystem
 
         public static void OpenSaveFolder()
         {
-            string dir = Application.persistentDataPath + directory;
+            string dir = Application.persistentDataPath;
             System.Diagnostics.Process.Start(dir);
         }
 
@@ -223,6 +226,17 @@ namespace SaveLoadSystem
                 dt = File.GetLastWriteTimeUtc(Application.persistentDataPath + directory + _fileName + fileNameSuffix);
 
             return dt;
+        }
+
+
+        public static string GetScreenshotFilepath()
+        {
+            string dir = Application.persistentDataPath + screenshotDirectory;
+
+            if (!Directory.Exists(dir))  // If the directory does not exist
+                Directory.CreateDirectory(dir);  // Create this directory
+
+            return dir + currentSaveFile + " " + DateTime.Now.ToString("dd-MM-yy HH-mm-ss") + ".png";
         }
     }
 }

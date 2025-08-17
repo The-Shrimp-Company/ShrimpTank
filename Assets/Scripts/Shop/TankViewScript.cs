@@ -74,7 +74,7 @@ public class TankViewScript : ScreenView
         tank.OnShrimpAdded += whenShrimpAdded;
         multiSelect.Uncheck(false);
         StartCoroutine(OpenTab(switchTab));
-        ApplyFilters();
+        ApplyShrimpFilters();
         UpdateContent();
         base.Open(switchTab);
     }
@@ -118,9 +118,9 @@ public class TankViewScript : ScreenView
         }
     }
 
-    public void ApplyFilters()
+    public void ApplyShrimpFilters()
     {
-        List<string> traits = filter.getFilterList();
+        List<string> traits = filter.GetFilterList();
 
         // Sets allselected to true so that the select all will deselect all.
         allSelected = true;
@@ -128,7 +128,7 @@ public class TankViewScript : ScreenView
 
         visibleShrimp = new List<Shrimp>();
 
-        if(traits == null)
+        if(traits == null || traits.Count == 0)
         {
             visibleShrimp = tank.shrimpInTank;
         }
@@ -158,7 +158,7 @@ public class TankViewScript : ScreenView
 
     public void ApplyFilters(Shrimp shrimp)
     {
-        List<string> traits = filter.getFilterList();
+        List<string> traits = filter.GetFilterList();
 
         if(traits == null)
         {
