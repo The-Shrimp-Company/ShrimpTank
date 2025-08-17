@@ -128,7 +128,7 @@ public class StableJemma : NPC
                     "many shrimp and very much shrimp Stock to sell.";
             }
 
-            if (ShopManager.instance.FindNpcShop(name).shrimpSold >= 50)
+            if (ShopManager.instance.FindNpcShop(name)?.shrimpSold >= 50)
             {
                 email.subjectLine = "Thank You!";
                 email.mainText = "You have Bought all of My Shrimp from me! I no longer have a stupid number of shrimp! I am Very happy that this has happened! " +
