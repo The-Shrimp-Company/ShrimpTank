@@ -60,6 +60,15 @@ public class CollectorSue : NPC
                 data.completion.Dequeue();
             }
 
+            if(completion == 3 && shrimpBought.Count == 10)
+            {
+                email.subjectLine = "10 Shrimp bought!";
+                email.mainText = "Can you believe it! I've bought 10 shrimp from you now! At this rate, I'll have all of the shrimp I need in no time!";
+                email.CreateEmailButton("Wow! That's quite a few shrimp!", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 4);
+                important = true;
+                data.completion.Dequeue();
+            }
+
             if(flags.Contains("WillBuy"))
             {
                 flags.Remove("WillBuy");
