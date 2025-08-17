@@ -118,13 +118,13 @@ public class Filters : MonoBehaviour
                 traits.Remove(traitID);
             }
 
-            tank.ApplyFilters();
+            tank.ApplyShrimpFilters();
         };
     }
 
-    public List<string> getFilterList()
+    public List<string> GetFilterList()
     {
-        if (traits.Count == maxTraitCount || traits.Count == 0)
+        if (traits == null || traits.Count == maxTraitCount || traits.Count == 0)
         {
             Debug.Log("Returning null");
             return null;
