@@ -73,9 +73,14 @@ public class ShopManager : MonoBehaviour
     {
         foreach(Shop shop in shops)
         {
-            if(shop.shrimpStock.Count < shop.maxShrimpStock)
+            if(shop.shrimpStock.Count == shop.maxShrimpStock)
             {
-                shop.shrimpStock.Add(ShrimpManager.instance.CreateRandomShrimp(true, false));
+                shop.shrimpStock.RemoveAt(Random.Range(0, shop.shrimpStock.Count - 1));
+            }
+            shop.shrimpStock.Add(ShrimpManager.instance.CreateRandomShrimp(true, false));
+            if(shop.shrimpStock.Count > shop.maxShrimpStock)
+            {
+                shop.shrimpStock = shop.shrimpStock.GetRange(0, shop.maxShrimpStock);
             }
         }
     }
