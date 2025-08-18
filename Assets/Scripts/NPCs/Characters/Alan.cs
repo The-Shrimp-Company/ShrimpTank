@@ -48,7 +48,8 @@ public class Alan : NPC
                 email.CreateEmailButton("Sure, I'll take the money. Not gonna say no after all!", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.AddMoney, 100)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 20)
-                    .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, name, "TookMoney", "Took100");
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, name, "TookMoney", "Took100")
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, NPCManager.Instance.GetNPCFromName("Joe@ShrimpMail.com"), 4000);
                 email.CreateEmailButton("Wait, what do you mean \"in exchange\"? You're not gonna pay me to be friends with you, are you?", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 11);
                 important = true;
@@ -62,7 +63,8 @@ public class Alan : NPC
                 email.CreateEmailButton("Sure, I'll take the money. Not gonna say no after all!", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 20)
                     .SetFunc(EmailFunctions.FunctionIndexes.AddMoney, 100)
-                    .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, name, "TookMoney", "Took100");
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, name, "TookMoney", "Took100")
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, NPCManager.Instance.GetNPCFromName("Joe@ShrimpMail.com"), 4000);
                 email.CreateEmailButton("Wait what? I just said I would be friends with you, why would you give me money?", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 11);
                 important = true;
@@ -77,7 +79,8 @@ public class Alan : NPC
                 email.CreateEmailButton("Wait £200! Sign me up!", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 20)
                     .SetFunc(EmailFunctions.FunctionIndexes.AddMoney, 200)
-                    .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, name, "TookMoney", "Took200", true);
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, name, "TookMoney", "Took200", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, NPCManager.Instance.GetNPCFromName("Joe@ShrimpMail.com"), 4001);
                 email.CreateEmailButton("Look, I'll be your friend, but I'm not taking any money for it.", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 25)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetFlag, name, "NoMoney");
@@ -88,6 +91,29 @@ public class Alan : NPC
                 email.subjectLine = "Ok, we are friends now";
                 email.mainText = "Now that we are friends, you can have access to my store. It should have come through as you get this email.";
                 ShopManager.instance.shops.Add(new Shop() { NpcOwned = true, NpcName = name, maxShrimpStock = 4, name = "Alan's Shrimp Shop" });
+                email.CreateEmailButton("Oh, thanks, that's great!", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 21);
+            }
+
+            else if(completion == 21 && flags.Contains("TookMoney"))
+            {
+                email.subjectLine = "True Friends";
+                email.mainText = "Considering that I have now paid for your friendship, it must now be clarified, of course, that you are my true friend. There is no other way of putting " +
+                    "it. Otherwise, why did I give you so much money! Truly, this is what friendship is, yes?";
+                email.CreateEmailButton("Wait what? What's the difference between regular friendship and \"true\" friendship?", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 25);
+                email.CreateEmailButton("Oh, Ok then, we're <color=red>True Friends</color> I guess", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 30);
+            }
+            else if(completion == 21 && flags.Contains("NoMoney"))
+            {
+                email.subjectLine = "True Friends";
+                email.mainText = "Considering that you refused payment for out friendship, it must now be clarified, of course, that you are my true friend. There is no other way of putting " +
+                    "it. Otherwise, why did you refuse so much money! Truely, this is what friendship is, no?";
+                email.CreateEmailButton("Wait what? What's the difference between regular friendship and \"true\" friendship?", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 25);
+                email.CreateEmailButton("Oh, Ok then, we're <color=red>True Friends</color> I guess", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 30);
             }
 
             // Actually send the email

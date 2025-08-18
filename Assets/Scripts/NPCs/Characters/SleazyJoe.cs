@@ -23,6 +23,7 @@ public class SleazyJoe : NPC
             Email email = this.CreateEmail();
             bool important = true;
 
+            // Self
             if(completion == 0 && ShrimpManager.instance.allShrimp.Count > 1)
             {
                 email.mainText = "Hey, I heard there was a new shrimp shop open, and I just wanted to say congrats! This must be a dream come true for you! I love the name by the way," +
@@ -87,10 +88,33 @@ public class SleazyJoe : NPC
                 email.subjectLine = "Please";
                 email.CreateEmailButton("I will sell you this one", false)
                     .SetFunc(EmailFunctions.FunctionIndexes.GiveAnyShrimp, completion + flags[0].TryCast<float>()/10)
-                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 1);
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 10);
                 important = true;
             }
 
+            // Alan
+            if(completion == 4000)
+            {
+                email.subjectLine = "About Alan";
+                email.mainText = "I head from Alan that you've taken some money from him. I'm just warning you, but people often find that taking money from Alan isn't quite worth it. " +
+                    "He's not dangerous or anything, he's just. Well. Alan.";
+                email.CreateEmailButton("Oh, what do you mean by that?", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 4002);
+                important = true;
+            }
+
+            if(completion == 4001)
+            {
+                email.subjectLine = "About Alan";
+                email.mainText = "I heard from Alan that you've taken some money from him. Quite a bit of money actually, he was going on about how he hasn't had to pay so much for a " +
+                    "friendship in a while. So, well done, but I'm still going to warn you, people often find that taking money from Alan isn't quite worth it. He's not dangerous " +
+                    "or anything, he's just. Well. Alan.";
+                email.CreateEmailButton("Oh, what do you mean by that?", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 4002);
+                important = true;
+            }
+
+            // Lock prevention
             if(completion == 7000)
             {
                 email.sender = "";
