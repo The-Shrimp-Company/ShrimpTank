@@ -33,12 +33,12 @@ public class SpamEmailer : MonoBehaviour
                 "should lie.\n\nAs you correctly pointed out, the world right now is a difficult place, with so much going on all the time. There are so many distractions in life " +
                 "and we as a society need to be able to handle these distractions better.And, as a result of this, people tend to not answer their phone as much these " +
                 "days. Our spam calls simply don't get through as often, and so we can't do our solemn <i>duty</i> and provide those modern distraction to " +
-                "all of you. And so, based on user feedback, we have decided to pivot our focus away from phone calls, to instead focus exclusively on spam emails. " +
+                "all of you.\n\nAnd so, based on user feedback, we have decided to pivot our focus away from phone calls, to instead focus exclusively on spam emails. " +
                 "For this purpose we have burned down all of our phone line centres, after throwing all of the phones into the sea. We understand that this massive loss " +
                 "of life and potential damage to the environment is simply inhumane, and we appreciate that this isn't required at all, but we like to go above and " +
                 "beyond in making this planet a worse place to be, day after day. We hope that this almost ritualistic killing of thousands of employees and presumably turtles " +
-                "appeases the anger that you, our user, feels after we failed to fulfil your needs for so long. In the coming days, as we begin the process of buying up " +
-                "the best and most friendly ophanages we can to convert into tower blocks full of less than minimum wage workers manualy typing out spam emails which are all " +
+                "appeases the anger that you, our user, feels after we failed to fulfil your needs for so long.\n\nIn the coming days, as we begin the process of buying up " +
+                "the best and most friendly orphanages we can to convert into tower blocks full of less than minimum wage workers manually typing out spam emails which are all " +
                 "going to be, for the next decade or until we decide to stop, weirdly shrimp focused, and then sending them off to random people and also you, you should begin " +
                 "getting more spam emails than you ever have before! It's a new stage in our companies history, and also your misery! We understand that you might have ideas " +
                 "for making this even more miserable, but due to the sheer cost of making this change, as well as the fact that sending spam anything at this scale is simply " +
@@ -85,6 +85,13 @@ public class SpamEmailer : MonoBehaviour
                             "who bought [Marigold Yellow Front Door With Four Glass Panels And Smooth Handle] even looked at the product page of [Computer Mouse " +
                             "With Fun And Painful Joybuzzer Built Into Body, Just Click A Button And Experience Fun And Also Pain], but we have all this stock to get rid of, and " +
                             "we think a discerning customer like you might want to buck that trend!\n\nPlease Buy!";
+                        break;
+                    case 3:
+                        email.title = "BigSpamSpamEmailEmployeeNo" + Random.Range(1000, 10000).ToString() + "@SpamMail.spm";
+                        email.subjectLine = "Hi! Have you heard o god this is so boring";
+                        email.mainText = "I'm supposed to write to you about this wonder drug whcih will cure whatever problem you currently have, and is <i>so</i> cheap, " +
+                            "it's practically a steal. But I'm bored. So instead I'm going to not do that and instead just complain to someone. You. God I hope they don't " +
+                            "check these emails before we send them. I don't think they do. Oh well.";
                         break;
                     default:
                         email.title = "NotSpam@SpamMail.spm";

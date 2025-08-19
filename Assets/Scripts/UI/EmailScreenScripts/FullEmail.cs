@@ -21,8 +21,8 @@ public class FullEmail : MonoBehaviour
         _email = email;
         EmailManager.instance.openEmail = this;
         body.text = email.mainText;
-        title.text = email.sender ?? email.title ?? "WhoKnows";
-        subject.text = email.subjectLine;
+        title.text = "From:" + email.sender ?? email.title ?? "WhoKnows";
+        subject.text = "Subject Line:" + email.subjectLine;
         body.fontSize = 30;
         if(email.buttons != null)
         {

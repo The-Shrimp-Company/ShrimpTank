@@ -137,7 +137,26 @@ public class Alan : NPC
                 email.mainText = "I just think it's so weird that he's always asking for those stupid discounts. Everyone hates him you know, I think he's really pathetic." +
                     " I call him Sleazy Joe, cause he seems so sleazy. I keep on telling him that I'll sell cheap shrimp to him eventually, and he keeps believing me. It's so " +
                     "funny!";
-                email.CreateEmailButton("Well that just seems mean!", true);
+                email.CreateEmailButton("Well that just seems mean!", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 31);
+                email.CreateEmailButton("I could just tell him you said that?")
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 32);
+            }
+
+            else if(completion == 31)
+            {
+                email.subjectLine = "No it's not";
+                email.mainText = "Not it's not, it's totally true! Anyway, you're my <color=red>True Friend</color> now, so you can't complain.";
+                email.CreateEmailButton("I guess not...", true)
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 33);
+            }
+            else if(completion == 32)
+            {
+                email.subjectLine = "No you can't";
+                email.mainText = "For you see, we are now <color=red>True Friends</color>, and you cannot inform anyone of what I've told you in confidence, and " +
+                    "emails count as being in confidence.";
+                email.CreateEmailButton("Huh, I really can't...")
+                    .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 33);
             }
 
             // Actually send the email

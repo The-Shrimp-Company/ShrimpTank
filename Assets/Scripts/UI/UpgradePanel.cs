@@ -48,6 +48,10 @@ public class UpgradePanel : MonoBehaviour
             {
                 filterRepair.interactable = false;
             }
+            if(!(Tutorial.instance.flags.Contains("AccountActivated") || Tutorial.instance.flags.Contains("UpgradeStoreOpen")))
+            {
+                gameObject.SetActive(false);
+            }
         }
         private get { return tank; }
     }
