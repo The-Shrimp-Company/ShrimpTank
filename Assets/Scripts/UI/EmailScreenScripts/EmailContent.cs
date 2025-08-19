@@ -37,6 +37,7 @@ public class EmailContent : ContentPopulation
         ContentBlock block = Instantiate(contentBlock, transform).GetComponent<ContentBlock>();
         block.GetComponent<EmailContentBlock>().SetEmail(email, window);
         contentBlocks.Add(block);
+        block.gameObject.SetActive(tagsToShow.Contains(block.GetComponent<EmailContentBlock>().GetEmail().tag));
         block.transform.SetAsFirstSibling();
     }
 

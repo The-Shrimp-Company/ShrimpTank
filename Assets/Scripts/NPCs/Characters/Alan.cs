@@ -131,6 +131,15 @@ public class Alan : NPC
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 30);
             }
 
+            else if(completion == 30)
+            {
+                email.subjectLine = "On the topic of Joe";
+                email.mainText = "I just think it's so weird that he's always asking for those stupid discounts. Everyone hates him you know, I think he's really pathetic." +
+                    " I call him Sleazy Joe, cause he seems so sleazy. I keep on telling him that I'll sell cheap shrimp to him eventually, and he keeps believing me. It's so " +
+                    "funny!";
+                email.CreateEmailButton("Well that just seems mean!", true);
+            }
+
             // Actually send the email
             if (email.mainText != null)
             {
