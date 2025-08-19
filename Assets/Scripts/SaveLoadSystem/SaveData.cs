@@ -63,6 +63,7 @@ namespace SaveLoadSystem
     {
         public ShrimpStats[] shrimp;
         public TankDecorationSaveData[] decorations;
+        public UpgradeState upgradeState;
         public string tankName;
         public bool destinationTank;
         public bool openTank;

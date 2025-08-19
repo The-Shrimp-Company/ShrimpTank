@@ -14,28 +14,34 @@ public class Heater : TankUpgrade
     public override void CreateUpgrade(UpgradeItemSO u, TankController t)
     {
         base.CreateUpgrade(u, t);
+        t.upgradeState.HeaterOn = true;
+        t.upgradeState.HeaterTargetTemp = targetTemperature;
     }
 
 
     public override void UpdateUpgrade(float elapsedTime)
     {
-        if (working)
+        if (tank.upgradeState.HeaterOn)
         {
-            if (tank.waterTemperature > targetTemperature)
-                tank.waterTemperature = Mathf.Clamp(tank.waterTemperature - ((upgrade.heaterOutput / 10) * elapsedTime), targetTemperature, 100);
-            else if (tank.waterTemperature < targetTemperature)
-                tank.waterTemperature = Mathf.Clamp(tank.waterTemperature + ((upgrade.heaterOutput / 10) * elapsedTime), 0, targetTemperature);
+            if (working)
+            {
+                if (tank.waterTemperature > targetTemperature)
+                    tank.waterTemperature = Mathf.Clamp(tank.waterTemperature - ((upgrade.heaterOutput / 10) * elapsedTime), targetTemperature, 100);
+                else if (tank.waterTemperature < targetTemperature)
+                    tank.waterTemperature = Mathf.Clamp(tank.waterTemperature + ((upgrade.heaterOutput / 10) * elapsedTime), 0, targetTemperature);
 
-            if (upgrade.thermometer != Thermometer.NoThermometer && thermometer != null) thermometer.value = tank.waterTemperature;
+                if (upgrade.thermometer != Thermometer.NoThermometer && thermometer != null) thermometer.value = tank.waterTemperature;
+            }
+
+            base.UpdateUpgrade(elapsedTime);
         }
-
-        base.UpdateUpgrade(elapsedTime);
     }
 
 
     public void SetTargetTemperature(float t)
     {
         targetTemperature = Mathf.Clamp(t, minTemperature, maxTemperature);
+        tank.upgradeState.HeaterTargetTemp = targetTemperature;
     }
 
 

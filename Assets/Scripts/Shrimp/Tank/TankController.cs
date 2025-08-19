@@ -55,6 +55,8 @@ public class TankController : MonoBehaviour
 
     [Header("Upgrades")]
     [HideInInspector] public TankUpgradeController upgradeController;
+    [HideInInspector] public UpgradeState upgradeState = new UpgradeState() { LightsOn = true };
+    [SerializeField] private List<Light> lights;
 
     [Header("Sale Tank")]
     [SerializeField] private GameObject sign;
@@ -148,6 +150,8 @@ public class TankController : MonoBehaviour
             updateTimer = 0;
         }
 
+
+        foreach (Light light in lights) light.enabled = upgradeState.LightsOn;
 
         // LOD Distance
         distanceCheckTimer += Time.deltaTime;
@@ -544,4 +548,12 @@ public enum LODLevel
     Mid,
     Low,
     SuperLow
+}
+
+public struct UpgradeState
+{
+    public bool HeaterOn;
+    public float HeaterTargetTemp;
+    public bool FilterOn;
+    public bool LightsOn;
 }

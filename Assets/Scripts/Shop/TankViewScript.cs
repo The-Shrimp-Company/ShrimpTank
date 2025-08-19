@@ -33,6 +33,8 @@ public class TankViewScript : ScreenView
     private bool allSelected = false;
     [SerializeField] Checkbox multiSelect;
 
+    [SerializeField] Image HeaterSwitch;
+
     [SerializeField] private Animator contextBox;
     [SerializeField] private Animator upgradeBox;
 
@@ -72,6 +74,7 @@ public class TankViewScript : ScreenView
         upgrades.Tank = tank;
         tank.OnShrimpRemoved += whenShrimpRemoved;
         tank.OnShrimpAdded += whenShrimpAdded;
+        HeaterSwitch.gameObject.SetActive(tank.upgradeState.HeaterOn);
         multiSelect.Uncheck(false);
         StartCoroutine(OpenTab(switchTab));
         ApplyShrimpFilters();
@@ -500,7 +503,13 @@ public class TankViewScript : ScreenView
 
     public void ToggleLights()
     {
-        foreach (Light light in tank.transform.GetComponentsInChildren<Light>()) light.enabled = !light.enabled;
+        tank.upgradeState.LightsOn = !tank.upgradeState.LightsOn;
+    }
+
+    public void ToggleHeaterOn()
+    {
+        tank.upgradeState.HeaterOn = !tank.upgradeState.HeaterOn;
+        HeaterSwitch.gameObject.SetActive(tank.upgradeState.HeaterOn);
     }
 
     public TankController GetTank() {  return tank; }

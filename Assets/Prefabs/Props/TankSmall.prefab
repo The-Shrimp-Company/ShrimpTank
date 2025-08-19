@@ -680,6 +680,9 @@ MonoBehaviour:
   naturalTempuratureVariation: 25
   waterSalt: 50
   upgradeController: {fileID: 0}
+  lights:
+  - {fileID: 9082456001141851980}
+  - {fileID: 4028579583741734310}
   sign: {fileID: 5947789648189943326}
   SaleSign: {fileID: 5994137002391903135}
   label: {fileID: 2617808344691637593}

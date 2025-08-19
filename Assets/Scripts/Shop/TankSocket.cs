@@ -85,5 +85,6 @@ public class TankSocket : MonoBehaviour
         DecorateTankController.Instance.LoadDecorations(tank, data);
 
         tank.GetComponent<TankUpgradeController>().LoadUpgrades(data.upgradeIDs);
+        tank.upgradeState = data.upgradeState;
     }
 }

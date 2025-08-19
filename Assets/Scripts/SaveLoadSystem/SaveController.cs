@@ -168,6 +168,7 @@ public class SaveController : MonoBehaviour
                             tankSave.decorations = decorationsInTank.ToArray();
 
                             tankSave.tankName = socket.tank.tankName;
+                            tankSave.upgradeState = socket.tank.upgradeState;
                             tankSave.destinationTank = socket.tank.destinationTank;
                             tankSave.openTank = socket.tank.openTank;
                             tankSave.openTankPrice = socket.tank.openTankPrice;

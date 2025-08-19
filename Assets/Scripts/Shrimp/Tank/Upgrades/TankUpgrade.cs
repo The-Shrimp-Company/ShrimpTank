@@ -11,8 +11,8 @@ public class TankUpgrade : MonoBehaviour
     private GameObject brokenParticles;
 
     [Header("Illness Unlock Requirement")]
-    [SerializeField] int unlockReqTotalShrimp = 50;
-    [SerializeField] int unlockReqShrimpInOneTank = 20;
+    [SerializeField] int unlockReqTotalShrimp = 25;
+    [SerializeField] int unlockReqShrimpInOneTank = 15;
 
 
     public virtual void CreateUpgrade(UpgradeItemSO u, TankController t)
