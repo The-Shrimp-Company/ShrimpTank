@@ -210,6 +210,9 @@ public class IllnessController : MonoBehaviour
 
     public void UseMedicine(Medicine m)
     {
+        if (currentSymptoms == null || currentSymptoms.Count == 0) return;
+        if (m == null || m.symptoms == null) return;
+
         foreach (Symptom s in currentSymptoms)
         {
             foreach (IllnessSymptoms i in m.symptoms)

@@ -32,13 +32,7 @@ public class ShopGrid : MonoBehaviour
 
 
 
-    // Generate a grid
-    // Set all of the ground tiles
-    // Spawn floor on each of those
-    // Set all of the wall tiles 
-    // Spawn wall on each of those
-    // Set all of the ceiling tiles
-    // Spawn ceiling on each of those
+    // Could change wall detection to tiles without a neighbour on that side?
 
 
 

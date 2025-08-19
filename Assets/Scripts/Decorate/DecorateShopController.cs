@@ -30,6 +30,7 @@ public class DecorateShopController : MonoBehaviour
     private Dictionary<GridNode, GameObject> nodes = new Dictionary<GridNode, GameObject>();
     private GridNode hoveredNode;
     [HideInInspector] public GameObject selectedObject;
+    [HideInInspector] public DecorationItemSO selectedItemType;
     private GameObject objectPreview;
 
     [HideInInspector] public bool decorating;
@@ -60,6 +61,7 @@ public class DecorateShopController : MonoBehaviour
     [Header("Debug")]
     public bool showNodes = true;
     public GameObject testItem;
+    public GameObject testItemType;
 
 
 
@@ -77,33 +79,35 @@ public class DecorateShopController : MonoBehaviour
 
         decorating = true;
 
-        GameObject newMenu = GameObject.Instantiate(decorateViewPrefab, transform);
-        UIManager.instance.OpenScreen(newMenu.GetComponent<ScreenView>());
-        newMenu.GetComponent<ShopDecorateViewScript>().UpdateContent();
-        newMenu.GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
-        newMenu.GetComponent<Canvas>().planeDistance = 1;
-        decorateView = newMenu.GetComponent<ScreenView>() as ShopDecorateViewScript;
-        UIManager.instance.SetCursorMasking(false);
+        //GameObject newMenu = GameObject.Instantiate(decorateViewPrefab, transform);
+        //UIManager.instance.OpenScreen(newMenu.GetComponent<ScreenView>());
+        //newMenu.GetComponent<ShopDecorateViewScript>().UpdateContent();
+        //newMenu.GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
+        //newMenu.GetComponent<Canvas>().planeDistance = 1;
+        //decorateView = newMenu.GetComponent<ScreenView>() as ShopDecorateViewScript;
+        //UIManager.instance.SetCursorMasking(false);
 
         transparentDecorations = false;
 
 
-        int b = 0;  // Bottom Layer
-        int t = (int)currentGrid.roomSize.y - 1;  // Top Layer
         for (int w = 0; w < currentGrid.roomSize.x; w++)
         {
-            for (int l = 0; l < currentGrid.roomSize.z; l++)
+            for (int h = 0; h < currentGrid.roomSize.y; h++)
             {
-                // Bottom Layer
-                GameObject node = GameObject.Instantiate(decoratingGridPrefab, currentGrid.grid[w][b][l].worldPos + new Vector3(0, -(currentGrid.pointSize / 2), 0), Quaternion.identity);
-                node.transform.parent = currentGrid.transform;
-                node.transform.localScale = new Vector3(currentGrid.pointSize / 1.025f, currentGrid.pointSize / 10, currentGrid.pointSize / 1.025f);
-                node.GetComponent<MeshRenderer>().enabled = showNodes;
-                nodes.Add(currentGrid.grid[w][b][l], node);
+                for (int l = 0; l < currentGrid.roomSize.z; l++)
+                {
+                    GameObject node = GameObject.Instantiate(decoratingGridPrefab, currentGrid.grid[w][h][l].worldPos + new Vector3(0, -(currentGrid.pointSize / 2), 0), Quaternion.identity);
+                    node.transform.parent = currentGrid.transform;
+                    node.transform.localScale = new Vector3(currentGrid.pointSize / 1.025f, currentGrid.pointSize / 1.025f, currentGrid.pointSize / 1.025f);
+                    node.GetComponent<MeshRenderer>().enabled = showNodes;
+                    nodes.Add(currentGrid.grid[w][h][l], node);
+                }
             }
         }
 
         ChangeEditSurface(Surface.Floor);
+
+        StartPlacing(testItem);
     }
 
 
@@ -216,9 +220,9 @@ public class DecorateShopController : MonoBehaviour
 
         else  // Placement Mode
         {
-            if (objectPreview != null && decorateView.selectedItemType != null)
+            if (objectPreview != null && selectedItemType != null)
             {
-                if (hoveredNode != null) objectPreview.transform.position = hoveredNode.worldPos + decorateView.selectedItemType.gridSnapOffset;
+                if (hoveredNode != null) objectPreview.transform.position = hoveredNode.worldPos + selectedItemType.gridSnapOffset;
                 else objectPreview.transform.position = new Vector3(0, 100000, 0);
             }
 
@@ -230,20 +234,19 @@ public class DecorateShopController : MonoBehaviour
     public void MouseClick(Vector3 point, bool pressed)
     {
         if (hoveredNode == null) return;
-        if (decorateView == null) return;
 
         if (placementMode)
         {
             if (selectionValid && selectedObject != null)  // Clicking on a valid space
             {
-                if (Inventory.HasItem(decorateView.selectedItemType.itemName))
+                if (Inventory.HasItem(selectedItemType.itemName))
                 {
-                    Inventory.RemoveItem(decorateView.selectedItemType.itemName);
-                    PlaceDecoration(decorateView.selectedItemType);
+                    Inventory.RemoveItem(selectedItemType.itemName);
+                    PlaceDecoration(selectedItemType);
                 }
-                else if (Money.instance.WithdrawMoney(decorateView.selectedItemType.purchaseValue))
+                else if (Money.instance.WithdrawMoney(selectedItemType.purchaseValue))
                 {
-                    PlaceDecoration(decorateView.selectedItemType);
+                    PlaceDecoration(selectedItemType);
                 }
             }
             else  // Clicking on a different object whilst placing
@@ -391,8 +394,7 @@ public class DecorateShopController : MonoBehaviour
     {
         if (objectPreview == null) return;
         if (currentGrid == null) return;
-        if (decorateView == null) return;
-        if (decorateView.selectedItemType == null) return;
+        if (selectedItemType == null) return;
 
 
         selectionValid = true;
@@ -423,7 +425,7 @@ public class DecorateShopController : MonoBehaviour
 
         // Check Money
         if (!Inventory.HasItem(decorateView.selectedItemType.itemName))
-            if (decorateView.selectedItemType.purchaseValue > Money.instance.money)
+            if (selectedItemType.purchaseValue > Money.instance.money)
                 selectionValid = false;  // Cannot afford
 
 
@@ -449,9 +451,8 @@ public class DecorateShopController : MonoBehaviour
     {
         if (objectPreview == null) return;
         if (!placementMode) return;
-        if (decorateView == null) return;
 
-        objectPreview.transform.Rotate(Vector3.Scale(decorateView.selectedItemType.rotationAxis, (new Vector3(rotationSnap, rotationSnap, rotationSnap) * dir)));
+        objectPreview.transform.Rotate(Vector3.Scale(selectedItemType.rotationAxis, (new Vector3(rotationSnap, rotationSnap, rotationSnap) * dir)));
 
         UpdateGridMaterials();
     }
@@ -474,10 +475,9 @@ public class DecorateShopController : MonoBehaviour
     {
         if (selectedObject == null) return;
         if (currentGrid == null) return;
-        if (decorateView == null) return;
-        if (decorateView.selectedItemType == null) return;
+        if (selectedItemType == null) return;
 
-        Inventory.AddItem(decorateView.selectedItemType.itemName);
+        Inventory.AddItem(selectedItemType.itemName);
 
         decorationsInStore.Remove(selectedObject.GetComponent<Decoration>());
 
