@@ -229,20 +229,22 @@ public class ShopGrid : MonoBehaviour
         RaycastHit[] hit;
 
         // Nodes
-        for (int i = 0; i < roomSize.x; i++)
+        for (int w = 0; w < roomSize.x; w++)
         {
-            int j = DecorateTankController.Instance.editingLayer;
-            for (int k = 0; k < roomSize.z; k++)
+            for (int h = 0; h < roomSize.y; h++)
             {
-                //if (!grid[i][j][k].invalid) continue;
-
-                hit = Physics.BoxCastAll(grid[i][j][k].worldPos, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 0.01f, layer, QueryTriggerInteraction.Ignore);
-                foreach (RaycastHit h in hit)
+                for (int l = 0; l < roomSize.z; l++)
                 {
-                    if (objects.Contains(h.transform))
+                    //if (!grid[i][j][k].invalid) continue;
+
+                    hit = Physics.BoxCastAll(grid[w][h][l].worldPos, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 0.01f, layer, QueryTriggerInteraction.Ignore);
+                    foreach (RaycastHit node in hit)
                     {
-                        collidingNodes.Add(grid[i][j][k]);
-                        break;
+                        if (objects.Contains(node.transform))
+                        {
+                            collidingNodes.Add(grid[w][h][l]);
+                            break;
+                        }
                     }
                 }
             }
