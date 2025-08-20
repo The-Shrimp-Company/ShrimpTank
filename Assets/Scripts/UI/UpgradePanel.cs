@@ -78,7 +78,7 @@ public class UpgradePanel : MonoBehaviour
             if(arrowTimer > 10)
             {
                 arrowTimer = 0;
-                if (MathF.Abs(tank.waterTemperature - prevTemp) < 0.00000001f)
+                if (MathF.Abs(tank.waterTemperature - prevTemp) < 0.0001f)
                 {
                     tempArrow.localScale = new Vector3(1, 0, 1);
                 }
