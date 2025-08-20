@@ -19,6 +19,7 @@ public class ShopGrid : MonoBehaviour
     Vector3 startPoint;
 
     [Header("Room Construction")]
+    [SerializeField] GameObject roomParent;
     [SerializeField] GameObject floorPrefab;
     [SerializeField] GameObject ceilingPrefab;
     [SerializeField] GameObject wallPrefab;
@@ -172,13 +173,13 @@ public class ShopGrid : MonoBehaviour
             {
                 for (int l = 0; l < roomSize.z; l++)
                 {
-                    if (grid[w][h][l].floor) GameObject.Instantiate(floorPrefab, grid[w][h][l].worldPos, Quaternion.identity, gridParent.transform);
-                    if (grid[w][h][l].ceiling) GameObject.Instantiate(ceilingPrefab, grid[w][h][l].worldPos, Quaternion.identity, gridParent.transform);
+                    if (grid[w][h][l].floor) GameObject.Instantiate(floorPrefab, grid[w][h][l].worldPos, Quaternion.identity, roomParent.transform);
+                    if (grid[w][h][l].ceiling) GameObject.Instantiate(ceilingPrefab, grid[w][h][l].worldPos, Quaternion.identity, roomParent.transform);
 
-                    if (grid[w][h][l].nWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 180, 0)), gridParent.transform);
-                    if (grid[w][h][l].eWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 270, 0)), gridParent.transform);
-                    if (grid[w][h][l].sWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 0, 0)), gridParent.transform);
-                    if (grid[w][h][l].wWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 90, 0)), gridParent.transform);
+                    if (grid[w][h][l].nWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 180, 0)), roomParent.transform);
+                    if (grid[w][h][l].eWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 270, 0)), roomParent.transform);
+                    if (grid[w][h][l].sWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 0, 0)), roomParent.transform);
+                    if (grid[w][h][l].wWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 90, 0)), roomParent.transform);
 
                 }
             }

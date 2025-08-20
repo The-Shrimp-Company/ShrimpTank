@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -37,24 +38,33 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (key.isPressed)
         {
-            GameObject target = lookCheck.LookCheck(3);
-
-            if (target != null)
+            Debug.Log("A");
+            if (DecorateShopController.Instance.decorating)
             {
-                if (target.GetComponent<TankController>() != null)
-                {
-                    SetTankFocus(target.GetComponent<TankController>());
-                }
-                else if (target.GetComponent<TankSocket>() != null)
-                {
-                    GameObject invenScreen = UIManager.instance.GetCanvas().GetComponent<MainCanvas>().RaiseScreen(inventory);
-                    GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
-                    invenScreen.GetComponentInChildren<InventoryContent>().TankAssignment(target);
+                Debug.Log("B");
+                DecorateShopController.Instance.MouseClick(key.isPressed);
+            }
+            else
+            {
+                GameObject target = lookCheck.LookCheck(3);
 
-                }
-                else if (target.GetComponent<Interactable>() != null)
+                if (target != null)
                 {
-                    target.GetComponent<Interactable>().Action();
+                    if (target.GetComponent<TankController>() != null)
+                    {
+                        SetTankFocus(target.GetComponent<TankController>());
+                    }
+                    else if (target.GetComponent<TankSocket>() != null)
+                    {
+                        GameObject invenScreen = UIManager.instance.GetCanvas().GetComponent<MainCanvas>().RaiseScreen(inventory);
+                        GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+                        invenScreen.GetComponentInChildren<InventoryContent>().TankAssignment(target);
+
+                    }
+                    else if (target.GetComponent<Interactable>() != null)
+                    {
+                        target.GetComponent<Interactable>().Action();
+                    }
                 }
             }
         }

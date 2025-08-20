@@ -45,7 +45,7 @@ public class DecorateShopController : MonoBehaviour
     private int camAngle = 0;
     private bool movingObject;
 
-    public bool deselectOnPlace;
+    public bool deselectOnPlace = false;
 
 
     [Header("Grid")]
@@ -196,7 +196,6 @@ public class DecorateShopController : MonoBehaviour
 
         if (hoveredNode != null)  // If a valid node has been found
         {
-            Debug.Log(nodes[hoveredNode].transform.position);
             UpdateGridMaterials();
             return;
         }
@@ -251,21 +250,25 @@ public class DecorateShopController : MonoBehaviour
     }
 
 
-    public void MouseClick(Vector3 point, bool pressed)
+    public void MouseClick(bool pressed)
     {
         if (hoveredNode == null) return;
-
+        Debug.Log("C");
         if (placementMode)
         {
+            Debug.Log("D");
             if (selectionValid && selectedObject != null)  // Clicking on a valid space
             {
+                Debug.Log("E");
                 if (Inventory.HasItem(selectedItemType.itemName))
                 {
+                    Debug.Log("F1");
                     Inventory.RemoveItem(selectedItemType.itemName);
                     PlaceDecoration(selectedItemType);
                 }
                 else if (Money.instance.WithdrawMoney(selectedItemType.purchaseValue))
                 {
+                    Debug.Log("F2");
                     PlaceDecoration(selectedItemType);
                 }
             }
@@ -415,12 +418,14 @@ public class DecorateShopController : MonoBehaviour
 
     public void CheckPlacementValidity()
     {
+        Debug.Log("1 " + selectionValid);
+
         if (objectPreview == null) return;
         if (currentGrid == null) return;
         if (selectedItemType == null) return;
 
-
         selectionValid = true;
+        Debug.Log("2 " + selectionValid);
 
 
         //Check for colliding nodes and walls, if they are invalid then invalidate the placement
@@ -444,6 +449,7 @@ public class DecorateShopController : MonoBehaviour
                 nodes[node].GetComponent<MeshRenderer>().material = decoratingGridValidMat;
             }
         }
+        Debug.Log("3 " + selectionValid);
 
 
         // Check Money
@@ -451,6 +457,7 @@ public class DecorateShopController : MonoBehaviour
             if (selectedItemType.purchaseValue > Money.instance.money)
                 selectionValid = false;  // Cannot afford
 
+        Debug.Log("4 " + selectionValid);
 
 
         SetObjectMaterials(objectPreview, selectionValid ? objectPreviewValidMat : objectPreviewInvalidMat);    
@@ -482,17 +489,12 @@ public class DecorateShopController : MonoBehaviour
         if (objectPreview == null) return;
         if (!placementMode) return;
 
-        //float rot = Camera.main.transform.eulerAngles.x;
-        //rot += 180 + rotationInput;
-        //rot = Mathf.Round(rot / rotationSnap) * rotationSnap;
-        //objectPreview.transform.rotation = Quaternion.Euler(Vector3.Scale(selectedItemType.rotationAxis, new Vector3(rot, rot, rot)));
-
         Vector3 vec = Camera.main.transform.eulerAngles;
         vec.x = (Mathf.Round(vec.x / rotationSnap) * rotationSnap) + 180 + rotationInput;
         vec.y = (Mathf.Round(vec.y / rotationSnap) * rotationSnap) + 180 + rotationInput;
         vec.z = (Mathf.Round(vec.z / rotationSnap) * rotationSnap) + 180 + rotationInput;
         objectPreview.transform.eulerAngles = Vector3.Scale(selectedItemType.rotationAxis, vec);
-        Debug.Log(vec + "  -  " + objectPreview.transform.eulerAngles);
+
         UpdateGridMaterials();
     }
 
