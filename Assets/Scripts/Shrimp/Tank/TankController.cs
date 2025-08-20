@@ -182,6 +182,7 @@ public class TankController : MonoBehaviour
             }
         }
 
+        waterTemperature -= 0.01f * Time.deltaTime;
 
         // Food Spawning
         autoSpawnFoodTimer += Time.deltaTime;

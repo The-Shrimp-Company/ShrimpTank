@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Mathematics;
+using System;
 
 public class UpgradePanel : MonoBehaviour
 {
@@ -11,6 +13,9 @@ public class UpgradePanel : MonoBehaviour
     [SerializeField] private Slider heaterSlider;
     [SerializeField] private Button heaterRepair;
     [SerializeField] private TextMeshProUGUI currentTemp;
+    [SerializeField] private RectTransform tempArrow;
+    private float prevTemp;
+    private int arrowTimer;
 
     [Header("Filter")]
     [SerializeField] private Button filterButton;
@@ -29,8 +34,16 @@ public class UpgradePanel : MonoBehaviour
             if (tank.GetComponent<TankUpgradeController>().CheckForUpgrade(UpgradeTypes.Heater))
             {
                 heaterButton.GetComponentInChildren<TextMeshProUGUI>().text = tank.GetComponent<TankUpgradeController>().GetUpgrade(UpgradeTypes.Heater).upgrade.itemName;
-                heaterSlider.enabled = true;
+                if(tank.GetComponent<TankUpgradeController>().GetUpgrade(UpgradeTypes.Heater).upgrade.thermometer != Thermometer.AutomaticThermometer)
+                {
+                    heaterSlider.gameObject.SetActive(false);
+                }
+                else
+                {
+                    heaterSlider.gameObject.SetActive(true);
+                }
                 currentTemp.enabled = true;
+                prevTemp = tank.waterTemperature;
             }
             else
             {
@@ -61,7 +74,24 @@ public class UpgradePanel : MonoBehaviour
     {
         if (tank != null)
         {
-            currentTemp.text = tank.waterTemperature.ToString();
+            currentTemp.text = Math.Round(tank.waterTemperature, 1).ToString();
+            if(arrowTimer > 10)
+            {
+                arrowTimer = 0;
+                if (MathF.Abs(tank.waterTemperature - prevTemp) < 0.00000001f)
+                {
+                    tempArrow.localScale = new Vector3(1, 0, 1);
+                }
+                else
+                {
+                    tempArrow.localScale = new Vector3(1, Mathf.Sign(tank.waterTemperature - prevTemp), 1);
+                }
+                prevTemp = tank.waterTemperature;
+            }
+            else
+            {
+                arrowTimer++;
+            }
         }
     }
 

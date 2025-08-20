@@ -25,13 +25,19 @@ public class Heater : TankUpgrade
         {
             if (working)
             {
-                if (tank.waterTemperature > targetTemperature)
-                    tank.waterTemperature = Mathf.Clamp(tank.waterTemperature - ((upgrade.heaterOutput / 10) * elapsedTime), targetTemperature, 100);
-                else if (tank.waterTemperature < targetTemperature)
-                    tank.waterTemperature = Mathf.Clamp(tank.waterTemperature + ((upgrade.heaterOutput / 10) * elapsedTime), 0, targetTemperature);
-
-                if (upgrade.thermometer != Thermometer.NoThermometer && thermometer != null) thermometer.value = tank.waterTemperature;
+                if(upgrade.thermometer == Thermometer.AutomaticThermometer)
+                {
+                    if (tank.waterTemperature > targetTemperature)
+                        tank.waterTemperature = Mathf.Clamp(tank.waterTemperature - ((upgrade.heaterOutput / 10) * elapsedTime), targetTemperature, 100);
+                    else if (tank.waterTemperature < targetTemperature)
+                        tank.waterTemperature = Mathf.Clamp(tank.waterTemperature + ((upgrade.heaterOutput / 10) * elapsedTime), 0, targetTemperature);
+                }
+                else if(upgrade.thermometer == Thermometer.NoThermometer)
+                {
+                    tank.waterTemperature += upgrade.heaterOutput * elapsedTime;
+                }
             }
+            if (/*upgrade.thermometer != Thermometer.NoThermometer &&*/ thermometer != null) thermometer.value = tank.waterTemperature;
 
             base.UpdateUpgrade(elapsedTime);
         }

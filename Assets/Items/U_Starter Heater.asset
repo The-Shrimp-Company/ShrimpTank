@@ -21,9 +21,9 @@ MonoBehaviour:
   upgradeType: 1
   upgradePrefab: {fileID: 9034102042131325629, guid: 141d672322e844749bd0a356063ac800,
     type: 3}
-  breakRate: 5
-  repairCost: 15
+  breakRate: 15
+  repairCost: 5
   energyCost: 0
   filterCapacity: 0
-  heaterOutput: 10
+  heaterOutput: 0.015
   thermometer: 0
