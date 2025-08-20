@@ -39,6 +39,7 @@ public class DecorateShopController : MonoBehaviour
     [HideInInspector] public int editingLayer;
     private bool selectionValid;
     public float rotationSnap = 90;
+    private int rotationInput;
     private bool transparentDecorations;
     private bool transparentShrimp;
     private int camAngle = 0;
@@ -61,7 +62,7 @@ public class DecorateShopController : MonoBehaviour
     [Header("Debug")]
     public bool showNodes = true;
     public GameObject testItem;
-    public GameObject testItemType;
+    public DecorationItemSO testItemType;
 
 
 
@@ -96,7 +97,7 @@ public class DecorateShopController : MonoBehaviour
             {
                 for (int l = 0; l < currentGrid.roomSize.z; l++)
                 {
-                    GameObject node = GameObject.Instantiate(decoratingGridPrefab, currentGrid.grid[w][h][l].worldPos + new Vector3(0, -(currentGrid.pointSize / 2), 0), Quaternion.identity);
+                    GameObject node = GameObject.Instantiate(decoratingGridPrefab, currentGrid.grid[w][h][l].worldPos, Quaternion.identity);
                     node.transform.parent = currentGrid.transform;
                     node.transform.localScale = new Vector3(currentGrid.pointSize / 1.025f, currentGrid.pointSize / 1.025f, currentGrid.pointSize / 1.025f);
                     node.GetComponent<MeshRenderer>().enabled = showNodes;
@@ -107,7 +108,7 @@ public class DecorateShopController : MonoBehaviour
 
         ChangeEditSurface(Surface.Floor);
 
-        StartPlacing(testItem);
+        StartPlacing(testItem, testItemType);
     }
 
 
@@ -141,6 +142,7 @@ public class DecorateShopController : MonoBehaviour
         if (currentGrid == null) return;
 
         MouseDetection();
+        SetObjectRotation();
     }
 
 
@@ -149,37 +151,55 @@ public class DecorateShopController : MonoBehaviour
     {
 
 
-        // Use raycastall to get a lisr
+        // Use raycastall to get a list
         // Go from the back of the list till you find a valid node
         // If not, Go from the back of the list till you find a free node
-
+        // Keep going if you do find one, if an invalid node is encountered then look for the next valid node
 
         if (nodes == null || nodes.Count == 0) return;
 
-        RaycastHit ray;
-        Vector2 mousePos = Mouse.current.position.ReadValue();
-        Ray originMouse = Camera.main.ScreenPointToRay(mousePos);
+
+        RaycastHit[] hits;
         int layerMask = LayerMask.GetMask("GridNode");
-        if (Physics.Raycast(originMouse, out ray, 3f, layerMask))
+        hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), 100.0F, layerMask, QueryTriggerInteraction.Collide);
+        hoveredNode = null;
+
+        if (hits.Length == 0) return;
+        for (int i = hits.Length - 1; i >= 0; i--)
         {
-            if (hoveredNode != null && nodes.ContainsKey(hoveredNode) && nodes[hoveredNode] == ray.collider.gameObject) return;
+            RaycastHit hit = hits[i];
 
-
-            foreach (GridNode node in nodes.Keys)
+            foreach (RoomGridNode node in nodes.Keys)
             {
-                if (nodes[node] == ray.collider.gameObject)
+                if (nodes[node] == hit.collider.gameObject)
                 {
+                    if (node.invalid)
+                    {
+                        hoveredNode = null;
+                        continue;
+                    }
+
+                    // Check for wall, floor and ceiling validity
+
+                    if (hoveredNode != null)
+                    {
+                        continue;
+                    }
+
                     hoveredNode = node;
                     break;
                 }
+
             }
         }
-        else
-        {
-            if (hoveredNode != null) hoveredNode = null;
-        }
 
-        UpdateGridMaterials();
+
+        if (hoveredNode != null)  // If a valid node has been found
+        {
+            Debug.Log(nodes[hoveredNode].transform.position);
+            UpdateGridMaterials();
+            return;
+        }
     }
 
 
@@ -293,10 +313,12 @@ public class DecorateShopController : MonoBehaviour
     }
 
 
-    public void StartPlacing(GameObject d)
+    public void StartPlacing(GameObject d, DecorationItemSO t)
     {
         selectedObject = d;
+        selectedItemType = t;
         placementMode = true;
+        rotationInput = 0;
 
         objectPreview = GameObject.Instantiate(selectedObject);
         objectPreview.name = "Object Preview";
@@ -315,6 +337,7 @@ public class DecorateShopController : MonoBehaviour
         placementMode = false;
         selectedObject = null;
         movingObject = false;
+        rotationInput = 0;
 
         if (objectPreview)
         {
@@ -424,7 +447,7 @@ public class DecorateShopController : MonoBehaviour
 
 
         // Check Money
-        if (!Inventory.HasItem(decorateView.selectedItemType.itemName))
+        if (!Inventory.HasItem(selectedItemType.itemName))
             if (selectedItemType.purchaseValue > Money.instance.money)
                 selectionValid = false;  // Cannot afford
 
@@ -450,10 +473,26 @@ public class DecorateShopController : MonoBehaviour
     public void RotateObject(float dir)
     {
         if (objectPreview == null) return;
+
+        rotationInput += Mathf.RoundToInt(rotationSnap * dir);
+    }
+
+    public void SetObjectRotation()
+    {
+        if (objectPreview == null) return;
         if (!placementMode) return;
 
-        objectPreview.transform.Rotate(Vector3.Scale(selectedItemType.rotationAxis, (new Vector3(rotationSnap, rotationSnap, rotationSnap) * dir)));
+        //float rot = Camera.main.transform.eulerAngles.x;
+        //rot += 180 + rotationInput;
+        //rot = Mathf.Round(rot / rotationSnap) * rotationSnap;
+        //objectPreview.transform.rotation = Quaternion.Euler(Vector3.Scale(selectedItemType.rotationAxis, new Vector3(rot, rot, rot)));
 
+        Vector3 vec = Camera.main.transform.eulerAngles;
+        vec.x = (Mathf.Round(vec.x / rotationSnap) * rotationSnap) + 180 + rotationInput;
+        vec.y = (Mathf.Round(vec.y / rotationSnap) * rotationSnap) + 180 + rotationInput;
+        vec.z = (Mathf.Round(vec.z / rotationSnap) * rotationSnap) + 180 + rotationInput;
+        objectPreview.transform.eulerAngles = Vector3.Scale(selectedItemType.rotationAxis, vec);
+        Debug.Log(vec + "  -  " + objectPreview.transform.eulerAngles);
         UpdateGridMaterials();
     }
 
@@ -466,7 +505,7 @@ public class DecorateShopController : MonoBehaviour
         PutDecorationAway();
         decorateView.ChangeSelectedItem(so, so.decorationPrefab);
         movingObject = true;
-        StartPlacing(so.decorationPrefab);
+        StartPlacing(so.decorationPrefab, so);
         if (objectPreview != null)
             objectPreview.transform.rotation = rot;
     }

@@ -107,7 +107,7 @@ public class ShopDecorateViewScript : ScreenView
             {
                 if (content.buttonSprite.color != content.selectedColour)  // If it isn't already selected
                 {
-                    DecorateShopController.Instance.StartPlacing(so.decorationPrefab);
+                    DecorateShopController.Instance.StartPlacing(so.decorationPrefab, so);
 
                     ChangeSelectedItem(so, content.gameObject);
                 }

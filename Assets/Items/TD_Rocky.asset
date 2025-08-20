@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c7076f01b609824fbdcdcda2a4692a4, type: 3}
-  m_Name: D_Anubias
+  m_Name: TD_Rocky
   m_EditorClassIdentifier: 
-  itemName: Anubias
+  itemName: Rocky
   itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
-  purchaseValue: 10
+  purchaseValue: 20
   purchaseQuantity: 1
-  sellValue: 10
+  sellValue: 20
   tags: 08000000
-  decorationPrefab: {fileID: 969630005840922781, guid: 3eb3b232b12140c42b46c54ac075a357,
+  decorationPrefab: {fileID: 1665719515277366545, guid: 25c0c563dffe95345bf299f69bc114a2,
     type: 3}
   gridSnapOffset: {x: 0, y: -0.01, z: 0}
   rotationAxis: {x: 0, y: 0, z: 1}
