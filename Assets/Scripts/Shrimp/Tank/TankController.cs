@@ -192,7 +192,7 @@ public class TankController : MonoBehaviour
             {
                 FoodStore -= 1;
                 GameObject newFood = GameObject.Instantiate(autoSpawnFoodPrefab, GetRandomSurfacePosition(), Quaternion.identity);
-                newFood.GetComponent<ShrimpFood>().CreateFood(this);
+                //newFood.GetComponent<ShrimpFood>().CreateFood(this);
 
                 autoSpawnFoodTimer = 0;
             }

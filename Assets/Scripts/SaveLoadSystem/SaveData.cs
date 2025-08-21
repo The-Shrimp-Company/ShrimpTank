@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace SaveLoadSystem
 {
@@ -69,6 +71,32 @@ namespace SaveLoadSystem
         public bool openTank;
         public float openTankPrice;
         public string[] upgradeIDs;
+        public float waterTemp;
+        public float waterQuality;
+        public float waterSalt;
+        public FoodSaveData[] shrimpFood;
+    }
+
+    public class FoodSaveData
+    {
+        public float x, y, z;
+        [JsonIgnore]
+        public Vector3 position { get { return new Vector3(x, y, z); } set { x = value.x; y = value.y; z = value.z; } }
+        public bool settled;
+        public float despawnTimer;
+        public Item thisItem;
+
+        public static FoodSaveData CreateFoodSaveData(ShrimpFood food)
+        {
+            FoodSaveData data = new FoodSaveData()
+            {
+                position = food.transform.position,
+                settled = food.settled,
+                despawnTimer = food.despawnTimer,
+                thisItem = food.thisItem,
+            };
+            return data;
+        }
     }
 
     [System.Serializable]

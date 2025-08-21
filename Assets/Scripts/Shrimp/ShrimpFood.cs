@@ -1,3 +1,4 @@
+using SaveLoadSystem;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,6 +7,8 @@ using UnityEngine;
 public class ShrimpFood : MonoBehaviour
 {
     private TankController tank;
+
+    public Item thisItem;
 
     [Header("Eating")]
     public int hungerFillAmount = 10;
@@ -25,20 +28,40 @@ public class ShrimpFood : MonoBehaviour
 
     [Header("Despawning")]
     [SerializeField] float despawnTime = 120;
-    private float despawnTimer = 0;
+    public float despawnTimer = 0;
 
     [Header("Particles")]
     public GameObject eatingParticles;
     public GameObject finishedParticles;
 
 
-    public void CreateFood(TankController t)
+    public void CreateFood(TankController t, Item thisItem)
     {
         tank = t;
         tank.foodToAdd.Add(this);
         transform.parent = tank.foodParent;
         surfacePosition = transform.position.y;
+        this.thisItem = thisItem;
         FindLandingPosition();
+    }
+
+    public void CreateFood(TankController t, FoodSaveData saveData)
+    {
+        tank = t;
+        tank.foodToAdd.Add(this);
+        transform.parent = tank.foodParent;
+        surfacePosition = tank.GetRandomSurfacePosition().y;
+        if (!saveData.settled)
+        {
+            FindLandingPosition();
+        }
+        else
+        {
+            settled = saveData.settled;
+            landingPosition = transform.position.y;
+        }
+        despawnTimer = saveData.despawnTimer;
+        thisItem = saveData.thisItem;
     }
 
 

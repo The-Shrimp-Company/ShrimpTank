@@ -86,5 +86,14 @@ public class TankSocket : MonoBehaviour
 
         tank.GetComponent<TankUpgradeController>().LoadUpgrades(data.upgradeIDs);
         tank.upgradeState = data.upgradeState;
+
+        tank.waterTemperature = data.waterTemp;
+        tank.waterQuality = data.waterQuality;
+        tank.waterSalt = data.waterSalt;
+        foreach(FoodSaveData foodSave in data.shrimpFood)
+        {
+            GameObject newFood = Instantiate(((FoodItemSO)Inventory.GetSOForItem(foodSave.thisItem)).foodPrefab, foodSave.position, Quaternion.identity);
+            newFood.GetComponent<ShrimpFood>().CreateFood(tank, foodSave);
+        }
     }
 }

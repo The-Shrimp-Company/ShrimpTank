@@ -99,7 +99,7 @@ public class InventoryContent : ContentPopulation
                 {
                     Inventory.RemoveItem(((InventoryContentBlock)block).item);
                     GameObject newFood = Instantiate(((FoodItemSO)Inventory.GetSOForItem(((InventoryContentBlock)block).item)).foodPrefab, tank.GetRandomSurfacePosition(), Quaternion.identity);
-                    newFood.GetComponent<ShrimpFood>().CreateFood(tank);
+                    newFood.GetComponent<ShrimpFood>().CreateFood(tank, ((InventoryContentBlock)block).item);
                 }
                 ContentBlockUpdate((InventoryContentBlock)block);
             });

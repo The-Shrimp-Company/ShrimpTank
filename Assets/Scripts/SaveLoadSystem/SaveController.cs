@@ -173,6 +173,14 @@ public class SaveController : MonoBehaviour
                             tankSave.openTank = socket.tank.openTank;
                             tankSave.openTankPrice = socket.tank.openTankPrice;
                             tankSave.upgradeIDs = socket.tank.GetComponent<TankUpgradeController>().SaveUpgrades();
+                            tankSave.waterTemp = socket.tank.waterTemperature;
+                            tankSave.waterQuality = socket.tank.waterQuality;
+                            tankSave.waterSalt = socket.tank.waterSalt;
+                            tankSave.shrimpFood = new FoodSaveData[socket.tank.foodInTank.Count];
+                            for(int i = 0; i < socket.tank.foodInTank.Count; i++)
+                            {
+                                tankSave.shrimpFood[i] = FoodSaveData.CreateFoodSaveData(socket.tank.foodInTank[i]);
+                            }
 
                             socketList.Add(socketSave);
                         }
