@@ -9,6 +9,8 @@ public class EmailContent : ContentPopulation
 {
     public EmailContentWindow window;
 
+    [SerializeField] GameObject spamButton;
+
     public List<Email.EmailTags> tagsToShow = new List<Email.EmailTags>() { Email.EmailTags.Important };
 
     // Start is called before the first frame update
@@ -30,6 +32,8 @@ public class EmailContent : ContentPopulation
     {
         // Apply the filter to the emails, while maintaining order.
         foreach(EmailContentBlock block in contentBlocks) block.gameObject.SetActive(tagsToShow.Contains(block.GetEmail().tag));
+
+        spamButton.SetActive(tagsToShow.Contains(Email.EmailTags.Spam) && EmailManager.instance.emails.Find((x) => x.tag == Email.EmailTags.Spam) != null);
     }
 
     public void AddEmail(Email email)
@@ -75,6 +79,11 @@ public class EmailContent : ContentPopulation
     public void ShowOnlySpam()
     {
         tagsToShow = new() { Email.EmailTags.Spam };
+    }
+
+    public void ShowOnlyAlarms()
+    {
+        tagsToShow = new() { Email.EmailTags.Alarms };
     }
 
     public void ShowAll()

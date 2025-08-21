@@ -41,7 +41,8 @@ public class Email
     public enum EmailTags
     {
         Spam,
-        Important
+        Important,
+        Alarms
     }
 
     public int ID;
