@@ -29,6 +29,13 @@ public enum PlacementSurfaces
     Air
 }
 
+public enum ItemSize
+{
+    Small,
+    Medium,
+    Large,
+}
+
 [System.Serializable]
 public class Item
 {
