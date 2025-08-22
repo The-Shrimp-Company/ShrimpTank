@@ -87,7 +87,7 @@ public class SaveController : MonoBehaviour
 
     private void CopyDataToSaveData()  // Save
     {
-        SaveData d = new SaveData();
+        SaveData d = new();
 
         // Money
         d.money = Money.instance.money;
@@ -158,7 +158,7 @@ public class SaveController : MonoBehaviour
                             foreach (GameObject obj in socket.tank.decorationsInTank)
                             {
                                 Decoration decoration = obj.GetComponent<Decoration>();
-                                TankDecorationSaveData decorationSaveData = new TankDecorationSaveData();
+                                TankDecorationSaveData decorationSaveData = new();
                                 decorationSaveData.name = decoration.decorationSO.itemName;
                                 decorationSaveData.position = new System.Numerics.Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
                                 decorationSaveData.rotation = new System.Numerics.Vector3(obj.transform.rotation.eulerAngles.x, obj.transform.rotation.eulerAngles.y, obj.transform.rotation.eulerAngles.z);

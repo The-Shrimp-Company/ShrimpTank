@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using System.Linq;
+using System;
 
 [RequireComponent(typeof(TankUpgradeController))]
 public class TankController : MonoBehaviour
@@ -10,7 +12,13 @@ public class TankController : MonoBehaviour
     public event shrimpChanged OnShrimpRemoved;
     public event shrimpChanged OnShrimpAdded;
 
-
+    public enum AlarmTypes
+    {
+        Temp,
+        Quality,
+        Food,
+        Salt
+    }
 
 
     [Header("Shrimp")]
@@ -92,6 +100,9 @@ public class TankController : MonoBehaviour
     public float breedingCooldown = 90;
     [HideInInspector] public float breedingCooldownTimer;
     [HideInInspector] public bool shrimpCanBreed;
+
+    [Header("Alarms")]
+    [HideInInspector] public List<string> AlarmIds = new List<string>();
 
     [Header("Optimisation")]
     private LODLevel currentLODLevel;
@@ -263,7 +274,7 @@ public class TankController : MonoBehaviour
                     shrimpInTank.Remove(shrimpToRemove[i]);
                     ShrimpManager.instance.RemoveShrimpFromStore(shrimpToRemove[i]);
                 }
-
+                Destroy(shrimpToRemove[i].gameObject);
                 shrimpToRemove.RemoveAt(i);
             }
         }
@@ -298,8 +309,8 @@ public class TankController : MonoBehaviour
             tempuratureRisingTimer -= updateTimer;
             if (tempuratureRisingTimer <= 0)
             {
-                tempuratureRisingTimer = Random.Range(10, 60);
-                tempuratureRisingTarget = Random.Range(50 - naturalTempuratureVariation, 50 + naturalTempuratureVariation);
+                tempuratureRisingTimer = UnityEngine.Random.Range(10, 60);
+                tempuratureRisingTarget = UnityEngine.Random.Range(50 - naturalTempuratureVariation, 50 + naturalTempuratureVariation);
             }
             if (waterTemperature < tempuratureRisingTarget)
                 waterTemperature = Mathf.Clamp(waterTemperature + ((tempuratureChangeSpeed / 10) * updateTimer), 0, tempuratureRisingTarget);
@@ -310,9 +321,57 @@ public class TankController : MonoBehaviour
 
 
         upgradeController.UpdateUpgrades(updateTimer);
+
+        // Sending the player alarms
+        if(waterTemperature > 60)
+        {
+            Email email = CreateOrFindAlarm(AlarmTypes.Temp);
+            email.mainText = "Your tank is too hot";
+        }else if(waterTemperature <= 60)
+        {
+            Email email = FindAlarm(AlarmTypes.Temp);
+            if(email != null)
+            {
+                EmailManager.instance.emails.Remove(email);
+            }
+        }
     }
 
+    private Email CreateOrFindAlarm(AlarmTypes type)
+    {
+        Email email = null;
+        if(AlarmIds.Count == 0)
+        {
+            email = CreateAlarm(type);
+        }
+        else
+        {
+            email = FindAlarm(type);
+            if (email == null)
+            {
+                email = CreateAlarm(type);
+            }
+        }
+        return email;
+    }
 
+    private Email CreateAlarm(AlarmTypes type)
+    {
+        Email email = EmailTools.CreateEmail();
+        AlarmIds.Add(email.ID);
+        email.tag = Email.EmailTags.Alarms;
+        email.title = type.ToString();
+        email.subjectLine = type.ToString() + " warning in tank: " + tankName;
+        EmailManager.SendEmail(email);
+        return email;
+    }
+
+    private Email FindAlarm(AlarmTypes type)
+    {
+        Email[] emails = EmailManager.instance.emails.Where(x => x.tag == Email.EmailTags.Alarms && AlarmIds.Contains(x.ID)).ToArray();
+        if (emails.Length >= 1) return Array.Find(emails, (x) => { return x.title == type.ToString(); });
+        else return null;
+    }
 
     public void ToggleDestinationTank()
     {
@@ -404,21 +463,21 @@ public class TankController : MonoBehaviour
     public Vector3 GetRandomTankPosition()
     {
         List<GridNode> freePoints = tankGrid.GetFreePoints();
-        return freePoints[Random.Range(0, freePoints.Count)].worldPos;
+        return freePoints[UnityEngine.Random.Range(0, freePoints.Count)].worldPos;
     }
 
 
     public Vector3 GetRandomSurfacePosition()
     {
         List<GridNode> freePoints = tankGrid.GetSurfacePoints();
-        return freePoints[Random.Range(0, freePoints.Count)].worldPos;
+        return freePoints[UnityEngine.Random.Range(0, freePoints.Count)].worldPos;
     }
 
 
     public GridNode GetRandomTankNode()
     {
         List<GridNode> freePoints = tankGrid.GetFreePoints();
-        return freePoints[Random.Range(0, freePoints.Count)];
+        return freePoints[UnityEngine.Random.Range(0, freePoints.Count)];
     }
 
 
@@ -427,9 +486,9 @@ public class TankController : MonoBehaviour
         if (shrimpInTank.Count != 0)
         {
             float c = chanceToKillAShrimpOverCapacity.Evaluate(shrimpInTank.Count / roughShrimpCapacity);
-            if (Random.value < c)
+            if (UnityEngine.Random.value < c)
             {
-                int r = Random.Range(0, shrimpInTank.Count);
+                int r = UnityEngine.Random.Range(0, shrimpInTank.Count);
 
                 Email email = EmailTools.CreateEmail();
                 email.title = "YourStore@notifSystem.store";

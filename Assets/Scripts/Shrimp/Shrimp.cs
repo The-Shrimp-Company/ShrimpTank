@@ -229,7 +229,7 @@ public class Shrimp : MonoBehaviour
 
         PlayerStats.stats.shrimpDeaths++;
 
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 
 

@@ -120,7 +120,6 @@ public class CustomerManager : MonoBehaviour
             EmailManager.SendEmail(email);
 
             PlayerStats.stats.shrimpSold++;
-            Destroy(shrimp.gameObject);
         }
     }
 
@@ -132,7 +131,6 @@ public class CustomerManager : MonoBehaviour
             shrimp.tank.shrimpToRemove.Add(shrimp);
             Money.instance.AddMoney(value);
             EconomyManager.instance.UpdateTraitValues(false, shrimp.stats);
-            Destroy(shrimp.gameObject);
 
             Reputation.AddReputation(0.6f - shrimp.stats.illnessLevel / 100);
 
@@ -156,7 +154,6 @@ public class CustomerManager : MonoBehaviour
             shrimp.tank.shrimpToRemove.Add(shrimp);
             Money.instance.AddMoney(value);
             EconomyManager.instance.UpdateTraitValues(false, shrimp.stats);
-            Destroy(shrimp.gameObject);
 
             Reputation.AddReputation(0.6f - shrimp.stats.illnessLevel / 100);
         }
@@ -272,7 +269,7 @@ public class Request
     public ShrimpStats stats;
     public ShrimpStats obfstats;
 
-    public int emailID;
+    public string emailID;
 
 
     static public string[] Words = { 

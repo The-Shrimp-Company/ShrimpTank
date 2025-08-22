@@ -18,7 +18,7 @@ public class MyButton
     public DataList[] data;
     public bool destroy;
     public string text;
-    public int emailID;
+    public string emailID;
 
 
     public MyButton SetFunc(EmailFunctions.FunctionIndexes func, params object[] funcData)
@@ -45,7 +45,7 @@ public class Email
         Alarms
     }
 
-    public int ID;
+    public string ID;
 
     public string sender;
 
@@ -107,12 +107,12 @@ public class EmailManager
         }
     }
 
-    public int CreateID()
+    public string CreateID()
     {
-        return (int)DateTime.UtcNow.Ticks + instance.IdChaff++;
+        return ((int)(DateTime.UtcNow.Ticks%100000)).ToString() + (instance.IdChaff++).ToString();
     }
 
-    static public void SendEmail(Email email, bool important = false, float delay = 0, NPC sender = null)
+    static public void SendEmail(Email email, bool important = false, float delay = 0)
     {
         CustomerManager.Instance.StartCoroutine(SendEmailDelayed(email, important, delay));
     }
