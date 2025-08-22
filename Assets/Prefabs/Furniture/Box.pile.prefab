@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 9195782680066237177}
   - component: {fileID: 6956151451318538514}
   - component: {fileID: -6843446804732287816}
+  - component: {fileID: 4834755022809214523}
+  - component: {fileID: 6793009878179271870}
   m_Layer: 0
   m_Name: Box.pile
   m_TagString: Untagged
@@ -105,3 +107,28 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9904514, y: 0.79246706, z: 1.1054236}
   m_Center: {x: -0.18303615, y: 0.08252282, z: 0.55271167}
+--- !u!114 &4834755022809214523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8282100708222709962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b06951693948e547aba29f573494160, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6793009878179271870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8282100708222709962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6dbafe8f0204704b914586365c6b51d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTip: Decorate Store

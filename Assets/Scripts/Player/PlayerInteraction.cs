@@ -38,10 +38,8 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (key.isPressed)
         {
-            Debug.Log("A");
             if (DecorateShopController.Instance.decorating)
             {
-                Debug.Log("B");
                 DecorateShopController.Instance.MouseClick(key.isPressed);
             }
             else

@@ -86,8 +86,8 @@ public class TankDecorateViewScript : ScreenView
             }
 
 
-            if (DecorateTankController.Instance.editingTop && so.canFloat == FloatingItem.Grounded) continue;
-            if (!DecorateTankController.Instance.editingTop && so.canFloat == FloatingItem.Floats) continue;
+            if (DecorateTankController.Instance.editingTop && so.placementSurfaces.Contains(PlacementSurfaces.Ground)) continue;
+            if (!DecorateTankController.Instance.editingTop && so.placementSurfaces.Contains(PlacementSurfaces.Water)) continue;
 
 
             DecorationContentBlock content = Instantiate(_contentBlock, _content.transform).GetComponent<DecorationContentBlock>();

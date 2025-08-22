@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3130362844973502866}
-  m_Layer: 9
+  - component: {fileID: 4145004903341307940}
+  m_Layer: 12
   m_Name: Shelves 1x1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,6 +33,20 @@ Transform:
   - {fileID: 7233276768564319702}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4145004903341307940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8844570117771742220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd70da28c0b37f4cabcbe90f62741c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decorationSO: {fileID: 11400000, guid: 528cb69190c57b14f8dfb1fe066731d9, type: 2}
+  floating: 0
 --- !u!1 &9222504454997834540
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,7 +59,7 @@ GameObject:
   - component: {fileID: 6408424663942434669}
   - component: {fileID: 4195271716780263890}
   - component: {fileID: 4377977386498432174}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: shelves.1x1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,5 +150,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.9, y: 0.55, z: 1.7229073}
-  m_Center: {x: 0, y: -0.17636915, z: 0.86145365}
+  m_Size: {x: 0.9, y: 0.55, z: 1.7072318}
+  m_Center: {x: 0, y: -0.17636913, z: 0.8692913}

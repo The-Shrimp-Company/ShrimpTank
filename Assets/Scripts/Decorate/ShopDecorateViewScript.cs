@@ -87,10 +87,6 @@ public class ShopDecorateViewScript : ScreenView
             }
 
 
-            if (DecorateTankController.Instance.editingTop && so.canFloat == FloatingItem.Grounded) continue;
-            if (!DecorateTankController.Instance.editingTop && so.canFloat == FloatingItem.Floats) continue;
-
-
             DecorationContentBlock content = Instantiate(_contentBlock, _content.transform).GetComponent<DecorationContentBlock>();
             contentBlocks.Add(content);
             content.SetText(i.itemName);
