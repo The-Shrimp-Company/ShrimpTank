@@ -42,6 +42,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "PlayerRightClick",
+                    "type": "PassThrough",
+                    "id": "c1939b71-c7a2-45c0-89ec-3e08bc14b6ec",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Crouch",
                     "type": "Value",
                     "id": "d850c35b-25a0-4dbd-bb9e-bf7cf9b02176",
@@ -360,6 +369,17 @@
                     "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "0248a11d-f26a-4ce9-9245-754a00d682a4",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlayerRightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

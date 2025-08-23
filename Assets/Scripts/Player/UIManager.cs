@@ -223,6 +223,8 @@ public class UIManager : MonoBehaviour
     }
 
     public Transform GetCanvas() { return MainCanvas; }
+    public GameObject GetTooltips() { return tooltips; }
+
 
     public void AssignNotifBar(TextMeshProUGUI notif)
     {

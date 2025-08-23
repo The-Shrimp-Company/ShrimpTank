@@ -19,13 +19,11 @@ public enum Surface
 
 public class DecorateShopController : MonoBehaviour
 {
-    public static DecorateShopController Instance;
-
     [SerializeField] ShopGrid currentGrid;
-    [SerializeField] GameObject decorateViewPrefab;
-    private ShopDecorateViewScript decorateView;
+    [SerializeField] GameObject shopInventoryPrefab;
+    private ShopInventory inventoryScreen;
 
-    private List<Decoration> decorationsInStore = new List<Decoration>();
+    [HideInInspector] public List<Decoration> decorationsInStore = new List<Decoration>();
 
     [SerializeField] Transform decorationParent;
 
@@ -69,71 +67,22 @@ public class DecorateShopController : MonoBehaviour
 
     public void Awake()
     {
-        if (Instance == null) { Instance = this; }
-        else if (Instance != this) { Destroy(gameObject); }
+        if (currentGrid == null) currentGrid = GetComponent<ShopGrid>();
     }
 
 
 
-    public void StartDecorating()
+    public void OpenShopInventory()
     {
-        if (currentGrid == null) return;
+        if (decorating || inventoryScreen != null) return;
 
-        decorating = true;
-
-        //GameObject newMenu = GameObject.Instantiate(decorateViewPrefab, transform);
-        //UIManager.instance.OpenScreen(newMenu.GetComponent<ScreenView>());
-        //newMenu.GetComponent<ShopDecorateViewScript>().UpdateContent();
-        //newMenu.GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
-        //newMenu.GetComponent<Canvas>().planeDistance = 1;
-        //decorateView = newMenu.GetComponent<ScreenView>() as ShopDecorateViewScript;
-        //UIManager.instance.SetCursorMasking(false);
-
-        transparentDecorations = false;
-
-
-        for (int w = 0; w < currentGrid.roomSize.x; w++)
-        {
-            for (int h = 0; h < currentGrid.roomSize.y; h++)
-            {
-                for (int l = 0; l < currentGrid.roomSize.z; l++)
-                {
-                    GameObject node = GameObject.Instantiate(decoratingGridPrefab, currentGrid.grid[w][h][l].worldPos, Quaternion.identity);
-                    node.transform.parent = currentGrid.transform;
-                    node.transform.localScale = new Vector3(currentGrid.pointSize / 1.025f, currentGrid.pointSize / 1.025f, currentGrid.pointSize / 1.025f);
-                    node.GetComponent<MeshRenderer>().enabled = showNodes;
-                    nodes.Add(currentGrid.grid[w][h][l], node);
-                }
-            }
-        }
-
-        ChangeEditSurface(Surface.Floor);
-
-        StartPlacing(testItem, testItemType);
-    }
-
-
-
-    public void StopDecorating()
-    {
-        decorating = false;
-        ignoreShelves = false;
-        //SetTransparentDecorations(false);
-        Camera.main.nearClipPlane = 0.01f;
-
-        if (objectPreview)
-            Destroy(objectPreview);
-
-
-        foreach(GameObject n in nodes.Values)
-        {
-            GameObject.Destroy(n);
-        }
-        nodes.Clear();
-
-
-        currentGrid = null;
-        hoveredNode = null;
+        GameObject newMenu = GameObject.Instantiate(shopInventoryPrefab, transform);
+        UIManager.instance.OpenScreen(newMenu.GetComponent<ScreenView>());
+        newMenu.GetComponent<ShopInventory>().UpdateContent();
+        newMenu.GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
+        newMenu.GetComponent<Canvas>().planeDistance = 1;
+        inventoryScreen = newMenu.GetComponent<ScreenView>() as ShopInventory;
+        UIManager.instance.SetCursorMasking(false);
     }
 
 
@@ -261,6 +210,7 @@ public class DecorateShopController : MonoBehaviour
     }
 
 
+
     public void MouseClick(bool pressed)
     {
         if (hoveredNode == null) return;
@@ -295,42 +245,61 @@ public class DecorateShopController : MonoBehaviour
         }
         else  // Selection mode
         {
-            List<GameObject> objects = currentGrid.CheckNodeForObject(hoveredNode);
-            if (objects.Count != 0)
-            {
-                if (selectedObject != objects[0])
-                {
-                    selectedObject = objects[0];
-                    if (selectedObject.GetComponent<Decoration>() && selectedObject.GetComponent<Decoration>().decorationSO != null)
-                        decorateView.ChangeSelectedItem(selectedObject.GetComponent<Decoration>().decorationSO, selectedObject);
-                    else Debug.LogWarning(selectedObject + " is missing the decoration script on it's root");
-                }
-                else  // Click on the same object again
-                {
-                    selectedObject = null;
-                    decorateView.ChangeSelectedItem(null, null);
-                }
-            }
-            else  // Click on an empty node
-            {
-                selectedObject = null;
-                decorateView.ChangeSelectedItem(null, null);
-            }
+            //List<GameObject> objects = currentGrid.CheckNodeForObject(hoveredNode);
+            //if (objects.Count != 0)
+            //{
+            //    if (selectedObject != objects[0])
+            //    {
+            //        selectedObject = objects[0];
+            //        if (selectedObject.GetComponent<Decoration>() && selectedObject.GetComponent<Decoration>().decorationSO != null)
+            //            decorateView.ChangeSelectedItem(selectedObject.GetComponent<Decoration>().decorationSO, selectedObject);
+            //        else Debug.LogWarning(selectedObject + " is missing the decoration script on it's root");
+            //    }
+            //    else  // Click on the same object again
+            //    {
+            //        selectedObject = null;
+            //        decorateView.ChangeSelectedItem(null, null);
+            //    }
+            //}
+            //else  // Click on an empty node
+            //{
+            //    selectedObject = null;
+            //    decorateView.ChangeSelectedItem(null, null);
+            //}
         }
 
         UpdateGridMaterials();
     }
 
 
+
     public void StartPlacing(GameObject d, DecorationItemSO t)
     {
+        decorating = true;
         selectedObject = d;
         selectedItemType = t;
         placementMode = true;
         rotationInput = 0;
+        inventoryScreen = null;
 
-        ignoreShelves = t.placementSurfaces.Contains(PlacementSurfaces.Shelf);
+        // Create Grid
+        for (int w = 0; w < currentGrid.roomSize.x; w++)
+        {
+            for (int h = 0; h < currentGrid.roomSize.y; h++)
+            {
+                for (int l = 0; l < currentGrid.roomSize.z; l++)
+                {
+                    GameObject node = GameObject.Instantiate(decoratingGridPrefab, currentGrid.grid[w][h][l].worldPos, Quaternion.identity);
+                    node.transform.parent = currentGrid.transform;
+                    node.transform.localScale = new Vector3(currentGrid.pointSize / 1.025f, currentGrid.pointSize / 1.025f, currentGrid.pointSize / 1.025f);
+                    node.GetComponent<MeshRenderer>().enabled = showNodes;
+                    nodes.Add(currentGrid.grid[w][h][l], node);
+                }
+            }
+        }
 
+
+        // Create Object Preview
         objectPreview = GameObject.Instantiate(selectedObject);
         objectPreview.name = "Object Preview";
         SetObjectMaterials(objectPreview, objectPreviewValidMat);
@@ -342,14 +311,19 @@ public class DecorateShopController : MonoBehaviour
         objectPreview.TryGetComponent(out floater);
         if (floater != null) floater.enabled = false;
 
+        ignoreShelves = t.placementSurfaces.Contains(PlacementSurfaces.Shelf);
     }
+
 
 
     public void StopPlacing()
     {
+        decorating = false;
+        hoveredNode = null;
         placementMode = false;
         selectedObject = null;
         movingObject = false;
+        ignoreShelves = false;
         rotationInput = 0;
 
         if (objectPreview)
@@ -359,12 +333,17 @@ public class DecorateShopController : MonoBehaviour
             objectPreview = null;
         }
 
-        if (decorateView)
+
+        //SetTransparentDecorations(false);
+
+
+        foreach (GameObject n in nodes.Values)
         {
-            decorateView.ChangeSelectedItem(null, null);
-            decorateView.UpdateContent();
+            GameObject.Destroy(n);
         }
+        nodes.Clear();
     }
+
 
 
     private void PlaceDecoration(DecorationItemSO so)
@@ -400,9 +379,10 @@ public class DecorateShopController : MonoBehaviour
         //SetTransparentDecorations(transparentDecorations);
         currentGrid.RebakeGrid();
 
-        if (deselectOnPlace || movingObject)
+        if (deselectOnPlace || movingObject || Inventory.GetItemUsingSO(selectedItemType).quantity <= 0)
             StopPlacing();
     }
+
 
 
     private PlacementSurfaces GetCurrentSurface()
@@ -586,16 +566,16 @@ public class DecorateShopController : MonoBehaviour
 
     public void MoveDecoration()
     {
-        if (selectedObject == null) return;
-        if (decorateView.selectedItemType == null) return;
-        DecorationItemSO so = decorateView.selectedItemType;
-        Quaternion rot = selectedObject.transform.rotation;
-        PutDecorationAway();
-        decorateView.ChangeSelectedItem(so, so.decorationPrefab);
-        movingObject = true;
-        StartPlacing(so.decorationPrefab, so);
-        if (objectPreview != null)
-            objectPreview.transform.rotation = rot;
+        //if (selectedObject == null) return;
+        //if (decorateView.selectedItemType == null) return;
+        //DecorationItemSO so = decorateView.selectedItemType;
+        //Quaternion rot = selectedObject.transform.rotation;
+        //PutDecorationAway();
+        //decorateView.ChangeSelectedItem(so, so.decorationPrefab);
+        //movingObject = true;
+        //StartPlacing(so.decorationPrefab, so);
+        //if (objectPreview != null)
+        //    objectPreview.transform.rotation = rot;
     }
 
     public void PutDecorationAway()
@@ -612,8 +592,8 @@ public class DecorateShopController : MonoBehaviour
         selectedObject.gameObject.transform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InBack).OnComplete(()=>DestroyDecoration(obj));
 
         selectedObject = null;
-        decorateView.ChangeSelectedItem(null, null);
-        decorateView.UpdateContent();
+        //decorateView.ChangeSelectedItem(null, null);
+        //decorateView.UpdateContent();
     }
 
     private void DestroyDecoration(GameObject obj)
@@ -663,71 +643,7 @@ public class DecorateShopController : MonoBehaviour
 
 
 
-    public void ChangeEditSurface(Surface s)
-    {
-        //selectedObject = null;
-        //StopPlacing();
-        //editingTop = top;
-        //ChangeCam(0);
-        //SetTransparentDecorations(transparentDecorations);
 
-        //foreach(GridNode n in bottomNodes.Keys)
-        //{
-        //    bottomNodes[n].gameObject.SetActive(!top);
-        //}
-
-        //foreach (GridNode n in topNodes.Keys)
-        //{
-        //    topNodes[n].gameObject.SetActive(top);
-        //}
-
-        //if (!top)
-        //    editingLayer = 0;
-        //else
-        //    editingLayer = currentGrid.gridHeight - 1;
-    }
-
-    //public void OnChangeCam(InputValue value)
-    //{
-    //    if (value.isPressed)
-    //    {
-    //        ChangeCam();
-    //    }
-    //}
-
-    //public void ChangeCam(int c = 1)
-    //{
-    //    if (currentTank == null) return;
-
-    //    int limit = currentTank.decorationCamDock.Length - 1;
-
-    //    camAngle += c;
-
-    //    if (camAngle > limit) camAngle = 0;
-    //    if (camAngle < 0) camAngle = limit;
-
-    //    DecorateCamera cam;
-    //    currentTank.decorationCamDock[camAngle].TryGetComponent(out cam);
-    //    if (cam != null)
-    //    {
-    //        Vector3 pos = cam.transform.position;
-    //        if (editingTop)
-    //        {
-    //            pos.y += cam.topCamHeight;
-    //            Camera.main.nearClipPlane = cam.topCamClippingPlane;
-    //        }
-    //        else
-    //            Camera.main.nearClipPlane = 0.01f;
-
-    //        Camera.main.transform.position = pos;
-    //        if (cam.lookAt != null)
-    //        {
-    //            Camera.main.transform.LookAt(editingTop ? cam.lookAt : cam.topCamLookAt, Vector3.up);
-    //        }
-    //        else
-    //            Camera.main.transform.rotation = cam.transform.rotation;
-    //    }
-    //}
 
     public void LoadDecorations(TankController tank, TankSaveData data)
     {
@@ -755,6 +671,6 @@ public class DecorateShopController : MonoBehaviour
         }
 
         currentGrid.RebakeGrid();
-        StopDecorating();
+        StopPlacing();
     }
 }

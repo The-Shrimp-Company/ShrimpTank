@@ -1,30 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using Unity.VisualScripting;
-using System;
-using System.Xml;
 using DG.Tweening;
-using System.Threading.Tasks;
+using System;
+using UnityEditor;
+using UnityEngine.Windows;
 
-public class ShopDecorateViewScript : ScreenView
+
+public class ShopInventory : ScreenView
 {
-    protected TankController tank;
+    private DecorateShopController shop;
     [SerializeField] private GameObject leftPanel;
     [SerializeField] private GameObject _content;
     [SerializeField] private GameObject _contentBlock;
     private List<DecorationContentBlock> contentBlocks = new List<DecorationContentBlock>();
     [SerializeField] private CanvasGroup infoCanvasGroup;
 
-    [SerializeField] GameObject selectedItemInfoBox;
     [SerializeField] TMP_Text selectedItemNameText;
     [SerializeField] Image selectedItemImage;
-    [SerializeField] GameObject selectedItemButtons;
-    [SerializeField] GameObject placingItemButtons;
+    [SerializeField] TMP_Text selectedItemDescriptionText;
+    [SerializeField] TMP_Text selectedItemQuantityText;
+    [SerializeField] TMP_Text selectedItemPriceText;
+    [SerializeField] TMP_Text selectedItemSizeText;
+    [SerializeField] TMP_Text selectedItemSurfacesText;
+
 
     [SerializeField] float infoFadeSpeed = 0.5f;
 
@@ -37,6 +39,7 @@ public class ShopDecorateViewScript : ScreenView
         Debug.Log("Opening shop decorate");
         player = GameObject.Find("Player");
         shelves = GetComponentInParent<ShelfSpawn>();
+        shop = Store.decorateController;
         selectedItemType = null;
         selectedItemGameObject = null;
         infoCanvasGroup.alpha = 0;
@@ -73,7 +76,7 @@ public class ShopDecorateViewScript : ScreenView
         List<Item> items = Inventory.GetInventory(false, true);
 
         // Filter items here
-        items = Inventory.FilterItemsWithTag(items, ItemTags.TankDecoration);
+        items = Inventory.FilterItemsWithTag(items, ItemTags.RoomDecoration);
 
 
         foreach (Item i in items)
@@ -103,15 +106,12 @@ public class ShopDecorateViewScript : ScreenView
             {
                 if (content.buttonSprite.color != content.selectedColour)  // If it isn't already selected
                 {
-                    DecorateShopController.Instance.StartPlacing(so.decorationPrefab, so);
-
                     ChangeSelectedItem(so, content.gameObject);
                 }
                 else  // If it is already selected
                 {
-                    DecorateShopController.Instance.StopPlacing();
-
-                    ChangeSelectedItem(null, null);
+                    shop.StartPlacing(so.decorationPrefab, so);
+                    Close();
                 }
 
                 UpdateContent();
@@ -128,17 +128,15 @@ public class ShopDecorateViewScript : ScreenView
         {
             selectedItemNameText.text = selectedItemType.itemName;
             selectedItemImage.sprite = selectedItemType.itemImage;
+            selectedItemDescriptionText.text = selectedItemType.itemDescription;
+            selectedItemQuantityText.text = "x" + Inventory.GetItemUsingSO(selectedItemType).quantity;
+            selectedItemPriceText.text = "£" + selectedItemType.purchaseValue / selectedItemType.purchaseQuantity;
+            selectedItemSizeText.text = selectedItemType.itemSize.ToString();
 
-            if (DecorateShopController.Instance.placementMode)
-            {
-                placingItemButtons.SetActive(true);
-                selectedItemButtons.SetActive(false);
-            }
-            else
-            {
-                placingItemButtons.SetActive(false);
-                selectedItemButtons.SetActive(true);
-            }
+            List<string> surfaces = new List<string>();
+            foreach (PlacementSurfaces s in selectedItemType.placementSurfaces) surfaces.Add(s.ToString());
+            selectedItemSurfacesText.text = string.Join(", ", surfaces);
+
 
             infoCanvasGroup.DOKill();
             infoCanvasGroup.DOFade(1, infoFadeSpeed).SetEase(Ease.InOutSine);
@@ -151,57 +149,20 @@ public class ShopDecorateViewScript : ScreenView
     }
 
 
-    public async void ClearTank()
-    {
-        int delay = 400 / tank.decorationsInTank.Count;
-        for (int i = tank.decorationsInTank.Count - 1; i >= 0; i--)
-        {
-            if (tank.decorationsInTank[i] == null) continue;
-            DecorateShopController.Instance.selectedObject = tank.decorationsInTank[i];
-            ChangeSelectedItem(tank.decorationsInTank[i].GetComponent<Decoration>().decorationSO, tank.decorationsInTank[i]);
-            PutAway();
-            await Task.Delay(delay);
-        }
-    }
+    //public async void ClearTank()
+    //{
+    //    int delay = 400 / shop.decorationsInStore.Count;
+    //    for (int i = shop.decorationsInStore.Count - 1; i >= 0; i--)
+    //    {
+    //        if (shop.decorationsInStore[i] == null) continue;
+    //        shop.selectedObject = shop.decorationsInStore[i].gameObject;
+    //        ChangeSelectedItem(shop.decorationsInStore[i].decorationSO, shop.decorationsInStore[i].gameObject);
+    //        PutAway();
+    //        await Task.Delay(delay);
+    //    }
+    //}
 
 
-    public void ChangeEditLayer(bool top)
-    {
-        ChangeSelectedItem(null, null);
-        DecorateShopController.Instance.ChangeEditSurface(Surface.Floor);
-        UpdateContent();
-    }
-
-
-    public void ChangeCamera()
-    {
-        DecorateTankController.Instance.ChangeCam(1);
-    }
-
-    public void ToggleDecorationTransparency()
-    {
-        DecorateTankController.Instance.ToggleTransparentDecorarions();
-    }
-
-    public void ToggleShrimpTransparency()
-    {
-        DecorateTankController.Instance.ToggleTransparentShrimp();
-    }
-
-    public void PutAway()
-    {
-        DecorateTankController.Instance.PutDecorationAway();
-    }
-
-    public void Move()
-    {
-        DecorateTankController.Instance.MoveDecoration();
-    }
-
-    public void Rotate()
-    {
-        DecorateTankController.Instance.RotateObject(1);
-    }
 
 
     public override void Close(bool switchTab) { CloseScreen(); }
@@ -209,10 +170,10 @@ public class ShopDecorateViewScript : ScreenView
 
     private void CloseScreen()
     {
-        Camera.main.transform.position = tank.GetCam().transform.position;
-        Camera.main.transform.rotation = tank.GetCam().transform.rotation;
-        DecorateTankController.Instance.StopDecorating();
-        UIManager.instance.SetCursorMasking(true);
+        UIManager.instance.GetCursor().SetActive(false);
+        UIManager.instance.GetTooltips().SetActive(true);
+        Cursor.lockState = CursorLockMode.Locked;
+        UIManager.instance.input.SwitchCurrentActionMap("Move");
         base.Close();
     }
 
@@ -272,7 +233,4 @@ public class ShopDecorateViewScript : ScreenView
         //upgradeBox.enabled = true;
         //contextBox.enabled = true;
     }
-
-
-    public TankController GetTank() {  return tank; }
 }

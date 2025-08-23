@@ -38,9 +38,9 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (key.isPressed)
         {
-            if (DecorateShopController.Instance.decorating)
+            if (Store.decorateController.decorating)
             {
-                DecorateShopController.Instance.MouseClick(key.isPressed);
+                Store.decorateController.MouseClick(key.isPressed);
             }
             else
             {
@@ -67,6 +67,16 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
     }
+
+    public void OnPlayerRightClick(InputValue key)
+    {
+        if (key.isPressed)
+        {
+            if (Store.decorateController.decorating)
+                Store.decorateController.StopPlacing();
+        }
+    }
+
 
     public void SetTankFocus(TankController tankController)
     {
