@@ -16,12 +16,15 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
   purchaseValue: 10
   purchaseQuantity: 1
-  sellValue: 10
+  itemDescription: 
   tags: 08000000
   decorationPrefab: {fileID: 4984127487984152811, guid: 9b27c5af0133a9b40ba2b74224f88701,
     type: 3}
+  itemSize: 1
   gridSnapOffset: {x: 0, y: -0.01, z: 0}
   rotationAxis: {x: 0, y: 0, z: 1}
-  canFloat: 1
-  canSitOnShelf: 0
+  placementSurfaces: 00000000
   shelf: 0
+  shelfItemOffset: {x: 0, y: 0, z: 0}
+  shelfItemRotationOffset: {x: 0, y: 0, z: 0}
+  water: 0

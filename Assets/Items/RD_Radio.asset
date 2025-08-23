@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c7076f01b609824fbdcdcda2a4692a4, type: 3}
-  m_Name: TD_Anubias
+  m_Name: RD_Radio
   m_EditorClassIdentifier: 
-  itemName: Anubias
+  itemName: Radio
   itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
-  purchaseValue: 10
+  purchaseValue: 15
   purchaseQuantity: 1
-  itemDescription: 
-  tags: 08000000
-  decorationPrefab: {fileID: 969630005840922781, guid: 3eb3b232b12140c42b46c54ac075a357,
+  itemDescription: A small radio that will play music
+  tags: 07000000
+  decorationPrefab: {fileID: 4040673247270505239, guid: 882fe3b377f4fd1439845766dfae8811,
     type: 3}
-  itemSize: 1
-  gridSnapOffset: {x: 0, y: -0.01, z: 0}
-  rotationAxis: {x: 0, y: 0, z: 1}
-  placementSurfaces: 00000000
-  shelf: 0
+  itemSize: 0
+  gridSnapOffset: {x: 0, y: -0.5, z: 0}
+  rotationAxis: {x: 0, y: 1, z: 0}
+  placementSurfaces: 0000000001000000
+  shelf: 1
   shelfItemOffset: {x: 0, y: 0, z: 0}
   shelfItemRotationOffset: {x: 0, y: 0, z: 0}
   water: 0

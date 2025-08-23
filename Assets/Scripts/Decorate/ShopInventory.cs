@@ -112,6 +112,7 @@ public class ShopInventory : ScreenView
                 {
                     shop.StartPlacing(so.decorationPrefab, so);
                     Close();
+                    return;
                 }
 
                 UpdateContent();
