@@ -186,7 +186,7 @@ public class ShopInventory : ScreenView
 
     public void UIUnselect()
     {
-        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("TankView");
+        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
     }
 
 

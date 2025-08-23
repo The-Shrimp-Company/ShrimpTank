@@ -4,12 +4,14 @@ using UnityEngine.UI;
 
 public class CrossHairScript : PlayerUIController
 {
-    public TextMeshProUGUI toolTipText;
-    public Image crosshair;
+    public static TextMeshProUGUI toolTipText;
+    public static Image crosshair;
 
     private void Start()
     {
         UIManager.instance.Subscribe(this);
+        toolTipText = GetComponent<CrossHairSwitch>().text;
+        crosshair = GetComponent<CrossHairSwitch>().crosshair;
     }
 
     public override void SwitchFocus()
@@ -18,14 +20,25 @@ public class CrossHairScript : PlayerUIController
         {
             if (UIManager.instance.GetScreen() == null)
             {
-                toolTipText.enabled = true;
-                crosshair.enabled = true;
+                ShowCrosshair();
             }
             else
             {
-                toolTipText.enabled = false;
-                crosshair.enabled = false;
+                HideCrosshair();
             }
         }
+    }
+
+    public static void ShowCrosshair()
+    {
+        toolTipText.enabled = true;
+        toolTipText.alpha = 0f;
+        crosshair.enabled = true;
+    }
+
+    public static void HideCrosshair()
+    {
+        toolTipText.enabled = false;
+        crosshair.enabled = false;
     }
 }

@@ -28,7 +28,7 @@ public class DecorateShopController : MonoBehaviour
     [SerializeField] Transform decorationParent;
 
     private Dictionary<RoomGridNode, GameObject> nodes = new Dictionary<RoomGridNode, GameObject>();
-    private RoomGridNode hoveredNode;
+    private RoomGridNode hoveredNode, previousHoveredNode;
     [HideInInspector] public GameObject selectedObject;
     [HideInInspector] public DecorationItemSO selectedItemType;
     private GameObject objectPreview;
@@ -100,7 +100,6 @@ public class DecorateShopController : MonoBehaviour
     public void MouseDetection()
     {
 
-
         // Use raycastall to get a list
         // Go from the back of the list till you find a valid node
         // If not, Go from the back of the list till you find a free node
@@ -108,6 +107,7 @@ public class DecorateShopController : MonoBehaviour
 
         if (nodes == null || nodes.Count == 0) return;
 
+        previousHoveredNode = hoveredNode;
 
         RaycastHit[] hits;
         int layerMask = LayerMask.GetMask("GridNode");
@@ -123,19 +123,25 @@ public class DecorateShopController : MonoBehaviour
             {
                 if (nodes[node] == hit.collider.gameObject)
                 {
-                    if (node.invalid)
+                    if (node.invalid)  // If the node is taken
                     {
                         hoveredNode = null;
                         continue;
                     }
 
-                    if (!selectedItemType.placementSurfaces.Contains(PlacementSurfaces.Shelf) && node.shelf)
+                    if (!selectedItemType.placementSurfaces.Contains(PlacementSurfaces.Shelf) && node.shelf)  // If it is not a shelf item and hits a shelf
                     {
                         hoveredNode = null;
                         continue;
                     }
 
-                    if (hoveredNode != null)
+                    if (selectedItemType.placementSurfaces.Contains(PlacementSurfaces.Shelf) && node.shelf)  // If it is a shelf item and hits a shelf
+                    {
+                        hoveredNode = node;
+                        continue;
+                    }
+
+                    if (hoveredNode != null)  // If we want to get a new node
                     {
                         continue;
                     }
@@ -195,14 +201,36 @@ public class DecorateShopController : MonoBehaviour
         {
             if (objectPreview != null && selectedItemType != null)
             {
-                if (hoveredNode != null)
+                if (hoveredNode != null && hoveredNode != previousHoveredNode)
                 {
                     if (GetCurrentSurface() == PlacementSurfaces.Shelf)
-                        objectPreview.transform.position = hoveredNode.worldPos + selectedItemType.shelfItemOffset;
+                    {
+                        foreach(GameObject g in currentGrid.CheckNodeForObject(hoveredNode))
+                        {
+                            if (g != objectPreview && g.GetComponent<Decoration>().shelfSlots.Count != 0)
+                            {
+                                Transform closest = null;
+                                float closestDistanceSqr = Mathf.Infinity;
+                                foreach (Transform p in g.GetComponent<Decoration>().shelfSlots)
+                                {
+                                    Vector3 directionToTarget = p.transform.position - hoveredNode.worldPos;
+                                    float dSqrToTarget = directionToTarget.sqrMagnitude;
+
+                                    if (dSqrToTarget < closestDistanceSqr)
+                                    {
+                                        closestDistanceSqr = dSqrToTarget;
+                                        closest = p;
+                                    }
+                                }
+                                objectPreview.transform.position = closest.position;
+                                break;
+                            }
+                        }
+                    }
                     else
                         objectPreview.transform.position = hoveredNode.worldPos + selectedItemType.gridSnapOffset;
                 }
-                else objectPreview.transform.position = new Vector3(0, 100000, 0);
+                else if (hoveredNode == null) objectPreview.transform.position = new Vector3(0, 100000, 0);
             }
 
             CheckPlacementValidity();
@@ -336,6 +364,8 @@ public class DecorateShopController : MonoBehaviour
 
         //SetTransparentDecorations(false);
 
+        CrossHairScript.ShowCrosshair();
+
 
         foreach (GameObject n in nodes.Values)
         {
@@ -395,7 +425,7 @@ public class DecorateShopController : MonoBehaviour
             foreach (GameObject g in currentGrid.CheckNodeForObject(hoveredNode))
             {
                 Decoration d = null;
-                if (g != objectPreview && currentGrid.CheckNodeForObject(hoveredNode)[0].TryGetComponent<Decoration>(out d))
+                if (g != objectPreview && g.TryGetComponent<Decoration>(out d))
                 {
                     so = d.decorationSO;
                     break;
@@ -432,7 +462,7 @@ public class DecorateShopController : MonoBehaviour
             foreach (GameObject g in currentGrid.CheckNodeForObject(hoveredNode.nodeBelow))
             {
                 Decoration d = null;
-                if (g != objectPreview && currentGrid.CheckNodeForObject(hoveredNode)[0].TryGetComponent<Decoration>(out d))
+                if (g != objectPreview && g.TryGetComponent<Decoration>(out d))
                 {
                     so = d.decorationSO;
                     break;

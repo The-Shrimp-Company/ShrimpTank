@@ -18,8 +18,6 @@ public class DecorationItemSO : ItemSO
 
     [Header("Shelf")]
     [SerializeReference] public bool shelf;  // Whether objects can be placed on top
-    [SerializeReference] public Vector3 shelfItemOffset;  // Where items placed on the shelf appear
-    [SerializeReference] public Vector3 shelfItemRotationOffset;
 
     [Header("Water")]
     [SerializeReference] public bool water;  // Whether floating objects can be placed on top

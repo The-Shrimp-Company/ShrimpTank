@@ -44,7 +44,8 @@ public class PlayerInteraction : MonoBehaviour
             }
             else
             {
-                GameObject target = lookCheck.LookCheck(3);
+                LayerMask layer = LayerMask.GetMask("RoomDecoration") | LayerMask.GetMask("Decoration") | LayerMask.GetMask("Tanks");
+                GameObject target = lookCheck.LookCheck(3, layer);
 
                 if (target != null)
                 {
@@ -132,10 +133,13 @@ public class PlayerInteraction : MonoBehaviour
     /// </summary>
     public void OnExitView()
     {
-        _tankView.GetComponent<TankController>().StopFocusingTank();
-        Vector3 v3 = _tankView.GetComponent<TankController>().GetCam().transform.position;
-        transform.position = new Vector3(v3.x, transform.position.y, v3.z);
-        _camera.transform.localPosition = Vector3.up / 2;
+        if (_tankView != null)
+        {
+            _tankView.GetComponent<TankController>().StopFocusingTank();
+            Vector3 v3 = _tankView.GetComponent<TankController>().GetCam().transform.position;
+            transform.position = new Vector3(v3.x, transform.position.y, v3.z);
+            _camera.transform.localPosition = Vector3.up / 2;
+        }
         UIManager.instance.ClearScreens();
     }
 

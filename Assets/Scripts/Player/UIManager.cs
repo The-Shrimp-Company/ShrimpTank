@@ -67,7 +67,9 @@ public class UIManager : MonoBehaviour
         newScreen.Open(false);
         if (_screenStack.Count != 0)
         {
-            _screenStack.Peek().gameObject.SetActive(false);
+            if (_screenStack.Peek() != null)
+                _screenStack.Peek().gameObject.SetActive(false);
+            else _screenStack.Pop();
         }
 
         _screenStack.Push(newScreen);
