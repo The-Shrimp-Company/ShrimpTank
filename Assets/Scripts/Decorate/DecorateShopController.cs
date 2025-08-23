@@ -675,12 +675,11 @@ public class DecorateShopController : MonoBehaviour
 
 
 
-    public void LoadDecorations(TankController tank, TankSaveData data)
+    public void LoadDecorations(RoomDecorationSaveData[] data)
     {
-        if (tank == null) return;
-        if (data == null || data.decorations == null || data.decorations.Length == 0) return;
+        if (data == null || data.Length == 0) return;
 
-        foreach (TankDecorationSaveData decorationSave in data.decorations)
+        foreach (RoomDecorationSaveData decorationSave in data)
         {
             GameObject d = GameObject.Instantiate(((DecorationItemSO)Inventory.GetSOForItem(Inventory.GetItemUsingName(decorationSave.name))).decorationPrefab, 
                 new Vector3(decorationSave.position.X, decorationSave.position.Y, decorationSave.position.Z), 
@@ -692,12 +691,7 @@ public class DecorateShopController : MonoBehaviour
             // Set up decoration
             Decoration decoration;
             d.TryGetComponent(out decoration);
-            if (decoration != null) decoration.floating = decorationSave.floating;
-
-            // Set up floater
-            //WateverVolumeFloater floater;
-            //d.TryGetComponent(out floater);
-            //if (floater != null) floater.WaterVolumeHelper = currentTank.waterObject.GetComponent<WaterVolumeHelper>();
+            if (decoration != null) decoration.locked = decorationSave.locked;
         }
 
         currentGrid.RebakeGrid();

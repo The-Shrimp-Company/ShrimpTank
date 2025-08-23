@@ -2,6 +2,7 @@ using SaveLoadSystem;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Xml;
 using UnityEngine;
 
@@ -187,6 +188,19 @@ public class SaveController : MonoBehaviour
             d.shelves = shelfList.ToArray();
         }
 
+        // Room Decorations
+        List<RoomDecorationSaveData> decorationsInRoom = new List<RoomDecorationSaveData>();
+        foreach (Decoration decoration in Store.decorateController.decorationsInStore)
+        {
+            RoomDecorationSaveData decorationSaveData = new RoomDecorationSaveData();
+            decorationSaveData.name = decoration.decorationSO.itemName;
+            decorationSaveData.position = new System.Numerics.Vector3(decoration.transform.position.x, decoration.transform.position.y, decoration.transform.position.z);
+            decorationSaveData.rotation = new System.Numerics.Vector3(decoration.transform.rotation.eulerAngles.x, decoration.transform.rotation.eulerAngles.y, decoration.transform.rotation.eulerAngles.z);
+            decorationSaveData.locked = decoration.locked;
+            decorationsInRoom.Add(decorationSaveData);
+        }
+        d.roomDecorations = decorationsInRoom.ToArray();
+
         // NPCs
         List<NPC.NPCData> npcdata = new List<NPC.NPCData>();
         foreach(NPC npc in NPCManager.Instance.NPCs)
@@ -233,6 +247,9 @@ public class SaveController : MonoBehaviour
 
         // Inventory
         Inventory.instance.Initialize(d.inventoryItems);
+
+        // Room Decorations
+        Store.decorateController.LoadDecorations(d.roomDecorations);
 
         // Requests
         CustomerManager.Instance.Initialize(d.requests);

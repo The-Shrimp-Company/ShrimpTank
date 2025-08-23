@@ -128,7 +128,6 @@ public class ShopGrid : MonoBehaviour
             if (h.transform.gameObject.layer == LayerMask.NameToLayer("RoomDecoration"))
             {
                 node.invalid = true;
-                Debug.Log("RoomDecoration");
 
                 if (debugGrid && gridParent != null)
                 {
@@ -141,8 +140,6 @@ public class ShopGrid : MonoBehaviour
             else if (h.transform.gameObject.layer == LayerMask.NameToLayer("Shelf"))
             {
                 node.shelf = true;
-                Debug.Log("Shelf");
-
 
                 if (debugGrid && gridParent != null)
                 {

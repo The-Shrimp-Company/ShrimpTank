@@ -22,6 +22,8 @@ namespace SaveLoadSystem
 
         public Item[] inventoryItems;
 
+        public RoomDecorationSaveData[] roomDecorations;
+
         public ShelfSaveData[] shelves;
 
         public GlobalGene[] globalGenes;
@@ -77,5 +79,14 @@ namespace SaveLoadSystem
         public System.Numerics.Vector3 position;
         public System.Numerics.Vector3 rotation;
         public bool floating;
+    }
+
+    [System.Serializable]
+    public class RoomDecorationSaveData
+    {
+        public string name;
+        public System.Numerics.Vector3 position;
+        public System.Numerics.Vector3 rotation;
+        public bool locked;
     }
 }
