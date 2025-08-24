@@ -4167,7 +4167,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8672741325234674422}
+  - {fileID: 8224037852256891766}
   m_Father: {fileID: 3277218670847623109}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.049000002, y: 1}
@@ -4621,6 +4621,7 @@ MonoBehaviour:
   HeaterSwitch: {fileID: 3150166729405792541}
   idealHeatLabel: {fileID: 1370784856440247655}
   heatWarningLabel: {fileID: 4862225416278000206}
+  idealHeat: 0
   contextBox: {fileID: 7750050729217682107}
   upgradeBox: {fileID: 4987525888990841834}
   upgrades: {fileID: 1088746170828097567}
@@ -10282,7 +10283,7 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4530157710387835716}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &6649014524640655314
+--- !u!1001 &6213958035376414290
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10400,11 +10401,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f32897aa29b44fc438a002774137cbdb, type: 3}
---- !u!224 &8672741325234674422 stripped
+--- !u!224 &8224037852256891766 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2602463980071480612, guid: f32897aa29b44fc438a002774137cbdb,
     type: 3}
-  m_PrefabInstance: {fileID: 6649014524640655314}
+  m_PrefabInstance: {fileID: 6213958035376414290}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7302873511491206678
 PrefabInstance:

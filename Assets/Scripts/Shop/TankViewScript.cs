@@ -326,12 +326,7 @@ public class TankViewScript : ScreenView
             tankPop.text = "Tank Population: " + tank.shrimpInTank.Count.ToString();
         }
 
-        idealHeat = 0;
-        foreach(Shrimp shrimp in tank.shrimpInTank)
-        {
-            idealHeat += shrimp.stats.temperaturePreference;
-        }
-        idealHeat /= tank.shrimpInTank.Count;
+        idealHeat = (int)tank.idealTemp;
         if(tank.shrimpInTank.Find(x => Mathf.Abs(idealHeat - x.stats.temperaturePreference) > 15) != null)
         {
             heatWarningLabel.text = "Warning: Too much shrimp variety";

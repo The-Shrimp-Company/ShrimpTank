@@ -61,6 +61,8 @@ public class TankController : MonoBehaviour
 
     [HideInInspector] public float waterSalt = 50;
 
+    [HideInInspector] public float idealTemp = 0;
+
     [Header("Upgrades")]
     [HideInInspector] public TankUpgradeController upgradeController;
     [HideInInspector] public UpgradeState upgradeState = new UpgradeState() { LightsOn = true };
@@ -322,12 +324,38 @@ public class TankController : MonoBehaviour
 
         upgradeController.UpdateUpgrades(updateTimer);
 
+        /*
+        idealHeat = 0;
+        foreach(Shrimp shrimp in tank.shrimpInTank)
+        {
+            idealHeat += shrimp.stats.temperaturePreference;
+        }
+        idealHeat /= tank.shrimpInTank.Count;
+        if(tank.shrimpInTank.Find(x => Mathf.Abs(idealHeat - x.stats.temperaturePreference) > 15) != null)
+        {
+            heatWarningLabel.text = "Warning: Too much shrimp variety";
+        }
+        else
+        {
+            heatWarningLabel.text = "";
+        }
+        idealHeatLabel.text = idealHeat.ToString();
+        */
+
+        idealTemp = 0;
+        foreach(Shrimp shrimp in shrimpInTank)
+        {
+            idealTemp += shrimp.stats.temperaturePreference;
+        }
+        idealTemp /= shrimpInTank.Count;
+
+
         // Sending the player alarms
-        if(waterTemperature > 60)
+        if(Mathf.Abs(waterTemperature - idealTemp) > 10)
         {
             Email email = CreateOrFindAlarm(AlarmTypes.Temp);
-            email.mainText = "Your tank is too hot";
-        }else if(waterTemperature <= 60)
+            email.mainText = "Your tank is the wrong temp";
+        }else
         {
             Email email = FindAlarm(AlarmTypes.Temp);
             if(email != null)
