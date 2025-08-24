@@ -16,6 +16,23 @@ public enum ItemTags
 
     RoomDecoration,
     TankDecoration,
+
+    Floor,
+    Wall,
+    Ceiling,
+    OnShelf,
+    Floating,
+
+    Garage,
+    LivingRoom,
+
+    Shrimp,
+    Tools,
+    Supplies,
+
+    Small,
+    Medium,
+    Large,
 }
 
 

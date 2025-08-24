@@ -17,7 +17,7 @@ MonoBehaviour:
   purchaseValue: 15
   purchaseQuantity: 1
   itemDescription: 
-  tags: 08000000
+  tags: 0800000009000000
   decorationPrefab: {fileID: 7511436777668873034, guid: 5f921fb8642069644939b94251f90655,
     type: 3}
   itemSize: 1
@@ -25,6 +25,4 @@ MonoBehaviour:
   rotationAxis: {x: 0, y: 0, z: 1}
   placementSurfaces: 00000000
   shelf: 0
-  shelfItemOffset: {x: 0, y: 0, z: 0}
-  shelfItemRotationOffset: {x: 0, y: 0, z: 0}
   water: 0
