@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -6843446804732287816}
   - component: {fileID: 4834755022809214523}
   - component: {fileID: 6793009878179271870}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Box.pile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,4 +131,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6dbafe8f0204704b914586365c6b51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toolTip: Decorate Store
+  toolTip: Open Storage

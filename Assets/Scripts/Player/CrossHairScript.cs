@@ -7,7 +7,7 @@ public class CrossHairScript : PlayerUIController
     public static TextMeshProUGUI toolTipText;
     public static Image crosshair;
 
-    private void Start()
+    private void Awake()
     {
         UIManager.instance.Subscribe(this);
         toolTipText = GetComponent<CrossHairSwitch>().text;

@@ -19,7 +19,7 @@ public class DataStore : MonoBehaviour
 
     public void OnLoad(Scene scene, LoadSceneMode mode)
     {
-        if(scene.name != "OldShopScene")
+        if(scene.name != "ShopScene")
         {
             Assigned = false;
             SceneManager.sceneLoaded -= OnLoad;
