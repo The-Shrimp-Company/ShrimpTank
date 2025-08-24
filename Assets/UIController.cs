@@ -79,7 +79,7 @@ public class UIController : MonoBehaviour
         LoadingScreen();
         SaveManager.startNewGame = false;
         SaveManager.gameInitialized = false;
-        operation = SceneManager.LoadSceneAsync("OldShopScene");
+        operation = SceneManager.LoadSceneAsync("ShopScene");
     }
 
     private void QuitGame()

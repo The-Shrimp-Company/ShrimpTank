@@ -25,7 +25,7 @@ public class OpeningScreenController : MonoBehaviour
     IEnumerator LoadScene()
     {
         yield return null;
-        operation = SceneManager.LoadSceneAsync("OldShopScene");
+        operation = SceneManager.LoadSceneAsync("ShopScene");
         operation.allowSceneActivation = false;
         yield return null;
     }
