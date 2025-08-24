@@ -17,7 +17,7 @@ MonoBehaviour:
   purchaseValue: 15
   purchaseQuantity: 1
   itemDescription: A small radio that will play music
-  tags: 07000000
+  tags: 07000000090000000c00000013000000
   decorationPrefab: {fileID: 4040673247270505239, guid: 882fe3b377f4fd1439845766dfae8811,
     type: 3}
   itemSize: 0
@@ -25,6 +25,4 @@ MonoBehaviour:
   rotationAxis: {x: 0, y: 1, z: 0}
   placementSurfaces: 0000000001000000
   shelf: 1
-  shelfItemOffset: {x: 0, y: 0, z: 0}
-  shelfItemRotationOffset: {x: 0, y: 0, z: 0}
   water: 0

@@ -8,7 +8,7 @@ using DG.Tweening;
 using System;
 using UnityEditor;
 using UnityEngine.Windows;
-
+using AYellowpaper.SerializedCollections;
 
 public class ShopInventory : ScreenView
 {
@@ -17,8 +17,9 @@ public class ShopInventory : ScreenView
     [SerializeField] private GameObject _content;
     [SerializeField] private GameObject _contentBlock;
     private List<DecorationContentBlock> contentBlocks = new List<DecorationContentBlock>();
-    [SerializeField] private CanvasGroup infoCanvasGroup;
 
+    [Header("Info Box")]
+    [SerializeField] private CanvasGroup infoCanvasGroup;
     [SerializeField] TMP_Text selectedItemNameText;
     [SerializeField] Image selectedItemImage;
     [SerializeField] TMP_Text selectedItemDescriptionText;
@@ -26,11 +27,18 @@ public class ShopInventory : ScreenView
     [SerializeField] TMP_Text selectedItemPriceText;
     [SerializeField] TMP_Text selectedItemSizeText;
     [SerializeField] TMP_Text selectedItemSurfacesText;
-
-
     [SerializeField] float infoFadeSpeed = 0.5f;
 
-    [HideInInspector] public DecorationItemSO selectedItemType;
+    [Header("Filters")]
+    [SerializedDictionary("Button", "Filters")]
+    public SerializedDictionary<Button, ShopInventoryFilter> tabs;
+    [SerializeField] Button startingTab;
+    private Button currentTab;
+    public Color tabDeselectedColour, tabSelectedColour;
+
+
+
+    [HideInInspector] public ItemSO selectedItemType;
     [HideInInspector] public GameObject selectedItemGameObject;
 
 
@@ -44,6 +52,7 @@ public class ShopInventory : ScreenView
         selectedItemGameObject = null;
         infoCanvasGroup.alpha = 0;
         ChangeSelectedItem(null, null);
+        ChangeTab(startingTab);
         StartCoroutine(OpenTab(switchTab));
         UpdateContent();
         base.Open(switchTab);
@@ -54,18 +63,11 @@ public class ShopInventory : ScreenView
         UpdateContent(); 
     }
 
-    public virtual void Update()
-    {
-        
-    }
-
-
 
 
 
     public void UpdateContent()
     {
-        Debug.Log("Updating shop decorate view content");
         foreach (Transform child in _content.transform)
         {
             Destroy(child.gameObject);
@@ -76,12 +78,15 @@ public class ShopInventory : ScreenView
         List<Item> items = Inventory.GetInventory(false, true);
 
         // Filter items here
-        items = Inventory.FilterItemsWithTag(items, ItemTags.RoomDecoration);
-
+        if (currentTab != null && tabs[currentTab] != null)
+        {
+            items = Inventory.FilterItemsWithTags(items, tabs[currentTab].GetTabFilters());
+            items = Inventory.FilterItemsWithTags(items, tabs[currentTab].GetActiveSubFilters());
+        }
 
         foreach (Item i in items)
         {
-            DecorationItemSO so = Inventory.GetSOForItem(i) as DecorationItemSO;
+            ItemSO so = Inventory.GetSOForItem(i);
 
             if (so == null)
             {
@@ -97,6 +102,8 @@ public class ShopInventory : ScreenView
             content.ownedText.text = i.quantity.ToString();
             content.priceText.text = "£" + so.purchaseValue.ToString();
 
+            Debug.Log(selectedItemType + " " + so);
+
             if (selectedItemType == so) content.buttonSprite.color = content.selectedColour;
             else if (i.quantity > 0) content.buttonSprite.color = content.inInventoryColour;
             else if (so.purchaseValue <= Money.instance.money) content.buttonSprite.color = content.notInInventoryColour;
@@ -110,9 +117,13 @@ public class ShopInventory : ScreenView
                 }
                 else  // If it is already selected
                 {
-                    shop.StartPlacing(so.decorationPrefab, so);
-                    Close();
-                    return;
+                    DecorationItemSO d = so as DecorationItemSO;
+                    if (d != null)
+                    {
+                        shop.StartPlacing(d.decorationPrefab, d);
+                        Close();
+                        return;
+                    }
                 }
 
                 UpdateContent();
@@ -120,7 +131,7 @@ public class ShopInventory : ScreenView
         }
     }
 
-    public void ChangeSelectedItem(DecorationItemSO so, GameObject obj)
+    public void ChangeSelectedItem(ItemSO so, GameObject obj)
     {
         selectedItemType = so;
         selectedItemGameObject = obj;
@@ -132,11 +143,21 @@ public class ShopInventory : ScreenView
             selectedItemDescriptionText.text = selectedItemType.itemDescription;
             selectedItemQuantityText.text = "x" + Inventory.GetItemUsingSO(selectedItemType).quantity;
             selectedItemPriceText.text = "£" + selectedItemType.purchaseValue / selectedItemType.purchaseQuantity;
-            selectedItemSizeText.text = selectedItemType.itemSize.ToString();
 
-            List<string> surfaces = new List<string>();
-            foreach (PlacementSurfaces s in selectedItemType.placementSurfaces) surfaces.Add(s.ToString());
-            selectedItemSurfacesText.text = string.Join(", ", surfaces);
+            DecorationItemSO d = selectedItemType as DecorationItemSO;
+            if (d != null)
+            {
+                selectedItemSizeText.text = d.itemSize.ToString();
+
+                List<string> surfaces = new List<string>();
+                foreach (PlacementSurfaces s in d.placementSurfaces) surfaces.Add(s.ToString());
+                selectedItemSurfacesText.text = string.Join(", ", surfaces);
+            }
+            else
+            {
+                selectedItemSizeText.text = "";
+                selectedItemSurfacesText.text = "";
+            }
 
 
             infoCanvasGroup.DOKill();
@@ -147,6 +168,24 @@ public class ShopInventory : ScreenView
             infoCanvasGroup.DOKill();
             infoCanvasGroup.DOFade(0, infoFadeSpeed).SetEase(Ease.InOutSine);
         }
+    }
+
+
+    public void ChangeTab(Button b)
+    {
+        foreach(Button x in tabs.Keys)
+        {
+            x.GetComponent<Image>().color = tabDeselectedColour;
+            tabs[x].gameObject.SetActive(false);
+        }
+
+        b.GetComponent<Image>().color = tabSelectedColour;
+        tabs[b].gameObject.SetActive(true);
+        tabs[b].DeselectAllFilters();
+        currentTab = b;
+
+        ChangeSelectedItem(null, null);
+        UpdateContent();
     }
 
 

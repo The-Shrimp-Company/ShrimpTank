@@ -268,6 +268,8 @@ public class Inventory
 
     public static List<Item> FilterItemsWithTags(List<Item> items, List<ItemTags> tags)
     {
+        if (tags.Count == 0) return items;
+
         List<Item> filteredItems = new List<Item>();
 
         foreach (Item item in items)

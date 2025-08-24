@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class DecorationContentBlock : ContentBlock
 {
-    private DecorationItemSO so;
+    private ItemSO so;
 
     public Image buttonSprite;
     public Button button;
@@ -19,7 +19,7 @@ public class DecorationContentBlock : ContentBlock
     public Color cannotAffordColour;
     public Color selectedColour;
 
-    public void SetDecoration(DecorationItemSO d)
+    public void SetDecoration(ItemSO d)
     {
         so = d;
     }
