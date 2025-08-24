@@ -24,6 +24,8 @@ public class DecorateShopController : MonoBehaviour
     private ShopInventory inventoryScreen;
 
     [HideInInspector] public List<Decoration> decorationsInStore = new List<Decoration>();
+    [HideInInspector] public List<TankController> tanksInStore { get; private set; } = new List<TankController>();
+
 
     [SerializeField] Transform decorationParent;
 
@@ -400,6 +402,16 @@ public class DecorateShopController : MonoBehaviour
             decorationsInStore.Add(decoration);
         }
 
+        // Set up tank
+        TankController tank;
+        d.TryGetComponent(out tank);
+        if (tank != null)
+        {
+            tanksInStore.Add(tank);
+            Store.SwitchDestinationTank(tank);
+            tank.tankName = "Tank " + tanksInStore.Count;
+        }
+
         // Set up floater
         //WateverVolumeFloater floater;
         //d.TryGetComponent(out floater);
@@ -408,6 +420,8 @@ public class DecorateShopController : MonoBehaviour
 
         //SetTransparentDecorations(transparentDecorations);
         currentGrid.RebakeGrid();
+        PlayerStats.stats.roomDecorationCount = decorationsInStore.Count;
+        PlayerStats.stats.tankCount = tanksInStore.Count;
 
         if (deselectOnPlace || movingObject || Inventory.GetItemUsingSO(selectedItemType).quantity <= 0)
             StopPlacing();
@@ -452,7 +466,6 @@ public class DecorateShopController : MonoBehaviour
         // Check for Ceiling
         if (hoveredNode.ceiling)
             return PlacementSurfaces.Ceiling;
-
 
 
 
@@ -518,7 +531,6 @@ public class DecorateShopController : MonoBehaviour
         selectionValid = true;
 
 
-
         //Check for colliding nodes and walls, if they are invalid then invalidate the placement
         Transform[] transforms = objectPreview.GetComponentsInChildren<Transform>();
         List<RoomGridNode> hitNodes = currentGrid.CheckForObjectCollisions(transforms, ignoreShelves);
@@ -542,18 +554,15 @@ public class DecorateShopController : MonoBehaviour
         }
 
 
-
         // If the surface is wrong
         if (!selectedItemType.placementSurfaces.Contains(GetCurrentSurface()))
             selectionValid = false;
-
 
 
         // Check Money
         if (!Inventory.HasItem(selectedItemType.itemName))
             if (selectedItemType.purchaseValue > Money.instance.money)
                 selectionValid = false;  // Cannot afford
-
 
 
         SetObjectMaterials(objectPreview, selectionValid ? objectPreviewValidMat : objectPreviewInvalidMat);    
@@ -622,8 +631,9 @@ public class DecorateShopController : MonoBehaviour
         selectedObject.gameObject.transform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InBack).OnComplete(()=>DestroyDecoration(obj));
 
         selectedObject = null;
-        //decorateView.ChangeSelectedItem(null, null);
-        //decorateView.UpdateContent();
+
+        PlayerStats.stats.roomDecorationCount = decorationsInStore.Count;
+        PlayerStats.stats.tankCount = tanksInStore.Count;
     }
 
     private void DestroyDecoration(GameObject obj)
@@ -675,9 +685,12 @@ public class DecorateShopController : MonoBehaviour
 
 
 
-    public void LoadDecorations(RoomDecorationSaveData[] data)
+    public void LoadDecorations(RoomDecorationSaveData[] data, TankSaveData[] tankData)
     {
         if (data == null || data.Length == 0) return;
+
+        tanksInStore = new List<TankController>();
+
 
         foreach (RoomDecorationSaveData decorationSave in data)
         {
@@ -692,9 +705,46 @@ public class DecorateShopController : MonoBehaviour
             Decoration decoration;
             d.TryGetComponent(out decoration);
             if (decoration != null) decoration.locked = decorationSave.locked;
+
+            if (decorationSave.tankSaveReference != -1)
+            {
+                TankController t = null;
+                d.TryGetComponent(out t);
+                if (t != null) LoadTank(t, tankData[decorationSave.tankSaveReference]);
+            }
         }
 
+        PlayerStats.stats.tankCount = tanksInStore.Count;
+        PlayerStats.stats.roomDecorationCount = decorationsInStore.Count;
         currentGrid.RebakeGrid();
         StopPlacing();
+    }
+
+
+    public void LoadTank(TankController tank, TankSaveData data)
+    {
+        tank.tankName = data.tankName;
+        tank.openTankPrice = data.openTankPrice;
+        if (data.destinationTank) Store.SwitchDestinationTank(tank);
+        if (data.openTank) tank.toggleTankOpen();
+
+        foreach (ShrimpStats s in data.shrimp)
+        {
+            tank.SpawnShrimp(s, true);
+        }
+
+        DecorateTankController.Instance.LoadDecorations(tank, data);
+
+        tank.GetComponent<TankUpgradeController>().LoadUpgrades(data.upgradeIDs);
+        tank.upgradeState = data.upgradeState;
+
+        tank.waterTemperature = data.waterTemp;
+        tank.waterQuality = data.waterQuality;
+        tank.waterSalt = data.waterSalt;
+        foreach (FoodSaveData foodSave in data.shrimpFood)
+        {
+            GameObject newFood = Instantiate(((FoodItemSO)Inventory.GetSOForItem(foodSave.thisItem)).foodPrefab, foodSave.position, Quaternion.identity);
+            newFood.GetComponent<ShrimpFood>().CreateFood(tank, foodSave);
+        }
     }
 }

@@ -8,14 +8,14 @@ public class CurrentTanksContent : ContentPopulation
 
     private void Start()
     {
-        CreateContent(Inventory.instance.activeTanks.Count - 1);
+        CreateContent(Store.decorateController.tanksInStore.Count - 1);
         int i = 0;
         foreach(ContentBlock content in contentBlocks)
         {
-            if (_shrimp[0].tank == Inventory.instance.activeTanks[i]) i++;
-            content.GetComponent<CurrentTankContentBlock>().SetTank(Inventory.instance.activeTanks[i]);
+            if (_shrimp[0].tank == Store.decorateController.tanksInStore[i]) i++;
+            content.GetComponent<CurrentTankContentBlock>().SetTank(Store.decorateController.tanksInStore[i]);
             content.GetComponent<CurrentTankContentBlock>().SetShrimp(_shrimp);
-            content.SetText(Inventory.instance.activeTanks[i].tankName);
+            content.SetText(Store.decorateController.tanksInStore[i].tankName);
             i++;
         }
     }

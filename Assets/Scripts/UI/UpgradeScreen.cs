@@ -30,19 +30,4 @@ public class UpgradeScreen : ScreenView
             }
         }
     }
-
-    public void BuyShelf(string itemName)
-    {
-        ItemSO so = Inventory.GetSOUsingName(itemName);
-        if (so == null)
-        {
-            Debug.LogWarning("Shelf with name " + itemName + " cannot be found through the shop");
-            return;
-        }
-
-        if (Money.instance.WithdrawMoney(so.purchaseValue))
-        {
-            shelves.SpawnNextShelf();
-        }
-    }
 }

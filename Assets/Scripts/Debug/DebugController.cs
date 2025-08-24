@@ -177,7 +177,7 @@ public class DebugController : MonoBehaviour
 
             SPAWN_RANDOM = new DebugCommand<int>("spawn_random", "Spawns random shrimp in the destination tank", "spawn_random", (x) =>
             {
-                TankController targetTank = shelf.GetDestinationTank();
+                TankController targetTank = Store.GetDestinationTank();
                 if (focussedTank != null) targetTank = focussedTank.GetTank();
                 for (int i = 0; i < x; i++)
                     targetTank.SpawnShrimp(TraitSet.None);
@@ -185,7 +185,7 @@ public class DebugController : MonoBehaviour
 
             SPAWN_CHERRY = new DebugCommand<int>("spawn_cherry", "Spawns cherry shrimp in the destination tank", "spawn_cherry", (x) =>
             {
-                TankController targetTank = shelf.GetDestinationTank();
+                TankController targetTank = Store.GetDestinationTank();
                 if (focussedTank != null) targetTank = focussedTank.GetTank();
                 for (int i = 0; i < x; i++)
                     targetTank.SpawnShrimp(TraitSet.Cherry);
@@ -193,7 +193,7 @@ public class DebugController : MonoBehaviour
 
             SPAWN_NYLON = new DebugCommand<int>("spawn_nylon", "Spawns nylon shrimp in the destination tank", "spawn_nylon", (x) =>
             {
-                TankController targetTank = shelf.GetDestinationTank();
+                TankController targetTank = Store.GetDestinationTank();
                 if (focussedTank != null) targetTank = focussedTank.GetTank();
                 for (int i = 0; i < x; i++)
                     targetTank.SpawnShrimp(TraitSet.Nylon);
@@ -201,7 +201,7 @@ public class DebugController : MonoBehaviour
 
             SPAWN_ANOMALIS = new DebugCommand<int>("spawn_anomalis", "Spawns anomalis shrimp in the destination tank", "spawn_anomalis", (x) =>
             {
-                TankController targetTank = shelf.GetDestinationTank();
+                TankController targetTank = Store.GetDestinationTank();
                 if (focussedTank != null) targetTank = focussedTank.GetTank();
                 for (int i = 0; i < x; i++)
                     targetTank.SpawnShrimp(TraitSet.Anomalis);
@@ -209,7 +209,7 @@ public class DebugController : MonoBehaviour
 
             SPAWN_CARIDID = new DebugCommand<int>("spawn_caridid", "Spawns caridid shrimp in the destination tank", "spawn_caridid", (x) =>
             {
-                TankController targetTank = shelf.GetDestinationTank();
+                TankController targetTank = Store.GetDestinationTank();
                 if (focussedTank != null) targetTank = focussedTank.GetTank();
                 for (int i = 0; i < x; i++)
                     targetTank.SpawnShrimp(TraitSet.Caridid);

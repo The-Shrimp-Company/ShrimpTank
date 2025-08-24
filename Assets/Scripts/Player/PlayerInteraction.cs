@@ -53,13 +53,6 @@ public class PlayerInteraction : MonoBehaviour
                     {
                         SetTankFocus(target.GetComponent<TankController>());
                     }
-                    else if (target.GetComponent<TankSocket>() != null)
-                    {
-                        GameObject invenScreen = UIManager.instance.GetCanvas().GetComponent<MainCanvas>().RaiseScreen(inventory);
-                        GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
-                        invenScreen.GetComponentInChildren<InventoryContent>().TankAssignment(target);
-
-                    }
                     else if (target.GetComponent<Interactable>() != null)
                     {
                         target.GetComponent<Interactable>().Action();

@@ -28,24 +28,6 @@ public class InventoryContent : ContentPopulation
     }
 
 
-    public void TankAssignment(GameObject tankSocket)
-    {
-        transform.parent.GetComponentInChildren<BackButton>().gameObject.SetActive(false);
-
-
-        UpdateContent(Inventory.GetInventoryItemsWithTag(ItemTags.Tank));  // Create content blocks for all items with the tank tag
-
-        foreach(ContentBlock block in contentBlocks)
-        {
-            TankSocket socket = tankSocket.GetComponent<TankSocket>();
-            if (block.GetText().text.Contains("Small")) block.AssignFunction(socket.AddSmallTank);
-            else if (block.GetText().text.Contains("Large")) block.AssignFunction(socket.AddLargeTank);
-            else block.AssignFunction(socket.AddSmallTank);
-
-            block.AssignFunction(UIManager.instance.GetCanvas().GetComponent<MainCanvas>().LowerScreen);
-        }
-    }
-
 
     public void UpgradeAssignment(TankUpgradeController controller, UpgradeTypes type, ScreenView oldScreen, GameObject parent)
     {

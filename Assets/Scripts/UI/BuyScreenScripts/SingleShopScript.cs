@@ -25,7 +25,7 @@ public class SingleShopScript : ScreenView
             block.Populate(stats);
             block.GetComponent<Button>().onClick.AddListener(() =>
             {
-                if (shelves.SpawnShrimp(stats, EconomyManager.instance.GetShrimpValue(stats)))
+                if (Store.SpawnShrimp(stats, EconomyManager.instance.GetShrimpValue(stats)))
                 {
                     shop.shrimpStock.Remove(block.GetComponent<ShrimpSelectionBlock>().GetShrimp());
                     EconomyManager.instance.UpdateTraitValues(true, stats);

@@ -15,8 +15,7 @@ public struct Stats
 
     public int shelfCount;
     public int tankCount;
-    public int smallTankCount;
-    public int largeTankCount;
+    public int roomDecorationCount;
 
     public float totalMoney;
     public float moneyMade;

@@ -1,4 +1,5 @@
 using SaveLoadSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -124,81 +125,11 @@ public class SaveController : MonoBehaviour
         }
 
 
-        // Shelves, Tanks and Shrimp
-        if (shelfSpawn == null) shelfSpawn = (ShelfSpawn)FindObjectOfType(typeof(ShelfSpawn));
-        if (shelfSpawn == null) Debug.LogWarning("Save Controller could not find Shelf Spawn");
-        else
-        {
-            List<ShelfSaveData> shelfList = new List<ShelfSaveData>();
-            foreach (Shelf shelf in shelfSpawn._shelves)
-            {
-                ShelfSaveData shelfSave = new ShelfSaveData();
-
-                if (shelf != null && shelf.gameObject.activeSelf)
-                {
-                    int index = 0;
-                    List<TankSocketSaveData> socketList = new List<TankSocketSaveData>();
-                    foreach (TankSocket socket in shelf._tanks)
-                    {
-                        if (socket.tank != null && socket.tank.gameObject.activeInHierarchy)
-                        {
-                            TankSocketSaveData socketSave = new TankSocketSaveData();
-                            TankSaveData tankSave = new TankSaveData();
-                            socketSave.tank = tankSave;
-                            socketSave.socketNumber = index;
-
-                            List<ShrimpStats> shrimpInTank = new List<ShrimpStats>();
-                            foreach (Shrimp s in socket.tank.shrimpInTank)
-                            {
-                                s.illnessCont.SaveIllnesses();
-                                shrimpInTank.Add(s.stats);
-                            }
-                            tankSave.shrimp = shrimpInTank.ToArray();
-
-                            List<TankDecorationSaveData> decorationsInTank = new List<TankDecorationSaveData>();
-                            foreach (GameObject obj in socket.tank.decorationsInTank)
-                            {
-                                Decoration decoration = obj.GetComponent<Decoration>();
-                                TankDecorationSaveData decorationSaveData = new();
-                                decorationSaveData.name = decoration.decorationSO.itemName;
-                                decorationSaveData.position = new System.Numerics.Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
-                                decorationSaveData.rotation = new System.Numerics.Vector3(obj.transform.rotation.eulerAngles.x, obj.transform.rotation.eulerAngles.y, obj.transform.rotation.eulerAngles.z);
-                                decorationSaveData.floating = decoration.floating;
-                                decorationsInTank.Add(decorationSaveData);
-                            }
-                            tankSave.decorations = decorationsInTank.ToArray();
-
-                            tankSave.tankName = socket.tank.tankName;
-                            tankSave.upgradeState = socket.tank.upgradeState;
-                            tankSave.destinationTank = socket.tank.destinationTank;
-                            tankSave.openTank = socket.tank.openTank;
-                            tankSave.openTankPrice = socket.tank.openTankPrice;
-                            tankSave.upgradeIDs = socket.tank.GetComponent<TankUpgradeController>().SaveUpgrades();
-                            tankSave.waterTemp = socket.tank.waterTemperature;
-                            tankSave.waterQuality = socket.tank.waterQuality;
-                            tankSave.waterSalt = socket.tank.waterSalt;
-                            tankSave.shrimpFood = new FoodSaveData[socket.tank.foodInTank.Count];
-                            for(int i = 0; i < socket.tank.foodInTank.Count; i++)
-                            {
-                                tankSave.shrimpFood[i] = FoodSaveData.CreateFoodSaveData(socket.tank.foodInTank[i]);
-                            }
-
-                            socketList.Add(socketSave);
-                        }
-
-                        index++;
-                    }
-
-                    shelfSave.tanks = socketList.ToArray();
-                }
-
-                shelfList.Add(shelfSave);
-            }
-            d.shelves = shelfList.ToArray();
-        }
 
         // Room Decorations
+        int tankIndex = 0;
         List<RoomDecorationSaveData> decorationsInRoom = new List<RoomDecorationSaveData>();
+        List<TankSaveData> tanks = new List<TankSaveData>();
         foreach (Decoration decoration in Store.decorateController.decorationsInStore)
         {
             RoomDecorationSaveData decorationSaveData = new RoomDecorationSaveData();
@@ -206,9 +137,66 @@ public class SaveController : MonoBehaviour
             decorationSaveData.position = new System.Numerics.Vector3(decoration.transform.position.x, decoration.transform.position.y, decoration.transform.position.z);
             decorationSaveData.rotation = new System.Numerics.Vector3(decoration.transform.rotation.eulerAngles.x, decoration.transform.rotation.eulerAngles.y, decoration.transform.rotation.eulerAngles.z);
             decorationSaveData.locked = decoration.locked;
+
+            // Tank
+            TankController t = null;
+            decoration.TryGetComponent<TankController>(out t);
+            if (t != null)
+            {
+                TankSaveData tankSave = new TankSaveData();
+
+                tankSave.tankName = t.tankName;
+                tankSave.upgradeState = t.upgradeState;
+                tankSave.destinationTank = t.destinationTank;
+                tankSave.openTank = t.openTank;
+                tankSave.openTankPrice = t.openTankPrice;
+                tankSave.upgradeIDs = t.GetComponent<TankUpgradeController>().SaveUpgrades();
+                tankSave.waterTemp = t.waterTemperature;
+                tankSave.waterQuality = t.waterQuality;
+                tankSave.waterSalt = t.waterSalt;
+
+
+                // Food
+                tankSave.shrimpFood = new FoodSaveData[t.foodInTank.Count];
+                for (int i = 0; i < t.foodInTank.Count; i++)
+                {
+                    tankSave.shrimpFood[i] = FoodSaveData.CreateFoodSaveData(t.foodInTank[i]);
+                }
+
+
+                // Shrimp
+                List<ShrimpStats> shrimpInTank = new List<ShrimpStats>();
+                foreach (Shrimp s in t.shrimpInTank)
+                {
+                    s.illnessCont.SaveIllnesses();
+                    shrimpInTank.Add(s.stats);
+                }
+                tankSave.shrimp = shrimpInTank.ToArray();
+
+
+                // Tank Decorations
+                List<TankDecorationSaveData> decorationsInTank = new List<TankDecorationSaveData>();
+                foreach (GameObject obj in t.decorationsInTank)
+                {
+                    Decoration tankDecoration = obj.GetComponent<Decoration>();
+                    TankDecorationSaveData tankDecorationSaveData = new();
+                    tankDecorationSaveData.name = tankDecoration.decorationSO.itemName;
+                    tankDecorationSaveData.position = new System.Numerics.Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
+                    tankDecorationSaveData.rotation = new System.Numerics.Vector3(obj.transform.rotation.eulerAngles.x, obj.transform.rotation.eulerAngles.y, obj.transform.rotation.eulerAngles.z);
+                    tankDecorationSaveData.floating = tankDecoration.floating;
+                    decorationsInTank.Add(tankDecorationSaveData);
+                }
+                tankSave.decorations = decorationsInTank.ToArray();
+
+
+                decorationSaveData.tankSaveReference = tankIndex;
+                tankIndex++;
+                tanks.Add(tankSave);
+            }
             decorationsInRoom.Add(decorationSaveData);
         }
         d.roomDecorations = decorationsInRoom.ToArray();
+        d.tanks = tanks.ToArray();
 
         // NPCs
         List<NPC.NPCData> npcdata = new List<NPC.NPCData>();
@@ -258,7 +246,7 @@ public class SaveController : MonoBehaviour
         Inventory.instance.Initialize(d.inventoryItems);
 
         // Room Decorations
-        Store.decorateController.LoadDecorations(d.roomDecorations);
+        Store.decorateController.LoadDecorations(d.roomDecorations, d.tanks);
 
         // Requests
         CustomerManager.Instance.Initialize(d.requests);

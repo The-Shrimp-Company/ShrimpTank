@@ -26,7 +26,7 @@ namespace SaveLoadSystem
 
         public RoomDecorationSaveData[] roomDecorations;
 
-        public ShelfSaveData[] shelves;
+        public TankSaveData[] tanks;
 
         public GlobalGene[] globalGenes;
 
@@ -48,19 +48,7 @@ namespace SaveLoadSystem
 
 
 
-    [System.Serializable]
-    public class ShelfSaveData
-    {
-        public TankSocketSaveData[] tanks;
-    }
 
-    [System.Serializable]
-    public class TankSocketSaveData
-    {
-        public int socketNumber;
-        public TankTypes type;
-        public TankSaveData tank = null;
-    }
 
     [System.Serializable]
     public class TankSaveData
@@ -117,5 +105,6 @@ namespace SaveLoadSystem
         public System.Numerics.Vector3 position;
         public System.Numerics.Vector3 rotation;
         public bool locked;
+        public int tankSaveReference;
     }
 }
