@@ -449,6 +449,7 @@ public class DecorateTankController : MonoBehaviour
 
     public void OnRotate(InputValue value)
     {
+        if (currentGrid == null) return;
         if (hoveredNode == null) return;
 
         float r = value.Get<float>();

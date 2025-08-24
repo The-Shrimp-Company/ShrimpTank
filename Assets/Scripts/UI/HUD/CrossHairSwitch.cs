@@ -7,8 +7,8 @@ using DG.Tweening;
 
 public class CrossHairSwitch : MonoBehaviour
 {
-    [SerializeField] private Image crosshair;
-    [SerializeField] private TextMeshProUGUI text;
+    public Image crosshair;
+    public TextMeshProUGUI text;
     private RectTransform crosshairRect;
 
     [SerializeField] private Sprite crosshairSprite;

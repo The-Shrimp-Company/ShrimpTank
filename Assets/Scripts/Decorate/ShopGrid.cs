@@ -19,6 +19,7 @@ public class ShopGrid : MonoBehaviour
     Vector3 startPoint;
 
     [Header("Room Construction")]
+    [SerializeField] GameObject roomParent;
     [SerializeField] GameObject floorPrefab;
     [SerializeField] GameObject ceilingPrefab;
     [SerializeField] GameObject wallPrefab;
@@ -32,13 +33,7 @@ public class ShopGrid : MonoBehaviour
 
 
 
-    // Generate a grid
-    // Set all of the ground tiles
-    // Spawn floor on each of those
-    // Set all of the wall tiles 
-    // Spawn wall on each of those
-    // Set all of the ceiling tiles
-    // Spawn ceiling on each of those
+    // Could change wall detection to tiles without a neighbour on that side?
 
 
 
@@ -46,7 +41,6 @@ public class ShopGrid : MonoBehaviour
     {
         if (Instance == null) { Instance = this; }
         else if (Instance != this) { Destroy(gameObject); }
-
 
         if (debugGrid)
         {
@@ -106,9 +100,9 @@ public class ShopGrid : MonoBehaviour
                             for (int g = -1; g <= 1; g++)
                             {
                                 if (w == p && g == q && l == g)
-                                {
                                     continue;
-                                }
+                                if (p == 0 && q == -1 && g == 0 && h != 0)
+                                    grid[w][h][l].nodeBelow = grid[w][h - 1][l];
                                 AddNeighbour(grid[w][h][l], new Vector3Int(w + p, h + q, l + g));
                             }
                         }
@@ -119,21 +113,41 @@ public class ShopGrid : MonoBehaviour
     }
 
 
-    private void CheckNodeValidity(GridNode node)
+    private void CheckNodeValidity(RoomGridNode node)
     {
         node.invalid = false;
+        node.shelf = false;
 
-        LayerMask layer = LayerMask.GetMask("Decoration");
-        if (Physics.CheckBox(node.worldPos, Vector3.one * pointDistance / 2f, Quaternion.identity, layer, QueryTriggerInteraction.Ignore))
+        LayerMask layer = LayerMask.GetMask("RoomDecoration") | LayerMask.GetMask("Shelf");
+        RaycastHit[] hit;
+
+        hit = Physics.BoxCastAll(node.worldPos, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 0.01f, layer, QueryTriggerInteraction.Collide);
+
+        foreach (RaycastHit h in hit)
         {
-            node.invalid = true;
-
-            if (debugGrid && gridParent != null)
+            if (h.transform.gameObject.layer == LayerMask.NameToLayer("RoomDecoration"))
             {
-                GameObject invalidCube = Instantiate(gridPointPrefab, node.worldPos, Quaternion.identity);
-                invalidCube.transform.parent = gridParent.transform;
-                invalidCube.transform.rotation = transform.rotation;
-                invalidCube.transform.localScale = new Vector3(pointSize, pointSize, pointSize);
+                node.invalid = true;
+
+                if (debugGrid && gridParent != null)
+                {
+                    GameObject invalidCube = Instantiate(gridPointPrefab, node.worldPos, Quaternion.identity);
+                    invalidCube.transform.parent = gridParent.transform;
+                    invalidCube.transform.rotation = transform.rotation;
+                    invalidCube.transform.localScale = new Vector3(pointSize, pointSize, pointSize);
+                }
+            }
+            else if (h.transform.gameObject.layer == LayerMask.NameToLayer("Shelf"))
+            {
+                node.shelf = true;
+
+                if (debugGrid && gridParent != null)
+                {
+                    GameObject invalidCube = Instantiate(gridPointPrefab, node.worldPos, Quaternion.identity);
+                    invalidCube.transform.parent = gridParent.transform;
+                    invalidCube.transform.rotation = transform.rotation;
+                    invalidCube.transform.localScale = new Vector3(pointSize / 2, pointSize / 2, pointSize / 2);
+                }
             }
         }
     }
@@ -163,12 +177,12 @@ public class ShopGrid : MonoBehaviour
 
     private void ConstructRoom()
     {
-        if (gridParent == null) return;
+        if (roomParent == null) return;
 
         // Remove the old room
-        while (gridParent.transform.childCount > 0)
+        while (roomParent.transform.childCount > 0)
         {
-            DestroyImmediate(gridParent.transform.GetChild(0).gameObject);
+            DestroyImmediate(roomParent.transform.GetChild(0).gameObject);
         }
 
         // Create the new room
@@ -178,13 +192,13 @@ public class ShopGrid : MonoBehaviour
             {
                 for (int l = 0; l < roomSize.z; l++)
                 {
-                    if (grid[w][h][l].floor) GameObject.Instantiate(floorPrefab, grid[w][h][l].worldPos, Quaternion.identity, gridParent.transform);
-                    if (grid[w][h][l].ceiling) GameObject.Instantiate(ceilingPrefab, grid[w][h][l].worldPos, Quaternion.identity, gridParent.transform);
+                    if (grid[w][h][l].floor) GameObject.Instantiate(floorPrefab, grid[w][h][l].worldPos, Quaternion.identity, roomParent.transform);
+                    if (grid[w][h][l].ceiling) GameObject.Instantiate(ceilingPrefab, grid[w][h][l].worldPos, Quaternion.identity, roomParent.transform);
 
-                    if (grid[w][h][l].nWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 180, 0)), gridParent.transform);
-                    if (grid[w][h][l].eWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 270, 0)), gridParent.transform);
-                    if (grid[w][h][l].sWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 0, 0)), gridParent.transform);
-                    if (grid[w][h][l].wWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 90, 0)), gridParent.transform);
+                    if (grid[w][h][l].nWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 180, 0)), roomParent.transform);
+                    if (grid[w][h][l].eWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 270, 0)), roomParent.transform);
+                    if (grid[w][h][l].sWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 0, 0)), roomParent.transform);
+                    if (grid[w][h][l].wWall) GameObject.Instantiate(wallPrefab, grid[w][h][l].worldPos, Quaternion.Euler(new Vector3(0, 90, 0)), roomParent.transform);
 
                 }
             }
@@ -228,27 +242,31 @@ public class ShopGrid : MonoBehaviour
     }
 
 
-    public List<GridNode> CheckForObjectCollisions(Transform[] objects)
+    public List<RoomGridNode> CheckForObjectCollisions(Transform[] objects, bool ignoreShelves)
     {
-        List<GridNode> collidingNodes = new List<GridNode>();
-        LayerMask layer = LayerMask.GetMask("Decoration");
+        List<RoomGridNode> collidingNodes = new List<RoomGridNode>();
+        LayerMask layer;
+        if (ignoreShelves) layer = LayerMask.GetMask("RoomDecoration");
+        else layer = LayerMask.GetMask("RoomDecoration") | LayerMask.GetMask("Shelf");
         RaycastHit[] hit;
 
         // Nodes
-        for (int i = 0; i < roomSize.x; i++)
+        for (int w = 0; w < roomSize.x; w++)
         {
-            int j = DecorateTankController.Instance.editingLayer;
-            for (int k = 0; k < roomSize.z; k++)
+            for (int h = 0; h < roomSize.y; h++)
             {
-                //if (!grid[i][j][k].invalid) continue;
-
-                hit = Physics.BoxCastAll(grid[i][j][k].worldPos, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 0.01f, layer, QueryTriggerInteraction.Ignore);
-                foreach (RaycastHit h in hit)
+                for (int l = 0; l < roomSize.z; l++)
                 {
-                    if (objects.Contains(h.transform))
+                    //if (!grid[i][j][k].invalid) continue;
+
+                    hit = Physics.BoxCastAll(grid[w][h][l].worldPos, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 0.01f, layer, QueryTriggerInteraction.Collide);
+                    foreach (RaycastHit node in hit)
                     {
-                        collidingNodes.Add(grid[i][j][k]);
-                        break;
+                        if (objects.Contains(node.transform))
+                        {
+                            collidingNodes.Add(grid[w][h][l]);
+                            break;
+                        }
                     }
                 }
             }
@@ -256,48 +274,48 @@ public class ShopGrid : MonoBehaviour
 
 
 
-        GridNode wall = new GridNode();
-        wall.invalid = true;
+        //RoomGridNode wall = new RoomGridNode();
+        //wall.invalid = true;
 
-        // Back
-        Vector3 pos = transform.position + new Vector3(0, 0, (roomSize.z + 1) / 2) * pointDistance;
-        Vector3 r = pos - transform.position;  // Get the relative vector from point to pivot
-        r = transform.rotation * r;  // Rotate around the point
-        pos = transform.position + r;  // Return to world space
-        hit = Physics.BoxCastAll(pos, new Vector3(roomSize.x * 2, roomSize.y * 2, 0.1f) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
-        foreach (RaycastHit h in hit)
-            if (objects.Contains(h.transform))
-                collidingNodes.Add(wall);
+        //// Back
+        //Vector3 pos = transform.position + new Vector3(0, 0, (roomSize.z + 1) / 2) * pointDistance;
+        //Vector3 r = pos - transform.position;  // Get the relative vector from point to pivot
+        //r = transform.rotation * r;  // Rotate around the point
+        //pos = transform.position + r;  // Return to world space
+        //hit = Physics.BoxCastAll(pos, new Vector3(roomSize.x * 2, roomSize.y * 2, 0.1f) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
+        //foreach (RaycastHit h in hit)
+        //    if (objects.Contains(h.transform))
+        //        collidingNodes.Add(wall);
 
-        // Front
-        pos = transform.position + new Vector3(0, 0, (-roomSize.z - 2) / 2) * pointDistance;
-        r = pos - transform.position;  // Get the relative vector from point to pivot
-        r = transform.rotation * r;  // Rotate around the point
-        pos = transform.position + r;  // Return to world space
-        hit = Physics.BoxCastAll(pos, new Vector3(roomSize.x * 2, roomSize.y * 2, 0.1f) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
-        foreach (RaycastHit h in hit)
-            if (objects.Contains(h.transform))
-                collidingNodes.Add(wall);
+        //// Front
+        //pos = transform.position + new Vector3(0, 0, (-roomSize.z - 2) / 2) * pointDistance;
+        //r = pos - transform.position;  // Get the relative vector from point to pivot
+        //r = transform.rotation * r;  // Rotate around the point
+        //pos = transform.position + r;  // Return to world space
+        //hit = Physics.BoxCastAll(pos, new Vector3(roomSize.x * 2, roomSize.y * 2, 0.1f) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
+        //foreach (RaycastHit h in hit)
+        //    if (objects.Contains(h.transform))
+        //        collidingNodes.Add(wall);
 
-        // Right
-        pos = transform.position + new Vector3((roomSize.x + 1) / 2, 0, 0) * pointDistance;
-        r = pos - transform.position;  // Get the relative vector from point to pivot
-        r = transform.rotation * r;  // Rotate around the point
-        pos = transform.position + r;  // Return to world space
-        hit = Physics.BoxCastAll(pos, new Vector3(0.1f, roomSize.y * 2, roomSize.z * 2) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
-        foreach (RaycastHit h in hit)
-            if (objects.Contains(h.transform))
-                collidingNodes.Add(wall);
+        //// Right
+        //pos = transform.position + new Vector3((roomSize.x + 1) / 2, 0, 0) * pointDistance;
+        //r = pos - transform.position;  // Get the relative vector from point to pivot
+        //r = transform.rotation * r;  // Rotate around the point
+        //pos = transform.position + r;  // Return to world space
+        //hit = Physics.BoxCastAll(pos, new Vector3(0.1f, roomSize.y * 2, roomSize.z * 2) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
+        //foreach (RaycastHit h in hit)
+        //    if (objects.Contains(h.transform))
+        //        collidingNodes.Add(wall);
 
-        // Left
-        pos = transform.position + new Vector3((-roomSize.x - 2) / 2, 0, 0) * pointDistance;
-        r = pos - transform.position;  // Get the relative vector from point to pivot
-        r = transform.rotation * r;  // Rotate around the point
-        pos = transform.position + r;  // Return to world space
-        hit = Physics.BoxCastAll(pos, new Vector3(0.1f, roomSize.y * 2, roomSize.z * 2) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
-        foreach (RaycastHit h in hit)
-            if (objects.Contains(h.transform))
-                collidingNodes.Add(wall);
+        //// Left
+        //pos = transform.position + new Vector3((-roomSize.x - 2) / 2, 0, 0) * pointDistance;
+        //r = pos - transform.position;  // Get the relative vector from point to pivot
+        //r = transform.rotation * r;  // Rotate around the point
+        //pos = transform.position + r;  // Return to world space
+        //hit = Physics.BoxCastAll(pos, new Vector3(0.1f, roomSize.y * 2, roomSize.z * 2) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
+        //foreach (RaycastHit h in hit)
+        //    if (objects.Contains(h.transform))
+        //        collidingNodes.Add(wall);
 
 
         return collidingNodes;
@@ -308,10 +326,10 @@ public class ShopGrid : MonoBehaviour
     {
         if (node == null) return null;
         List<GameObject> collidingObjects = new List<GameObject>();
-        LayerMask layer = LayerMask.GetMask("Decoration");
+        LayerMask layer = LayerMask.GetMask("RoomDecoration") | LayerMask.GetMask("Shelf");
         RaycastHit[] hit;
 
-        hit = Physics.BoxCastAll(node.worldPos, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 0.01f, layer, QueryTriggerInteraction.Ignore);
+        hit = Physics.BoxCastAll(node.worldPos, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 0.01f, layer, QueryTriggerInteraction.Collide);
         foreach (RaycastHit h in hit)
         {
             GameObject selection = h.transform.gameObject;

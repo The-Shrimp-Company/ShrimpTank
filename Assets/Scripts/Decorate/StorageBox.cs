@@ -8,7 +8,7 @@ public class StorageBox : Interactable
 
     public override void Action()
     {
-        DecorateShopController.Instance.StartDecorating();
+        Store.decorateController.OpenShopInventory();
         base.Action();
     }
 }

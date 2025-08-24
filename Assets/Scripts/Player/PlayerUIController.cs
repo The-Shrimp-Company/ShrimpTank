@@ -59,6 +59,8 @@ public class PlayerUIController : MonoBehaviour
 
     public void OnMoveMouse()
     {
+        if (UIManager.instance.GetScreen() == null) return;
+
         Vector2 pos = Mouse.current.position.value;
         RectTransform uiPanel = UIManager.instance.GetScreen().GetComponent<RectTransform>();
         float localScale = UIManager.instance.GetCanvas().GetComponent<Canvas>().scaleFactor;
