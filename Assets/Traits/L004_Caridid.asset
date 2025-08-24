@@ -30,7 +30,7 @@ MonoBehaviour:
   - type: 5
     effect: -30
   - type: 6
-    effect: -20
+    effect: -10
   type: 8
   colour: {r: 1, g: 1, b: 1, a: 1}
   deadColour: {r: 1, g: 1, b: 1, a: 1}

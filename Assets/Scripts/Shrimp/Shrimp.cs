@@ -210,8 +210,7 @@ public class Shrimp : MonoBehaviour
         if (focusingShrimp)
         {
             GetComponentInChildren<ShrimpCam>().Deactivate();
-            Camera.main.transform.position = tank.GetCam().transform.position;
-            Camera.main.transform.rotation = tank.GetCam().transform.rotation;
+            Camera.main.transform.SetPositionAndRotation(tank.GetCam().transform.position, tank.GetCam().transform.rotation);
             UIManager.instance.CloseScreen();
         }
 

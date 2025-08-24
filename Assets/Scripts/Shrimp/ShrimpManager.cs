@@ -100,7 +100,7 @@ public class ShrimpManager : MonoBehaviour
         s.tailFan = geneManager.TraitGene(geneManager.bodyPartInheritance, 0, parentA.tailFan, parentB.tailFan, geneManager.bodyPartCanMutate);
         s.legs = geneManager.TraitGene(geneManager.bodyPartInheritance, 0, parentA.legs, parentB.legs, geneManager.bodyPartCanMutate);
 
-        geneManager.ApplyStatModifiers(s);
+        s = geneManager.ApplyStatModifiers(s);
 
         return s;
     }
@@ -160,7 +160,7 @@ public class ShrimpManager : MonoBehaviour
         t.activeGene.ID = "L";
         s.legs = geneManager.TraitGene(InheritanceType.WeightedRandom, 0, t, t, false);
 
-        geneManager.ApplyStatModifiers(s);
+        s = geneManager.ApplyStatModifiers(s);
 
         return s;
     }
@@ -213,7 +213,7 @@ public class ShrimpManager : MonoBehaviour
         t.activeGene.ID = "L";
         s.legs = geneManager.TraitFromSet(t, set);
 
-        geneManager.ApplyStatModifiers(s);
+        s = geneManager.ApplyStatModifiers(s);
 
         return s;
     }
@@ -264,7 +264,7 @@ public class ShrimpManager : MonoBehaviour
         t.activeGene.ID = "L";
         s.legs = geneManager.TraitGene(InheritanceType.RandomInStore, 0, t, t, false);
 
-        geneManager.ApplyStatModifiers(s);
+        s = geneManager.ApplyStatModifiers(s);
 
         return s;
     }

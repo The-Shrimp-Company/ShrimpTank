@@ -131,8 +131,7 @@ public class ShrimpView : ScreenView
         _shrimp.GetComponentInChildren<ShrimpCam>().Deactivate();
         player.GetComponent<PlayerUIController>().UnsetShrimpCam();
         TankController tank = _shrimp.tank.GetComponent<TankController>();
-        Camera.main.transform.position = tank.GetCam().transform.position;
-        Camera.main.transform.rotation = tank.GetCam().transform.rotation;
+        Camera.main.transform.SetPositionAndRotation(tank.GetCam().transform.position, tank.GetCam().transform.rotation);
         UIManager.instance.CloseScreen();
     }
 
