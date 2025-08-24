@@ -12,10 +12,6 @@ public class SingleShopScript : ScreenView
 
     private List<ContentBlock> ContentBlocks = new List<ContentBlock>();
 
-    protected override void Start()
-    {
-        shelves = GameObject.FindWithTag("ShelfSpawn").GetComponent<ShelfSpawn>();
-    }
 
     public void Populate(Shop shop)
     {
@@ -25,7 +21,7 @@ public class SingleShopScript : ScreenView
             block.Populate(stats);
             block.GetComponent<Button>().onClick.AddListener(() =>
             {
-                if (shelves.SpawnShrimp(stats, EconomyManager.instance.GetShrimpValue(stats)))
+                if (Store.SpawnShrimp(stats, EconomyManager.instance.GetShrimpValue(stats)))
                 {
                     shop.shrimpStock.Remove(block.GetComponent<ShrimpSelectionBlock>().GetShrimp());
                     EconomyManager.instance.UpdateTraitValues(true, stats);

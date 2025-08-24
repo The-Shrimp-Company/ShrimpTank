@@ -46,7 +46,6 @@ public class ShopInventory : ScreenView
     {
         Debug.Log("Opening shop decorate");
         player = GameObject.Find("Player");
-        shelves = GetComponentInParent<ShelfSpawn>();
         shop = Store.decorateController;
         selectedItemType = null;
         selectedItemGameObject = null;
@@ -94,15 +93,12 @@ public class ShopInventory : ScreenView
                 return;
             }
 
-
             DecorationContentBlock content = Instantiate(_contentBlock, _content.transform).GetComponent<DecorationContentBlock>();
             contentBlocks.Add(content);
             content.SetText(i.itemName);
             content.SetDecoration(so);
             content.ownedText.text = i.quantity.ToString();
             content.priceText.text = "£" + so.purchaseValue.ToString();
-
-            Debug.Log(selectedItemType + " " + so);
 
             if (selectedItemType == so) content.buttonSprite.color = content.selectedColour;
             else if (i.quantity > 0) content.buttonSprite.color = content.inInventoryColour;

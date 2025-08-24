@@ -10,8 +10,6 @@ public class MainCanvas : MonoBehaviour
 
     private GameObject lastCreated;
 
-    private ShelfSpawn shelves;
-
     [SerializeField]
     private GameObject tablet;
     private RectTransform _tabletRect;
@@ -32,7 +30,7 @@ public class MainCanvas : MonoBehaviour
     public GameObject RaiseScreen(GameObject screen)
     {
         RaiseTablet();
-        lastCreated = Instantiate(screen, GetComponentInChildren<ShelfRef>().transform);
+        lastCreated = Instantiate(screen, transform);
         UIManager.instance.OpenScreen(lastCreated.GetComponent<ScreenView>());
         UIManager.instance.SetCursorMasking(true);
         return lastCreated;
@@ -54,10 +52,5 @@ public class MainCanvas : MonoBehaviour
     public void LowerTablet()
     {
         tabletAnim.SetTrigger("Lower");
-    }
-
-    public ShelfSpawn GetShelves()
-    {
-        return shelves;
     }
 }

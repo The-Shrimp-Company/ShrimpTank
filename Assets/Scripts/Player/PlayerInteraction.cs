@@ -7,9 +7,6 @@ using UnityEngine.InputSystem;
 public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField]
-    private ShelfSpawn shelves;
-
-    [SerializeField]
     private GameObject inventory;
 
     private CameraLookCheck lookCheck;
@@ -52,13 +49,6 @@ public class PlayerInteraction : MonoBehaviour
                     if (target.GetComponent<TankController>() != null)
                     {
                         SetTankFocus(target.GetComponent<TankController>());
-                    }
-                    else if (target.GetComponent<TankSocket>() != null)
-                    {
-                        GameObject invenScreen = UIManager.instance.GetCanvas().GetComponent<MainCanvas>().RaiseScreen(inventory);
-                        GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
-                        invenScreen.GetComponentInChildren<InventoryContent>().TankAssignment(target);
-
                     }
                     else if (target.GetComponent<Interactable>() != null)
                     {

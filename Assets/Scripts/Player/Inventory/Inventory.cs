@@ -11,7 +11,6 @@ public class Inventory
 
     private ItemSO[] loadedItemList;
     private List<Item> inventory = new List<Item>();
-    public List<TankController> activeTanks { get; private set; } = new List<TankController>();
 
 
     private static int maxItemCount = 999;
@@ -26,7 +25,6 @@ public class Inventory
         if (saveData != null)
             LoadInventoryFromFile(saveData);  // Changes values such as quantity using the saved data
 
-        activeTanks = new List<TankController>();
     }
 
     private void LoadItemsFromResources()

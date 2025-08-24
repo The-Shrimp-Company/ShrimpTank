@@ -36,7 +36,6 @@ public class TankDecorateViewScript : ScreenView
     {
         Debug.Log("Opening tank decorate");
         player = GameObject.Find("Player");
-        shelves = GetComponentInParent<ShelfSpawn>();
         tank = GetComponentInParent<TankController>();
         tank.tankDecorateViewScript = this;
         selectedItemType = null;

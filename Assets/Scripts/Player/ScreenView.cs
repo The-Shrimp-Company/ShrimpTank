@@ -12,11 +12,6 @@ using UnityEngine.UI;
 /// </summary>
 public class ScreenView : MonoBehaviour
 {
-
-
-    [SerializeField]
-    protected ShelfSpawn shelves;
-
     protected GameObject player;
 
     [HideInInspector]
@@ -41,7 +36,8 @@ public class ScreenView : MonoBehaviour
 
     public virtual void Close()
     {
-        Destroy(gameObject);
+        if (gameObject != null)
+            Destroy(gameObject);
     }
 
     public virtual void Exit()

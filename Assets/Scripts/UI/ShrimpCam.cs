@@ -15,7 +15,7 @@ public class ShrimpCam : MonoBehaviour
 
     public void Awake()
     {
-        layerMask = LayerMask.GetMask("Decoration");
+        layerMask = LayerMask.GetMask("Decoration") | LayerMask.GetMask("RoomDecoration");
     }
 
     public ShrimpCam SetCam()

@@ -34,9 +34,6 @@ public class TabletInteraction : ScreenView
         base.Start();
     }
 
-
-    public ShelfSpawn GetShelves() { return shelves; }
-
     private void Update()
     {
         BuyButton.SetActive(Tutorial.instance.flags.Contains("ShrimpStoreOpen"));
