@@ -21,7 +21,6 @@ public class NewBuyScreen : ScreenView
     protected override void Start()
     {
         base.Start();
-        shelves = transform.parent.GetComponent<ShelfRef>().GetShelves();
 
         foreach(Shop shop in ShopManager.instance.shops)
         {

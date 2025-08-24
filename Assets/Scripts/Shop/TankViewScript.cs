@@ -63,7 +63,6 @@ public class TankViewScript : ScreenView
     public override void Open(bool switchTab)
     {
         player = GameObject.Find("Player");
-        shelves = GetComponentInParent<ShelfSpawn>();
         tank = GetComponentInParent<TankController>();
         tank.tankViewScript = this;
         leftPanelResting = leftPanel.transform.position;

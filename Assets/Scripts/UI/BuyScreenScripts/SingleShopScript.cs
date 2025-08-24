@@ -12,10 +12,6 @@ public class SingleShopScript : ScreenView
 
     private List<ContentBlock> ContentBlocks = new List<ContentBlock>();
 
-    protected override void Start()
-    {
-        shelves = GameObject.FindWithTag("ShelfSpawn").GetComponent<ShelfSpawn>();
-    }
 
     public void Populate(Shop shop)
     {

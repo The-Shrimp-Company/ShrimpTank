@@ -9,7 +9,6 @@ public class BuyScreen : ScreenView
     protected override void Start()
     {
         base.Start();
-        shelves = transform.parent.GetComponent<ShelfRef>().GetShelves();
     }
 
     public bool BuyShrimp(ShrimpStats s)

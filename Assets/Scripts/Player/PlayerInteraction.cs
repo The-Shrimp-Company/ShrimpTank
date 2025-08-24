@@ -7,9 +7,6 @@ using UnityEngine.InputSystem;
 public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField]
-    private ShelfSpawn shelves;
-
-    [SerializeField]
     private GameObject inventory;
 
     private CameraLookCheck lookCheck;

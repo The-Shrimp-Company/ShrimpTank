@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerDebug : MonoBehaviour
 {
-    public ShelfSpawn shelves;
     public bool giveMoneyButton = false;
     private CameraLookCheck lookCheck;
 

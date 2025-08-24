@@ -46,7 +46,6 @@ public class ShopInventory : ScreenView
     {
         Debug.Log("Opening shop decorate");
         player = GameObject.Find("Player");
-        shelves = GetComponentInParent<ShelfSpawn>();
         shop = Store.decorateController;
         selectedItemType = null;
         selectedItemGameObject = null;
@@ -93,7 +92,7 @@ public class ShopInventory : ScreenView
                 Debug.LogWarning("Cannot find SO for " + i.itemName);
                 return;
             }
-
+            Debug.Log(i.itemName);
 
             DecorationContentBlock content = Instantiate(_contentBlock, _content.transform).GetComponent<DecorationContentBlock>();
             contentBlocks.Add(content);

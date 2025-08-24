@@ -169,52 +169,45 @@ public class DebugController : MonoBehaviour
 
 
 
-
-        ShelfSpawn shelf = null;
-        if (GameObject.Find("Shelving")) shelf = GameObject.Find("Shelving").GetComponent<ShelfSpawn>();
-        if (shelf)
+        SPAWN_RANDOM = new DebugCommand<int>("spawn_random", "Spawns random shrimp in the destination tank", "spawn_random", (x) =>
         {
+            TankController targetTank = Store.GetDestinationTank();
+            if (focussedTank != null) targetTank = focussedTank.GetTank();
+            for (int i = 0; i < x; i++)
+                targetTank.SpawnShrimp(TraitSet.None);
+        });
 
-            SPAWN_RANDOM = new DebugCommand<int>("spawn_random", "Spawns random shrimp in the destination tank", "spawn_random", (x) =>
-            {
-                TankController targetTank = Store.GetDestinationTank();
-                if (focussedTank != null) targetTank = focussedTank.GetTank();
-                for (int i = 0; i < x; i++)
-                    targetTank.SpawnShrimp(TraitSet.None);
-            });
+        SPAWN_CHERRY = new DebugCommand<int>("spawn_cherry", "Spawns cherry shrimp in the destination tank", "spawn_cherry", (x) =>
+        {
+            TankController targetTank = Store.GetDestinationTank();
+            if (focussedTank != null) targetTank = focussedTank.GetTank();
+            for (int i = 0; i < x; i++)
+                targetTank.SpawnShrimp(TraitSet.Cherry);
+        });
 
-            SPAWN_CHERRY = new DebugCommand<int>("spawn_cherry", "Spawns cherry shrimp in the destination tank", "spawn_cherry", (x) =>
-            {
-                TankController targetTank = Store.GetDestinationTank();
-                if (focussedTank != null) targetTank = focussedTank.GetTank();
-                for (int i = 0; i < x; i++)
-                    targetTank.SpawnShrimp(TraitSet.Cherry);
-            });
+        SPAWN_NYLON = new DebugCommand<int>("spawn_nylon", "Spawns nylon shrimp in the destination tank", "spawn_nylon", (x) =>
+        {
+            TankController targetTank = Store.GetDestinationTank();
+            if (focussedTank != null) targetTank = focussedTank.GetTank();
+            for (int i = 0; i < x; i++)
+                targetTank.SpawnShrimp(TraitSet.Nylon);
+        });
 
-            SPAWN_NYLON = new DebugCommand<int>("spawn_nylon", "Spawns nylon shrimp in the destination tank", "spawn_nylon", (x) =>
-            {
-                TankController targetTank = Store.GetDestinationTank();
-                if (focussedTank != null) targetTank = focussedTank.GetTank();
-                for (int i = 0; i < x; i++)
-                    targetTank.SpawnShrimp(TraitSet.Nylon);
-            });
+        SPAWN_ANOMALIS = new DebugCommand<int>("spawn_anomalis", "Spawns anomalis shrimp in the destination tank", "spawn_anomalis", (x) =>
+        {
+            TankController targetTank = Store.GetDestinationTank();
+            if (focussedTank != null) targetTank = focussedTank.GetTank();
+            for (int i = 0; i < x; i++)
+                targetTank.SpawnShrimp(TraitSet.Anomalis);
+        });
 
-            SPAWN_ANOMALIS = new DebugCommand<int>("spawn_anomalis", "Spawns anomalis shrimp in the destination tank", "spawn_anomalis", (x) =>
-            {
-                TankController targetTank = Store.GetDestinationTank();
-                if (focussedTank != null) targetTank = focussedTank.GetTank();
-                for (int i = 0; i < x; i++)
-                    targetTank.SpawnShrimp(TraitSet.Anomalis);
-            });
-
-            SPAWN_CARIDID = new DebugCommand<int>("spawn_caridid", "Spawns caridid shrimp in the destination tank", "spawn_caridid", (x) =>
-            {
-                TankController targetTank = Store.GetDestinationTank();
-                if (focussedTank != null) targetTank = focussedTank.GetTank();
-                for (int i = 0; i < x; i++)
-                    targetTank.SpawnShrimp(TraitSet.Caridid);
-            });
-        }
+        SPAWN_CARIDID = new DebugCommand<int>("spawn_caridid", "Spawns caridid shrimp in the destination tank", "spawn_caridid", (x) =>
+        {
+            TankController targetTank = Store.GetDestinationTank();
+            if (focussedTank != null) targetTank = focussedTank.GetTank();
+            for (int i = 0; i < x; i++)
+                targetTank.SpawnShrimp(TraitSet.Caridid);
+        });
 
 
 

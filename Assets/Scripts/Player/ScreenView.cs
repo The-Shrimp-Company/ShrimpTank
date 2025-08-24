@@ -12,11 +12,6 @@ using UnityEngine.UI;
 /// </summary>
 public class ScreenView : MonoBehaviour
 {
-
-
-    [SerializeField]
-    protected ShelfSpawn shelves;
-
     protected GameObject player;
 
     [HideInInspector]

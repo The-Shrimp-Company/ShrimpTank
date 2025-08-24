@@ -6,7 +6,6 @@ public class UpgradeScreen : ScreenView
 {
     protected override void Start()
     {
-        shelves = transform.parent.GetComponent<ShelfRef>().GetShelves();
         base.Start();
     }
 

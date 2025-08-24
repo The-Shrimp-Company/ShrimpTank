@@ -13,8 +13,6 @@ public class SaveController : MonoBehaviour
     private float autosaveTimer = 0f;
     [SerializeField] bool loadPlayerPosition = true;
 
-    private ShelfSpawn shelfSpawn;
-
     void Start()
     {
         StartGame();
