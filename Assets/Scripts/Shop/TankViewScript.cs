@@ -327,7 +327,7 @@ public class TankViewScript : ScreenView
         }
 
         idealHeat = (int)tank.idealTemp;
-        if(tank.shrimpInTank.Find(x => Mathf.Abs(idealHeat - x.stats.temperaturePreference) > 15) != null)
+        if(tank.shrimpInTank.Find(x => Mathf.Abs(idealHeat - x.stats.temperaturePreference) > 10) != null)
         {
             heatWarningLabel.text = "Warning: Too much shrimp variety";
         }

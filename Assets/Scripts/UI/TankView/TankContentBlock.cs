@@ -24,7 +24,7 @@ public class TankContentBlock : ContentBlock
 
     private void Update()
     {
-        if(Mathf.Abs(_tankView.idealHeat - _shrimp.stats.temperaturePreference) > 15)
+        if(Mathf.Abs(_tankView.idealHeat - _shrimp.stats.temperaturePreference) > 10)
         {
             GetComponent<Image>().color = Color.red;
         }
