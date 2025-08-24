@@ -6,4 +6,6 @@ using UnityEngine;
 public class ItemList : ScriptableObject
 {
     [SerializeReference] public ItemSO[] items;
+    [SerializeReference] public ItemSO[] roomDecorations;
+    [SerializeReference] public ItemSO[] tankDecorations;
 }

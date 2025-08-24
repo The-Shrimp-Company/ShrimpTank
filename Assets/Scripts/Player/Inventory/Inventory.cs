@@ -29,7 +29,11 @@ public class Inventory
 
     private void LoadItemsFromResources()
     {
-        loadedItemList = ((ItemList)Resources.Load("ItemList")).items;
+        ItemList itemList = (ItemList)Resources.Load("ItemList");
+        if (itemList != null)
+        {
+            loadedItemList = itemList.items.Concat(itemList.roomDecorations).Concat(itemList.tankDecorations).ToArray();
+        }
         if (loadedItemList == null || loadedItemList.Length == 0)
             Debug.LogError("Inventory items failed to load from resources");
     }
