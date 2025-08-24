@@ -451,10 +451,14 @@ public class TankController : MonoBehaviour
     public void MoveShrimp(Shrimp shrimp)
     {
         shrimp.tank.shrimpToRemove.Add(shrimp);
-        shrimp.transform.parent = shrimpParent;
-        shrimp.transform.position = GetRandomTankPosition();
-        shrimpToAdd.Add(shrimp);
-        shrimp.ChangeTank(this);
+        Shrimp newShrimp = Instantiate(ShrimpManager.instance.shrimpPrefab).GetComponent<Shrimp>();
+        newShrimp.stats = shrimp.stats;
+        newShrimp.gameObject.name = shrimp.stats.name;
+        newShrimp.ConstructShrimp();
+        newShrimp.transform.parent = shrimpParent;
+        newShrimp.transform.position = GetRandomTankPosition();
+        shrimpToAdd.Add(newShrimp);
+        newShrimp.ChangeTank(this);
 
         CheckMostShrimpInTank();
         PlayerStats.stats.shrimpMoved++;

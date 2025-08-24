@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class TankContentBlock : ContentBlock
 {
     private Shrimp _shrimp;
+    private TankViewScript _tankView;
     [SerializeField]
     private GameObject shrimpView;
 
@@ -13,11 +14,24 @@ public class TankContentBlock : ContentBlock
 
     [SerializeField] private Image primaryColour, secondaryColour;
 
-    public void SetShrimp(Shrimp shrimp)
+    public void SetShrimp(Shrimp shrimp, TankViewScript tankView)
     {
         _shrimp = shrimp;
+        _tankView = tankView;
         primaryColour.color = GeneManager.instance.GetTraitSO(_shrimp.stats.primaryColour.activeGene.ID).colour;
         secondaryColour.color = GeneManager.instance.GetTraitSO(_shrimp.stats.secondaryColour.activeGene.ID).colour;
+    }
+
+    private void Update()
+    {
+        if(Mathf.Abs(_tankView.idealHeat - _shrimp.stats.temperaturePreference) > 15)
+        {
+            GetComponent<Image>().color = Color.red;
+        }
+        else
+        {
+            GetComponent<Image>().color = Color.white;
+        }
     }
 
     public void Pressed()

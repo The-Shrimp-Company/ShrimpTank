@@ -35,6 +35,10 @@ public class TankViewScript : ScreenView
 
     [SerializeField] Image HeaterSwitch;
 
+    [SerializeField] TextMeshProUGUI idealHeatLabel;
+    [SerializeField] TextMeshProUGUI heatWarningLabel;
+    public int idealHeat;
+
     [SerializeField] private Animator contextBox;
     [SerializeField] private Animator upgradeBox;
 
@@ -119,6 +123,8 @@ public class TankViewScript : ScreenView
                 allSelected = true;
             }
         }
+
+
     }
 
     public void ApplyShrimpFilters()
@@ -311,7 +317,7 @@ public class TankViewScript : ScreenView
             {
                 temp.SetText(shrimp.name);
             }
-                temp.SetShrimp(shrimp);
+                temp.SetShrimp(shrimp, this);
         }
 
 
@@ -319,6 +325,22 @@ public class TankViewScript : ScreenView
         {
             tankPop.text = "Tank Population: " + tank.shrimpInTank.Count.ToString();
         }
+
+        idealHeat = 0;
+        foreach(Shrimp shrimp in tank.shrimpInTank)
+        {
+            idealHeat += shrimp.stats.temperaturePreference;
+        }
+        idealHeat /= tank.shrimpInTank.Count;
+        if(tank.shrimpInTank.Find(x => Mathf.Abs(idealHeat - x.stats.temperaturePreference) > 15) != null)
+        {
+            heatWarningLabel.text = "Warning: Too much shrimp variety";
+        }
+        else
+        {
+            heatWarningLabel.text = "";
+        }
+        idealHeatLabel.text = idealHeat.ToString();
     }
 
     public void SetDestinationTank()
