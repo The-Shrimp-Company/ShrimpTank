@@ -18,11 +18,22 @@ public enum ItemTags
     TankDecoration,
 }
 
-public enum FloatingItem
+
+public enum PlacementSurfaces
 {
-    Grounded,
-    Floats,
-    Either,
+    Ground,
+    Shelf,
+    Water,
+    Wall,
+    Ceiling,
+    Air
+}
+
+public enum ItemSize
+{
+    Small,
+    Medium,
+    Large,
 }
 
 [System.Serializable]

@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class Radio : Interactable
 {
+    public static Radio MasterRadio;
+
+    private bool active = false;
+
     [SerializeField] private DiageticScreen screen;
 
     private bool play = true;
@@ -21,10 +25,25 @@ public class Radio : Interactable
     private bool pausedDueToApplicationFocus;
 
 
-    private void Start()
+    private void Awake()
     {
+        if (MasterRadio == null) 
+        {
+            SetupRadio();
+        }
+        else if (MasterRadio != this) 
+        { 
+            active = false; 
+        }
+    }
+
+    private void SetupRadio()
+    {
+        MasterRadio = this;
+        active = true;
+
         source = GetComponent<AudioSource>();
-        foreach(AudioClip clip in clips)
+        foreach (AudioClip clip in clips)
         {
             playList.Enqueue(clip);
             playlistLength++;
@@ -52,23 +71,30 @@ public class Radio : Interactable
 
     void Update()
     {
-        MouseHover();
-        if(!source.isPlaying && play)  // If it should be playing but is not
+        if (active)
         {
-            StartNextSong();
+            MouseHover();
+            if (!source.isPlaying && play)  // If it should be playing but is not
+            {
+                MasterRadio.StartNextSong();
+            }
+        }
+        else if(MasterRadio == null)
+        {
+            SetupRadio();
         }
     }
 
     
     public override void Action()
     {
-        if (source.isPlaying)
+        if (MasterRadio.source.isPlaying)
         {
-            Pause();
+            MasterRadio.Pause();
         }
         else
         {
-            Play();
+            MasterRadio.Play();
         }
 
         PlayerStats.stats.timesRadioToggled++;
@@ -81,7 +107,7 @@ public class Radio : Interactable
     }
 
 
-    private void Play()
+    public void Play()
     {
         if (source)
         {
@@ -92,7 +118,7 @@ public class Radio : Interactable
     }
 
 
-    private void Pause()
+    public void Pause()
     {
         source.Pause();
         play = false;
@@ -100,7 +126,7 @@ public class Radio : Interactable
     }
 
 
-    private void StartNextSong()
+    public void StartNextSong()
     {
         AudioClip toPlay = playList.Dequeue();
         playList.Enqueue(toPlay);
@@ -116,6 +142,7 @@ public class Radio : Interactable
     // Prevents an issue where the game would skip a song anytime the application loses focus
     private void OnApplicationFocus(bool focus)
     {
+        if (!active) return;
         if (focus && pausedDueToApplicationFocus)
         {
             Play();
@@ -125,6 +152,14 @@ public class Radio : Interactable
         {
             Pause();
             pausedDueToApplicationFocus = true;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (active)
+        {
+            MasterRadio = null;
         }
     }
 }

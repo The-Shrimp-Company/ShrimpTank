@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -37,28 +38,46 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (key.isPressed)
         {
-            GameObject target = lookCheck.LookCheck(3);
-
-            if (target != null)
+            if (Store.decorateController.decorating)
             {
-                if (target.GetComponent<TankController>() != null)
-                {
-                    SetTankFocus(target.GetComponent<TankController>());
-                }
-                else if (target.GetComponent<TankSocket>() != null)
-                {
-                    GameObject invenScreen = UIManager.instance.GetCanvas().GetComponent<MainCanvas>().RaiseScreen(inventory);
-                    GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
-                    invenScreen.GetComponentInChildren<InventoryContent>().TankAssignment(target);
+                Store.decorateController.MouseClick(key.isPressed);
+            }
+            else
+            {
+                LayerMask layer = LayerMask.GetMask("RoomDecoration") | LayerMask.GetMask("Decoration") | LayerMask.GetMask("Tanks");
+                GameObject target = lookCheck.LookCheck(3, layer);
 
-                }
-                else if (target.GetComponent<Interactable>() != null)
+                if (target != null)
                 {
-                    target.GetComponent<Interactable>().Action();
+                    if (target.GetComponent<TankController>() != null)
+                    {
+                        SetTankFocus(target.GetComponent<TankController>());
+                    }
+                    else if (target.GetComponent<TankSocket>() != null)
+                    {
+                        GameObject invenScreen = UIManager.instance.GetCanvas().GetComponent<MainCanvas>().RaiseScreen(inventory);
+                        GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+                        invenScreen.GetComponentInChildren<InventoryContent>().TankAssignment(target);
+
+                    }
+                    else if (target.GetComponent<Interactable>() != null)
+                    {
+                        target.GetComponent<Interactable>().Action();
+                    }
                 }
             }
         }
     }
+
+    public void OnPlayerRightClick(InputValue key)
+    {
+        if (key.isPressed)
+        {
+            if (Store.decorateController.decorating)
+                Store.decorateController.StopPlacing();
+        }
+    }
+
 
     public void SetTankFocus(TankController tankController)
     {
@@ -114,10 +133,13 @@ public class PlayerInteraction : MonoBehaviour
     /// </summary>
     public void OnExitView()
     {
-        _tankView.GetComponent<TankController>().StopFocusingTank();
-        Vector3 v3 = _tankView.GetComponent<TankController>().GetCam().transform.position;
-        transform.position = new Vector3(v3.x, transform.position.y, v3.z);
-        _camera.transform.localPosition = Vector3.up / 2;
+        if (_tankView != null)
+        {
+            _tankView.GetComponent<TankController>().StopFocusingTank();
+            Vector3 v3 = _tankView.GetComponent<TankController>().GetCam().transform.position;
+            transform.position = new Vector3(v3.x, transform.position.y, v3.z);
+            _camera.transform.localPosition = Vector3.up / 2;
+        }
         UIManager.instance.ClearScreens();
     }
 

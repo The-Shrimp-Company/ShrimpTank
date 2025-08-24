@@ -28,4 +28,6 @@ public class RoomGridNode : GridNode
     public bool eWall;
     public bool sWall;
     public bool wWall;
+    public bool shelf;
+    public RoomGridNode nodeBelow;
 }
