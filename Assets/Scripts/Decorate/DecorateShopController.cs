@@ -73,6 +73,34 @@ public class DecorateShopController : MonoBehaviour
     }
 
 
+    private void Start()
+    {
+        if (!SaveManager.loadingGameFromFile)
+        {
+            foreach (Decoration d in decorationParent.transform.GetComponentsInChildren<Decoration>())
+            {
+                decorationsInStore.Add(d);
+
+                // Set up tank
+                TankController tank;
+                d.TryGetComponent(out tank);
+                if (tank != null)
+                {
+                    tanksInStore.Add(tank);
+                    Store.SwitchDestinationTank(tank);
+                    tank.tankName = "Tank " + tanksInStore.Count;
+                }
+
+                //SetTransparentDecorations(transparentDecorations);
+                PlayerStats.stats.roomDecorationCount = decorationsInStore.Count;
+                PlayerStats.stats.tankCount = tanksInStore.Count;
+            }
+
+            currentGrid.RebakeGrid();
+        }
+    }
+
+
 
     public void OpenShopInventory()
     {
@@ -689,8 +717,12 @@ public class DecorateShopController : MonoBehaviour
     {
         if (data == null || data.Length == 0) return;
 
-        tanksInStore = new List<TankController>();
+        foreach (Decoration d in decorationParent.transform.GetComponentsInChildren<Decoration>())
+        {
+            Destroy(d.gameObject);
+        }
 
+        tanksInStore = new List<TankController>();
 
         foreach (RoomDecorationSaveData decorationSave in data)
         {
