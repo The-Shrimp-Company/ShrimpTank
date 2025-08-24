@@ -121,10 +121,10 @@ TextureImporter:
       name: Vet_Background
       rect:
         serializedVersion: 2
-        x: 26
-        y: 45
-        width: 3516
-        height: 2488
+        x: 32
+        y: 54
+        width: 3501
+        height: 2475
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 25, y: 20, z: 563, w: 309}

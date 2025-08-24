@@ -121,10 +121,10 @@ TextureImporter:
       name: email_background
       rect:
         serializedVersion: 2
-        x: 24
-        y: 47
-        width: 3516
-        height: 2488
+        x: 33
+        y: 56
+        width: 3499
+        height: 2471
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

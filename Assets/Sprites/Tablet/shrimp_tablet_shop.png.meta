@@ -163,10 +163,10 @@ TextureImporter:
       name: Shop_Background
       rect:
         serializedVersion: 2
-        x: 24
-        y: 47
-        width: 3516
-        height: 2488
+        x: 31
+        y: 54
+        width: 3503
+        height: 2475
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
