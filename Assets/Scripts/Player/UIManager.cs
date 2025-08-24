@@ -128,7 +128,8 @@ public class UIManager : MonoBehaviour
             {
                 ScreenView oldScreen = _screenStack.Pop();
                 
-                oldScreen?.Close(false);
+                if (oldScreen != null)
+                    oldScreen?.Close(false);
             }
             OpenScreen(newScreen);
         }

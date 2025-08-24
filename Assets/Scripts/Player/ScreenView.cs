@@ -36,7 +36,8 @@ public class ScreenView : MonoBehaviour
 
     public virtual void Close()
     {
-        Destroy(gameObject);
+        if (gameObject != null)
+            Destroy(gameObject);
     }
 
     public virtual void Exit()
