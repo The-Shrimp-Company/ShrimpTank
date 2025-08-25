@@ -349,14 +349,16 @@ public class TankController : MonoBehaviour
         idealHnc = 0;
         foreach(Shrimp shrimp in shrimpInTank)
         {
-            
+            idealHnc += shrimp.stats.ammoniaPreference;
         }
+        idealHnc /= shrimpInTank.Count;
 
         idealPh = 0;
         foreach(Shrimp shrimp in shrimpInTank)
         {
-
+            idealPh += shrimp.stats.PhPreference;
         }
+        idealPh /= shrimpInTank.Count;
 
         idealSalt = 0;
         foreach(Shrimp shrimp in shrimpInTank)

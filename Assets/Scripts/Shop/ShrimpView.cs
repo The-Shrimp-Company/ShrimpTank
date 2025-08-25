@@ -26,6 +26,10 @@ public class ShrimpView : ScreenView
     [SerializeField] private TextMeshProUGUI tempMarginLabel;
     [SerializeField] private TextMeshProUGUI idealSaltLabel;
     [SerializeField] private TextMeshProUGUI saltMarginLabel;
+    [SerializeField] private TextMeshProUGUI idealPhLabel;
+    [SerializeField] private TextMeshProUGUI phMarginLabel;
+    [SerializeField] private TextMeshProUGUI idealHnoLabel;
+    [SerializeField] private TextMeshProUGUI hnoMarginLabel;
 
 
     [Header("Menu Open/Close")]
@@ -55,6 +59,8 @@ public class ShrimpView : ScreenView
             hunger.value = _shrimp.stats.hunger;
             tempMarginLabel.text = Mathf.Round(_shrimp.tank.waterTemperature - _shrimp.stats.temperaturePreference).ToString();
             saltMarginLabel.text = Mathf.Round(_shrimp.tank.waterSalt - _shrimp.stats.salineLevel).ToString();
+            phMarginLabel.text = Mathf.Round(_shrimp.tank.waterPh - _shrimp.stats.PhPreference).ToString();
+            hnoMarginLabel.text = Mathf.Round(_shrimp.tank.waterAmmonium - _shrimp.stats.ammoniaPreference).ToString();
         }
     }
 
@@ -123,6 +129,8 @@ public class ShrimpView : ScreenView
         hunger.value = _shrimp.stats.hunger;
         idealTempLabel.text = _shrimp.stats.temperaturePreference.ToString();
         idealSaltLabel.text = _shrimp.stats.salineLevel.ToString();
+        idealHnoLabel.text = _shrimp.stats.ammoniaPreference.ToString();
+        idealPhLabel.text = _shrimp.stats.PhPreference.ToString();
         _shrimp.FocusShrimp();
         _shrimp.gameObject.layer = LayerMask.NameToLayer("SelectedShrimp");
         player.GetComponent<PlayerUIController>().SetShrimpCam(_shrimp.GetComponentInChildren<ShrimpCam>());
