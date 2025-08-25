@@ -24,5 +24,5 @@ MonoBehaviour:
   gridSnapOffset: {x: 0, y: -0.5, z: 0}
   rotationAxis: {x: 0, y: 1, z: 0}
   placementSurfaces: 00000000
-  shelf: 1
+  shelf: 0
   water: 0

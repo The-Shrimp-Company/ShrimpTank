@@ -33,6 +33,8 @@ public enum ItemTags
     Small,
     Medium,
     Large,
+
+    Lighting,
 }
 
 

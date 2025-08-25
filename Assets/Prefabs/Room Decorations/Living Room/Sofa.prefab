@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5727117889293280713}
   - component: {fileID: 6489618124274318135}
   - component: {fileID: 7518315037941131615}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Sofa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4069833515571043917}
   - component: {fileID: 7694010757588210994}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Sofa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,5 +153,4 @@ MonoBehaviour:
   decorationSO: {fileID: 11400000, guid: e7bf45550e62a384cbc28e4a873eb8ec, type: 2}
   locked: 0
   floating: 0
-  shelfSlots:
-  - {fileID: 0}
+  shelfSlots: []
