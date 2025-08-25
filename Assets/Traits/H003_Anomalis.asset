@@ -22,7 +22,7 @@ MonoBehaviour:
   - type: 1
     effect: 20
   - type: 2
-    effect: -40
+    effect: -20
   - type: 3
     effect: 20
   - type: 4

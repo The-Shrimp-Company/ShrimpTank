@@ -36,6 +36,8 @@ public class TankContentBlock : ContentBlock
     {
         UpdateArrow(_shrimp.tank.waterTemperature, _shrimp.stats.temperaturePreference, tempArrow);
         UpdateArrow(_shrimp.tank.waterSalt, _shrimp.stats.salineLevel, saltArrow);
+        UpdateArrow(_shrimp.tank.waterPh, _shrimp.stats.PhPreference, pHArrow);
+        UpdateArrow(_shrimp.tank.waterAmmonium, _shrimp.stats.ammoniaPreference, HNOArrow);
         
     }
 
