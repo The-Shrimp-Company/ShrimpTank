@@ -30,6 +30,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 81e75e10c285eb342bba3be141a6cbae, type: 2}
   - {fileID: 11400000, guid: 2d7e3057c41e7bb44b36142614494e13, type: 2}
   - {fileID: 11400000, guid: 96fb4af4d67a281429a2a08cc8bec366, type: 2}
+  - {fileID: 11400000, guid: e7bf45550e62a384cbc28e4a873eb8ec, type: 2}
   tankDecorations:
   - {fileID: 11400000, guid: 0b95eaa2416da3a4eaccb0a955cddde0, type: 2}
   - {fileID: 11400000, guid: 6315d5f2c9daa3c4f8410e142b10b72d, type: 2}
