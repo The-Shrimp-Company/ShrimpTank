@@ -36,14 +36,14 @@ public class TankContentBlock : ContentBlock
     {
         UpdateArrow(_shrimp.tank.waterTemperature, _shrimp.stats.temperaturePreference, tempArrow);
         UpdateArrow(_shrimp.tank.waterSalt, _shrimp.stats.salineLevel, saltArrow);
-        UpdateArrow(_shrimp.tank.waterPh, _shrimp.stats.PhPreference, pHArrow);
+        UpdateArrow(_shrimp.tank.waterPh, _shrimp.stats.PhPreference, pHArrow, 2);
         UpdateArrow(_shrimp.tank.waterAmmonium, _shrimp.stats.ammoniaPreference, HNOArrow);
         
     }
 
-    private void UpdateArrow(float currentStat, float idealStat, Image statArrow)
+    private void UpdateArrow(float currentStat, float idealStat, Image statArrow, int MaxAllowableDifference = 10)
     {
-        if(Mathf.Abs(currentStat - idealStat) > 10)
+        if(Mathf.Abs(currentStat - idealStat) > MaxAllowableDifference)
         {
             statArrow.sprite = arrow;
             statArrow.transform.localScale = new Vector3(1, -Mathf.Sign(currentStat - idealStat), 1);

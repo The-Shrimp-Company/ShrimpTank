@@ -24,6 +24,12 @@ public class UpgradePanel : MonoBehaviour
     [Header("Salt")]
     [SerializeField] private TextMeshProUGUI saltLabel;
 
+    [Header("Ammonium")]
+    [SerializeField] private TextMeshProUGUI ammoniumLabel;
+
+    [Header("pH")]
+    [SerializeField] private TextMeshProUGUI phLabel;
+
     [Header("Decor")]
     [SerializeField] private Button DecorButton;
 
@@ -96,6 +102,8 @@ public class UpgradePanel : MonoBehaviour
                 arrowTimer++;
             }
             saltLabel.text = "Salt Level: " + ((int)tank.waterSalt).ToString();
+            phLabel.text = "pH Level: " + ((int)tank.waterPh).ToString();
+            ammoniumLabel.text = "Ammonium Nitrate Level: " + ((int)tank.waterAmmonium).ToString();
         }
     }
 
