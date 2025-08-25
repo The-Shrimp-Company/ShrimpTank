@@ -6784,7 +6784,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c4eaecdd1f45f4f849fe917992fe5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shelves: {fileID: 0}
   locksPlayerMovement: 1
   leftPanel: {fileID: 3343520172320402500}
   _content: {fileID: 4688405094533237825}
@@ -6800,6 +6799,12 @@ MonoBehaviour:
   selectedItemSurfacesText: {fileID: 8196927428141947130}
   infoFadeSpeed: 0.5
   tabs:
+  - {fileID: 1689680840436092989}
+  - {fileID: 8940341756369597693}
+  - {fileID: 530254975219429422}
+  - {fileID: 3444681737070325915}
+  - {fileID: 8362088063416225150}
+  tabFilters:
     _serializedList:
     - Key: {fileID: 1689680840436092989}
       Value: {fileID: 996238728001181840}
@@ -6811,7 +6816,6 @@ MonoBehaviour:
       Value: {fileID: 5454009701530954628}
     - Key: {fileID: 8362088063416225150}
       Value: {fileID: 5087893436852963577}
-  startingTab: {fileID: 1689680840436092989}
   tabDeselectedColour: {r: 1, g: 1, b: 1, a: 1}
   tabSelectedColour: {r: 0.939394, g: 0.75, b: 1, a: 1}
   selectedItemType: {fileID: 0}

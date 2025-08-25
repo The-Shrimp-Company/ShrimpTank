@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class StorageBox : Interactable
 {
-
+    [SerializeField] List<InventoryTabs> tabsToShow = new List<InventoryTabs>();
 
     public override void Action()
     {
-        Store.decorateController.OpenShopInventory();
+        Store.decorateController.OpenShopInventory(tabsToShow);
         base.Action();
     }
 }

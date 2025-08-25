@@ -237,7 +237,7 @@ public class DebugController : MonoBehaviour
 
         EDIT_STORE_DECORATIONS = new DebugCommand("edit_store_decorations", "Open the decoration edit screen", "edit_store_decorations", () =>
         {
-            Store.decorateController.OpenShopInventory();
+            Store.decorateController.OpenShopInventory(null);
         });
 
         INCREASE_STORE_WIDTH = new DebugCommand<int>("increase_store_width", "Increases the width of the store by this amount", "increase_store_width", (x) =>

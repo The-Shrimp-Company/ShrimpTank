@@ -102,12 +102,13 @@ public class DecorateShopController : MonoBehaviour
 
 
 
-    public void OpenShopInventory()
+    public void OpenShopInventory(List<InventoryTabs> tabs)
     {
         if (decorating || inventoryScreen != null) return;
 
         GameObject newMenu = GameObject.Instantiate(shopInventoryPrefab, transform);
         UIManager.instance.OpenScreen(newMenu.GetComponent<ScreenView>());
+        newMenu.GetComponent<ShopInventory>().OpenInventory(tabs);
         newMenu.GetComponent<ShopInventory>().UpdateContent();
         newMenu.GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
         newMenu.GetComponent<Canvas>().planeDistance = 1;

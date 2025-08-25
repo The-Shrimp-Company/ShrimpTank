@@ -10,6 +10,15 @@ using UnityEditor;
 using UnityEngine.Windows;
 using AYellowpaper.SerializedCollections;
 
+public enum InventoryTabs
+{
+    All,
+    Decorations,
+    Shrimp,
+    Supplies,
+    Tools
+}
+
 public class ShopInventory : ScreenView
 {
     private DecorateShopController shop;
@@ -31,8 +40,8 @@ public class ShopInventory : ScreenView
 
     [Header("Filters")]
     [SerializedDictionary("Button", "Filters")]
-    public SerializedDictionary<Button, ShopInventoryFilter> tabs;
-    [SerializeField] Button startingTab;
+    [SerializeField] List<Button> tabs;
+    public SerializedDictionary<Button, ShopInventoryFilter> tabFilters;
     private Button currentTab;
     public Color tabDeselectedColour, tabSelectedColour;
 
@@ -50,11 +59,26 @@ public class ShopInventory : ScreenView
         selectedItemType = null;
         selectedItemGameObject = null;
         infoCanvasGroup.alpha = 0;
-        ChangeSelectedItem(null, null);
-        ChangeTab(startingTab);
-        StartCoroutine(OpenTab(switchTab));
-        UpdateContent();
         base.Open(switchTab);
+    }
+
+
+    public void OpenInventory(List<InventoryTabs> t)
+    {
+        int startingTab = 0;
+        if (t != null && t.Count != 0)
+        {
+            for (int i = 0; i < tabs.Count; i++)
+            {
+                tabs[i].gameObject.SetActive(t.Contains((InventoryTabs)i));
+                if (startingTab == 0 && t.Contains((InventoryTabs)i)) startingTab = i;
+            }
+        }
+
+        ChangeSelectedItem(null, null);
+        ChangeTab(tabs[startingTab]);
+        StartCoroutine(OpenTab(false));
+        UpdateContent();
     }
 
     private void OnEnable()
@@ -77,10 +101,10 @@ public class ShopInventory : ScreenView
         List<Item> items = Inventory.GetInventory(false, true);
 
         // Filter items here
-        if (currentTab != null && tabs[currentTab] != null)
+        if (currentTab != null && tabFilters[currentTab] != null)
         {
-            items = Inventory.FilterItemsWithTags(items, tabs[currentTab].GetTabFilters());
-            items = Inventory.FilterItemsWithTags(items, tabs[currentTab].GetActiveSubFilters());
+            items = Inventory.FilterItemsWithTags(items, tabFilters[currentTab].GetTabFilters());
+            items = Inventory.FilterItemsWithTags(items, tabFilters[currentTab].GetActiveSubFilters());
         }
 
         foreach (Item i in items)
@@ -169,15 +193,15 @@ public class ShopInventory : ScreenView
 
     public void ChangeTab(Button b)
     {
-        foreach(Button x in tabs.Keys)
+        foreach(Button x in tabFilters.Keys)
         {
             x.GetComponent<Image>().color = tabDeselectedColour;
-            tabs[x].gameObject.SetActive(false);
+            tabFilters[x].gameObject.SetActive(false);
         }
 
         b.GetComponent<Image>().color = tabSelectedColour;
-        tabs[b].gameObject.SetActive(true);
-        tabs[b].DeselectAllFilters();
+        tabFilters[b].gameObject.SetActive(true);
+        tabFilters[b].DeselectAllFilters();
         currentTab = b;
 
         ChangeSelectedItem(null, null);
