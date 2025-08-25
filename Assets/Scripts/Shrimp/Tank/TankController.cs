@@ -316,28 +316,14 @@ public class TankController : MonoBehaviour
         waterTemperature -= 0.01f * updateTimer;
 
         waterSalt -= 0.01f * updateTimer * shrimpInTank.Count;
+        
+        waterAmmonium -= 0.01f * updateTimer * shrimpInTank.Count * UnityEngine.Random.value;
 
 
 
         upgradeController.UpdateUpgrades(updateTimer);
 
-        /*
-        idealHeat = 0;
-        foreach(Shrimp shrimp in tank.shrimpInTank)
-        {
-            idealHeat += shrimp.stats.temperaturePreference;
-        }
-        idealHeat /= tank.shrimpInTank.Count;
-        if(tank.shrimpInTank.Find(x => Mathf.Abs(idealHeat - x.stats.temperaturePreference) > 15) != null)
-        {
-            heatWarningLabel.text = "Warning: Too much shrimp variety";
-        }
-        else
-        {
-            heatWarningLabel.text = "";
-        }
-        idealHeatLabel.text = idealHeat.ToString();
-        */
+        
 
         idealTemp = 0;
         foreach(Shrimp shrimp in shrimpInTank)
@@ -367,32 +353,26 @@ public class TankController : MonoBehaviour
         }
         idealSalt /= shrimpInTank.Count;
 
+        // Sending stat alarms
+        CheckStatAlarm(waterTemperature, idealTemp, 10, "Your tank is the wrong temperature", AlarmTypes.Temp);
+        CheckStatAlarm(waterSalt, idealSalt, 10, "Your tank has the wrong salt level", AlarmTypes.Salt);
+        CheckStatAlarm(waterAmmonium, idealHnc, 10, "Your tank has the wrong Ammonium Nitrate level", AlarmTypes.Hnc);
+        CheckStatAlarm(waterPh, idealPh, 2, "Your tank has the wrong pH level", AlarmTypes.ph);
+    }
 
-        // Sending the player alarms
-        if(Mathf.Abs(waterTemperature - idealTemp) > 10)
+    private void CheckStatAlarm(float currentValue, float targetValue, float maximumDifference, string AlarmMessage, AlarmTypes alarmType)
+    {
+        if (Mathf.Abs(currentValue - targetValue) >= maximumDifference)
         {
-            Email email = CreateOrFindAlarm(AlarmTypes.Temp);
-            email.mainText = "Your tank is the wrong temp";
+            Email email = CreateOrFindAlarm(alarmType);
+            email.mainText = AlarmMessage;
         }
         else
         {
-            Email email = FindAlarm(AlarmTypes.Temp);
-            if(email != null)
+            Email email = FindAlarm(alarmType);
+            if (email != null)
             {
-                EmailManager.instance.emails.Remove(email);
-            }
-        }
-
-        if(Mathf.Abs(waterSalt - idealSalt) > 10)
-        {
-            Email email = CreateOrFindAlarm(AlarmTypes.Salt);
-            email.mainText = "Your tank has the wrong salt level";
-        }
-        else
-        {
-            Email email = FindAlarm(AlarmTypes.Salt);
-            if(email != null)
-            {
+                AlarmIds.Remove(email.ID);
                 EmailManager.instance.emails.Remove(email);
             }
         }

@@ -256,6 +256,16 @@ public class TankViewScript : ScreenView
         tank.waterSalt += 10;
     }
 
+    public void ChangePh(int dir)
+    {
+        tank.waterPh += dir;
+    }
+
+    public void AddAmmonium()
+    {
+        tank.waterAmmonium += 10;
+    }
+
     public void SelectAll()
     {
         if (allSelected)
