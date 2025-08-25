@@ -35,10 +35,20 @@ public class TankViewScript : ScreenView
 
     [SerializeField] Image HeaterSwitch;
 
+    [Header("Status Labels")]
     [SerializeField] TextMeshProUGUI idealHeatLabel;
     [SerializeField] TextMeshProUGUI heatWarningLabel;
-    public int idealHeat;
+    [SerializeField] TextMeshProUGUI idealHNCLabel;
+    [SerializeField] TextMeshProUGUI hncWarningLabel;
+    [SerializeField] TextMeshProUGUI idealpHLabel;
+    [SerializeField] TextMeshProUGUI pHWarningLabel;
+    [SerializeField] TextMeshProUGUI idealSaltLabel;
+    [SerializeField] TextMeshProUGUI saltWarningLabel;
 
+
+    [HideInInspector] public int idealHeat;
+
+    [Header("Right Side")]
     [SerializeField] private Animator contextBox;
     [SerializeField] private Animator upgradeBox;
 
@@ -241,6 +251,11 @@ public class TankViewScript : ScreenView
         screen.GetComponentInChildren<InventoryContent>().UpgradeAssignment(tank.upgradeController, UpgradeTypes.Decorations, this, screen.gameObject);
     }
 
+    public void AddSalt()
+    {
+        tank.waterSalt += 10;
+    }
+
     public void SelectAll()
     {
         if (allSelected)
@@ -335,6 +350,15 @@ public class TankViewScript : ScreenView
             heatWarningLabel.text = "";
         }
         idealHeatLabel.text = idealHeat.ToString();
+        if(tank.shrimpInTank.Find(x => Mathf.Abs(tank.idealSalt - x.stats.salineLevel) > 10) != null)
+        {
+            saltWarningLabel.text = "Warning: Too much shrimp variety";
+        }
+        else
+        {
+            saltWarningLabel.text = "";
+        }
+        idealSaltLabel.text = ((int)tank.idealSalt).ToString();
     }
 
     public void SetDestinationTank()

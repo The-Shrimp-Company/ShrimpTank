@@ -64,6 +64,8 @@ namespace SaveLoadSystem
         public float waterTemp;
         public float waterQuality;
         public float waterSalt;
+        public float waterHNC;
+        public float waterPH;
         public FoodSaveData[] shrimpFood;
     }
 

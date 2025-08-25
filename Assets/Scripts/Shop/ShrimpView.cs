@@ -24,6 +24,8 @@ public class ShrimpView : ScreenView
     [Header("Status Bar")]
     [SerializeField] private TextMeshProUGUI idealTempLabel;
     [SerializeField] private TextMeshProUGUI tempMarginLabel;
+    [SerializeField] private TextMeshProUGUI idealSaltLabel;
+    [SerializeField] private TextMeshProUGUI saltMarginLabel;
 
 
     [Header("Menu Open/Close")]
@@ -52,6 +54,7 @@ public class ShrimpView : ScreenView
         {
             hunger.value = _shrimp.stats.hunger;
             tempMarginLabel.text = Mathf.Round(_shrimp.tank.waterTemperature - _shrimp.stats.temperaturePreference).ToString();
+            saltMarginLabel.text = Mathf.Round(_shrimp.tank.waterSalt - _shrimp.stats.salineLevel).ToString();
         }
     }
 
@@ -119,6 +122,7 @@ public class ShrimpView : ScreenView
         secondaryColour.color = GeneManager.instance.GetTraitSO(_shrimp.stats.secondaryColour.activeGene.ID).colour;
         hunger.value = _shrimp.stats.hunger;
         idealTempLabel.text = _shrimp.stats.temperaturePreference.ToString();
+        idealSaltLabel.text = _shrimp.stats.salineLevel.ToString();
         _shrimp.FocusShrimp();
         _shrimp.gameObject.layer = LayerMask.NameToLayer("SelectedShrimp");
         player.GetComponent<PlayerUIController>().SetShrimpCam(_shrimp.GetComponentInChildren<ShrimpCam>());

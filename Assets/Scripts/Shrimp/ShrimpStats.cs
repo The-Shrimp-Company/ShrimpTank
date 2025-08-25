@@ -19,6 +19,8 @@ public struct ShrimpStats
     public int metabolism; // Value from 0-100
     public int filtration; // Value from 0-100
     public int temperaturePreference; // Value from 0-100, starting at 50
+    public int ammoniaPreference; // Value from 0 - 100, starting 50
+    public int PhPreference; // Value from 1 - 14, starting at 7
     
           
     public int geneticSize;

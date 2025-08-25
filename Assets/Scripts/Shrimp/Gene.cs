@@ -99,7 +99,9 @@ public enum ModifierEffects
     immunity,
     metabolism,
     filtration,
-    temperature
+    temperature,
+    ammonia,
+    ph
 }
 
 

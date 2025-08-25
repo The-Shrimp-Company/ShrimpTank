@@ -773,6 +773,8 @@ public class DecorateShopController : MonoBehaviour
         tank.waterTemperature = data.waterTemp;
         tank.waterQuality = data.waterQuality;
         tank.waterSalt = data.waterSalt;
+        tank.waterAmmonium = data.waterHNC;
+        tank.waterPh = data.waterPH;
         foreach (FoodSaveData foodSave in data.shrimpFood)
         {
             GameObject newFood = Instantiate(((FoodItemSO)Inventory.GetSOForItem(foodSave.thisItem)).foodPrefab, foodSave.position, Quaternion.identity);

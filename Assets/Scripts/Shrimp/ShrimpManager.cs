@@ -87,6 +87,8 @@ public class ShrimpManager : MonoBehaviour
         s.metabolism = geneManager.IntGene(InheritanceType.FlatAverage, 100, parentA.metabolism, parentB.metabolism, true);
         s.filtration = 0;
         s.temperaturePreference = 50;
+        s.PhPreference = 7;
+        s.ammoniaPreference = 50;
 
         s.primaryColour = geneManager.TraitGene(geneManager.colourInheritance, 0, parentA.primaryColour, parentB.primaryColour, geneManager.colourCanMutate);
         s.secondaryColour = geneManager.TraitGene(geneManager.colourInheritance, 0, parentA.secondaryColour, parentB.secondaryColour, geneManager.colourCanMutate);
@@ -133,6 +135,8 @@ public class ShrimpManager : MonoBehaviour
         s.metabolism = geneManager.IntGene(InheritanceType.FullRandom, 30, 0, 0, false);
         s.filtration = 0;
         s.temperaturePreference = 50;
+        s.PhPreference = 7;
+        s.ammoniaPreference = 50;
 
         Trait t = new Trait();
         t.activeGene.ID = "C";
@@ -186,6 +190,8 @@ public class ShrimpManager : MonoBehaviour
         s.metabolism = geneManager.IntGene(InheritanceType.FullRandom, 30, 0, 0, false);
         s.filtration = 0;
         s.temperaturePreference = 50;
+        s.PhPreference = 7;
+        s.ammoniaPreference = 50;
 
         Trait t = new Trait();
         t.activeGene.ID = "C";
@@ -237,6 +243,8 @@ public class ShrimpManager : MonoBehaviour
         s.metabolism = geneManager.IntGene(InheritanceType.FullRandom, 30, 0, 0, false);
         s.filtration = 0;
         s.temperaturePreference = 50;
+        s.PhPreference = 7;
+        s.ammoniaPreference = 50;
 
         Trait t = new Trait();
         t.activeGene.ID = "C";

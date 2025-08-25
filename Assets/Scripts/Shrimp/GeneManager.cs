@@ -733,6 +733,16 @@ public class GeneManager : MonoBehaviour
                             s.temperaturePreference = Mathf.Clamp(s.temperaturePreference + m.effect, 0, 100);
                             break;
                         }
+                    case ModifierEffects.ammonia:
+                        {
+                            s.ammoniaPreference = Mathf.Clamp(s.temperaturePreference + m.effect, 0, 100);
+                            break;
+                        }
+                    case ModifierEffects.ph:
+                        {
+                            s.PhPreference = Mathf.Clamp(s.PhPreference + m.effect, 0, 14);
+                            break;
+                        }
                 }
             }
         }

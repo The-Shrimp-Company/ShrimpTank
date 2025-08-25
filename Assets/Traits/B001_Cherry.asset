@@ -31,6 +31,10 @@ MonoBehaviour:
     effect: 10
   - type: 6
     effect: 5
+  - type: 7
+    effect: -5
+  - type: 8
+    effect: 1
   type: 2
   colour: {r: 1, g: 1, b: 1, a: 1}
   deadColour: {r: 1, g: 1, b: 1, a: 1}

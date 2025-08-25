@@ -17,7 +17,9 @@ public class TankController : MonoBehaviour
         Temp,
         Quality,
         Food,
-        Salt
+        Salt,
+        Hnc,
+        ph
     }
 
 
@@ -60,8 +62,14 @@ public class TankController : MonoBehaviour
     [SerializeField][Range(0,50)] float naturalTempuratureVariation = 25;
 
     [HideInInspector] public float waterSalt = 50;
+    [HideInInspector] public float waterAmmonium = 50;
+    [HideInInspector] public float waterPh = 7;
 
     [HideInInspector] public float idealTemp = 0;
+    [HideInInspector] public float idealSalt = 0;
+    [HideInInspector] public float idealHnc = 0;
+    [HideInInspector] public float idealPh = 0;
+
 
     [Header("Upgrades")]
     [HideInInspector] public TankUpgradeController upgradeController;
@@ -195,7 +203,7 @@ public class TankController : MonoBehaviour
             }
         }
 
-        waterTemperature -= 0.01f * Time.deltaTime;
+        
 
         // Food Spawning
         autoSpawnFoodTimer += Time.deltaTime;
@@ -305,20 +313,9 @@ public class TankController : MonoBehaviour
 
 
         // Water Temperature
-        if (!upgradeController.CheckForUpgrade(UpgradeTypes.Heater) || 
-            upgradeController.GetUpgrade(UpgradeTypes.Heater).upgrade.thermometer == Thermometer.ThermometerOnly)
-        {
-            tempuratureRisingTimer -= updateTimer;
-            if (tempuratureRisingTimer <= 0)
-            {
-                tempuratureRisingTimer = UnityEngine.Random.Range(10, 60);
-                tempuratureRisingTarget = UnityEngine.Random.Range(50 - naturalTempuratureVariation, 50 + naturalTempuratureVariation);
-            }
-            if (waterTemperature < tempuratureRisingTarget)
-                waterTemperature = Mathf.Clamp(waterTemperature + ((tempuratureChangeSpeed / 10) * updateTimer), 0, tempuratureRisingTarget);
-            else if (waterTemperature > tempuratureRisingTarget)
-                waterTemperature = Mathf.Clamp(waterTemperature - ((tempuratureChangeSpeed / 10) * updateTimer), tempuratureRisingTarget, 100);
-        }
+        waterTemperature -= 0.01f * updateTimer;
+
+        waterSalt -= 0.01f * updateTimer * shrimpInTank.Count;
 
 
 
@@ -349,15 +346,49 @@ public class TankController : MonoBehaviour
         }
         idealTemp /= shrimpInTank.Count;
 
+        idealHnc = 0;
+        foreach(Shrimp shrimp in shrimpInTank)
+        {
+            
+        }
+
+        idealPh = 0;
+        foreach(Shrimp shrimp in shrimpInTank)
+        {
+
+        }
+
+        idealSalt = 0;
+        foreach(Shrimp shrimp in shrimpInTank)
+        {
+            idealSalt += shrimp.stats.salineLevel;
+        }
+        idealSalt /= shrimpInTank.Count;
+
 
         // Sending the player alarms
         if(Mathf.Abs(waterTemperature - idealTemp) > 10)
         {
             Email email = CreateOrFindAlarm(AlarmTypes.Temp);
             email.mainText = "Your tank is the wrong temp";
-        }else
+        }
+        else
         {
             Email email = FindAlarm(AlarmTypes.Temp);
+            if(email != null)
+            {
+                EmailManager.instance.emails.Remove(email);
+            }
+        }
+
+        if(Mathf.Abs(waterSalt - idealSalt) > 10)
+        {
+            Email email = CreateOrFindAlarm(AlarmTypes.Salt);
+            email.mainText = "Your tank has the wrong salt level";
+        }
+        else
+        {
+            Email email = FindAlarm(AlarmTypes.Salt);
             if(email != null)
             {
                 EmailManager.instance.emails.Remove(email);

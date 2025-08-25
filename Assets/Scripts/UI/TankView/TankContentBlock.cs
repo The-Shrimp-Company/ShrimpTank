@@ -12,7 +12,17 @@ public class TankContentBlock : ContentBlock
 
     public Button main, checkbutton;
 
-    [SerializeField] private Image primaryColour, secondaryColour;
+    [Header("Status Bar")]
+    public Image tempArrow;
+    public Image HNOArrow;
+    public Image pHArrow;
+    public Image saltArrow;
+    public Sprite arrow;
+    public Sprite check;
+
+    [Header("Shrimp Colours")]
+    [SerializeField] private Image primaryColour;
+    [SerializeField] private Image secondaryColour;
 
     public void SetShrimp(Shrimp shrimp, TankViewScript tankView)
     {
@@ -24,13 +34,22 @@ public class TankContentBlock : ContentBlock
 
     private void Update()
     {
-        if(Mathf.Abs(_tankView.idealHeat - _shrimp.stats.temperaturePreference) > 10)
+        UpdateArrow(_shrimp.tank.waterTemperature, _shrimp.stats.temperaturePreference, tempArrow);
+        UpdateArrow(_shrimp.tank.waterSalt, _shrimp.stats.salineLevel, saltArrow);
+        
+    }
+
+    private void UpdateArrow(float currentStat, float idealStat, Image statArrow)
+    {
+        if(Mathf.Abs(currentStat - idealStat) > 10)
         {
-            GetComponent<Image>().color = Color.red;
+            statArrow.sprite = arrow;
+            statArrow.transform.localScale = new Vector3(1, -Mathf.Sign(currentStat - idealStat), 1);
         }
         else
         {
-            GetComponent<Image>().color = Color.white;
+            statArrow.sprite = check;
+            statArrow.transform.localScale = new Vector3(1, 1, 1);
         }
     }
 

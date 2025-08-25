@@ -152,6 +152,8 @@ public class SaveController : MonoBehaviour
                 tankSave.waterTemp = t.waterTemperature;
                 tankSave.waterQuality = t.waterQuality;
                 tankSave.waterSalt = t.waterSalt;
+                tankSave.waterPH = t.waterPh;
+                tankSave.waterHNC = t.waterAmmonium;
 
 
                 // Food

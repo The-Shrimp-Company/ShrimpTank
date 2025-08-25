@@ -21,6 +21,9 @@ public class UpgradePanel : MonoBehaviour
     [SerializeField] private Button filterButton;
     [SerializeField] private Button filterRepair;
 
+    [Header("Salt")]
+    [SerializeField] private TextMeshProUGUI saltLabel;
+
     [Header("Decor")]
     [SerializeField] private Button DecorButton;
 
@@ -75,7 +78,7 @@ public class UpgradePanel : MonoBehaviour
         if (tank != null)
         {
             currentTemp.text = Math.Round(tank.waterTemperature, 1).ToString();
-            if(arrowTimer > 10)
+            if(arrowTimer > 20)
             {
                 arrowTimer = 0;
                 if (MathF.Abs(tank.waterTemperature - prevTemp) < 0.0001f)
@@ -92,6 +95,7 @@ public class UpgradePanel : MonoBehaviour
             {
                 arrowTimer++;
             }
+            saltLabel.text = "Salt Level: " + ((int)tank.waterSalt).ToString();
         }
     }
 
