@@ -56,7 +56,7 @@ public class ShrimpView : ScreenView
     {
         if (_shrimp != null)
         {
-            hunger.value = _shrimp.stats.hunger;
+            //hunger.value = _shrimp.stats.hunger;
             tempMarginLabel.text = Mathf.Round(_shrimp.tank.waterTemperature - _shrimp.stats.temperaturePreference).ToString();
             saltMarginLabel.text = Mathf.Round(_shrimp.tank.waterSalt - _shrimp.stats.salineLevel).ToString();
             phMarginLabel.text = Mathf.Round(_shrimp.tank.waterPh - _shrimp.stats.PhPreference).ToString();
@@ -126,7 +126,7 @@ public class ShrimpView : ScreenView
         tailFan.text = "Tail Fan: " + GeneManager.instance.GetTraitSO(_shrimp.stats.tailFan.activeGene.ID).set;
         primaryColour.color = GeneManager.instance.GetTraitSO(_shrimp.stats.primaryColour.activeGene.ID).colour;
         secondaryColour.color = GeneManager.instance.GetTraitSO(_shrimp.stats.secondaryColour.activeGene.ID).colour;
-        hunger.value = _shrimp.stats.hunger;
+        //hunger.value = _shrimp.stats.hunger;
         idealTempLabel.text = _shrimp.stats.temperaturePreference.ToString();
         idealSaltLabel.text = _shrimp.stats.salineLevel.ToString();
         idealHnoLabel.text = _shrimp.stats.ammoniaPreference.ToString();

@@ -132,6 +132,15 @@ public class Shrimp : MonoBehaviour
         stats.hunger = Mathf.Clamp(stats.hunger - ((hungerLossSpeed * ((stats.metabolism / 50) + 1)) * elapsedTime), 0, 100);
         
 
+        // Check if the shrimp should die
+        if(Mathf.Abs(tank.waterAmmonium - stats.ammoniaPreference) > 10 &&
+            Mathf.Abs(tank.waterSalt - stats.salineLevel) > 10 &&
+            Mathf.Abs(tank.waterPh - stats.PhPreference) > 2 &&
+            Mathf.Abs(tank.waterTemperature - stats.temperaturePreference) > 10)
+        {
+            KillShrimp();
+        }
+
         // Try to add an activity if we don't have enough
         TryAddActivity();  
     }

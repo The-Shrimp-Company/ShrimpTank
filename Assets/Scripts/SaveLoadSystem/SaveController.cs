@@ -155,6 +155,7 @@ public class SaveController : MonoBehaviour
                 tankSave.waterSalt = t.waterSalt;
                 tankSave.waterPH = t.waterPh;
                 tankSave.waterHNC = t.waterAmmonium;
+                tankSave.alarmIds = t.AlarmIds.ToArray();
 
 
                 // Food

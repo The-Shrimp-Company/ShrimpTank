@@ -58,6 +58,7 @@ namespace SaveLoadSystem
         public UpgradeState upgradeState;
         public string tankName;
         public string tankId;
+        public string[] alarmIds;
         public bool destinationTank;
         public bool openTank;
         public float openTankPrice;

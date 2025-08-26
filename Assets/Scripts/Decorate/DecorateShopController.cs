@@ -4,6 +4,7 @@ using SaveLoadSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder.MeshOperations;
@@ -759,6 +760,7 @@ public class DecorateShopController : MonoBehaviour
     {
         tank.tankName = data.tankName;
         tank.tankId = data.tankId;
+        tank.AlarmIds = data.alarmIds.ToList<String>();
         tank.openTankPrice = data.openTankPrice;
         if (data.destinationTank) Store.SwitchDestinationTank(tank);
         if (data.openTank) tank.toggleTankOpen();

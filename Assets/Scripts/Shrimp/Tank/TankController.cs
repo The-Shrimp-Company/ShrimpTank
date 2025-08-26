@@ -113,7 +113,7 @@ public class TankController : MonoBehaviour
     [HideInInspector] public bool shrimpCanBreed;
 
     [Header("Alarms")]
-    [HideInInspector] public List<string> AlarmIds = new List<string>();
+    public List<string> AlarmIds = new List<string>();
 
     [Header("Optimisation")]
     private LODLevel currentLODLevel;
