@@ -5220,11 +5220,22 @@ PrefabInstance:
       propertyPath: tabsToShow.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6956151451318538514, guid: 937aba8506fb3ba4eb1137f3a2b15157,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 46785364a70956c4588e4a3a92ff7919, type: 2}
     - target: {fileID: 8282100708222709962, guid: 937aba8506fb3ba4eb1137f3a2b15157,
         type: 3}
       propertyPath: m_Name
       value: Box.pile
       objectReference: {fileID: 0}
+    - target: {fileID: 9195782680066237177, guid: 937aba8506fb3ba4eb1137f3a2b15157,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 2473696874560116035, guid: 254cf2f1b4dd0e3469a7b19175204334,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
