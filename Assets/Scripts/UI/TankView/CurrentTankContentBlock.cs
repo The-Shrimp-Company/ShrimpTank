@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class CurrentTankContentBlock : ContentBlock
@@ -9,7 +10,7 @@ public class CurrentTankContentBlock : ContentBlock
     private Shrimp[] _shrimp;
     private PlayerInteraction player;
 
-    [SerializeField] private TextMeshProUGUI saleSign, destSign;
+    [SerializeField] private TextMeshProUGUI saleSign, destSign, warningSign;
 
     public void Start()
     {
@@ -29,6 +30,17 @@ public class CurrentTankContentBlock : ContentBlock
         {
             destSign.gameObject.SetActive(false);
             FontTools.SizeFont(destSign);
+        }
+
+        foreach (Shrimp shrimp in _shrimp)
+        {
+            if (Mathf.Abs(tank.waterAmmonium - shrimp.stats.ammoniaPreference) > 10 &&
+            Mathf.Abs(tank.waterSalt - shrimp.stats.salineLevel) > 10 &&
+            Mathf.Abs(tank.waterPh - shrimp.stats.PhPreference) > 2 &&
+            Mathf.Abs(tank.waterTemperature - shrimp.stats.temperaturePreference) > 10)
+            {
+                warningSign.gameObject.SetActive(true);
+            }
         }
     }
 
