@@ -102,11 +102,20 @@ public class PlayerInteraction : MonoBehaviour
                 press = Key.Get<Vector2>().normalized;
                 if (press != Vector2.zero || press != null)
                 {
-                    RaycastHit hit;
-                    if (Physics.Raycast(_tankView.GetComponent<Collider>().bounds.center, _tankView.transform.TransformDirection(new Vector3(-press.x, press.y, 0)), out hit, 1f, layerMask: LayerMask.GetMask("Tanks")))
+
+                    TankController nextTank;
+                    foreach (RaycastHit hit in Physics.RaycastAll(_tankView.GetComponent<Collider>().bounds.center, _tankView.transform.TransformDirection(new Vector3(-press.x, press.y, 0)), 1f, layerMask: LayerMask.GetMask("RoomDecoration")))
                     {
-                        //Debug.Log("YEah");
-                        SetTankFocus(hit.transform.GetComponent<TankController>());
+                        nextTank = null;
+                        hit.transform.TryGetComponent<TankController>(out nextTank);
+                        if (nextTank != null)
+                        {
+                            SetTankFocus(nextTank);
+                        }
+                        else
+                        {
+                            Debug.Log("Nuuullllll");
+                        }
                     }
                 }
                 else
