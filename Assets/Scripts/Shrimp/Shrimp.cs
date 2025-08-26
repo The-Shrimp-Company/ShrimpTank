@@ -10,6 +10,7 @@ public class Shrimp : MonoBehaviour
     [Header("Shrimp")]
     public ShrimpStats stats;
     public TankController tank;
+    public bool finishedStarting = false;
 
     [Header("Activities")]
     public List<ShrimpActivity> shrimpActivities = new List<ShrimpActivity>();
@@ -64,6 +65,7 @@ public class Shrimp : MonoBehaviour
 
         agent.shrimpModel.localScale = Vector2.zero;
         agent.shrimpModel.DOScale(ShrimpManager.instance.GetShrimpSize(TimeManager.instance.GetShrimpAge(stats.birthTime), stats.geneticSize), 0.5f).SetEase(shrimpAppearEase);  // Make the shrimp smoothly appear
+        finishedStarting = true;
     }
 
 
@@ -129,20 +131,28 @@ public class Shrimp : MonoBehaviour
 
 
         // Reduce hunger
-        stats.hunger = Mathf.Clamp(stats.hunger - ((hungerLossSpeed * ((stats.metabolism / 50) + 1)) * elapsedTime), 0, 100);
+        //stats.hunger = Mathf.Clamp(stats.hunger - ((hungerLossSpeed * ((stats.metabolism / 50) + 1)) * elapsedTime), 0, 100);
         
 
-        // Check if the shrimp should die
-        if(Mathf.Abs(tank.waterAmmonium - stats.ammoniaPreference) > 10 &&
+        
+
+        // Try to add an activity if we don't have enough
+        TryAddActivity();
+
+        // Check if the shrimp should die due to not having it's needs met
+        if (Mathf.Abs(tank.waterAmmonium - stats.ammoniaPreference) > 10 &&
             Mathf.Abs(tank.waterSalt - stats.salineLevel) > 10 &&
             Mathf.Abs(tank.waterPh - stats.PhPreference) > 2 &&
             Mathf.Abs(tank.waterTemperature - stats.temperaturePreference) > 10)
         {
             KillShrimp();
         }
-
-        // Try to add an activity if we don't have enough
-        TryAddActivity();  
+        // Check if the shrimp should die due to hunger
+        else if(stats.hunger >= 3)
+        {
+            KillShrimp();
+        }
+        
     }
 
 

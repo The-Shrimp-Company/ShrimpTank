@@ -300,7 +300,7 @@ public class TankController : MonoBehaviour
 
         foreach (Shrimp shrimp in shrimpInTank)  // Update the shrimp in the tank
         {
-            shrimp.UpdateShrimp(updateTimer);
+            if(shrimp.finishedStarting) shrimp.UpdateShrimp(updateTimer);
         }
 
 

@@ -107,6 +107,7 @@ public static class ShrimpActivityManager
             if (shrimp.tank.foodInTank.Count == 0)
             {
                 AddActivity(shrimp, GetRandomActivity(shrimp));
+                shrimp.stats.hunger += 1;
                 return;  // Cancel this and find a different activity
             }
 
@@ -116,8 +117,7 @@ public static class ShrimpActivityManager
             {
                 bool foodValid = true;
 
-                if (100 - shrimp.stats.hunger <= f.hungerFillAmount)  // If the shrimp isn't hungry enough
-                    foodValid = false;
+                
 
                 if (f.shrimpEating != null)  // If a shrimp is already eating it
                     foodValid = false;
@@ -130,6 +130,7 @@ public static class ShrimpActivityManager
             if (possibleFood.Count == 0)
             {
                 AddActivity(shrimp, GetRandomActivity(shrimp));
+                shrimp.stats.hunger += 1;
                 return;  // Cancel this and find a different activity
             }
 

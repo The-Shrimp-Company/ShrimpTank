@@ -17,11 +17,11 @@ public class ShrimpFood : MonoBehaviour
 
     [Header("Sinking")]
     [SerializeField] float sinkSpeed = 1;  // How quickly it sinks, 0 will float
-    private float sinkTimer = 0;
+    public float sinkTimer = 0;
     [SerializeField] LayerMask decorationLayer;
 
     [Header("Landing")]
-    [HideInInspector] public bool settled = false;  // If it has landed
+    public bool settled = false;  // If it has landed
     private float surfacePosition;
     [HideInInspector] public float landingPosition;
     [SerializeField] Vector3 landingPositionOffset;  // How high off the ground it will sit
