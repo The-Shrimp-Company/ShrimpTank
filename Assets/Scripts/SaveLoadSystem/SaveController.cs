@@ -144,6 +144,7 @@ public class SaveController : MonoBehaviour
                 TankSaveData tankSave = new TankSaveData();
 
                 tankSave.tankName = t.tankName;
+                tankSave.tankId = t.tankId;
                 tankSave.upgradeState = t.upgradeState;
                 tankSave.destinationTank = t.destinationTank;
                 tankSave.openTank = t.openTank;

@@ -31,6 +31,7 @@ public class TankController : MonoBehaviour
 
     [Header("Tank")]
     public string tankName = null;
+    public string tankId = "";
 
     [Header("Updates")]
     private float updateTimer;
@@ -365,6 +366,7 @@ public class TankController : MonoBehaviour
         if (Mathf.Abs(currentValue - targetValue) >= maximumDifference)
         {
             Email email = CreateOrFindAlarm(alarmType);
+            email.subjectLine = alarmType.ToString() + " warning in tank " + tankName;
             email.mainText = AlarmMessage;
         }
         else
@@ -373,7 +375,7 @@ public class TankController : MonoBehaviour
             if (email != null)
             {
                 AlarmIds.Remove(email.ID);
-                EmailManager.instance.emails.Remove(email);
+                EmailManager.RemoveEmail(email);
             }
         }
     }
@@ -403,6 +405,8 @@ public class TankController : MonoBehaviour
         email.tag = Email.EmailTags.Alarms;
         email.title = type.ToString();
         email.subjectLine = type.ToString() + " warning in tank: " + tankName;
+        email.CreateEmailButton("Go to tank")
+            .SetFunc(EmailFunctions.FunctionIndexes.FocusTargetTank, tankId);
         EmailManager.SendEmail(email);
         return email;
     }

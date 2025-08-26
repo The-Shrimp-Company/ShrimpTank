@@ -126,7 +126,6 @@ public class Filters : MonoBehaviour
     {
         if (traits == null || traits.Count == maxTraitCount || traits.Count == 0)
         {
-            Debug.Log("Returning null");
             return null;
         }
         else

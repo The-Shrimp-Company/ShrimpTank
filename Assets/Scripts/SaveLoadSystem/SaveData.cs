@@ -57,6 +57,7 @@ namespace SaveLoadSystem
         public TankDecorationSaveData[] decorations;
         public UpgradeState upgradeState;
         public string tankName;
+        public string tankId;
         public bool destinationTank;
         public bool openTank;
         public float openTankPrice;

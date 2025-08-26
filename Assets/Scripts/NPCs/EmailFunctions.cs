@@ -21,6 +21,7 @@ static public class EmailFunctions
         SetFlag,
         SetTutorialFlag,
         SpamEmailBlackout,
+        FocusTargetTank,
         Count
     }
 
@@ -60,6 +61,9 @@ static public class EmailFunctions
                     break;
                 case FunctionIndexes.SpamEmailBlackout:
                     SpamEmailBlackout(button);
+                    break;
+                case FunctionIndexes.FocusTargetTank:
+                    FocusTargetTank(button);
                     break;
                 default:
                     break;
@@ -154,6 +158,18 @@ static public class EmailFunctions
             TimeManager.instance.totalTime += 0.04f;
             SaveManager.SaveGame("Autosave");
             Application.Quit();
+        });
+    }
+
+    static private void FocusTargetTank(MyButton button)
+    {
+        button.actions.Add(() =>
+        {
+            GameObject player = GameObject.Find("Player");
+            player.GetComponent<PlayerTablet>().OnCloseTablet();
+            player.GetComponent<PlayerInteraction>()
+                .SetTankFocus(GameObject.Find("Shop").GetComponent<DecorateShopController>().tanksInStore
+                    .Find(x => x.tankId == button.data[(int)FunctionIndexes.FocusTargetTank].data[0].TryCast<String>()));
         });
     }
 }

@@ -439,6 +439,7 @@ public class DecorateShopController : MonoBehaviour
             tanksInStore.Add(tank);
             Store.SwitchDestinationTank(tank);
             tank.tankName = "Tank " + tanksInStore.Count;
+            tank.tankId = Time.time.ToString();
         }
 
         // Set up floater
@@ -757,6 +758,7 @@ public class DecorateShopController : MonoBehaviour
     public void LoadTank(TankController tank, TankSaveData data)
     {
         tank.tankName = data.tankName;
+        tank.tankId = data.tankId;
         tank.openTankPrice = data.openTankPrice;
         if (data.destinationTank) Store.SwitchDestinationTank(tank);
         if (data.openTank) tank.toggleTankOpen();
@@ -781,5 +783,7 @@ public class DecorateShopController : MonoBehaviour
             GameObject newFood = Instantiate(((FoodItemSO)Inventory.GetSOForItem(foodSave.thisItem)).foodPrefab, foodSave.position, Quaternion.identity);
             newFood.GetComponent<ShrimpFood>().CreateFood(tank, foodSave);
         }
+
+        tanksInStore.Add(tank);
     }
 }
