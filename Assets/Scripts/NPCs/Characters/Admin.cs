@@ -164,7 +164,7 @@ public class Admin : NPC
             email.CreateEmailButton("What do you mean I \"Cannot respond\"?", true);
         }
 
-        if (Reputation.GetReputation() >= 20 && Reputation.GetReputation() < 40 && !flags.Contains("star1"))
+        if (Reputation.GetReputation() >= 20 && !flags.Contains("star1"))
         {
             email.subjectLine = "You have achieved Star 1";
             email.mainText = "Congratulations " + Store.StoreName + ", on achieving the first reputation star! This is a big achievment, and now you can access many " +
@@ -174,13 +174,29 @@ public class Admin : NPC
             important = true;
         }
 
-        if (Reputation.GetReputation() >= 20 && Reputation.GetReputation() < 40 && !flags.Contains("star2"))
+        if (Reputation.GetReputation() >= 40 && !flags.Contains("star2"))
         {
             email.subjectLine = "You have achieved Star 2";
             email.mainText = "Congratulations " + Store.StoreName + ", on achieving the second reputation star! This is a big achievment, and now you can access many new features " +
                 "of the community, like the vet check.";
             flags.Add("star2");
             email.CreateEmailButton("Thanks!", true);
+            important = true;
+        }
+
+        if(Reputation.GetReputation() >= 50 && !flags.Contains("extraShop"))
+        {
+            email.subjectLine = "Project: Extra Shop";
+            email.mainText = "We are pleased to announce a new update rolling out! From now on, select Shrimpers will be able to sell extra shrimp paraphenalia directly through " +
+                "their shrimp store page! We hope this revolutionary idea of buying more things through our store fills you all with as much indescribable glee as it does us! " +
+                "\n<size=10>Terms and conditions may apply, as we write them. We is used to refer to the group of people profiting from this endeavour, and we are " +
+                "not legally liable for any of the products sold on the pages we put up. We are not condoning selling products, and we will never condone selling " +
+                "products, no matter what you might tell people, Deborah. You are the group of people who are not profiting from this in any sense other than the spiritual " +
+                "which we maintain is both completely intangible, and so any effect can be neither proven nor disproven, and also vehemently deny the existence of in the " +
+                "case of one of you claiming that we have harmed you spiritually. You can get no warranty for the services we offer, as we refuse to offer any warrantable " +
+                "services. If you think we do, we will sue you. Happy shrimping is a registered trademark. Also, happy shrimping.</size>";
+            email.CreateEmailButton("That sounds cool!", true);
+            flags.Add("extraShop");
             important = true;
         }
 
