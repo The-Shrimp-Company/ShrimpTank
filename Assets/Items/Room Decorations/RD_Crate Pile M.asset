@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c7076f01b609824fbdcdcda2a4692a4, type: 3}
-  m_Name: RD_Small Tank
+  m_Name: RD_Crate Pile M
   m_EditorClassIdentifier: 
-  itemName: Small Tank
+  itemName: Crate Pile
   itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
-  purchaseValue: 15
+  purchaseValue: 5
   purchaseQuantity: 1
-  itemDescription: A small shrimp tank
-  tags: 07000000000000000c00000013000000
-  decorationPrefab: {fileID: 1463401828186235566, guid: eefa18ec6b71485459de5d6d77d94dd9,
+  itemDescription: 
+  tags: 0700000009000000130000000e000000
+  decorationPrefab: {fileID: 1818096667142979810, guid: e3dd570bf55d50345a2a1b036e0d02da,
     type: 3}
   itemSize: 0
   gridSnapOffset: {x: 0, y: -0.5, z: 0}
   rotationAxis: {x: 0, y: 1, z: 0}
-  placementSurfaces: 01000000
-  shelf: 1
+  placementSurfaces: 00000000
+  shelf: 0
   water: 0
