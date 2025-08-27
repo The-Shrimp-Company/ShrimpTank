@@ -1779,7 +1779,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subMenu: 0
+  triggerSound: 0
   input: {fileID: 2086121281}
+  notifTime: 0
+  notifTimer: 5
   TabletView: {fileID: 1844871746}
   tabletParent: {fileID: 1844871745}
 --- !u!4 &354996204
@@ -2045,7 +2048,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 457463621}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -7557,7 +7560,7 @@ PrefabInstance:
     - target: {fileID: 6333301001878489509, guid: 31a20ebe32afbe74eb99989f5bce8972,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -453.0011
+      value: -453.00143
       objectReference: {fileID: 0}
     - target: {fileID: 6482094422919810959, guid: 31a20ebe32afbe74eb99989f5bce8972,
         type: 3}
@@ -7813,7 +7816,7 @@ PrefabInstance:
     - target: {fileID: 8902168481894851932, guid: 31a20ebe32afbe74eb99989f5bce8972,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -966.001
+      value: -966.0009
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4254099566559694792, guid: 31a20ebe32afbe74eb99989f5bce8972, type: 3}

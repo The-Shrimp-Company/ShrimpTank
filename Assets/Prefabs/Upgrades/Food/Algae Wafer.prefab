@@ -45,17 +45,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33d235d2227ed604181c169198ed4150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisItem:
+    itemName: 
+    quantity: 0
   hungerFillAmount: 40
   eatingTime: 8
   shrimpEating: {fileID: 0}
   sinkSpeed: 70
+  sinkTimer: 0
   decorationLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 8704
   settled: 0
   landingPosition: 0
   landingPositionOffset: {x: 0, y: 0.003, z: 0}
   despawnTime: 120
+  despawnTimer: 0
   eatingParticles: {fileID: 5454807663352405576, guid: 5c792fc61d855904d91335b7d5c28ee6,
     type: 3}
   finishedParticles: {fileID: 2159551602943950755, guid: bd682d0266c85ed4da126dff754b7187,
