@@ -364,7 +364,7 @@ public class DecorateShopController : MonoBehaviour
         objectPreview.name = "Object Preview";
         SetObjectMaterials(objectPreview, objectPreviewValidMat);
         foreach(Collider c in objectPreview.GetComponentsInChildren<Collider>())
-            c.enabled = false;
+            c.isTrigger = true;
 
         // Disable the floater if it has one
         WateverVolumeFloater floater;
