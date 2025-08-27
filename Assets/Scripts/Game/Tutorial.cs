@@ -43,7 +43,7 @@ public class Tutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!flags.Contains("openTablet"))UIManager.instance.SendNotification("Press E to open tablet");
+        //if(!flags.Contains("openTablet"))UIManager.instance.SendNotification("Press E to open tablet");
     }
 
     public void OpenedTablet()
@@ -51,7 +51,7 @@ public class Tutorial : MonoBehaviour
         if (!flags.Contains("openTablet"))
         {
             flags.Add("openTablet");
-            UIManager.instance.SendNotification("");
+            //UIManager.instance.SendNotification("");
         }
     }
 }

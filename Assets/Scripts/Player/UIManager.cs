@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,13 +11,23 @@ using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder;
 using UnityEngine.UI;
 
+
+public delegate void NotifEvent(string message, bool sound);
+
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
+    public event NotifEvent SendNotification;
+
     public bool subMenu = false;
 
+    public bool triggerSound = false;
+
     public PlayerInput input;
+
+    public float notifTime = 0;
+    public float notifTimer = 5;
 
     public GameObject tooltips { set; private get; }
 
@@ -56,9 +67,28 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        // Manually overrides the event systems selections to keep button animations working nicely. (Doesn't apply during input events like keyboard entries)
         if(EventSystem.current.currentSelectedGameObject != null && !EventSystem.current.currentSelectedGameObject.CompareTag("Input"))
         {
             EventSystem.current.SetSelectedGameObject(null);
+        }
+
+        // If the timer is up, it get's the next notification to send to the player
+        if(notifTime > notifTimer)
+        {
+            _currentText = EmailManager.instance.GetNotification();
+            notifTime = 0;
+        }
+        else
+        {
+            notifTime += Time.deltaTime;
+        }
+
+        // If there is a notification bar available, it sends the current notification every frame
+        if (SendNotification != null)
+        {
+            SendNotification(_currentText, triggerSound);
+            triggerSound = false;
         }
     }
 
@@ -192,6 +222,11 @@ public class UIManager : MonoBehaviour
         return _tabletStack == _screenStack;
     }
 
+    public void RefreshNotif()
+    {
+        _currentText = EmailManager.instance.GetNotification();
+    }
+
     /// <summary>
     /// Adds the given controller to the notification list, so when focus is switched, the necessary components will be alerted
     /// </summary>
@@ -235,16 +270,7 @@ public class UIManager : MonoBehaviour
         notifBar.text = _currentText;
     }
 
-    public void SendNotification(string notif, bool mute = false)
-    {
-        if(notifBar == null)
-        {
-            return;
-        }
-        if (!mute && _currentText != notifBar.text) notifBar.GetComponent<AudioSource>().Play();
-        _currentText = notif;
-        notifBar.text = notif;
-    }
+    
     
     /// <summary>
     /// Function to handle setting all the strange settings based on whether there is

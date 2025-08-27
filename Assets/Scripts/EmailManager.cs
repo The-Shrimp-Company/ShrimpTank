@@ -79,6 +79,8 @@ public class EmailManager
     public event EmailEvent OnEmailSent;
     public event EmailEvent OnEmailRemoved;
 
+    public int currentNotif = 0;
+
     private int IdChaff = 0;
 
     public FullEmail openEmail;
@@ -122,12 +124,40 @@ public class EmailManager
         yield return new WaitForSeconds(delay);
         if (important) email.tag = Email.EmailTags.Important;
         instance.emails.Add(email);
+        instance.currentNotif = instance.emails.Count - 1;
+        UIManager.instance.RefreshNotif();
+        if(email.tag != Email.EmailTags.Spam) UIManager.instance.triggerSound = true;
         email.timeSent = TimeManager.instance.GetTotalTime();
-        UIManager.instance.SendNotification(email.subjectLine);
         if(instance.OnEmailSent != null)
         {
             instance.OnEmailSent(email);
         }
+    }
+
+    public string GetNotification()
+    {
+        string notif = "";
+
+        if(emails.Count <= 0)
+        {
+            return "";
+        }
+        if(emails.Find(x => x.tag != Email.EmailTags.Spam) == null)
+        {
+            return "";
+        }
+
+        do
+        {
+            currentNotif++;
+            if (currentNotif >= emails.Count) currentNotif = 0;
+        } while (emails[currentNotif].tag == Email.EmailTags.Spam);
+
+        if (emails.Find(x => x.tag == Email.EmailTags.Alarms) != null) notif += "<b><color=red>! </color></b>";
+        notif += emails[currentNotif].subjectLine;
+
+
+        return notif;
     }
 
     static public void RemoveEmail(Email email)
