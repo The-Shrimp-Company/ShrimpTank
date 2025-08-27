@@ -225,6 +225,7 @@ public class UIManager : MonoBehaviour
     public void RefreshNotif()
     {
         _currentText = EmailManager.instance.GetNotification();
+        notifTime = 0;
     }
 
     /// <summary>
