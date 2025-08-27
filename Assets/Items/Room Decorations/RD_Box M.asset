@@ -17,7 +17,7 @@ MonoBehaviour:
   purchaseValue: 5
   purchaseQuantity: 1
   itemDescription: A small box that will give you easier access to your storage
-  tags: 0700000009000000130000000e000000
+  tags: 0700000009000000130000000e00000017000000
   decorationPrefab: {fileID: 1818096667142979810, guid: ed0e845734981f04db16d2d66e8786af,
     type: 3}
   itemSize: 0

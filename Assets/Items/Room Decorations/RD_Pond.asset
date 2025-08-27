@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c7076f01b609824fbdcdcda2a4692a4, type: 3}
-  m_Name: RD_Toolbox
+  m_Name: RD_Pond
   m_EditorClassIdentifier: 
-  itemName: Toolbox
+  itemName: Pond
   itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
   purchaseValue: 15
   purchaseQuantity: 1
-  itemDescription: A toolbox
-  tags: 07000000090000000c000000130000000e00000017000000
-  decorationPrefab: {fileID: 1818096667142979810, guid: 942a6551ac7496c43aa5b30a4da1c696,
+  itemDescription: A small pond
+  tags: 0700000009000000130000001700000018000000
+  decorationPrefab: {fileID: 1818096667142979810, guid: 8e7868a1144993e438f4f7baa9d0dabe,
     type: 3}
   itemSize: 0
-  gridSnapOffset: {x: 0, y: -0.5, z: 0}
+  gridSnapOffset: {x: 0.5, y: -0.5, z: 0.5}
   rotationAxis: {x: 0, y: 1, z: 0}
-  placementSurfaces: 0000000001000000
+  placementSurfaces: 00000000
   shelf: 0
-  water: 0
+  water: 1

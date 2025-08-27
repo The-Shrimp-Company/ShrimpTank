@@ -35,6 +35,8 @@ public enum ItemTags
     Large,
 
     Lighting,
+    Storage,
+    Water,
 }
 
 

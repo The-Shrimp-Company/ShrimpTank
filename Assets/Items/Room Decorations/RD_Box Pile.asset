@@ -17,7 +17,7 @@ MonoBehaviour:
   purchaseValue: 10
   purchaseQuantity: 1
   itemDescription: A pile of boxes that will give you easier access to your storage
-  tags: 0700000009000000140000000e000000
+  tags: 0700000009000000140000000e00000017000000
   decorationPrefab: {fileID: 1818096667142979810, guid: ede7b60d5e7d8364d9ba79887fa949c7,
     type: 3}
   itemSize: 1
