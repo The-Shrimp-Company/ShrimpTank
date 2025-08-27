@@ -95,7 +95,9 @@ public class PlayerInteraction : MonoBehaviour
     /// <param name="Key"></param>
     public void OnSwitchTank(InputValue Key)
     {
-        if (UIManager.instance.GetScreen().GetComponent<TankViewScript>() != null)
+        TankViewScript view;
+        UIManager.instance.GetScreen().TryGetComponent(out view);
+        if (view != null)
         {
             if (Key.Get<Vector2>().normalized != press)
             {
@@ -107,14 +109,10 @@ public class PlayerInteraction : MonoBehaviour
                     foreach (RaycastHit hit in Physics.RaycastAll(_tankView.GetComponent<Collider>().bounds.center, _tankView.transform.TransformDirection(new Vector3(-press.x, press.y, 0)), 1f, layerMask: LayerMask.GetMask("RoomDecoration")))
                     {
                         nextTank = null;
-                        hit.transform.TryGetComponent<TankController>(out nextTank);
+                        hit.transform.TryGetComponent(out nextTank);
                         if (nextTank != null)
                         {
                             SetTankFocus(nextTank);
-                        }
-                        else
-                        {
-                            Debug.Log("Nuuullllll");
                         }
                     }
                 }

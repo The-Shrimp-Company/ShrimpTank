@@ -22,7 +22,9 @@ public class PlayerUIController : MonoBehaviour
 
     public void OnShrimpCamMove(InputValue input)
     {
-        if (UIManager.instance.GetScreen().GetComponent<ShrimpView>() != null)
+        ShrimpView view;
+        UIManager.instance.GetScreen().TryGetComponent(out view);
+        if (view != null)
         {
             if(_cam != null)
             {

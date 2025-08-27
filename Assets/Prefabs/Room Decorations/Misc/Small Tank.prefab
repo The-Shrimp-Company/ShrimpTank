@@ -741,6 +741,7 @@ MonoBehaviour:
   shrimpToRemove: []
   shrimpParent: {fileID: 4423233220053350138}
   tankName: 
+  tankId: 
   updateTime: 0
   decorationsInTank: []
   decorationCamDock:
@@ -763,6 +764,12 @@ MonoBehaviour:
   tempuratureChangeSpeed: 5
   naturalTempuratureVariation: 25
   waterSalt: 50
+  waterAmmonium: 50
+  waterPh: 7
+  idealTemp: 0
+  idealSalt: 0
+  idealHnc: 0
+  idealPh: 0
   upgradeController: {fileID: 0}
   lights:
   - {fileID: 9082456001141851980}
@@ -1165,7 +1172,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1574
+  m_VersionIndex: 1586
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1842,7 +1849,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1167920689745556407
 Transform:
   m_ObjectHideFlags: 0
@@ -1870,9 +1877,9 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.5
-  m_Range: 0.83
-  m_SpotAngle: 81.55488
+  m_Intensity: 0.8
+  m_Range: 0.5
+  m_SpotAngle: 179
   m_InnerSpotAngle: 0
   m_CookieSize: 10
   m_Shadows:
@@ -1907,7 +1914,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 720
+    m_Bits: 13008
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -2905,7 +2912,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3062476608419782382
 Transform:
   m_ObjectHideFlags: 0
@@ -2933,9 +2940,9 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.5
-  m_Range: 0.83
-  m_SpotAngle: 81.55488
+  m_Intensity: 0.8
+  m_Range: 0.5
+  m_SpotAngle: 179
   m_InnerSpotAngle: 0
   m_CookieSize: 10
   m_Shadows:
@@ -2970,7 +2977,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 720
+    m_Bits: 13008
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0

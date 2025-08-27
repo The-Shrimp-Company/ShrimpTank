@@ -34,6 +34,7 @@ public class TankContentBlock : ContentBlock
 
     private void Update()
     {
+        if (_shrimp == null) return;
         UpdateArrow(_shrimp.tank.waterTemperature, _shrimp.stats.temperaturePreference, tempArrow);
         UpdateArrow(_shrimp.tank.waterSalt, _shrimp.stats.salineLevel, saltArrow);
         UpdateArrow(_shrimp.tank.waterPh, _shrimp.stats.PhPreference, pHArrow, 2);

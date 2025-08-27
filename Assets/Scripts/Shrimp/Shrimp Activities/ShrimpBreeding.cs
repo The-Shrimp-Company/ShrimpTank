@@ -177,18 +177,20 @@ public class ShrimpBreeding : ShrimpActivity
 
         for (int i = 0; i < children; i++)
         {
-            GameObject newShrimp = GameObject.Instantiate(ShrimpManager.instance.shrimpPrefab, shrimp.tank.GetRandomTankPosition(), Quaternion.identity);
-            Shrimp s = newShrimp.GetComponent<Shrimp>();
+            shrimp.tank.SpawnShrimp(ShrimpManager.instance.CreateShrimpThroughBreeding(shrimp.stats, otherShrimp.stats));
 
-            s.stats = ShrimpManager.instance.CreateShrimpThroughBreeding(shrimp.stats, otherShrimp.stats);
-            newShrimp.name = s.stats.name;
-            newShrimp.transform.parent = shrimp.tank.shrimpParent;
-            newShrimp.transform.position = (shrimp.transform.position + otherShrimp.transform.position) / 2;  // Spawn inbetween the two shrimp
-            s.ConstructShrimp();
-            s.ChangeTank(shrimp.tank);
+            //GameObject newShrimp = GameObject.Instantiate(ShrimpManager.instance.shrimpPrefab, shrimp.tank.GetRandomTankPosition(), Quaternion.identity);
+            //Shrimp s = newShrimp.GetComponent<Shrimp>();
 
-            ShrimpManager.instance.AddShrimpToStore(s);
-            shrimp.tank.shrimpToAdd.Add(s);
+            //s.stats = ShrimpManager.instance.CreateShrimpThroughBreeding(shrimp.stats, otherShrimp.stats);
+            //newShrimp.name = s.stats.name;
+            //newShrimp.transform.parent = shrimp.tank.shrimpParent;
+            //newShrimp.transform.position = (shrimp.transform.position + otherShrimp.transform.position) / 2;  // Spawn inbetween the two shrimp
+            //s.ConstructShrimp();
+            //s.ChangeTank(shrimp.tank);
+
+            //ShrimpManager.instance.AddShrimpToStore(s);
+            //shrimp.tank.shrimpToAdd.Add(s);
 
             if (debugBreeding) Debug.Log(shrimp.name + " has had a shrimp");
 

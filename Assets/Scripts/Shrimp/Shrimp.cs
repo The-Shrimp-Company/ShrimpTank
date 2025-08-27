@@ -192,6 +192,8 @@ public class Shrimp : MonoBehaviour
 
     private void Molt()
     {
+        if (agent.shrimpModel == null) return;
+
         int age = TimeManager.instance.GetShrimpAge(stats.birthTime);
 
         stats.moltHistory++;
@@ -217,7 +219,6 @@ public class Shrimp : MonoBehaviour
 
         breedingTimer = ShrimpManager.instance.GetBreedingCooldown(stats, tank);  // Reset breeding cooldown
         stats.canBreed = false;
-
     }
 
 
@@ -295,6 +296,8 @@ public class Shrimp : MonoBehaviour
 
     public void SwitchLODLevel(LODLevel level)  // Focused on shrimp
     {
+        if (particleParent == null) return;
+
         switch(level)
         {
             case LODLevel.High:

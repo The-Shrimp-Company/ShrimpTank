@@ -144,14 +144,14 @@ public class TankViewScript : ScreenView
         allSelected = true;
         SelectAll();
 
-        visibleShrimp = new List<Shrimp>();
-
         if(traits == null || traits.Count == 0)
         {
-            visibleShrimp = tank.shrimpInTank;
+            visibleShrimp = new List<Shrimp>(tank.shrimpInTank);
         }
         else
         {
+            visibleShrimp = new List<Shrimp>();
+
             foreach (Shrimp shrimp in tank.shrimpInTank)
             {
                 if((traits.Contains(shrimp.stats.primaryColour.activeGene.ID)
@@ -200,7 +200,6 @@ public class TankViewScript : ScreenView
                 visibleShrimp.Add(shrimp);
             }
         }
-        UpdateContent();
     }
 
     public void whenShrimpRemoved(Shrimp shrimp)
@@ -305,6 +304,7 @@ public class TankViewScript : ScreenView
 
         foreach (Shrimp shrimp in visibleShrimp)
         {
+            if (shrimp == null) continue;
             TankContentBlock temp = Instantiate(_contentBlock, _content.transform).GetComponent<TankContentBlock>();
             contentBlocks.Add(temp);
             Shrimp thisShrimp = shrimp;
@@ -331,17 +331,17 @@ public class TankViewScript : ScreenView
                     selectedShrimp.Add(thisShrimp);
                 }
             });
-            if (selectedShrimp.Contains(shrimp)) temp.checkbutton.GetComponent<Checkbox>().Check();
+            if (selectedShrimp.Contains(thisShrimp)) temp.checkbutton.GetComponent<Checkbox>().Check();
             else temp.checkbutton.GetComponent<Checkbox>().Uncheck();
-            if(TimeManager.instance.GetShrimpAge(shrimp.stats.birthTime) <= 4)
+            if(TimeManager.instance.GetShrimpAge(thisShrimp.stats.birthTime) <= 4)
             {
-                temp.SetText(shrimp.name + " (child)");
+                temp.SetText(thisShrimp.name + " (child)");
             }
             else
             {
-                temp.SetText(shrimp.name);
+                temp.SetText(thisShrimp.name);
             }
-                temp.SetShrimp(shrimp, this);
+                temp.SetShrimp(thisShrimp, this);
         }
 
 

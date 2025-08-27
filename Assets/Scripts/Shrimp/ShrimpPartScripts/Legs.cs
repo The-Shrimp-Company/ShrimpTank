@@ -72,6 +72,7 @@ public class Legs : PartScript
 
     public void ForceLod(int index)
     {
+        if (!body || !tail || !tFan || !head || !eyes) return;
         body.GetComponent<LODGroup>().ForceLOD(index);
         tail.GetComponent<LODGroup>().ForceLOD(index);
         tFan.GetComponent<LODGroup>().ForceLOD(index);
