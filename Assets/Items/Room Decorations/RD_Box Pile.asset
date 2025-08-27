@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c7076f01b609824fbdcdcda2a4692a4, type: 3}
+  m_Name: RD_Box Pile
+  m_EditorClassIdentifier: 
+  itemName: Box Pile
+  itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
+  purchaseValue: 10
+  purchaseQuantity: 1
+  itemDescription: A pile of boxes that will give you easier access to your storage
+  tags: 0700000009000000140000000e000000
+  decorationPrefab: {fileID: 1818096667142979810, guid: ede7b60d5e7d8364d9ba79887fa949c7,
+    type: 3}
+  itemSize: 1
+  gridSnapOffset: {x: 0.5, y: -0.5, z: 0.5}
+  rotationAxis: {x: 0, y: 1, z: 0}
+  placementSurfaces: 00000000
+  shelf: 0
+  water: 0
