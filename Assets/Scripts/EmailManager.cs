@@ -119,16 +119,21 @@ public class EmailManager
         CustomerManager.Instance.StartCoroutine(SendEmailDelayed(email, important, delay));
     }
 
-    static IEnumerator SendEmailDelayed(Email email, bool important = false, float delay = 0)
+    static IEnumerator SendEmailDelayed(Email email, bool important, float delay = 0)
     {
         yield return new WaitForSeconds(delay);
+        SendEmailDirect(email, important);
+    }
+
+    static public void SendEmailDirect(Email email, bool important)
+    {
         if (important) email.tag = Email.EmailTags.Important;
         instance.emails.Add(email);
         instance.currentNotif = instance.emails.Count - 1;
         UIManager.instance.RefreshNotif();
-        if(email.tag != Email.EmailTags.Spam) UIManager.instance.triggerSound = true;
+        if (email.tag != Email.EmailTags.Spam) UIManager.instance.triggerSound = true;
         email.timeSent = TimeManager.instance.GetTotalTime();
-        if(instance.OnEmailSent != null)
+        if (instance.OnEmailSent != null)
         {
             instance.OnEmailSent(email);
         }

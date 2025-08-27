@@ -427,7 +427,7 @@ public class TankController : MonoBehaviour
         email.subjectLine = type.ToString() + " warning in tank: " + tankName;
         email.CreateEmailButton("Go to tank")
             .SetFunc(EmailFunctions.FunctionIndexes.FocusTargetTank, tankId);
-        EmailManager.SendEmail(email);
+        EmailManager.SendEmailDirect(email, false);
         return email;
     }
 
