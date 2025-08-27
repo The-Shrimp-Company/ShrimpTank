@@ -458,16 +458,16 @@ MonoBehaviour:
     all your shrimp in one tank. You can do whatever you want with your eggs. But,
     if you put all your shrimp in one tank, they might die. Of overpopulation, but
     also of differing environmental needs. Some shrimp need more salt, some need
-    less. Some shrimp need more heat, some need heat. Some shrimp create more waste
-    to filter, some create less.
+    less. Some shrimp need more heat, some need less heat, and so on and so forth.
+    You should be able to see the specific needs of your shrimp by focusing on them.
 
-    3) Shrimp will breed on their own. If you leave
-    some shrimp in a tank together, they will breed. If you want this, great! If
-    you don''t want this, that sucks. But the trick is to stop breeding, to sell
-    your shrimp. If you have shrimp you don''t want to breed, put them into an "open
-    tank" a tank which customers can look at from your online store, and buy the
-    shrimp directly, without having to ask. You''ll just get a cheque in the mail,
-    and that''ll be that.'
+    3)
+    Shrimp will breed on their own. If you leave some shrimp in a tank together,
+    they will breed. If you want this, great! If you don''t want this, that sucks.
+    But the trick is to stop breeding, to sell your shrimp. If you have shrimp you
+    don''t want to breed, put them into an "open tank" a tank which customers can
+    look at from your online store, and buy the shrimp directly, without having to
+    ask. You''ll just get a cheque in the mail, and that''ll be that.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
