@@ -136,6 +136,7 @@ public class PlayerInteraction : MonoBehaviour
             Vector3 v3 = _tankView.GetComponent<TankController>().GetCam().transform.position;
             transform.position = new Vector3(v3.x, transform.position.y, v3.z);
             _camera.transform.localPosition = Vector3.up / 2;
+            _tankView = null;
         }
         UIManager.instance.ClearScreens();
     }
