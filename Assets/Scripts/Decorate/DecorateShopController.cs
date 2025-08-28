@@ -31,7 +31,7 @@ public class DecorateShopController : MonoBehaviour
     [SerializeField] Transform decorationParent;
 
     private Dictionary<RoomGridNode, GameObject> nodes = new Dictionary<RoomGridNode, GameObject>();
-    private RoomGridNode hoveredNode, previousHoveredNode;
+    private RoomGridNode hoveredNode, previousHoveredNode, previousPreviousHoveredNode;
     [HideInInspector] public GameObject selectedObject;
     [HideInInspector] public DecorationItemSO selectedItemType;
     private GameObject objectPreview;
@@ -42,6 +42,7 @@ public class DecorateShopController : MonoBehaviour
     [HideInInspector] public int editingLayer;
     private bool selectionValid;
     public float rotationSnap = 90;
+    public float placementRange = 10;
     private int rotationInput;
     private bool transparentDecorations;
     private bool transparentShrimp;
@@ -140,12 +141,13 @@ public class DecorateShopController : MonoBehaviour
 
         if (nodes == null || nodes.Count == 0) return;
 
+        previousPreviousHoveredNode = previousHoveredNode;
         previousHoveredNode = hoveredNode;
 
 
         RaycastHit[] hits;
         LayerMask layerMask = LayerMask.GetMask("ShelfGridNode");
-        hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), 100.0F, layerMask, QueryTriggerInteraction.Collide);
+        hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), placementRange, layerMask, QueryTriggerInteraction.Collide);
         foreach (RaycastHit h in hits)
         {
             ShelfGridNode shelfNode = h.transform.GetComponent<ShelfGridNode>();
@@ -158,7 +160,7 @@ public class DecorateShopController : MonoBehaviour
 
 
         layerMask = LayerMask.GetMask("GridNode") | LayerMask.GetMask("ShelfGridNode");
-        hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), 100.0F, layerMask, QueryTriggerInteraction.Collide);
+        hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), placementRange, layerMask, QueryTriggerInteraction.Collide);
         hoveredNode = null;
         if (hits.Length == 0) return;
         for (int i = hits.Length - 1; i >= 0; i--)
@@ -210,7 +212,6 @@ public class DecorateShopController : MonoBehaviour
 
         if (hoveredNode != null)  // If a valid node has been found
         {
-            Debug.Log(nodes[hoveredNode].gameObject + " - " + hoveringShelf);
             UpdateGridMaterials();
             return;
         }
@@ -272,7 +273,7 @@ public class DecorateShopController : MonoBehaviour
         {
             if (objectPreview != null && selectedItemType != null)
             {
-                if (hoveredNode != null && hoveredNode != previousHoveredNode)
+                if (hoveredNode != null && hoveredNode != previousHoveredNode && previousHoveredNode == previousPreviousHoveredNode)
                 {
                     if (hoveringShelf)
                         objectPreview.transform.position = hoveredNode.worldPos;
