@@ -84,6 +84,19 @@ public class TimeManager : MonoBehaviour
         return Mathf.FloorToInt(time * 1440 % 60);
     }
 
+    public static string DateFromTime(float time)
+    {
+        string date = "";
+
+        if (DayFromTime(time) < 10) date += "0";
+        date += DayFromTime(time) + "/";
+        if (MonthFromTime(time) < 10) date += "0";
+        date += MonthFromTime(time) + "/";
+        date += (YearFromTime(time) + 2020).ToString();
+
+        return date;
+    }
+
     private void NewDay()
     {
         prevDay = day;

@@ -42,7 +42,7 @@ public class EmailContentBlock : ContentBlock
         subjectLine.text = _email.subjectLine;
         //FontTools.SizeFont(title);
         //FontTools.SizeFont(subjectLine);
-        timeStamp.text = TimeManager.HourFromTime(_email.timeSent) + ":" + TimeManager.MinuteFromTime(_email.timeSent) + " " + TimeManager.DayFromTime(_email.timeSent) + "/" + TimeManager.MonthFromTime(_email.timeSent) + "/" + (TimeManager.YearFromTime(_email.timeSent) + 2020);
+        timeStamp.text = TimeManager.HourFromTime(_email.timeSent) + ":" + TimeManager.MinuteFromTime(_email.timeSent) + " " + TimeManager.DateFromTime(_email.timeSent);
         subjectLine.fontSize *= 0.8f;
         window = newWindow;
     }

@@ -190,7 +190,7 @@ namespace SaveLoadSystem
 
             else
             {
-                Debug.LogError("Save file at " + fullPath + " does not exist");
+                Debug.Log("Save file at " + fullPath + " does not exist");
 
                 return false;
             }

@@ -74,6 +74,7 @@ public class SaveController : MonoBehaviour
     public void LoadGame(string _fileName)
     {
         Debug.Log("Loading " +  _fileName + "...");
+
         SaveManager.LoadGame(_fileName);
         
         if (SaveManager.loadingGameFromFile)  // Loading was successful

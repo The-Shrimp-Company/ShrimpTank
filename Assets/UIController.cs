@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 using SaveLoadSystem;
 using UnityEngine.InputSystem.Composites;
+using System;
 
 public class UIController : MonoBehaviour
 {
@@ -99,14 +100,16 @@ public class UIController : MonoBehaviour
             };
             if (SaveManager.TryLoadGame(button.name))
             {
-                
+                SaveManager.LoadGame(button.name);
                 button.clicked += ContinueGame;
-                button.text = button.name;
+                button.text = SaveManager.CurrentSaveData.storeName;
+                button.Q<Label>().text = TimeManager.DateFromTime(SaveManager.CurrentSaveData.totalTime);
             }
             else
             {
                 button.clicked += NewGame;
                 button.text = "Empty File";
+                button.Q<Label>().text = "";
             }
         }
     }
