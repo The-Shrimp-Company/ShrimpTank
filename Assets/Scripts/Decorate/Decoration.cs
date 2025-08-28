@@ -8,7 +8,6 @@ public class Decoration : MonoBehaviour
     public bool locked;  // Whether the item can be removed
     [HideInInspector] public Dictionary<MeshRenderer, Material[]> materials = new Dictionary<MeshRenderer, Material[]>();
     [HideInInspector] public bool floating;
-    public List<Transform> shelfSlots = new List<Transform>();
 
     private void Awake()
     {

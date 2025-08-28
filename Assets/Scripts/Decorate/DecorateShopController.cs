@@ -46,6 +46,7 @@ public class DecorateShopController : MonoBehaviour
     private bool transparentDecorations;
     private bool transparentShrimp;
     private bool movingObject;
+    private bool hoveringShelf;
 
     public bool deselectOnPlace;
 
@@ -141,11 +142,24 @@ public class DecorateShopController : MonoBehaviour
 
         previousHoveredNode = hoveredNode;
 
+
         RaycastHit[] hits;
-        int layerMask = LayerMask.GetMask("GridNode");
+        LayerMask layerMask = LayerMask.GetMask("ShelfGridNode");
+        hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), 100.0F, layerMask, QueryTriggerInteraction.Collide);
+        foreach (RaycastHit h in hits)
+        {
+            ShelfGridNode shelfNode = h.transform.GetComponent<ShelfGridNode>();
+            if (shelfNode)
+            {
+                if (!nodes.ContainsKey(shelfNode.roomGridNode))
+                    nodes.Add(shelfNode.roomGridNode, shelfNode.gameObject);
+            }
+        }
+
+
+        layerMask = LayerMask.GetMask("GridNode") | LayerMask.GetMask("ShelfGridNode");
         hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), 100.0F, layerMask, QueryTriggerInteraction.Collide);
         hoveredNode = null;
-
         if (hits.Length == 0) return;
         for (int i = hits.Length - 1; i >= 0; i--)
         {
@@ -153,6 +167,8 @@ public class DecorateShopController : MonoBehaviour
 
             foreach (RoomGridNode node in nodes.Keys)
             {
+                if (node == null || nodes[node] == null) nodes.Remove(node);
+
                 if (nodes[node] == hit.collider.gameObject)
                 {
                     if (node.invalid)  // If the node is taken
@@ -167,9 +183,15 @@ public class DecorateShopController : MonoBehaviour
                         continue;
                     }
 
-                    if (selectedItemType.placementSurfaces.Contains(PlacementSurfaces.Shelf) && node.shelf)  // If it is a shelf item and hits a shelf
+                    if (selectedItemType.placementSurfaces.Contains(PlacementSurfaces.Shelf) && node.shelf && !nodes[node].GetComponent<ShelfGridNode>())  // If it is a shelf item and hits a shelf
+                    {
+                        continue;
+                    }
+
+                    if (selectedItemType.placementSurfaces.Contains(PlacementSurfaces.Shelf) && node.shelf && nodes[node].GetComponent<ShelfGridNode>())  // If it is a shelf item and hits a shelf slot
                     {
                         hoveredNode = node;
+                        hoveringShelf = true;
                         continue;
                     }
 
@@ -179,15 +201,16 @@ public class DecorateShopController : MonoBehaviour
                     }
 
                     hoveredNode = node;
+                    hoveringShelf = false;
                     break;
                 }
 
             }
         }
 
-
         if (hoveredNode != null)  // If a valid node has been found
         {
+            Debug.Log(nodes[hoveredNode].gameObject + " - " + hoveringShelf);
             UpdateGridMaterials();
             return;
         }
@@ -201,7 +224,11 @@ public class DecorateShopController : MonoBehaviour
         foreach (RoomGridNode n in nodes.Keys)
         {
             if (n.invalid)
-                nodes[n].GetComponent<MeshRenderer>().material = decoratingGridTakenMat;
+            {
+                MeshRenderer m;
+                nodes[n].TryGetComponent(out m);
+                if (m) m.material = decoratingGridTakenMat;
+            }
         }
 
         if (!placementMode)
@@ -212,8 +239,14 @@ public class DecorateShopController : MonoBehaviour
                 {
                     Transform[] transforms = obj.GetComponentsInChildren<Transform>();
                     foreach (RoomGridNode n in currentGrid.CheckForObjectCollisions(transforms, ignoreShelves))
+                    {
                         if (n.worldPos != null && n.worldPos != Vector3.zero)  // If it is not a wall
-                            nodes[n].GetComponent<MeshRenderer>().material = decoratingGridHovered;
+                        {
+                            MeshRenderer m;
+                            nodes[n].TryGetComponent(out m);
+                            if (m) m.material = decoratingGridHovered;
+                        }
+                    }
                 }
             }
 
@@ -221,8 +254,14 @@ public class DecorateShopController : MonoBehaviour
             {
                 Transform[] transforms = selectedObject.GetComponentsInChildren<Transform>();
                 foreach (RoomGridNode n in currentGrid.CheckForObjectCollisions(transforms, ignoreShelves))
+                {
                     if (n.worldPos != null && n.worldPos != Vector3.zero)  // If it is not a wall
-                        nodes[n].GetComponent<MeshRenderer>().material = decoratingGridValidMat;
+                    {
+                        MeshRenderer m;
+                        nodes[n].TryGetComponent(out m);
+                        if (m) m.material = decoratingGridValidMat;
+                    }
+                }
             }
 
 
@@ -235,36 +274,13 @@ public class DecorateShopController : MonoBehaviour
             {
                 if (hoveredNode != null && hoveredNode != previousHoveredNode)
                 {
-                    if (GetCurrentSurface() == PlacementSurfaces.Shelf)
-                    {
-                        foreach (GameObject g in currentGrid.CheckNodeForObject(hoveredNode))
-                        {
-                            if (g != objectPreview && g.GetComponent<Decoration>().shelfSlots.Count != 0)
-                            {
-                                Transform closest = null;
-                                float closestDistanceSqr = Mathf.Infinity;
-                                foreach (Transform p in g.GetComponent<Decoration>().shelfSlots)
-                                {
-                                    Vector3 directionToTarget = p.transform.position - hoveredNode.worldPos;
-                                    float dSqrToTarget = directionToTarget.sqrMagnitude;
+                    if (hoveringShelf)
+                        objectPreview.transform.position = hoveredNode.worldPos;
 
-                                    if (dSqrToTarget < closestDistanceSqr)
-                                    {
-                                        closestDistanceSqr = dSqrToTarget;
-                                        closest = p;
-                                    }
-                                }
-                                objectPreview.transform.position = closest.position;
-                                break;
-                            }
-                        }
-                    }
                     else
-                    {
                         objectPreview.transform.position = hoveredNode.worldPos + selectedItemType.gridSnapOffset;
 
-                        //GetCurrentSurface() // Wall & ceiling rotations
-                    }
+                    //    //GetCurrentSurface() // Wall & ceiling rotations
                 }
                 else if (hoveredNode == null) objectPreview.transform.position = new Vector3(0, 100000, 0);
             }
@@ -367,7 +383,7 @@ public class DecorateShopController : MonoBehaviour
         objectPreview = GameObject.Instantiate(selectedObject);
         objectPreview.name = "Object Preview";
         SetObjectMaterials(objectPreview, objectPreviewValidMat);
-        foreach(Collider c in objectPreview.GetComponentsInChildren<Collider>())
+        foreach (Collider c in objectPreview.GetComponentsInChildren<Collider>())
             c.isTrigger = true;
 
         // Disable the floater if it has one
@@ -405,7 +421,8 @@ public class DecorateShopController : MonoBehaviour
 
         foreach (GameObject n in nodes.Values)
         {
-            GameObject.Destroy(n);
+            if (!n.GetComponent<ShelfGridNode>())  // If it isn't a shelf node
+                GameObject.Destroy(n);
         }
         nodes.Clear();
     }
@@ -415,7 +432,7 @@ public class DecorateShopController : MonoBehaviour
     private void PlaceDecoration(DecorationItemSO so)
     {
         PlacementSurfaces surface = GetCurrentSurface();
-        GameObject d = GameObject.Instantiate(selectedObject, decorationParent);
+        GameObject d = Instantiate(selectedObject, decorationParent);
 
         d.transform.position = objectPreview.transform.position;
 
@@ -451,6 +468,10 @@ public class DecorateShopController : MonoBehaviour
         //WateverVolumeFloater floater;
         //d.TryGetComponent(out floater);
         //if (floater != null) floater.WaterVolumeHelper = currentTank.waterObject.GetComponent<WaterVolumeHelper>();
+
+
+        if (hoveringShelf)
+            hoveredNode.invalid = true;
 
 
         //SetTransparentDecorations(transparentDecorations);
@@ -562,36 +583,45 @@ public class DecorateShopController : MonoBehaviour
         if (objectPreview == null) return;
         if (currentGrid == null) return;
         if (selectedItemType == null) return;
+        if (hoveredNode == null) return;
 
         selectionValid = true;
 
 
         //Check for colliding nodes and walls, if they are invalid then invalidate the placement
-        Transform[] transforms = objectPreview.GetComponentsInChildren<Transform>();
-        List<RoomGridNode> hitNodes = currentGrid.CheckForObjectCollisions(transforms, ignoreShelves);
-
-        foreach (RoomGridNode node in hitNodes)
+        if (hoveringShelf)
         {
-            if (node.invalid)
-            {
+            if (hoveredNode.invalid)
                 selectionValid = false;
+        }
+        else
+        {
+            Transform[] transforms = objectPreview.GetComponentsInChildren<Transform>();
+            List<RoomGridNode> hitNodes = currentGrid.CheckForObjectCollisions(transforms, ignoreShelves);
 
-                if (node.worldPos != null && node.worldPos != Vector3.zero)  // If it is not a wall
+            foreach (RoomGridNode node in hitNodes)
+            {
+                if (node.invalid)
                 {
-                    nodes[node].GetComponent<MeshRenderer>().material = decoratingGridInvalidMat;
+                    selectionValid = false;
+
+                    if (node.worldPos != null && node.worldPos != Vector3.zero)  // If it is not a wall
+                    {
+                        nodes[node].GetComponent<MeshRenderer>().material = decoratingGridInvalidMat;
+                    }
+                }
+
+                else
+                {
+                    nodes[node].GetComponent<MeshRenderer>().material = decoratingGridValidMat;
                 }
             }
 
-            else
-            {
-                nodes[node].GetComponent<MeshRenderer>().material = decoratingGridValidMat;
-            }
+
+            // If the surface is wrong
+            if (!selectedItemType.placementSurfaces.Contains(GetCurrentSurface()))
+                selectionValid = false;
         }
-
-
-        // If the surface is wrong
-        if (!selectedItemType.placementSurfaces.Contains(GetCurrentSurface()))
-            selectionValid = false;
 
 
         // If the object is touching the player
@@ -688,7 +718,12 @@ public class DecorateShopController : MonoBehaviour
 
     private void GreyOutGrid()
     {
-        foreach (RoomGridNode n in nodes.Keys) nodes[n].GetComponent<MeshRenderer>().material = decoratingGridMat;
+        foreach (RoomGridNode n in nodes.Keys)
+        {
+            MeshRenderer m;
+            nodes[n].TryGetComponent(out m);
+            if (m) m.material = decoratingGridMat;
+        }
     }
 
     //public void ToggleTransparentDecorarions()

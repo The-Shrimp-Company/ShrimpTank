@@ -32,7 +32,7 @@ Transform:
   m_LocalScale: {x: 100, y: 100, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1538451608873627699}
+  - {fileID: 2609646761520604485}
   m_Father: {fileID: 4069833515571043917}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &5727117889293280713
@@ -154,9 +154,7 @@ MonoBehaviour:
   decorationSO: {fileID: 11400000, guid: 96fb4af4d67a281429a2a08cc8bec366, type: 2}
   locked: 0
   floating: 0
-  shelfSlots:
-  - {fileID: 1538451608873627699}
---- !u!1 &7455061427573246027
+--- !u!1 &5771525460892939206
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,26 +162,75 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1538451608873627699}
-  m_Layer: 12
+  - component: {fileID: 2609646761520604485}
+  - component: {fileID: 2719521788227863194}
+  - component: {fileID: 8968651883341847192}
+  m_Layer: 14
   m_Name: Item Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1538451608873627699
+--- !u!4 &2609646761520604485
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7455061427573246027}
+  m_GameObject: {fileID: 5771525460892939206}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: -0, z: -0.125}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 0, y: 0.00002, z: -0.126}
+  m_LocalScale: {x: 0.010500002, y: 0.010499999, z: 0.21}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 429436083444613937}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2719521788227863194
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5771525460892939206}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.91470367, y: 0.5938892, z: 0.5674215}
+  m_Center: {x: -0.002929824, y: 0.021847574, z: 0.28162485}
+--- !u!114 &8968651883341847192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5771525460892939206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b66c8b769b006a4a819f8f2df18ab7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomGridNode:
+    coords: {x: 0, y: 0, z: 0}
+    worldPos: {x: 0, y: 0, z: 0}
+    neighbours: []
+    invalid: 0
+    distanceFactor: 0.5
+    floor: 0
+    ceiling: 0
+    wall: 0
+    nWall: 0
+    eWall: 0
+    sWall: 0
+    wWall: 0
+    shelf: 1

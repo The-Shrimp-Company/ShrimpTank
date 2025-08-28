@@ -9,7 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7825839295878045414}
-  m_Layer: 12
+  - component: {fileID: 5129848711405759260}
+  - component: {fileID: 1205134857314302182}
+  m_Layer: 14
   m_Name: Item Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,6 +33,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6501438719513924390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5129848711405759260
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677655749690503217}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.91470367, y: 0.5938892, z: 0.5674215}
+  m_Center: {x: -0.002929824, y: 0.021847574, z: 0.28162485}
+--- !u!114 &1205134857314302182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677655749690503217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b66c8b769b006a4a819f8f2df18ab7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomGridNode:
+    coords: {x: 0, y: 0, z: 0}
+    worldPos: {x: 0, y: 0, z: 0}
+    neighbours: []
+    invalid: 0
+    distanceFactor: 0.5
+    floor: 0
+    ceiling: 0
+    wall: 0
+    nWall: 0
+    eWall: 0
+    sWall: 0
+    wWall: 0
+    shelf: 1
 --- !u!1 &3330770338684537809
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +197,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2428101845686069978}
-  m_Layer: 12
+  - component: {fileID: 4373682502457183717}
+  - component: {fileID: 5140214562729190308}
+  m_Layer: 14
   m_Name: Item Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,6 +221,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6501438719513924390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4373682502457183717
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6037227156524245605}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.91470367, y: 0.5938892, z: 0.5674215}
+  m_Center: {x: -0.002929824, y: 0.021847574, z: 0.28162485}
+--- !u!114 &5140214562729190308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6037227156524245605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b66c8b769b006a4a819f8f2df18ab7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomGridNode:
+    coords: {x: 0, y: 0, z: 0}
+    worldPos: {x: 0, y: 0, z: 0}
+    neighbours: []
+    invalid: 0
+    distanceFactor: 0.5
+    floor: 0
+    ceiling: 0
+    wall: 0
+    nWall: 0
+    eWall: 0
+    sWall: 0
+    wWall: 0
+    shelf: 1
 --- !u!1 &7625677580727434641
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,7 +277,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5671257021062028962}
-  m_Layer: 12
+  - component: {fileID: 7284677691959724440}
+  - component: {fileID: 5299274568534280991}
+  m_Layer: 14
   m_Name: Item Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,6 +301,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6501438719513924390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7284677691959724440
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7625677580727434641}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.91470367, y: 0.5938892, z: 0.5674215}
+  m_Center: {x: -0.002929824, y: 0.021847574, z: 0.28162485}
+--- !u!114 &5299274568534280991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7625677580727434641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b66c8b769b006a4a819f8f2df18ab7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomGridNode:
+    coords: {x: 0, y: 0, z: 0}
+    worldPos: {x: 0, y: 0, z: 0}
+    neighbours: []
+    invalid: 0
+    distanceFactor: 0.5
+    floor: 0
+    ceiling: 0
+    wall: 0
+    nWall: 0
+    eWall: 0
+    sWall: 0
+    wWall: 0
+    shelf: 1
 --- !u!1 &8844570117771742220
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +396,3 @@ MonoBehaviour:
   decorationSO: {fileID: 11400000, guid: 528cb69190c57b14f8dfb1fe066731d9, type: 2}
   locked: 0
   floating: 0
-  shelfSlots:
-  - {fileID: 2428101845686069978}
-  - {fileID: 5671257021062028962}
-  - {fileID: 7825839295878045414}
