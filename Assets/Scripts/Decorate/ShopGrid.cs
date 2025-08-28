@@ -17,6 +17,7 @@ public class ShopGrid : MonoBehaviour
     public float pointSize;
     public float invalidPointSize;
     Vector3 startPoint;
+    private Transform player;
 
     [Header("Room Construction")]
     [SerializeField] GameObject roomParent;
@@ -47,6 +48,8 @@ public class ShopGrid : MonoBehaviour
             gridParent = new GameObject("Grid Debug");
             gridParent.transform.parent = transform;
         }
+
+        player = GameObject.Find("Player").transform;
 
         roomSize = startingRoomSize;
 
@@ -257,8 +260,6 @@ public class ShopGrid : MonoBehaviour
             {
                 for (int l = 0; l < roomSize.z; l++)
                 {
-                    //if (!grid[i][j][k].invalid) continue;
-
                     hit = Physics.BoxCastAll(grid[w][h][l].worldPos, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 0.01f, layer, QueryTriggerInteraction.Collide);
                     foreach (RaycastHit node in hit)
                     {
@@ -319,6 +320,30 @@ public class ShopGrid : MonoBehaviour
         RaycastHit[] hit;
 
         hit = Physics.BoxCastAll(node.worldPos, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 0.01f, layer, QueryTriggerInteraction.Collide);
+        foreach (RaycastHit h in hit)
+        {
+            GameObject selection = h.transform.gameObject;
+            while (selection.transform.parent != null && (layer & 1 << selection.transform.parent.gameObject.layer) == 1 << selection.transform.parent.gameObject.layer)  // Iterate up through parents to find the root of the decoration
+            {
+                selection = selection.transform.parent.gameObject;
+            }
+
+            if (!collidingObjects.Contains(selection))
+                collidingObjects.Add(selection);
+        }
+
+        return collidingObjects;
+    }
+
+
+    public List<GameObject> CheckPlayerForObject()
+    {
+        if (player == null) return null;
+        List<GameObject> collidingObjects = new List<GameObject>();
+        LayerMask layer = LayerMask.GetMask("RoomDecoration") | LayerMask.GetMask("Shelf");
+        RaycastHit[] hit;
+
+        hit = Physics.BoxCastAll(player.position, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 0.01f, layer, QueryTriggerInteraction.Collide);
         foreach (RaycastHit h in hit)
         {
             GameObject selection = h.transform.gameObject;
