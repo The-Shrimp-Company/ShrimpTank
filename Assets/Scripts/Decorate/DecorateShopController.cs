@@ -212,6 +212,13 @@ public class DecorateShopController : MonoBehaviour
 
         if (hoveredNode != null)  // If a valid node has been found
         {
+            while(!selectedItemType.placementSurfaces.Contains(GetCurrentSurface()))
+            {
+                if (hoveredNode.nodeBelow == null) break;
+                
+                hoveredNode = hoveredNode.nodeBelow;
+            }
+
             UpdateGridMaterials();
             return;
         }
