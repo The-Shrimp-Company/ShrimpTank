@@ -47,25 +47,7 @@ public class ShrimpSelectionBlock : ContentBlock
         {
             GetComponent<Image>().sprite = Rarity[4];
         }
-        string thistext = "£" + EconomyManager.instance.GetShrimpValue(shrimp).ToSafeString();
-        string regEx = @"^.*\.\d$";
-        Regex regex = new Regex(regEx);
-        Regex otherregex = new Regex(@"^.*\.\d\d+$");
-        if (thistext.Contains("."))
-        {
-            if (regex.IsMatch(thistext))
-            {
-                price.text = thistext + "0";
-            }
-            else if (otherregex.IsMatch(thistext))
-            {
-                price.text = thistext.Substring(0, thistext.IndexOf(".") + 3);
-            }
-        }
-        else
-        {
-            price.text = thistext + ".00";
-        }
+        price.text = EconomyManager.instance.GetShrimpValue(shrimp).RoundMoney().ToString();
     }
 
     public void Populate(ShrimpStats shrimp, ShrimpPurchaseContent par)

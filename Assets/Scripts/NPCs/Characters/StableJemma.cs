@@ -135,7 +135,18 @@ public class StableJemma : NPC
                     "I can finally start buying horses!";
             }
 
-            if(email.mainText != null)
+            if(Tutorial.instance.flags.Contains("extraShop") && !flags.Contains("extraShop") && ShopManager.instance.FindNpcShop(name).shrimpSold > 0)
+            {
+                email.subjectLine = "I can sell some other stuff too!";
+                email.mainText = "Have you heard about the new Update to the shrimp Stores?! Ther're going to let us sell things other than shrimp! This is really " +
+                    "useful for me, because that means that I can finally start shifting some of this extra shrimp stock that I bought accidentally, which is not shrimp " +
+                    "but is far too shrimp related for me.";
+                email.CreateEmailButton("Yay, more to buy!", true);
+                flags.Add("extraShop");
+                ShopManager.instance.FindNpcShop(name).otherStock.Add(Inventory.GetItemUsingName("Coffee Table"));
+            }
+
+            if (email.mainText != null)
             {
                 data.completion.Dequeue();
                 email.mainText += "\nJemma";

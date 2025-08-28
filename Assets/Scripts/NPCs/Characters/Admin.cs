@@ -184,7 +184,7 @@ public class Admin : NPC
             important = true;
         }
 
-        if(Reputation.GetReputation() >= 50 && !flags.Contains("extraShop"))
+        if(Reputation.GetReputation() >= 50 && !Tutorial.instance.flags.Contains("extraShop"))
         {
             email.subjectLine = "Project: Extra Shop";
             email.mainText = "We are pleased to announce a new update rolling out! From now on, select Shrimpers will be able to sell extra shrimp paraphenalia directly through " +
@@ -196,7 +196,7 @@ public class Admin : NPC
                 "case of one of you claiming that we have harmed you spiritually. You can get no warranty for the services we offer, as we refuse to offer any warrantable " +
                 "services. If you think we do, we will sue you. Happy shrimping is a registered trademark. Also, happy shrimping.</size>";
             email.CreateEmailButton("That sounds cool!", true);
-            flags.Add("extraShop");
+            Tutorial.instance.flags.Add("extraShop");
             important = true;
         }
 
