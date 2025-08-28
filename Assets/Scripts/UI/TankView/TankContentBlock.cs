@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,8 @@ public class TankContentBlock : ContentBlock
     private TankViewScript _tankView;
     [SerializeField]
     private GameObject shrimpView;
+
+    [SerializeField] private TextMeshProUGUI breedname;
 
     public Button main, checkbutton;
 
@@ -28,6 +31,7 @@ public class TankContentBlock : ContentBlock
     {
         _shrimp = shrimp;
         _tankView = tankView;
+        breedname.text = shrimp.stats.GetBreedname();
         primaryColour.color = GeneManager.instance.GetTraitSO(_shrimp.stats.primaryColour.activeGene.ID).colour;
         secondaryColour.color = GeneManager.instance.GetTraitSO(_shrimp.stats.secondaryColour.activeGene.ID).colour;
     }
