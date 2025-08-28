@@ -274,48 +274,37 @@ public class ShopGrid : MonoBehaviour
 
 
 
-        //RoomGridNode wall = new RoomGridNode();
-        //wall.invalid = true;
+        RoomGridNode wall = new RoomGridNode();
+        wall.invalid = true;
 
-        //// Back
-        //Vector3 pos = transform.position + new Vector3(0, 0, (roomSize.z + 1) / 2) * pointDistance;
-        //Vector3 r = pos - transform.position;  // Get the relative vector from point to pivot
-        //r = transform.rotation * r;  // Rotate around the point
-        //pos = transform.position + r;  // Return to world space
-        //hit = Physics.BoxCastAll(pos, new Vector3(roomSize.x * 2, roomSize.y * 2, 0.1f) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
-        //foreach (RaycastHit h in hit)
-        //    if (objects.Contains(h.transform))
-        //        collidingNodes.Add(wall);
+        // Back
+        Vector3 pos = transform.position + new Vector3(roomSize.x / 2, 0, -1) * pointDistance;
+        hit = Physics.BoxCastAll(pos, new Vector3(roomSize.x * 2, roomSize.y, 0.1f) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Collide);
+        foreach (RaycastHit h in hit)
+            if (objects.Contains(h.transform))
+                collidingNodes.Add(wall);
 
-        //// Front
-        //pos = transform.position + new Vector3(0, 0, (-roomSize.z - 2) / 2) * pointDistance;
-        //r = pos - transform.position;  // Get the relative vector from point to pivot
-        //r = transform.rotation * r;  // Rotate around the point
-        //pos = transform.position + r;  // Return to world space
-        //hit = Physics.BoxCastAll(pos, new Vector3(roomSize.x * 2, roomSize.y * 2, 0.1f) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
-        //foreach (RaycastHit h in hit)
-        //    if (objects.Contains(h.transform))
-        //        collidingNodes.Add(wall);
 
-        //// Right
-        //pos = transform.position + new Vector3((roomSize.x + 1) / 2, 0, 0) * pointDistance;
-        //r = pos - transform.position;  // Get the relative vector from point to pivot
-        //r = transform.rotation * r;  // Rotate around the point
-        //pos = transform.position + r;  // Return to world space
-        //hit = Physics.BoxCastAll(pos, new Vector3(0.1f, roomSize.y * 2, roomSize.z * 2) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
-        //foreach (RaycastHit h in hit)
-        //    if (objects.Contains(h.transform))
-        //        collidingNodes.Add(wall);
+        // Front
+        pos = transform.position + new Vector3(roomSize.x / 2, 0, roomSize.z) * pointDistance;
+        hit = Physics.BoxCastAll(pos, new Vector3(roomSize.x * 2, roomSize.y, 0.1f) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Collide);
+        foreach (RaycastHit h in hit)
+            if (objects.Contains(h.transform))
+                collidingNodes.Add(wall);
 
-        //// Left
-        //pos = transform.position + new Vector3((-roomSize.x - 2) / 2, 0, 0) * pointDistance;
-        //r = pos - transform.position;  // Get the relative vector from point to pivot
-        //r = transform.rotation * r;  // Rotate around the point
-        //pos = transform.position + r;  // Return to world space
-        //hit = Physics.BoxCastAll(pos, new Vector3(0.1f, roomSize.y * 2, roomSize.z * 2) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Ignore);
-        //foreach (RaycastHit h in hit)
-        //    if (objects.Contains(h.transform))
-        //        collidingNodes.Add(wall);
+        // Right
+        pos = transform.position + new Vector3(roomSize.x, 0, roomSize.z / 2) * pointDistance;
+        hit = Physics.BoxCastAll(pos, new Vector3(0.1f, roomSize.y, roomSize.z * 2) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Collide);
+        foreach (RaycastHit h in hit)
+            if (objects.Contains(h.transform))
+                collidingNodes.Add(wall);
+
+        // Left
+        pos = transform.position + new Vector3(-1, 0, roomSize.z / 2) * pointDistance;
+        hit = Physics.BoxCastAll(pos, new Vector3(0.1f, roomSize.y, roomSize.z * 2) * pointDistance / 2f, transform.up, transform.rotation, 1, layer, QueryTriggerInteraction.Collide);
+        foreach (RaycastHit h in hit)
+            if (objects.Contains(h.transform))
+                collidingNodes.Add(wall);
 
 
         return collidingNodes;
