@@ -38,25 +38,26 @@ public class Admin : NPC
             important = true;
         }
 
-        if(completion == 2)
+        if(completion == 3)
         {
             email.subjectLine = "Buying shrimp";
-            email.mainText = "You have opted into a slow introduction to shrimping. The first thing you need to know is how to buy shrimp. You have now been given access to the shrimp " +
-                "store, where you can access other's stores, and you can buy shrimp from them. You should do that now.";
+            email.mainText = "Now that you have food in your destination tank, you can put shrimp in it. Go to the shrimp store and choose a shrimp to buy. Pay attention to the needs and preferences " +
+                "of the shrimp you are buying, and remember that the tank doesn't have to be perfect for the shrimp to be ok. Shrimp will be happier and healthier when more of their needs are met, but " +
+                "they can survive as long as at least one other their needs are met. If none of their needs are met though, they will die.";
             important = true;
         }
-        if(completion == 3)
+        if(completion == 4)
         {
             email.subjectLine = "Checking your own store";
             email.mainText = "You can also see your own store, to get information about what is in your store. This will tell you how many shrimp you have, and what your reputation score is" +
                 " at. Access this screen now.";
             important = true;
         }
-        if (completion == 4)
+        if (completion == 2)
         {
             email.subjectLine = "Buying shrimp apparatus";
             email.mainText = "From what the system shows, you already have several tanks in your store, but what you don't have is any shrimp food. You can buy this from the store, which you " +
-                "now have access to. Buy some shrimp food now.";
+                "now have access to. Buy some shrimp food now, and put it in your destination shrimp tank. You'll need to make sure your shrimp tanks have food before you put shrimp in them.";
             important = true;
         }
         if(completion == 5)
@@ -228,7 +229,7 @@ public class Admin : NPC
                         .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "UpgradeStoreOpen")
                         .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 4);
                 }
-                if (sentEmail.subjectLine == "Buying shrimp apparatus" && PlayerStats.stats.timesBoughtFood > 0)
+                if (sentEmail.subjectLine == "Buying shrimp apparatus" && Store.GetDestinationTank().foodInTank.Count > 0)
                 {
                     sentEmail.CreateEmailButton("I've bought some food", true)
                         .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "VetOpen")
