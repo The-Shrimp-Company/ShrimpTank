@@ -359,7 +359,10 @@ public class TankController : MonoBehaviour
         CheckStatAlarm(waterSalt, idealSalt, 10, "Your tank has the wrong salt level", AlarmTypes.Salt);
         CheckStatAlarm(waterAmmonium, idealHnc, 10, "Your tank has the wrong Ammonium Nitrate level", AlarmTypes.Hnc);
         CheckStatAlarm(waterPh, idealPh, 2, "Your tank has the wrong pH level", AlarmTypes.ph);
-        CheckMinValueAlarm(foodInTank.Count, 0, "There is no food in the tank!", AlarmTypes.Food);
+        if(shrimpInTank.Count > 0)
+        {
+            CheckMinValueAlarm(foodInTank.Count, 0, "There is no food in the tank!", AlarmTypes.Food);
+        }
     }
 
     private void CheckStatAlarm(float currentValue, float targetValue, float maximumDifference, string AlarmMessage, AlarmTypes alarmType)
@@ -436,6 +439,15 @@ public class TankController : MonoBehaviour
         Email[] emails = EmailManager.instance.emails.Where(x => x.tag == Email.EmailTags.Alarms && AlarmIds.Contains(x.ID)).ToArray();
         if (emails.Length >= 1) return Array.Find(emails, (x) => { return x.title == type.ToString(); });
         else return null;
+    }
+
+    private void ClearAlarms()
+    {
+        foreach (string alarmId in AlarmIds)
+        {
+            EmailManager.RemoveEmail(EmailManager.instance.emails.Find(x => x.ID == alarmId));
+        }
+        AlarmIds.Clear();
     }
 
     public void ToggleDestinationTank()
@@ -668,6 +680,11 @@ public class TankController : MonoBehaviour
                     break;
                 }
         }
+    }
+
+    private void OnDestroy()
+    {
+        ClearAlarms();
     }
 }
 
