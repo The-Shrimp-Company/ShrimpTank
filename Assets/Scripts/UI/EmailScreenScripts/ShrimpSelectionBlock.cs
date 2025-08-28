@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class ShrimpSelectionBlock : ContentBlock
 {
-    [SerializeField] private TextMeshProUGUI gender, age, pattern, body, legs, eyes, tail, tailFan, head, price;
+    [SerializeField] private TextMeshProUGUI breedname;
     [SerializeField] private Image primaryColour, secondaryColour;
     [SerializeField] private Sprite[] Rarity;
 
@@ -23,15 +23,7 @@ public class ShrimpSelectionBlock : ContentBlock
     {
         _shrimp = shrimp;
         text.text = _shrimp.name;
-        age.text = "Age: " + TimeManager.instance.GetShrimpAge(_shrimp.birthTime).ToString();
-        gender.text = "Sex: " + (_shrimp.gender == true ? "M" : "F");
-        pattern.text = "Pattern: " + GeneManager.instance.GetTraitSO(_shrimp.pattern.activeGene.ID).traitName;
-        body.text = "Body: " + GeneManager.instance.GetTraitSO(_shrimp.body.activeGene.ID).set;
-        legs.text = "Legs: " + GeneManager.instance.GetTraitSO(_shrimp.legs.activeGene.ID).set;
-        eyes.text = "Eyes: " + GeneManager.instance.GetTraitSO(_shrimp.eyes.activeGene.ID).set;
-        tail.text = "Tail: " + GeneManager.instance.GetTraitSO(_shrimp.tail.activeGene.ID).set;
-        head.text = "Head: " + GeneManager.instance.GetTraitSO(_shrimp.head.activeGene.ID).set;
-        tailFan.text = "Tail Fan: " + GeneManager.instance.GetTraitSO(_shrimp.tailFan.activeGene.ID).set;
+        breedname.text = _shrimp.GetBreedname();
         primaryColour.color = GeneManager.instance.GetTraitSO(_shrimp.primaryColour.activeGene.ID).colour;
         secondaryColour.color = GeneManager.instance.GetTraitSO(_shrimp.secondaryColour.activeGene.ID).colour;
         int rarityApprox = Mathf.RoundToInt(EconomyManager.instance.GetShrimpValue(shrimp) / 4) - 1;
@@ -47,7 +39,7 @@ public class ShrimpSelectionBlock : ContentBlock
         {
             GetComponent<Image>().sprite = Rarity[4];
         }
-        price.text = EconomyManager.instance.GetShrimpValue(shrimp).RoundMoney().ToString();
+        //price.text = EconomyManager.instance.GetShrimpValue(shrimp).RoundMoney().ToString();
     }
 
     public void Populate(ShrimpStats shrimp, ShrimpPurchaseContent par)

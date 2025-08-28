@@ -96,4 +96,58 @@ public static class Tools
 
         return str;
     }
+
+    public static string GetBreedname(this ShrimpStats stats)
+    {
+        Dictionary<TraitSet, int> traitCount = new Dictionary<TraitSet, int>() { { TraitSet.Nylon, 0 }, { TraitSet.Anomalis, 0 }, { TraitSet.Caridid, 0 }, { TraitSet.Cherry, 0 } };
+
+        traitCount[GeneManager.instance.GetTraitSO(stats.body.activeGene.ID).set]++;
+        traitCount[GeneManager.instance.GetTraitSO(stats.legs.activeGene.ID).set]++;
+        traitCount[GeneManager.instance.GetTraitSO(stats.head.activeGene.ID).set]++;
+        traitCount[GeneManager.instance.GetTraitSO(stats.eyes.activeGene.ID).set]++;
+        traitCount[GeneManager.instance.GetTraitSO(stats.tail.activeGene.ID).set]++;
+        traitCount[GeneManager.instance.GetTraitSO(stats.tailFan.activeGene.ID).set]++;
+
+        string breedname = "";
+
+        if (traitCount[TraitSet.Cherry] == 6)
+        {
+            return "Pure Cherry";
+        }
+        else if (traitCount[TraitSet.Cherry] >= 2)
+        {
+            breedname += "Cherry ";
+        }
+
+        if (traitCount[TraitSet.Nylon] == 6)
+        {
+            return "Pure Armoured Nylon";
+        }
+        else if (traitCount[TraitSet.Nylon] >= 2)
+        {
+            breedname += "Nylon ";
+        }
+
+        if (traitCount[TraitSet.Caridid] == 6)
+        {
+            return "Pure Caridid";
+        }
+        else if (traitCount[TraitSet.Caridid] >= 2)
+        {
+            breedname += "Caridid ";
+        }
+
+        if (traitCount[TraitSet.Anomalis] == 6)
+        {
+            return "Pure Anomalis";
+        }
+        else if (traitCount[TraitSet.Anomalis] >= 2)
+        {
+            breedname += "Anomalis ";
+        }
+
+        breedname += "Mix";
+
+        return breedname;
+    }
 }

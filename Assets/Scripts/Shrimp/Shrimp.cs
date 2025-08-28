@@ -30,15 +30,13 @@ public class Shrimp : MonoBehaviour
     private float moltTimer;
     private float moltSpeed;
 
-    [Header("Breeding")]
-    [HideInInspector] public float breedingTimer;
-
     [Header("Illness")]
     public GameObject symptomBubbleParticles;
     [HideInInspector] public IllnessController illnessCont;
 
     [Header("Breeding")]
     public GameObject breedingHeartParticles;
+    [HideInInspector] public float breedingTimer;
 
     [Header("Effects")]
     public Transform particleParent;
@@ -62,6 +60,8 @@ public class Shrimp : MonoBehaviour
         moltSpeed = ShrimpManager.instance.GetMoltTime(TimeManager.instance.GetShrimpAge(stats.birthTime));
         breedingTimer = ShrimpManager.instance.GetBreedingCooldown(stats, tank);
         stats.canBreed = false;
+
+
 
         agent.shrimpModel.localScale = Vector2.zero;
         agent.shrimpModel.DOScale(ShrimpManager.instance.GetShrimpSize(TimeManager.instance.GetShrimpAge(stats.birthTime), stats.geneticSize), 0.5f).SetEase(shrimpAppearEase);  // Make the shrimp smoothly appear
@@ -289,7 +289,6 @@ public class Shrimp : MonoBehaviour
             shrimpNameChanged = false;
         }
     }
-
 
 
 
