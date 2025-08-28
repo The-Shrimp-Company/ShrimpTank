@@ -1846,6 +1846,7 @@ MonoBehaviour:
   text: {fileID: 251637447764548026}
   shrimpView: {fileID: 4927723591345053280, guid: 339fc23dc39dfec47b032eec0b36c061,
     type: 3}
+  breedname: {fileID: 5508989016030976465}
   main: {fileID: 6266611166694527060}
   checkbutton: {fileID: 8796357963534359685}
   tempArrow: {fileID: 1319873115682449783}

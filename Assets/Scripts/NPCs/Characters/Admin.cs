@@ -32,7 +32,7 @@ public class Admin : NPC
             email.mainText = "We have installed the community apps on your device for your convienience. You may choose to either have access to all of these applications now, " +
                 "or we can give you access over time, to walk you through the options available. Which would you like to pick?";
             email.CreateEmailButton("Walk me through the systems", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 2)
-                .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "ShrimpStoreOpen");
+                .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "UpgradeStoreOpen");
             email.CreateEmailButton("Give me everything (Not recommended for new players)", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 10)
                 .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "ShrimpStoreOpen", "OwnStoreOpen", "UpgradeStoreOpen", "VetOpen");
             important = true;
@@ -221,19 +221,19 @@ public class Admin : NPC
                 {
                     sentEmail.CreateEmailButton("I've bought a shrimp", true)
                         .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "OwnStoreOpen")
-                        .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 3);
+                        .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 4);
                 }
                 if (sentEmail.subjectLine == "Checking your own store" && PlayerStats.stats.timesSellingAppOpened > 0)
                 {
                     sentEmail.CreateEmailButton("I've opened the store app", true)
-                        .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "UpgradeStoreOpen")
-                        .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 4);
+                        .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "VetOpen")
+                        .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 5);
                 }
                 if (sentEmail.subjectLine == "Buying shrimp apparatus" && Store.GetDestinationTank().foodInTank.Count > 0)
                 {
                     sentEmail.CreateEmailButton("I've bought some food", true)
-                        .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "VetOpen")
-                        .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 5);
+                        .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "ShrimpStoreOpen")
+                        .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 3);
                 }
                 if(sentEmail.subjectLine == "Using the vet" && PlayerStats.stats.timesVetOpened > 0)
                 {

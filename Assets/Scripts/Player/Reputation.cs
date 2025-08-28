@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Reputation
@@ -18,6 +19,14 @@ public class Reputation
         instance.reputation += add;
         if (add > 0) PlayerStats.stats.reputationGained += add;
         if (add < 0) PlayerStats.stats.reputationLost += add;
+        if(!Tutorial.instance.flags.Contains("RepLevel1") && instance.reputation >= 20)
+        {
+            foreach (Shop shop in ShopManager.instance.shops.Where(x => !x.NpcOwned))
+            {
+                shop.maxShrimpStock++;
+            }
+            Tutorial.instance.flags.Add("RepLevel1");
+        }
     }
 
     /// <summary>
