@@ -237,7 +237,7 @@ public class DecorateShopController : MonoBehaviour
                 {
                     if (GetCurrentSurface() == PlacementSurfaces.Shelf)
                     {
-                        foreach(GameObject g in currentGrid.CheckNodeForObject(hoveredNode))
+                        foreach (GameObject g in currentGrid.CheckNodeForObject(hoveredNode))
                         {
                             if (g != objectPreview && g.GetComponent<Decoration>().shelfSlots.Count != 0)
                             {
@@ -260,7 +260,11 @@ public class DecorateShopController : MonoBehaviour
                         }
                     }
                     else
+                    {
                         objectPreview.transform.position = hoveredNode.worldPos + selectedItemType.gridSnapOffset;
+
+                        //GetCurrentSurface() // Wall & ceiling rotations
+                    }
                 }
                 else if (hoveredNode == null) objectPreview.transform.position = new Vector3(0, 100000, 0);
             }
