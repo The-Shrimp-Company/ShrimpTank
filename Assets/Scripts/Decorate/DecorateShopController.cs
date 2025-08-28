@@ -594,6 +594,12 @@ public class DecorateShopController : MonoBehaviour
             selectionValid = false;
 
 
+        // If the object is touching the player
+        List<GameObject> hitObjects = currentGrid.CheckPlayerForObject();
+        if (hitObjects.Contains(objectPreview))
+            selectionValid = false;
+
+
         // Check Money
         if (!Inventory.HasItem(selectedItemType.itemName))
             if (selectedItemType.purchaseValue > Money.instance.money)
