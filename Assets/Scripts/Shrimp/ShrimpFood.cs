@@ -80,7 +80,7 @@ public class ShrimpFood : MonoBehaviour
         }
 
         // Despawning
-        despawnTimer += elapsedTime;
+        if(Tutorial.instance.flags.Contains("AccountActivated")) despawnTimer += elapsedTime;
         if (shrimpEating == null && despawnTimer >= despawnTime)
         {
             tank.foodToRemove.Add(this);
