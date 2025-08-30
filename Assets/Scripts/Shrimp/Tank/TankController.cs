@@ -6,7 +6,7 @@ using System.Linq;
 using System;
 
 [RequireComponent(typeof(TankUpgradeController))]
-public class TankController : MonoBehaviour
+public class TankController : Interactable
 {
     public delegate void shrimpChanged(Shrimp shrimp);
     public event shrimpChanged OnShrimpRemoved;
@@ -221,7 +221,6 @@ public class TankController : MonoBehaviour
         }
 
         label.text = tankName;
-        if (tooltip) tooltip.toolTip = tankName;
 
         if (focusingTank) PlayerStats.stats.timeSpentFocusingTank += Time.deltaTime;
     }
@@ -616,6 +615,37 @@ public class TankController : MonoBehaviour
         if (tankNameChanged)
             PlayerStats.stats.tanksNamed++;
         tankNameChanged = false;
+    }
+
+
+    public override void Action()
+    {
+        ItemSO so = Inventory.GetSOForItem(player.GetComponent<HeldItem>().GetHeldItem());
+        if (so && !so.tags.Contains(ItemTags.Shrimp))
+        {
+            SpawnShrimp((player.GetComponent<HeldItem>().GetHeldItem() as ShrimpItem).shrimp);
+            player.GetComponent<HeldItem>().StopHoldingItem();
+        }
+        else
+            player.GetComponent<PlayerInteraction>().SetTankFocus(this);
+    }
+
+    public override void OnHover()
+    {
+        if (tooltip)
+        {
+            if (!Inventory.GetSOForItem(player.GetComponent<HeldItem>().GetHeldItem()).tags.Contains(ItemTags.Shrimp))
+                tooltip.toolTip = tankName;
+            else
+                tooltip.toolTip = "Put shrimp in " + tankName;
+        }
+
+        player.GetComponent<PlayerInteraction>().SetTankFocus(this);
+    }
+
+    public override void OnStopHover()
+    {
+        player.GetComponent<PlayerInteraction>().SetTankFocus(this);
     }
 
 

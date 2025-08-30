@@ -60,6 +60,9 @@ public class Inventory
             else if (loadedItemList[i] as FoodItemSO != null)
                 item = new FoodItem();
 
+            else if (loadedItemList[i] as ShrimpItemSO != null)
+                item = new ShrimpItem();
+
             else
                 item = new Item();
 
@@ -191,7 +194,10 @@ public class Inventory
 
     public static ItemSO GetSOForItem(Item item)
     {
+        if (item == null) return null;
+
         ItemSO so = GetSOUsingName(item.itemName);
+
         if (so != null)
             return so;
         else

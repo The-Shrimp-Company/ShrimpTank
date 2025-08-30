@@ -88,3 +88,9 @@ public class DecorationItem : Item
 {
 
 }
+
+[System.Serializable]
+public class ShrimpItem : Item
+{
+    public ShrimpStats shrimp;
+}

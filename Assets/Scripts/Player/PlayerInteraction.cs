@@ -44,16 +44,9 @@ public class PlayerInteraction : MonoBehaviour
                 LayerMask layer = LayerMask.GetMask("RoomDecoration") | LayerMask.GetMask("Decoration") | LayerMask.GetMask("Tanks");
                 GameObject target = lookCheck.LookCheck(3, layer);
 
-                if (target != null)
+                if (target != null && target.GetComponent<Interactable>() != null)
                 {
-                    if (target.GetComponent<TankController>() != null)
-                    {
-                        SetTankFocus(target.GetComponent<TankController>());
-                    }
-                    else if (target.GetComponent<Interactable>() != null)
-                    {
-                        target.GetComponent<Interactable>().Action();
-                    }
+                    target.GetComponent<Interactable>().Action();
                 }
             }
         }
