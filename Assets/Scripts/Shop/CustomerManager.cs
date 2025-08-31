@@ -56,7 +56,7 @@ public class CustomerManager : MonoBehaviour
                     float value = EconomyManager.instance.GetShrimpValue(shrimp.stats);
                     if (!shrimp.stats.bornInStore)
                     {
-                        value /= 3;
+                        value /= 4;
                     }
                     if (Random.value * 20 < value)
                     {
