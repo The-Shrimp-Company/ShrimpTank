@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -12,11 +13,14 @@ public class PlayerInteraction : MonoBehaviour
     private GameObject _tankView;
     private Vector2 press;
     private bool _pressed;
+    [SerializeField] public LayerMask layerMask;
+
 
     [Header("Hold Menu")]
     private float holdTime;
-    private bool holdingLeftClick;
+    private GameObject holdTarget;
     public RMF_RadialMenu radialMenu;
+    public Image holdSlider1, holdSlider2;
 
     // Start is called before the first frame update
     void Start()
@@ -28,13 +32,31 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Update()
     {
-        if (holdingLeftClick) holdTime += Time.deltaTime;
-
-        if (holdTime >= holdInteractionLength)
+        if (holdTarget != null)
         {
-            holdingLeftClick = false;
-            HoldLeftClick(true);
-            holdTime = 0f;
+            holdTime += Time.deltaTime;
+
+            float l = Mathf.InverseLerp(holdInteractionLength, 0, holdTime) * 2;
+            holdSlider1.fillAmount = Mathf.Clamp(l - 1, 0, 1);
+            holdSlider2.fillAmount = Mathf.Clamp(l, 0, 1);
+
+            if (holdTime >= holdInteractionLength)
+            {
+                HoldLeftClick(true);
+                holdTarget = null;
+                holdTime = 0f;
+            }
+
+            if (holdTarget != lookCheck.LookCheck(3, layerMask))
+            {
+                holdTarget = null;
+                holdTime = 0f;
+            }
+        }
+        else
+        {
+            holdSlider1.fillAmount = 0;
+            holdSlider2.fillAmount = 0;
         }
     }
 
@@ -51,13 +73,13 @@ public class PlayerInteraction : MonoBehaviour
 
         if (key.Get<float>() == 1)
         {
-            holdingLeftClick = true;
+            holdTarget = lookCheck.LookCheck(3, layerMask);
         }
-        if (key.Get<float>() == 0 && holdingLeftClick)
+        if (key.Get<float>() == 0 && holdTarget != null)
         {
-            holdingLeftClick = false;
             if (holdTime < holdInteractionLength) LeftClick(key.isPressed);
             else HoldLeftClick(key.isPressed);
+            holdTarget = null;
             holdTime = 0f;
         }
     }
@@ -70,28 +92,22 @@ public class PlayerInteraction : MonoBehaviour
         }
         else
         {
-            LayerMask layer = LayerMask.GetMask("RoomDecoration") | LayerMask.GetMask("Decoration") | LayerMask.GetMask("Tanks");
-            GameObject target = lookCheck.LookCheck(3, layer);
-
-            if (target != null && target.GetComponent<Interactable>() != null)
+            if (holdTarget != null && holdTarget.GetComponent<Interactable>() != null)
             {
-                target.GetComponent<Interactable>().Action();
+                holdTarget.GetComponent<Interactable>().Action();
             }
         }
     }
 
     private void HoldLeftClick(bool pressed)
     {
-        LayerMask layer = LayerMask.GetMask("RoomDecoration") | LayerMask.GetMask("Decoration") | LayerMask.GetMask("Tanks");
-        GameObject target = lookCheck.LookCheck(3, layer);
-
-        if (target == null || target.GetComponent<Interactable>() == null || !target.GetComponent<Interactable>().HasHoldActions()) 
+        if (holdTarget == null || holdTarget.GetComponent<Interactable>() == null || !holdTarget.GetComponent<Interactable>().HasHoldActions()) 
         {
             LeftClick(pressed);
             return;
         }
 
-        radialMenu.DisplayMenu(target.GetComponent<Interactable>().GetHoldActions());
+        radialMenu.DisplayMenu(holdTarget.GetComponent<Interactable>().GetHoldActions());
     }
 
     public void OnPlayerRightClick(InputValue key)
