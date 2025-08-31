@@ -136,6 +136,7 @@ public class TankController : Interactable
     {
         if (tankGrid == null) Debug.LogError("Pathfinding grid is missing");
         if (shrimpParent == null) Debug.LogError("Shrimp Parent is missing");
+        if (player == null) player = GameObject.Find("Player").transform;
 
         if (string.IsNullOrEmpty(tankName)) tankName = "Tank";
 

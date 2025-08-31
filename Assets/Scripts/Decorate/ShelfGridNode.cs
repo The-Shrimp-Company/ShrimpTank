@@ -7,13 +7,9 @@ public class ShelfGridNode : MonoBehaviour
 {
     [SerializeField] public RoomGridNode roomGridNode;
 
-    private void Awake()
-    {
-        roomGridNode.worldPos = transform.position;
-    }
-
     private void Start()
     {
+        roomGridNode.worldPos = transform.position;
         CheckNodeValidity();
     }
 

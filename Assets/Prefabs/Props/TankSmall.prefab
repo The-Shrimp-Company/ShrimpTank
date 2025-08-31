@@ -657,6 +657,7 @@ MonoBehaviour:
   shrimpToRemove: []
   shrimpParent: {fileID: 4423233220053350138}
   tankName: 
+  tankId: 
   updateTime: 0
   decorationsInTank: []
   decorationCamDock:
@@ -679,6 +680,12 @@ MonoBehaviour:
   tempuratureChangeSpeed: 5
   naturalTempuratureVariation: 25
   waterSalt: 50
+  waterAmmonium: 50
+  waterPh: 7
+  idealTemp: 0
+  idealSalt: 0
+  idealHnc: 0
+  idealPh: 0
   upgradeController: {fileID: 0}
   lights:
   - {fileID: 9082456001141851980}

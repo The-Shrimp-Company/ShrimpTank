@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ShopGrid : MonoBehaviour
 {
@@ -378,7 +379,7 @@ public class ShopGrid : MonoBehaviour
     }
 
 
-    public GridNode GetClosestNode(Vector3 position)
+    public RoomGridNode GetClosestNode(Vector3 position)
     {
         float sizeX = pointDistance * roomSize.x;
         float sizeY = pointDistance * roomSize.y;
@@ -391,11 +392,11 @@ public class ShopGrid : MonoBehaviour
         int x = Mathf.Clamp(Mathf.RoundToInt(percentageX * roomSize.x), 0, (int)roomSize.x - 1);
         int y = Mathf.Clamp(Mathf.RoundToInt(percentageY * roomSize.y), 0, (int)roomSize.y - 1);
         int z = Mathf.Clamp(Mathf.RoundToInt(percentageZ * roomSize.z), 0, (int)roomSize.z - 1);
-        GridNode result = grid[x][y][z];
+        RoomGridNode result = grid[x][y][z];
         int step = 1;
         while (result.invalid)
         {
-            List<GridNode> freePoints = new List<GridNode>();
+            List<RoomGridNode> freePoints = new List<RoomGridNode>();
             for (int p = -step; p <= step; p++)
             {
                 for (int q = -step; q <= step; q++)
@@ -435,11 +436,82 @@ public class ShopGrid : MonoBehaviour
 
             if (freePoints.Count == 0)
             {
-                //Debug.Log("Step - " + step);
                 step++;
             }
         }
         return result;
+    }
+
+
+    public RoomGridNode GetTankTeleportPosition(Vector3 position, int maxDistance)
+    {
+        float sizeX = pointDistance * roomSize.x;
+        float sizeZ = pointDistance * roomSize.z;
+
+        Vector3 pos = position - startPoint;
+        float percentageX = Mathf.Clamp01(pos.x / sizeX);
+        float percentageZ = Mathf.Clamp01(pos.z / sizeZ);
+        int x = Mathf.Clamp(Mathf.RoundToInt(percentageX * roomSize.x), 0, (int)roomSize.x - 1);
+        int z = Mathf.Clamp(Mathf.RoundToInt(percentageZ * roomSize.z), 0, (int)roomSize.z - 1);
+        RoomGridNode result = grid[x][0][z];
+        int step = 1;
+        while (result.invalid)
+        {
+            List<RoomGridNode> freePoints = new List<RoomGridNode>();
+            for (int p = -step; p <= step; p++)
+            {
+                for (int g = -step; g <= step; g++)
+                {
+                    if (x == p && z == g)
+                    {
+                        continue;
+                    }
+                    int i = x + p;
+                    int k = z + g;
+                    if (i > -1 && i < roomSize.x &&
+                        k > -1 && k < roomSize.z)
+                    {
+                        if (!grid[x + p][0][z + g].invalid)
+                        {
+                            freePoints.Add(grid[x + p][0][z + g]);
+                        }
+                    }
+                }
+            }
+
+            float distance = Mathf.Infinity;
+            for (int i = 0; i < freePoints.Count; i++)
+            {
+                float dist = (freePoints[i].worldPos - position).sqrMagnitude;
+                if (dist < distance)
+                {
+                    result = freePoints[i];
+                    dist = distance;
+                }
+            }
+
+            if (freePoints.Count == 0)
+            {
+                if (step == maxDistance)
+                    return null;
+
+                step++;
+            }
+        }
+        return result;
+    }
+
+
+    public RoomGridNode GetLowestNode(RoomGridNode node)
+    {
+        if (node == null) return null;
+
+        while (node.nodeBelow != null)
+        {
+            node = node.nodeBelow;
+        }
+
+        return node;
     }
 
 

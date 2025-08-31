@@ -126,13 +126,15 @@ public class PlayerInteraction : MonoBehaviour
         if (_tankView != null)
         {
             _tankView.GetComponent<TankController>().StopFocusingTank();
-            Vector3 v3 = _tankView.GetComponent<TankController>().GetCam().transform.position;
-            transform.position = new Vector3(v3.x, transform.position.y, v3.z);
             _camera.transform.localPosition = Vector3.up / 2;
+            RoomGridNode pos = ShopGrid.Instance.GetTankTeleportPosition(_tankView.GetComponent<TankController>().GetCam().transform.position, 3);
+            if (pos != null) transform.position = new Vector3(pos.worldPos.x, transform.position.y, pos.worldPos.z);
             _tankView = null;
         }
         UIManager.instance.ClearScreens();
     }
+
+
 
     /// <summary>
     /// Should only be called from the tank view action map. Used to interact with shrimp.
