@@ -82,7 +82,8 @@ public class PlayerUIController : MonoBehaviour
         pos.x = Mathf.Clamp(pos.x, left, right);
         pos.y = Mathf.Clamp(pos.y, bottom, top);
 
-        Mouse.current.WarpCursorPosition(pos);
+
+        if(Mouse.current.position.value != pos) Mouse.current.WarpCursorPosition(pos);
     }
 
     public void SetShrimpCam(ShrimpCam cam)
