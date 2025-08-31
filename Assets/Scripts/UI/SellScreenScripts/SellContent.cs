@@ -2,14 +2,16 @@ using SaveLoadSystem;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SellContent : ContentPopulation
 {
     [SerializeField] private TextMeshProUGUI shrimpCount;
     [SerializeField] private TextMeshProUGUI shrimpPrice;
     [SerializeField] private TextMeshProUGUI reputation;
-    [SerializeField] private TextMeshProUGUI storeName;
+    [SerializeField] private TMP_InputField storeName;
 
     // Start is called before the first frame update
     void Awake()
@@ -65,5 +67,22 @@ public class SellContent : ContentPopulation
             price += EconomyManager.instance.GetShrimpValue(shrimp.stats);
         }
         reputation.text = "You have [" + Reputation.GetReputation() + "] Reputation";
+        storeName.text = Store.StoreName;
+    }
+
+    public void SetName(string text)
+    {
+        Store.StoreName = text;
+        storeName.text = text;
+    }
+
+    public void UISelect()
+    {
+        GameObject.FindWithTag("Player").GetComponent<PlayerInput>().SwitchCurrentActionMap("Empty");
+    }
+
+    public void UIUnselect()
+    {
+        GameObject.FindWithTag("Player").GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
     }
 }

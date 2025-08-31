@@ -53,6 +53,43 @@ public class FullEmail : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        body.text = _email.mainText;
+        title.text = "From:" + _email.sender ?? _email.title ?? "WhoKnows";
+        subject.text = "Subject Line:" + _email.subjectLine;
+        if(_email.buttons.Count != buttons.Count)
+        {
+            if (_email.buttons != null)
+            {
+                foreach (MyButton button in _email.buttons)
+                {
+                    GameObject obj = Instantiate(_button, buttonParent);
+                    obj.GetComponentInChildren<TextMeshProUGUI>().text = button.text;
+                    FontTools.SizeFont(obj.GetComponentInChildren<TextMeshProUGUI>());
+                    button.ButtonFunc();
+                    foreach (UnityAction action in button.actions)
+                    {
+                        obj.GetComponent<Button>().onClick.AddListener(action);
+                    }
+                    if (button.destroy == true)
+                    {
+                        obj.GetComponent<Button>().onClick.AddListener(DeleteEmail);
+                    }
+                    buttons.Add(obj.GetComponent<Button>());
+                }
+            }
+            if (_email.tag == Email.EmailTags.Spam)
+            {
+                deleteButton.SetActive(true);
+            }
+            else
+            {
+                deleteButton.SetActive(false);
+            }
+        }
+    }
+
     public void DeleteEmail()
     {
         EmailManager.RemoveEmail(_email);
