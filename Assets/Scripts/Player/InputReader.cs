@@ -16,4 +16,9 @@ public class InputReader : MonoBehaviour
     {
         DecorateTankController.Instance.OnChangeCam(value);
     }
+
+    public void OnHideRadialMenu(InputValue value)
+    {
+        GetComponent<PlayerInteraction>().radialMenu.HideMenu();
+    }
 }

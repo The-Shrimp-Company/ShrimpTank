@@ -8,6 +8,7 @@ public class Decoration : MonoBehaviour
     public bool locked;  // Whether the item can be removed
     [HideInInspector] public Dictionary<MeshRenderer, Material[]> materials = new Dictionary<MeshRenderer, Material[]>();
     [HideInInspector] public bool floating;
+    [HideInInspector] public Interactable interactable;
 
     private void Awake()
     {
@@ -21,6 +22,19 @@ public class Decoration : MonoBehaviour
 
             materials.Add(me, ma);
         }
+
+        interactable = GetComponentInChildren<Interactable>();
+        if (interactable == null)
+            interactable = gameObject.AddComponent(typeof(Interactable)) as Interactable;
+    }
+
+    private void Start()
+    {
+        if (!locked)
+        {
+            interactable.AddHoldAction("Move Decoration", MoveDecoration);
+            interactable.AddHoldAction("Remove Decoration", RemoveDecoration);
+        }
     }
 
     public void ResetMaterials()
@@ -30,5 +44,15 @@ public class Decoration : MonoBehaviour
             if (materials.ContainsKey(me))
                 me.materials = materials[me];
         }
+    }
+
+    public void MoveDecoration()
+    {
+        Debug.Log("Move");
+    }
+
+    public void RemoveDecoration()
+    {
+        Debug.Log("Remove");
     }
 }

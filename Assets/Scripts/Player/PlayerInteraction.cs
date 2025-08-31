@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject inventory;
+    [SerializeField] private GameObject inventory;
+    [SerializeField] private float holdInteractionLength = 1f;
 
     private CameraLookCheck lookCheck;
     private Camera _camera;
@@ -16,12 +13,29 @@ public class PlayerInteraction : MonoBehaviour
     private Vector2 press;
     private bool _pressed;
 
+    [Header("Hold Menu")]
+    private float holdTime;
+    private bool holdingLeftClick;
+    public RMF_RadialMenu radialMenu;
+
     // Start is called before the first frame update
     void Start()
     {
         lookCheck = GetComponentInChildren<CameraLookCheck>();
         _camera = GetComponentInChildren<Camera>();
         _input = GetComponent<PlayerInput>();
+    }
+
+    private void Update()
+    {
+        if (holdingLeftClick) holdTime += Time.deltaTime;
+
+        if (holdTime >= holdInteractionLength)
+        {
+            holdingLeftClick = false;
+            HoldLeftClick(true);
+            holdTime = 0f;
+        }
     }
 
     /// <summary>
@@ -33,23 +47,51 @@ public class PlayerInteraction : MonoBehaviour
     /// </summary>
     public void OnPlayerClick(InputValue key)
     {
-        if (key.isPressed)
-        {
-            if (Store.decorateController.decorating)
-            {
-                Store.decorateController.MouseClick(key.isPressed);
-            }
-            else
-            {
-                LayerMask layer = LayerMask.GetMask("RoomDecoration") | LayerMask.GetMask("Decoration") | LayerMask.GetMask("Tanks");
-                GameObject target = lookCheck.LookCheck(3, layer);
+        if (radialMenu.menuOpen) return;
 
-                if (target != null && target.GetComponent<Interactable>() != null)
-                {
-                    target.GetComponent<Interactable>().Action();
-                }
+        if (key.Get<float>() == 1)
+        {
+            holdingLeftClick = true;
+        }
+        if (key.Get<float>() == 0 && holdingLeftClick)
+        {
+            holdingLeftClick = false;
+            if (holdTime < holdInteractionLength) LeftClick(key.isPressed);
+            else HoldLeftClick(key.isPressed);
+            holdTime = 0f;
+        }
+    }
+
+    private void LeftClick(bool pressed)
+    {
+        if (Store.decorateController.decorating)
+        {
+            Store.decorateController.MouseClick(pressed);
+        }
+        else
+        {
+            LayerMask layer = LayerMask.GetMask("RoomDecoration") | LayerMask.GetMask("Decoration") | LayerMask.GetMask("Tanks");
+            GameObject target = lookCheck.LookCheck(3, layer);
+
+            if (target != null && target.GetComponent<Interactable>() != null)
+            {
+                target.GetComponent<Interactable>().Action();
             }
         }
+    }
+
+    private void HoldLeftClick(bool pressed)
+    {
+        LayerMask layer = LayerMask.GetMask("RoomDecoration") | LayerMask.GetMask("Decoration") | LayerMask.GetMask("Tanks");
+        GameObject target = lookCheck.LookCheck(3, layer);
+
+        if (target == null || target.GetComponent<Interactable>() == null || !target.GetComponent<Interactable>().HasHoldActions()) 
+        {
+            LeftClick(pressed);
+            return;
+        }
+
+        radialMenu.DisplayMenu(target.GetComponent<Interactable>().GetHoldActions());
     }
 
     public void OnPlayerRightClick(InputValue key)
