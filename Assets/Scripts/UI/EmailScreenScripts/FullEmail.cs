@@ -14,11 +14,14 @@ public class FullEmail : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI title, subject, body;
 
+    public string ID;
+
     private Email _email;
 
     public void SetEmail(Email email)
     {
         _email = email;
+        ID = _email.ID;
         EmailManager.instance.openEmail = this;
         body.text = email.mainText;
         title.text = "From:" + email.sender ?? email.title ?? "WhoKnows";
@@ -95,4 +98,5 @@ public class FullEmail : MonoBehaviour
         EmailManager.RemoveEmail(_email);
         Destroy(transform.gameObject);
     }
+
 }

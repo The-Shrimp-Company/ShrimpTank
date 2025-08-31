@@ -175,7 +175,7 @@ public class EmailManager
             instance.OnEmailRemoved(email);
         }
 
-        if (instance.openEmail != null)
+        if (instance.openEmail.ID == email.ID)
         {
             GameObject.Destroy(instance.openEmail.gameObject);
         }

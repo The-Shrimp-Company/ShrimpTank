@@ -63,4 +63,5 @@ public class EmailContentBlock : ContentBlock
     }
 
     public Animator GetAnimator() { return animator; }
+
 }
