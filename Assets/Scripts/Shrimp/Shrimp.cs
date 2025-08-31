@@ -237,14 +237,10 @@ public class Shrimp : MonoBehaviour
 
         // Spawn dead body
 
+        tank.ShrimpDiedAlarm(stats);
 
 
-
-        Email email = EmailTools.CreateEmail();
-        email.title = "YourStore@notifSystem.store";
-        email.subjectLine = stats.name + " has died";
-        email.mainText = stats.name + " was in " + tank.tankName;
-        EmailManager.SendEmail(email);
+        
 
         PlayerStats.stats.shrimpDeaths++;
 

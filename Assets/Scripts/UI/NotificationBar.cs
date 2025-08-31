@@ -8,10 +8,26 @@ using UnityEngine;
 public class NotificationBar : MonoBehaviour
 {
     public TextMeshProUGUI notifCount;
+    private bool assigned = false;
 
-    void Start()
+    
+
+    private void OnEnable()
     {
-        UIManager.instance.SendNotification += Notification;
+        if(UIManager.instance != null)
+        {
+            UIManager.instance.SendNotification += Notification;
+            assigned = true;
+        }
+    }
+
+    private void Start()
+    {
+        if (!assigned)
+        {
+            UIManager.instance.SendNotification += Notification;
+            assigned = true;
+        }
     }
 
     private void Update()
@@ -27,6 +43,12 @@ public class NotificationBar : MonoBehaviour
 
     private void OnDestroy()
     {
+        UIManager.instance.SendNotification -= Notification;
+    }
+
+    private void OnDisable()
+    {
+        assigned = false;
         UIManager.instance.SendNotification -= Notification;
     }
 }

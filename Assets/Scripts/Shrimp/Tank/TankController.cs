@@ -19,7 +19,8 @@ public class TankController : Interactable
         Food,
         Salt,
         Hnc,
-        ph
+        ph,
+        ShrimpDeath
     }
 
 
@@ -400,6 +401,24 @@ public class TankController : Interactable
                 EmailManager.RemoveEmail(email);
             }
         }
+    }
+
+    public void ShrimpDiedAlarm(ShrimpStats shrimp)
+    {
+        Email email = FindAlarm(AlarmTypes.ShrimpDeath);
+        if(email != null)
+        {
+            UIManager.instance.PushNotification((shrimp.name + " has died as well"), true);
+        }
+        else
+        {
+            email = CreateAlarm(AlarmTypes.ShrimpDeath);
+            email.CreateEmailButton("Delete", true);
+        }
+
+        email.mainText += "\n" + shrimp.name + " has died";
+        
+        
     }
 
     private Email CreateOrFindAlarm(AlarmTypes type)

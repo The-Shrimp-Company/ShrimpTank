@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Device;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder;
@@ -226,6 +227,14 @@ public class UIManager : MonoBehaviour
     {
         _currentText = EmailManager.instance.GetNotification();
         notifTime = 0;
+    }
+
+    public void PushNotification(string text, bool sound)
+    {
+        if(SendNotification != null)
+        {
+            SendNotification(text, sound);
+        }
     }
 
     /// <summary>
