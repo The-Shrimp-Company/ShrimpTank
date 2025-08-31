@@ -61,7 +61,6 @@ namespace SaveLoadSystem
         public string[] alarmIds;
         public bool destinationTank;
         public bool openTank;
-        public float openTankPrice;
         public string[] upgradeIDs;
         public float waterTemp;
         public float waterQuality;

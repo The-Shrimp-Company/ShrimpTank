@@ -84,7 +84,6 @@ public class TankController : Interactable
     [SerializeField] private GameObject SaleSign;
     public bool openTank { get; private set; } = false;
     [SerializeField] private TextMeshProUGUI label;
-    public float openTankPrice = 5;
     [SerializeField] private TextMeshProUGUI openTankLabel;
 
     [Header("Pathfinding")]
@@ -476,11 +475,6 @@ public class TankController : Interactable
     }
 
 
-    public void SetTankPrice(float price)
-    {
-        openTankPrice = price;
-        openTankLabel.text = "All Shrimp\n" + "£" + price.ToString();
-    }
 
 
     public void toggleTankOpen()
@@ -490,7 +484,6 @@ public class TankController : Interactable
         if (openTank) CustomerManager.Instance.openTanks.Add(this);
         else CustomerManager.Instance.openTanks.Remove(this);
         SaleSign.SetActive(openTank);
-        openTankLabel.text = "All Shrimp\n" + "£" + openTankPrice.ToString();
     }
 
 

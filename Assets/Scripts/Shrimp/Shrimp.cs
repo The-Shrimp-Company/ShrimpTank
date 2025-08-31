@@ -148,7 +148,7 @@ public class Shrimp : MonoBehaviour
             KillShrimp();
         }
         // Check if the shrimp should die due to hunger
-        else if(stats.hunger >= 3)
+        else if(stats.hunger >= 5)
         {
             KillShrimp();
         }
@@ -251,7 +251,7 @@ public class Shrimp : MonoBehaviour
     public void SellShrimp()
     {
         illnessCont.RemoveShrimp();
-        CustomerManager.Instance.PurchaseShrimp(this, currentValue);
+        CustomerManager.Instance.PurchaseShrimpThroughRequest(this, currentValue);
     }
 
     public void HardSellShrimp()

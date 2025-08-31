@@ -56,12 +56,11 @@ public class CustomerManager : MonoBehaviour
                     float value = EconomyManager.instance.GetShrimpValue(shrimp.stats);
                     if (!shrimp.stats.bornInStore)
                     {
-                        value /= 2;
+                        value /= 3;
                     }
-                    float chance = currentTank.openTankPrice / value;
-                    if (Random.value * 2 > chance)
+                    if (Random.value * 20 < value)
                     {
-                        PurchaseShrimp(shrimp);
+                        PurchaseShrimp(shrimp, value / Random.Range(1.2f, 2));
                         break;
                     }
                 }
@@ -78,7 +77,7 @@ public class CustomerManager : MonoBehaviour
         }
         openSaleCoolDownCount += Time.deltaTime;
 
-        if(Random.Range(0, 1000) == 1 && requests.Count < 5 && coolDown < 0 && ShrimpManager.instance.allShrimp.Count > 5 && Tutorial.instance.flags.Contains("AccountActivated"))
+        if(Random.Range(0, 1000) == 1 && requests.Count < 5 && coolDown < 0 && ShrimpManager.instance.allShrimp.Count > 5 && Reputation.GetReputation() > 40)
         {
             coolDown = 300;
             MakeRequest();
@@ -104,26 +103,26 @@ public class CustomerManager : MonoBehaviour
         UIManager.instance.GetScreen()?.GetComponent<SellScreenView>()?.UpdateList(shrimp);
     }
 
-    public void PurchaseShrimp(Shrimp shrimp)
+    public void PurchaseShrimp(Shrimp shrimp, float value = 1)
     {
         if (shrimp != null)
         {
             shrimp.tank.shrimpToRemove.Add(shrimp);
-            Money.instance.AddMoney(shrimp.tank.openTankPrice);
+            Money.instance.AddMoney(value);
             Reputation.AddReputation(0.6f - shrimp.stats.illnessLevel / 100);
             EconomyManager.instance.UpdateTraitValues(false, shrimp.stats);
 
             Email email = EmailTools.CreateEmail();
             email.title = "Admin@admin.ShrimpCo.com";
             email.subjectLine = shrimp.stats.name + " has been sold";
-            email.mainText = shrimp.stats.name + " was in " + shrimp.tank.tankName + "\n£" + shrimp.tank.openTankPrice + " has been deposited into your account";
+            email.mainText = shrimp.stats.name + " was in " + shrimp.tank.tankName;
             EmailManager.SendEmail(email);
 
             PlayerStats.stats.shrimpSold++;
         }
     }
 
-    public void PurchaseShrimp(Shrimp shrimp, float value)
+    public void PurchaseShrimpThroughRequest(Shrimp shrimp, float value)
     {
         if (shrimp != null)
         {

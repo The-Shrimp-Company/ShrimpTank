@@ -82,7 +82,6 @@ public class TankViewScript : ScreenView
         leftPanelResting = leftPanel.transform.position;
         upgradeBoxResting = upgradeBox.transform.position;
         Name.text = tank.tankName;
-        salePrice.text = tank.openTankPrice.ToString();
         selectedShrimp = new List<Shrimp>();
         upgrades.Tank = tank;
         tank.OnShrimpRemoved += whenShrimpRemoved;
@@ -450,10 +449,6 @@ public class TankViewScript : ScreenView
         tank.tankNameChanged = true;
     }
 
-    public void SetPrice()
-    {
-        tank.SetTankPrice(float.Parse(salePrice.text));
-    }
 
     public void UISelect()
     {

@@ -814,7 +814,6 @@ public class DecorateShopController : MonoBehaviour
         tank.tankName = data.tankName;
         tank.tankId = data.tankId;
         tank.AlarmIds = data.alarmIds.ToList<String>();
-        tank.openTankPrice = data.openTankPrice;
         if (data.destinationTank) Store.SwitchDestinationTank(tank);
         if (data.openTank) tank.toggleTankOpen();
 

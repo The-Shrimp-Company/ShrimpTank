@@ -22,10 +22,4 @@ public class SellContentBlock : ContentBlock
         Destroy(gameObject);
     }
 
-    public void SetSalePrice()
-    {
-        Canvas.ForceUpdateCanvases();
-        _salePrice.text = _shrimp.tank.openTankPrice.ToString();
-        FontTools.SizeFont(_salePrice);
-    }
 }

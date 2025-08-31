@@ -48,7 +48,7 @@ MonoBehaviour:
   thisItem:
     itemName: 
     quantity: 0
-  hungerFillAmount: 10
+  hungerFillAmount: 1
   eatingTime: 2
   shrimpEating: {fileID: 0}
   sinkSpeed: 60

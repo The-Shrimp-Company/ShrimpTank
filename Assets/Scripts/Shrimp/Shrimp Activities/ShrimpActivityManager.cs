@@ -108,8 +108,9 @@ public static class ShrimpActivityManager
 
             else if (activity is ShrimpEating)
             {
-                // Check if there is food in the tank
-                if (shrimp.tank.foodInTank.Count == 0)
+                // Check if there is food in the tank or if the shrimp is "full"
+                // If I ever add shrimp happiness, the shrimp should try and eat to prevent hunger.
+                if (shrimp.tank.foodInTank.Count == 0 || shrimp.stats.hunger == 0)
                 {
                     shrimp.stats.hunger += 1;
                     continue;

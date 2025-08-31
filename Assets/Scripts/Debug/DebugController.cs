@@ -457,7 +457,7 @@ public class DebugController : MonoBehaviour
 
         SALE_PRICE = new DebugCommand<float>("sale_price", "Change the price on this sale tank", "sale_price", (x) =>
         {
-            focussedTank.GetTank().SetTankPrice(x);
+            //focussedTank.GetTank().SetTankPrice(x);
         });
 
 

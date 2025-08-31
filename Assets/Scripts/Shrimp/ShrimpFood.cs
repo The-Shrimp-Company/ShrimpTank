@@ -11,7 +11,7 @@ public class ShrimpFood : MonoBehaviour
     public Item thisItem;
 
     [Header("Eating")]
-    public int hungerFillAmount = 10;
+    public int hungerFillAmount = 2;
     public float eatingTime = 2;
     [HideInInspector] public Shrimp shrimpEating; 
 
