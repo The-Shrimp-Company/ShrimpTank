@@ -1,3 +1,4 @@
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -13,12 +14,14 @@ public class PlayerInteraction : MonoBehaviour
     private GameObject _tankView;
     private Vector2 press;
     private bool _pressed;
+    [SerializeField] public LayerMask shelfLayerMask;
     [SerializeField] public LayerMask layerMask;
 
 
     [Header("Hold Menu")]
     private float holdTime;
-    private GameObject holdTarget;
+    private GameObject hoverTarget, holdTarget;
+    private Interactable targetInteractable;
     public RMF_RadialMenu radialMenu;
     public Image holdSlider1, holdSlider2;
 
@@ -32,13 +35,36 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Update()
     {
-        if (holdTarget != null)
+        hoverTarget = lookCheck.LookCheck(3, shelfLayerMask);
+        if (hoverTarget != null)
+        {
+            if (hoverTarget.GetComponent<Decoration>()) targetInteractable = hoverTarget.GetComponent<Decoration>().interactable;
+            else if (hoverTarget.GetComponent<Interactable>()) targetInteractable = hoverTarget.GetComponent<Interactable>();
+            else targetInteractable = hoverTarget.GetComponentInChildren<Interactable>();
+        }
+        else targetInteractable = null;
+
+        if (targetInteractable && targetInteractable.decoration.CheckForItemsOnShelf())  // If it is a shelf and has items on it, ignore it and check again
+        {
+            hoverTarget = lookCheck.LookCheck(3, layerMask);
+            if (hoverTarget != null)
+            {
+                if (hoverTarget.GetComponent<Decoration>()) targetInteractable = hoverTarget.GetComponent<Decoration>().interactable;
+                else if (hoverTarget.GetComponent<Interactable>()) targetInteractable = hoverTarget.GetComponent<Interactable>();
+                else targetInteractable = hoverTarget.GetComponentInChildren<Interactable>();
+            }
+            else targetInteractable = null;
+        }
+
+
+
+        if (holdTarget && targetInteractable && targetInteractable.HasHoldActions())
         {
             holdTime += Time.deltaTime;
 
             float l = Mathf.InverseLerp(holdInteractionLength, 0, holdTime) * 2;
-            holdSlider1.fillAmount = Mathf.Clamp(l - 1, 0, 1);
-            holdSlider2.fillAmount = Mathf.Clamp(l, 0, 1);
+            holdSlider1.fillAmount = Mathf.Clamp(l - 1.1f, 0, 1);
+            holdSlider2.fillAmount = Mathf.Clamp(l - 0.1f, 0, 1);
 
             if (holdTime >= holdInteractionLength)
             {
@@ -55,8 +81,16 @@ public class PlayerInteraction : MonoBehaviour
         }
         else
         {
-            holdSlider1.fillAmount = 0;
-            holdSlider2.fillAmount = 0;
+            if (targetInteractable && targetInteractable.HasHoldActions())
+            {
+                holdSlider1.fillAmount = 1;
+                holdSlider2.fillAmount = 1;
+            }
+            else
+            {
+                holdSlider1.fillAmount = 0;
+                holdSlider2.fillAmount = 0;
+            }
         }
     }
 
@@ -73,7 +107,7 @@ public class PlayerInteraction : MonoBehaviour
 
         if (key.Get<float>() == 1)
         {
-            holdTarget = lookCheck.LookCheck(3, layerMask);
+            holdTarget = hoverTarget;
         }
         if (key.Get<float>() == 0 && holdTarget != null)
         {
@@ -92,22 +126,19 @@ public class PlayerInteraction : MonoBehaviour
         }
         else
         {
-            if (holdTarget != null && holdTarget.GetComponent<Interactable>() != null)
-            {
-                holdTarget.GetComponent<Interactable>().Action();
-            }
+            if (targetInteractable) targetInteractable.Action();
         }
     }
 
     private void HoldLeftClick(bool pressed)
     {
-        if (holdTarget == null || holdTarget.GetComponent<Interactable>() == null || !holdTarget.GetComponent<Interactable>().HasHoldActions()) 
+        if (!targetInteractable || !targetInteractable.HasHoldActions()) 
         {
             LeftClick(pressed);
             return;
         }
 
-        radialMenu.DisplayMenu(holdTarget.GetComponent<Interactable>().GetHoldActions());
+        radialMenu.DisplayMenu(targetInteractable.GetHoldActions(), targetInteractable.decoration.decorationSO.itemName);
     }
 
     public void OnPlayerRightClick(InputValue key)

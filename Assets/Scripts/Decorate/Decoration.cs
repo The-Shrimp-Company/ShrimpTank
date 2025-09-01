@@ -23,9 +23,9 @@ public class Decoration : MonoBehaviour
             materials.Add(me, ma);
         }
 
-        interactable = GetComponentInChildren<Interactable>();
-        if (interactable == null)
-            interactable = gameObject.AddComponent(typeof(Interactable)) as Interactable;
+        if (GetComponent<Interactable>()) interactable = GetComponent<Interactable>();
+        else if (GetComponentInChildren<Interactable>()) interactable = GetComponentInChildren<Interactable>();
+        else interactable = transform.GetChild(0).gameObject.AddComponent(typeof(Interactable)) as Interactable;
     }
 
     private void Start()
@@ -34,6 +34,7 @@ public class Decoration : MonoBehaviour
         {
             interactable.AddHoldAction("Move Decoration", MoveDecoration);
             interactable.AddHoldAction("Remove Decoration", RemoveDecoration);
+            interactable.decoration = this;
         }
     }
 
@@ -54,5 +55,15 @@ public class Decoration : MonoBehaviour
     public void RemoveDecoration()
     {
         Debug.Log("Remove");
+    }
+
+    public bool CheckForItemsOnShelf()
+    {
+        if (!decorationSO.shelf) return false;
+        foreach(ShelfGridNode node in transform.GetComponentsInChildren<ShelfGridNode>())
+        {
+            if (node.roomGridNode.invalid) return true;
+        }
+        return false;
     }
 }

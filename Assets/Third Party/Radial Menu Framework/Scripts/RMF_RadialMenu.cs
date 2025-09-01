@@ -35,7 +35,9 @@ public class RMF_RadialMenu : MonoBehaviour {
     public RectTransform selectionFollowerContainer;
 
     [Tooltip("This is the text object that will display the labels of the radial elements when they are being hovered over. If you don't want a label, leave this blank.")]
-    public Text textLabel;
+    public TMP_Text nameLabel;
+    public TMP_Text textLabel;
+    public RectTransform background;
 
     [Tooltip("This is the list of radial menu elements. This is order-dependent. The first element in the list will be the first element created, and so on.")]
     public List<RMF_RadialMenuElement> elements = new List<RMF_RadialMenuElement>();
@@ -119,17 +121,17 @@ public class RMF_RadialMenu : MonoBehaviour {
 
             rt = elements[i].transform.GetChild(0).GetComponent<RectTransform>();
             rt.localPosition = new Vector3(rt.localPosition.x, elementHeights[elementCount - 1] / 3, rt.localPosition.z);
-            rt.DOLocalMoveY(elementHeights[elementCount - 1], animationLength).SetEase(Ease.OutBack).SetDelay((float)i / 10);
+            rt.DOLocalMoveY(elementHeights[elementCount - 1], animationLength).SetEase(Ease.OutBack).SetDelay((float)(i + 1) / 10);
 
             Vector3 scale = rt.localScale;
             rt.localScale = Vector3.zero;
-            rt.DOScale(scale, animationLength).SetEase(Ease.OutBack).SetDelay((float)i / 10);
+            rt.DOScale(scale, animationLength).SetEase(Ease.OutBack).SetDelay((float)(i + 1) / 10);
 
             elements[i].transform.GetComponentInChildren<Image>().sprite = elementSprites[elementCount - 1];
         }
     }
 
-    public void DisplayMenu(Dictionary<string, UnityAction> actions)
+    public void DisplayMenu(Dictionary<string, UnityAction> actions, string name)
     {
         SetupElements(actions.Count);
         menuOpen = true;
@@ -137,6 +139,11 @@ public class RMF_RadialMenu : MonoBehaviour {
         canvasGroup.interactable = true;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        nameLabel.text = name;
+
+        Vector3 scale = background.localScale;
+        background.localScale = Vector3.zero;
+        background.DOScale(scale, animationLength).SetEase(Ease.OutQuad);
 
 
         int i = 0;
@@ -151,6 +158,8 @@ public class RMF_RadialMenu : MonoBehaviour {
 
             i++;
         }
+
+        selectButton(0);
     }
 
     public void HideMenu()

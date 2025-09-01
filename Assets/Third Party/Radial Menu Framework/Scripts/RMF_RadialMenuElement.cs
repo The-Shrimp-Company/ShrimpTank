@@ -134,7 +134,8 @@ public class RMF_RadialMenuElement : MonoBehaviour {
 
         RectTransform crt = transform.GetChild(0).GetComponent<RectTransform>();
         crt.DOKill();
-        crt.DOLocalMoveY(parentRM.elementHeights[parentRM.currentElementCount - 1], parentRM.animationLength).SetEase(Ease.OutBack);
+        crt.DOLocalMoveY(parentRM.elementHeights[parentRM.currentElementCount - 1], parentRM.animationLength / 2).SetEase(Ease.OutBack);
+        crt.DOScale(Vector3.one, parentRM.animationLength).SetEase(Ease.OutBack);
     }
 
     //Just a quick little test you can run to ensure things are working properly.

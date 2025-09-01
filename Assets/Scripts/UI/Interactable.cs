@@ -7,6 +7,7 @@ public class Interactable : MonoBehaviour
 {
     protected bool hovering = false;
     protected bool wasHovering = false;
+    [HideInInspector] public Decoration decoration;
     protected Dictionary<string, UnityAction> holdActions = new Dictionary<string, UnityAction>();
     
 
