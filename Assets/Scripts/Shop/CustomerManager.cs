@@ -172,53 +172,43 @@ public class CustomerManager : MonoBehaviour
             loop += 1;
             int index = traits[Random.Range(0, traits.Count)];
             traits.Remove(index);
-            message += RequestPrepend();
             switch (index)
             {
                 case 1:
                     obfs.pattern.obfuscated = true;
-                    message += GeneManager.instance.GetTraitSO(obfs.pattern.activeGene.ID).traitName;
                     break;
                 case 2:
                     obfs.body.obfuscated = true;
-                    message += GeneManager.instance.GetTraitSO(obfs.body.activeGene.ID).traitName;
                     break;
                 case 3:
                     obfs.head.obfuscated = true;
-                    message += GeneManager.instance.GetTraitSO(obfs.head.activeGene.ID).traitName;
                     break;
                 case 4:
                     obfs.secondaryColour.obfuscated = true;
-                    message += GeneManager.instance.GetTraitSO(obfs.secondaryColour.activeGene.ID).traitName + " secondary colour";
                     break;
                 case 5:
                     obfs.primaryColour.obfuscated = true;
-                    message += GeneManager.instance.GetTraitSO(obfs.primaryColour.activeGene.ID).traitName + " primary colour";
                     break;
                 case 6:
                     obfs.legs.obfuscated = true;
-                    message += GeneManager.instance.GetTraitSO(obfs.legs.activeGene.ID).traitName;
                     break;
                 case 7:
                     obfs.tail.obfuscated = true;
-                    message += GeneManager.instance.GetTraitSO(obfs.tail.activeGene.ID).traitName;
                     break;
                 case 8:
                     obfs.tailFan.obfuscated = true;
-                    message += GeneManager.instance.GetTraitSO(obfs.tailFan.activeGene.ID).traitName;
                     break;
                 case 9:
                     obfs.eyes.obfuscated = true;
-                    message += GeneManager.instance.GetTraitSO(obfs.eyes.activeGene.ID).traitName;
                     break;
 
             }
-            message += ".\n";
         } while (loop < 4 && Random.Range(1, 5) > 1);
 
+        message += "I would like a " + obfs.GetBreedname();
 
         float value = EconomyManager.instance.GetObfsShrimpValue(obfs);
-        message += "I will pay " + value + " plus a bonus if the shrimp is very good";
+        message += "\nI will pay " + value + " plus a bonus if the shrimp is very good";
 
         Request request = new () {
             stats = s,

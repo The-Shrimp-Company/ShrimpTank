@@ -129,18 +129,18 @@ public class EconomyManager : MonoBehaviour
     {
         // Add trait values
         float t = 0;
-        if (s.primaryColour.obfuscated) t += GeneManager.instance.GetGlobalGene(s.primaryColour.activeGene.ID).currentValue;
-        if (s.secondaryColour.obfuscated) t += GeneManager.instance.GetGlobalGene(s.secondaryColour.activeGene.ID).currentValue;
-        if (s.pattern.obfuscated) t += GeneManager.instance.GetGlobalGene(s.pattern.activeGene.ID).currentValue;
+        if (!s.primaryColour.obfuscated) t += GeneManager.instance.GetGlobalGene(s.primaryColour.activeGene.ID).currentValue;
+        if (!s.secondaryColour.obfuscated) t += GeneManager.instance.GetGlobalGene(s.secondaryColour.activeGene.ID).currentValue;
+        if (!s.pattern.obfuscated) t += GeneManager.instance.GetGlobalGene(s.pattern.activeGene.ID).currentValue;
 
-        if (s.body.obfuscated) t += GeneManager.instance.GetGlobalGene(s.body.activeGene.ID).currentValue;
-        if (s.head.obfuscated) t += GeneManager.instance.GetGlobalGene(s.head.activeGene.ID).currentValue;
-        if (s.eyes.obfuscated) t += GeneManager.instance.GetGlobalGene(s.eyes.activeGene.ID).currentValue;
-        if (s.tail.obfuscated) t += GeneManager.instance.GetGlobalGene(s.tail.activeGene.ID).currentValue;
-        if (s.legs.obfuscated) t += GeneManager.instance.GetGlobalGene(s.legs.activeGene.ID).currentValue;
-        if (s.tailFan.obfuscated) t += GeneManager.instance.GetGlobalGene(s.tailFan.activeGene.ID).currentValue;
+        if (!s.body.obfuscated) t += GeneManager.instance.GetGlobalGene(s.body.activeGene.ID).currentValue;
+        if (!s.head.obfuscated) t += GeneManager.instance.GetGlobalGene(s.head.activeGene.ID).currentValue;
+        if (!s.eyes.obfuscated) t += GeneManager.instance.GetGlobalGene(s.eyes.activeGene.ID).currentValue;
+        if (!s.tail.obfuscated) t += GeneManager.instance.GetGlobalGene(s.tail.activeGene.ID).currentValue;
+        if (!s.legs.obfuscated) t += GeneManager.instance.GetGlobalGene(s.legs.activeGene.ID).currentValue;
+        if (!s.tailFan.obfuscated) t += GeneManager.instance.GetGlobalGene(s.tailFan.activeGene.ID).currentValue;
 
-        t = RoundMoney(t);  // Round to 2 decimal places
+        t = RoundMoney(t*10);  // Round to 2 decimal places
 
         return t;
     }

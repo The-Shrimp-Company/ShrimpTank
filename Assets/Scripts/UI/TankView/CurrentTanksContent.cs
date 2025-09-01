@@ -13,8 +13,8 @@ public class CurrentTanksContent : ContentPopulation
         foreach(ContentBlock content in contentBlocks)
         {
             if (_shrimp[0].tank == Store.decorateController.tanksInStore[i]) i++;
-            content.GetComponent<CurrentTankContentBlock>().SetTank(Store.decorateController.tanksInStore[i]);
             content.GetComponent<CurrentTankContentBlock>().SetShrimp(_shrimp);
+            content.GetComponent<CurrentTankContentBlock>().SetTank(Store.decorateController.tanksInStore[i]);
             content.SetText(Store.decorateController.tanksInStore[i].tankName);
             i++;
         }

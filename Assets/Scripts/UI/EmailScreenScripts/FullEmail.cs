@@ -61,7 +61,7 @@ public class FullEmail : MonoBehaviour
         body.text = _email.mainText;
         title.text = "From:" + _email.sender ?? _email.title ?? "WhoKnows";
         subject.text = "Subject Line:" + _email.subjectLine;
-        if(_email.buttons.Count != buttons.Count)
+        if(_email.buttons != null && _email.buttons.Count != buttons.Count)
         {
             if (_email.buttons != null)
             {
