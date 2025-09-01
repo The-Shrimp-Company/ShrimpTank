@@ -38,8 +38,8 @@ public class TankViewScript : ScreenView
     [Header("Status Labels")]
     [SerializeField] TextMeshProUGUI idealHeatLabel;
     [SerializeField] TextMeshProUGUI heatWarningLabel;
-    [SerializeField] TextMeshProUGUI idealHNCLabel;
-    [SerializeField] TextMeshProUGUI hncWarningLabel;
+    [SerializeField] TextMeshProUGUI idealHNOLabel;
+    [SerializeField] TextMeshProUGUI hnoWarningLabel;
     [SerializeField] TextMeshProUGUI idealpHLabel;
     [SerializeField] TextMeshProUGUI pHWarningLabel;
     [SerializeField] TextMeshProUGUI idealSaltLabel;
@@ -384,15 +384,15 @@ public class TankViewScript : ScreenView
         idealpHLabel.text = ((int)tank.idealPh).ToString();
 
         // Check for Ammonium preference
-        if(tank.shrimpInTank.Find(x => Mathf.Abs(tank.idealHnc - x.stats.ammoniaPreference) > 10) != null)
+        if(tank.shrimpInTank.Find(x => Mathf.Abs(tank.idealHno - x.stats.ammoniaPreference) > 10) != null)
         {
-            hncWarningLabel.text = "Warning: Too much shrimp variety";
+            hnoWarningLabel.text = "Warning: Too much shrimp variety";
         }
         else
         {
-            hncWarningLabel.text = "";
+            hnoWarningLabel.text = "";
         }
-        idealHNCLabel.text = ((int)tank.idealHnc).ToString();
+        idealHNOLabel.text = ((int)tank.idealHno).ToString();
     }
 
     public void SetDestinationTank()

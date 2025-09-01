@@ -68,6 +68,12 @@ public class Email
 
 }
 
+public class Notification
+{
+    public string text;
+    public string ID;
+}
+
 
 public delegate void EmailEvent(Email email);
 
@@ -80,6 +86,8 @@ public class EmailManager
     public event EmailEvent OnEmailRemoved;
 
     public int currentNotif = 0;
+    public List<Notification> notifications = new ();
+    public List<Notification> alarmNotifs = new ();
 
     private int IdChaff = 0;
 
@@ -129,7 +137,7 @@ public class EmailManager
     {
         if (important) email.tag = Email.EmailTags.Important;
         instance.emails.Add(email);
-        instance.currentNotif = instance.emails.Count - 1;
+
         UIManager.instance.RefreshNotif();
         if (email.tag != Email.EmailTags.Spam) UIManager.instance.triggerSound = true;
         email.timeSent = TimeManager.instance.GetTotalTime();
@@ -137,30 +145,38 @@ public class EmailManager
         {
             instance.OnEmailSent(email);
         }
+        if(email.tag == Email.EmailTags.Alarms)
+        {
+            instance.alarmNotifs.Add(new Notification() { text = email.subjectLine, ID = email.ID });
+            instance.currentNotif = instance.alarmNotifs.Count - 1;
+            UIManager.instance.RefreshNotif();
+        }
+        else if(email.tag == Email.EmailTags.Important)
+        {
+            instance.notifications.Add(new Notification() { text = email.subjectLine, ID = email.ID });
+            instance.currentNotif = instance.notifications.Count - 1;
+            UIManager.instance.RefreshNotif();
+        }
+        
     }
 
     public string GetNotification()
     {
         string notif = "";
 
-        if(emails.Count <= 0)
+        
+        if (alarmNotifs.Count != 0)
         {
-            return "";
+            if (currentNotif >= alarmNotifs.Count) currentNotif = 0;
+            notif += "<b><color=red>! </color></b>";
+            notif += alarmNotifs[currentNotif].text;
         }
-        if(emails.Find(x => x.tag != Email.EmailTags.Spam) == null)
+        else if(notifications.Count != 0)
         {
-            return "";
+            if (currentNotif >= notifications.Count) currentNotif = 0;
+            notif += notifications[currentNotif].text;
         }
-
-        do
-        {
-            currentNotif++;
-            if (currentNotif >= emails.Count) currentNotif = 0;
-        } while (emails[currentNotif].tag == Email.EmailTags.Spam);
-
-        if (emails.Find(x => x.tag == Email.EmailTags.Alarms) != null) notif += "<b><color=red>! </color></b>";
-        notif += emails[currentNotif].subjectLine;
-
+        currentNotif++;
 
         return notif;
     }
@@ -173,6 +189,12 @@ public class EmailManager
         if (instance.OnEmailRemoved != null)
         {
             instance.OnEmailRemoved(email);
+        }
+
+        if(instance.notifications.Find(x => x.ID == email.ID) != null)
+        {
+            instance.notifications.Remove(instance.notifications.Find(x => x.ID == email.ID));
+            UIManager.instance.RefreshNotif();
         }
 
         if (instance.openEmail != null && instance.openEmail.ID == email.ID)
@@ -191,9 +213,8 @@ public static class EmailTools
     /// <summary>
     /// A tool to create buttons to appear in the email screen
     /// </summary>
-    /// <param name="emailID">The ID of the email to add the button to</param>
+    /// <param name="email">The email to add the button to, this uses the email ID instead of a reference</param>
     /// <param name="text">What the button should say</param>
-    /// <param name="data">The information about the function to run on click </param>
     /// <param name="destroy">If true, the button will also have a listener added to delete the email when the button is pressed</param>
     static public MyButton CreateEmailButton( this Email email, string text, bool destroy = false)
     {

@@ -18,7 +18,7 @@ public class TankController : Interactable
         Quality,
         Food,
         Salt,
-        Hnc,
+        AmmoniumNitrate,
         ph,
         ShrimpDeath
     }
@@ -69,7 +69,7 @@ public class TankController : Interactable
 
     [HideInInspector] public float idealTemp = 0;
     [HideInInspector] public float idealSalt = 0;
-    [HideInInspector] public float idealHnc = 0;
+    [HideInInspector] public float idealHno = 0;
     [HideInInspector] public float idealPh = 0;
 
 
@@ -333,12 +333,12 @@ public class TankController : Interactable
         }
         idealTemp /= shrimpInTank.Count;
 
-        idealHnc = 0;
+        idealHno = 0;
         foreach(Shrimp shrimp in shrimpInTank)
         {
-            idealHnc += shrimp.stats.ammoniaPreference;
+            idealHno += shrimp.stats.ammoniaPreference;
         }
-        idealHnc /= shrimpInTank.Count;
+        idealHno /= shrimpInTank.Count;
 
         idealPh = 0;
         foreach(Shrimp shrimp in shrimpInTank)
@@ -357,7 +357,7 @@ public class TankController : Interactable
         // Sending stat alarms
         CheckStatAlarm(waterTemperature, idealTemp, 10, "Your tank is the wrong temperature", AlarmTypes.Temp);
         CheckStatAlarm(waterSalt, idealSalt, 10, "Your tank has the wrong salt level", AlarmTypes.Salt);
-        CheckStatAlarm(waterAmmonium, idealHnc, 10, "Your tank has the wrong Ammonium Nitrate level", AlarmTypes.Hnc);
+        CheckStatAlarm(waterAmmonium, idealHno, 10, "Your tank has the wrong Ammonium Nitrate level", AlarmTypes.AmmoniumNitrate);
         CheckStatAlarm(waterPh, idealPh, 2, "Your tank has the wrong pH level", AlarmTypes.ph);
         if(shrimpInTank.Count > 0)
         {

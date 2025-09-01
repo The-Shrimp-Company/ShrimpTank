@@ -16,6 +16,7 @@ public class ShrimpSelectionPopulation : ContentPopulation
         _window = window;
         _email = EmailManager.instance.emails.Find((x) => { return x.ID == request.emailID; });
         List<Shrimp> shrimp = ShrimpManager.instance.allShrimp;
+        /*
         if (request.obfstats.tail.obfuscated)
         {
             shrimp = shrimp.Where(x => x.stats.tail.activeGene.ID == request.stats.tail.activeGene.ID).ToList();
@@ -48,6 +49,9 @@ public class ShrimpSelectionPopulation : ContentPopulation
         {
             shrimp = shrimp.Where(x => x.stats.legs.activeGene.ID == request.stats.legs.activeGene.ID).ToList();
         }
+        */
+
+        shrimp = shrimp.Where(x => x.stats.GetBreedname() == request.stats.GetBreedname()).ToList();
 
         foreach(Shrimp s in shrimp)
         {

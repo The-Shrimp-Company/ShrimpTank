@@ -164,6 +164,7 @@ public class CustomerManager : MonoBehaviour
         ShrimpStats obfs = s;
         string message = "";
 
+        /*
         List<int> traits = new List<int>{ 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         int loop = 0;
 
@@ -204,6 +205,7 @@ public class CustomerManager : MonoBehaviour
 
             }
         } while (loop < 4 && Random.Range(1, 5) > 1);
+        */
 
         message += "I would like a " + obfs.GetBreedname();
 
@@ -222,7 +224,8 @@ public class CustomerManager : MonoBehaviour
         email.mainText = message;
         email.CreateEmailButton("Choose Shrimp")
             .SetFunc(EmailFunctions.FunctionIndexes.CompleteRequest, request);
-        email.CreateEmailButton("I don't want to sell you that, actually.", true);
+        email.CreateEmailButton("I don't want to sell you that, actually.", true)
+            .SetFunc(EmailFunctions.FunctionIndexes.RejectRequest, request);
         EmailManager.SendEmail(email, true);
         request.emailID = email.ID;
         requests.Add(request);

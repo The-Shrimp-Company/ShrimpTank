@@ -36,6 +36,9 @@ namespace SaveLoadSystem
 
         public Email[] emails;
 
+        public Notification[] notifications;
+        public Notification[] alarmNotifs;
+
         public Request[] requests;
 
         public List<string> tutorialFlags;

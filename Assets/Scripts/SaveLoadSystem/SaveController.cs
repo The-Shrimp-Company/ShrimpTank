@@ -210,6 +210,8 @@ public class SaveController : MonoBehaviour
 
         // Emails
         d.emails = EmailManager.instance.emails.ToArray();
+        d.notifications = EmailManager.instance.notifications.ToArray();
+        d.alarmNotifs = EmailManager.instance.alarmNotifs.ToArray();
 
         // NPC Shops
         d.shops = ShopManager.instance.shops.ToArray();
@@ -261,6 +263,8 @@ public class SaveController : MonoBehaviour
 
         // Emails
         EmailManager.instance.Initialize();
+        EmailManager.instance.notifications = d.notifications.ToList();
+        EmailManager.instance.alarmNotifs = d.alarmNotifs.ToList();
 
         // Reputation
         Reputation.SetReputation(d.reputation);

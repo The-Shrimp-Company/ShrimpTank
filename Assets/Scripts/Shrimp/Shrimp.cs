@@ -148,7 +148,7 @@ public class Shrimp : MonoBehaviour
             KillShrimp();
         }
         // Check if the shrimp should die due to hunger
-        else if(stats.hunger >= 5)
+        else if(stats.hunger >= 10)
         {
             KillShrimp();
         }

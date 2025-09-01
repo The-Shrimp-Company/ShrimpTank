@@ -22,6 +22,7 @@ static public class EmailFunctions
         SetTutorialFlag,
         SpamEmailBlackout,
         FocusTargetTank,
+        RejectRequest,
         Count
     }
 
@@ -40,6 +41,9 @@ static public class EmailFunctions
                     break;
                 case FunctionIndexes.CompleteRequest:
                     CompleteRequest(button);
+                    break;
+                case FunctionIndexes.RejectRequest:
+                    RejectRequest(button);
                     break;
                 case FunctionIndexes.SetCompletion:
                     SetCompletion(button);
@@ -93,6 +97,14 @@ static public class EmailFunctions
         button.actions.Add(() =>
         {
             button.data[(int)FunctionIndexes.CompleteRequest].data[0].TryCast<Request>().OpenShrimpSelection();
+        });
+    }
+
+    static private void RejectRequest(MyButton button)
+    {
+        button.actions.Add(() =>
+        {
+            CustomerManager.Instance.requests.Remove(button.data[(int)FunctionIndexes.RejectRequest].data[0].TryCast<Request>());
         });
     }
 
