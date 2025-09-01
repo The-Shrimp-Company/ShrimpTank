@@ -79,12 +79,14 @@ public class ShrimpFood : MonoBehaviour
             }
         }
 
+        /*
         // Despawning
         if(Tutorial.instance.flags.Contains("AccountActivated")) despawnTimer += elapsedTime;
         if (shrimpEating == null && despawnTimer >= despawnTime)
         {
             tank.foodToRemove.Add(this);
         }
+        */
     }
 
     private void FindLandingPosition()

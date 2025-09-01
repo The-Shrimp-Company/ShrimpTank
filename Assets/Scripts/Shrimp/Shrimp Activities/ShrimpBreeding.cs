@@ -6,7 +6,7 @@ public class ShrimpBreeding : ShrimpActivity
 {
     private float breedDistance = 0.0375f;
     private float waitDistance = 0.15f;
-    private float breedTime = 10;
+    private float breedTime = 5;
 
     // While waiting for instigator
     private float bobSpeed = 0.5f;

@@ -108,7 +108,7 @@ public class TankController : Interactable
     [HideInInspector] public Dictionary<IllnessSO, int> currentIllness = new Dictionary<IllnessSO, int>();
 
     [Header("Breeding")]
-    public float breedingCooldown = 90;
+    public float breedingCooldown = 45;
     [HideInInspector] public float breedingCooldownTimer;
     [HideInInspector] public bool shrimpCanBreed;
 
