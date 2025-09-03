@@ -8,8 +8,13 @@ public class Interactable : MonoBehaviour
     protected bool hovering = false;
     protected bool wasHovering = false;
     [HideInInspector] public Decoration decoration;
+    [HideInInspector] public bool interactable;
     protected Dictionary<string, UnityAction> holdActions = new Dictionary<string, UnityAction>();
-    
+
+    private void Awake()
+    {
+        interactable = true;
+    }
 
     // Update is called once per frame
     protected virtual void MouseHover()

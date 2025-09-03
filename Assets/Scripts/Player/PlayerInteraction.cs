@@ -1,4 +1,5 @@
 using System.Reflection;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -13,25 +14,23 @@ public class PlayerInteraction : MonoBehaviour
     private PlayerInput _input;
     private GameObject _tankView;
     private Vector2 press;
-    private bool _pressed;
     [SerializeField] public LayerMask shelfLayerMask;
     [SerializeField] public LayerMask layerMask;
-
+    [SerializeField] private TextMeshProUGUI tooltip;
 
     [Header("Hold Menu")]
-    private float holdTime;
-    private GameObject hoverTarget, holdTarget;
-    private Interactable targetInteractable;
+    private GameObject hoverTarget;
+    [HideInInspector] public Interactable targetInteractable;
     public RMF_RadialMenu radialMenu;
-    public Image holdSlider1, holdSlider2;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         lookCheck = GetComponentInChildren<CameraLookCheck>();
         _camera = GetComponentInChildren<Camera>();
         _input = GetComponent<PlayerInput>();
     }
+
 
     private void Update()
     {
@@ -56,43 +55,11 @@ public class PlayerInteraction : MonoBehaviour
             else targetInteractable = null;
         }
 
+        if (targetInteractable) targetInteractable.Show();
 
-
-        if (holdTarget && targetInteractable && targetInteractable.HasHoldActions())
-        {
-            holdTime += Time.deltaTime;
-
-            float l = Mathf.InverseLerp(holdInteractionLength, 0, holdTime) * 2;
-            holdSlider1.fillAmount = Mathf.Clamp(l - 1.1f, 0, 1);
-            holdSlider2.fillAmount = Mathf.Clamp(l - 0.1f, 0, 1);
-
-            if (holdTime >= holdInteractionLength)
-            {
-                HoldLeftClick(true);
-                holdTarget = null;
-                holdTime = 0f;
-            }
-
-            if (holdTarget != lookCheck.LookCheck(3, layerMask))
-            {
-                holdTarget = null;
-                holdTime = 0f;
-            }
-        }
-        else
-        {
-            if (targetInteractable && targetInteractable.HasHoldActions())
-            {
-                holdSlider1.fillAmount = 1;
-                holdSlider2.fillAmount = 1;
-            }
-            else
-            {
-                holdSlider1.fillAmount = 0;
-                holdSlider2.fillAmount = 0;
-            }
-        }
+        if (hoverTarget && hoverTarget.GetComponent<ToolTip>()) tooltip.text = hoverTarget.GetComponent<ToolTip>().toolTip;
     }
+
 
     /// <summary>
     /// Called by the input manager
@@ -107,39 +74,17 @@ public class PlayerInteraction : MonoBehaviour
 
         if (key.Get<float>() == 1)
         {
-            holdTarget = hoverTarget;
-        }
-        if (key.Get<float>() == 0 && holdTarget != null)
-        {
-            if (holdTime < holdInteractionLength) LeftClick(key.isPressed);
-            else HoldLeftClick(key.isPressed);
-            holdTarget = null;
-            holdTime = 0f;
-        }
-    }
-
-    private void LeftClick(bool pressed)
-    {
-        if (Store.decorateController.decorating)
-        {
-            Store.decorateController.MouseClick(pressed);
-        }
-        else
-        {
-            if (targetInteractable) targetInteractable.Action();
+            if (Store.decorateController.decorating)
+            {
+                Store.decorateController.MouseClick(key.isPressed);
+            }
+            else
+            {
+                if (targetInteractable) targetInteractable.Action();
+            }
         }
     }
 
-    private void HoldLeftClick(bool pressed)
-    {
-        if (!targetInteractable || !targetInteractable.HasHoldActions()) 
-        {
-            LeftClick(pressed);
-            return;
-        }
-        Debug.Log(targetInteractable + " - " + targetInteractable.HasHoldActions());
-        radialMenu.DisplayMenu(targetInteractable.GetHoldActions(), targetInteractable.decoration.decorationSO.itemName);
-    }
 
     public void OnPlayerRightClick(InputValue key)
     {
@@ -150,7 +95,11 @@ public class PlayerInteraction : MonoBehaviour
             if (Store.decorateController.decorating)
                 Store.decorateController.StopPlacing();
             else
-                HoldLeftClick(true);
+            {
+                if (!targetInteractable || !targetInteractable.HasHoldActions()) return;
+
+                radialMenu.DisplayMenu(targetInteractable.GetHoldActions(), targetInteractable.decoration.decorationSO.itemName);
+            }
         }
     }
 

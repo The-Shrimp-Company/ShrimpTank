@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Decoration : MonoBehaviour
@@ -27,7 +28,11 @@ public class Decoration : MonoBehaviour
         {
             if (GetComponent<Interactable>()) interactable = GetComponent<Interactable>();
             else if (GetComponentInChildren<Interactable>()) interactable = GetComponentInChildren<Interactable>();
-            else interactable = transform.GetChild(0).gameObject.AddComponent(typeof(Interactable)) as Interactable;
+            else
+            {
+                interactable = transform.GetChild(0).gameObject.AddComponent(typeof(Interactable)) as Interactable;
+                interactable.interactable = false;
+            }
         }
     }
 
