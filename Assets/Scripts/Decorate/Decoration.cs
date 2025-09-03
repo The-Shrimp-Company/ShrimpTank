@@ -23,14 +23,17 @@ public class Decoration : MonoBehaviour
             materials.Add(me, ma);
         }
 
-        if (GetComponent<Interactable>()) interactable = GetComponent<Interactable>();
-        else if (GetComponentInChildren<Interactable>()) interactable = GetComponentInChildren<Interactable>();
-        else interactable = transform.GetChild(0).gameObject.AddComponent(typeof(Interactable)) as Interactable;
+        if (decorationSO.tags.Contains(ItemTags.RoomDecoration))
+        {
+            if (GetComponent<Interactable>()) interactable = GetComponent<Interactable>();
+            else if (GetComponentInChildren<Interactable>()) interactable = GetComponentInChildren<Interactable>();
+            else interactable = transform.GetChild(0).gameObject.AddComponent(typeof(Interactable)) as Interactable;
+        }
     }
 
     private void Start()
     {
-        if (!locked)
+        if (!locked && interactable)
         {
             interactable.AddHoldAction("Move Decoration", MoveDecoration);
             interactable.AddHoldAction("Remove Decoration", RemoveDecoration);

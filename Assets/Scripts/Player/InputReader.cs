@@ -19,6 +19,7 @@ public class InputReader : MonoBehaviour
 
     public void OnHideRadialMenu(InputValue value)
     {
-        GetComponent<PlayerInteraction>().radialMenu.HideMenu();
+        if (value.isPressed && !GetComponent<PlayerInteraction>().radialMenu.justOpened)
+            GetComponent<PlayerInteraction>().radialMenu.HideMenu();
     }
 }

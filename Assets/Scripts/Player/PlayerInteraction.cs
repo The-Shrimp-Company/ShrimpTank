@@ -44,7 +44,7 @@ public class PlayerInteraction : MonoBehaviour
         }
         else targetInteractable = null;
 
-        if (targetInteractable && targetInteractable.decoration.CheckForItemsOnShelf())  // If it is a shelf and has items on it, ignore it and check again
+        if (targetInteractable && targetInteractable.decoration && targetInteractable.decoration.CheckForItemsOnShelf())  // If it is a shelf and has items on it, ignore it and check again
         {
             hoverTarget = lookCheck.LookCheck(3, layerMask);
             if (hoverTarget != null)
@@ -137,16 +137,20 @@ public class PlayerInteraction : MonoBehaviour
             LeftClick(pressed);
             return;
         }
-
+        Debug.Log(targetInteractable + " - " + targetInteractable.HasHoldActions());
         radialMenu.DisplayMenu(targetInteractable.GetHoldActions(), targetInteractable.decoration.decorationSO.itemName);
     }
 
     public void OnPlayerRightClick(InputValue key)
     {
-        if (key.isPressed)
+        if (radialMenu.menuOpen) return;
+
+        if (key.Get<float>() == 1)
         {
             if (Store.decorateController.decorating)
                 Store.decorateController.StopPlacing();
+            else
+                HoldLeftClick(true);
         }
     }
 

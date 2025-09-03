@@ -57,6 +57,7 @@ public class RMF_RadialMenu : MonoBehaviour {
     public float currentAngle = 0f; //Our current angle from the center of the radial menu.
 
     [HideInInspector] public bool menuOpen;
+    [HideInInspector] public bool justOpened;
     [HideInInspector] public int currentElementCount;
 
     [HideInInspector]
@@ -135,6 +136,7 @@ public class RMF_RadialMenu : MonoBehaviour {
     {
         SetupElements(actions.Count);
         menuOpen = true;
+        justOpened = true;
         canvasGroup.alpha = 1;
         canvasGroup.interactable = true;
         Cursor.visible = true;
@@ -234,8 +236,9 @@ public class RMF_RadialMenu : MonoBehaviour {
                 selectionFollowerContainer.rotation = Quaternion.Euler(0, 0, rawAngle + 270);
            
 
-        } 
+        }
 
+        justOpened = false;
     }
 
 
