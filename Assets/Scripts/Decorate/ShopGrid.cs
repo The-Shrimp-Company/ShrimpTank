@@ -144,6 +144,10 @@ public class ShopGrid : MonoBehaviour
             else if (h.transform.gameObject.layer == LayerMask.NameToLayer("Shelf"))
             {
                 node.shelf = true;
+                foreach(ShelfGridNode sgn in h.transform.gameObject.GetComponentsInChildren<ShelfGridNode>())
+                {
+                    sgn.CheckNodeValidity();
+                }
 
                 if (debugGrid && gridParent != null)
                 {

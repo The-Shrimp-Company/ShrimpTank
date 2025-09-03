@@ -8,6 +8,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder.MeshOperations;
+using UnityEngine.UIElements;
 
 
 public enum Surface
@@ -317,44 +318,6 @@ public class DecorateShopController : MonoBehaviour
                     PlaceDecoration(selectedItemType);
                 }
             }
-            else  // Clicking on a different object whilst placing
-            {
-                //List<GameObject> objects = currentGrid.CheckNodeForObject(hoveredNode);
-                //if (objects.Contains(objectPreview)) objects.Remove(objectPreview);
-                //if (objects.Count != 0 && selectedObject != objects[0])
-                //{
-                //    StopPlacing();
-                //    selectedObject = objects[0];
-                //    if (selectedObject.GetComponent<Decoration>() && selectedObject.GetComponent<Decoration>().decorationSO != null)
-                //        decorateView.ChangeSelectedItem(selectedObject.GetComponent<Decoration>().decorationSO, selectedObject);
-                //    else Debug.LogWarning(selectedObject + " is missing the decoration script on it's root");
-                //    UpdateGridMaterials();
-                //}
-            }
-        }
-        else  // Selection mode
-        {
-            //List<GameObject> objects = currentGrid.CheckNodeForObject(hoveredNode);
-            //if (objects.Count != 0)
-            //{
-            //    if (selectedObject != objects[0])
-            //    {
-            //        selectedObject = objects[0];
-            //        if (selectedObject.GetComponent<Decoration>() && selectedObject.GetComponent<Decoration>().decorationSO != null)
-            //            decorateView.ChangeSelectedItem(selectedObject.GetComponent<Decoration>().decorationSO, selectedObject);
-            //        else Debug.LogWarning(selectedObject + " is missing the decoration script on it's root");
-            //    }
-            //    else  // Click on the same object again
-            //    {
-            //        selectedObject = null;
-            //        decorateView.ChangeSelectedItem(null, null);
-            //    }
-            //}
-            //else  // Click on an empty node
-            //{
-            //    selectedObject = null;
-            //    decorateView.ChangeSelectedItem(null, null);
-            //}
         }
 
         UpdateGridMaterials();
@@ -499,7 +462,7 @@ public class DecorateShopController : MonoBehaviour
         PlayerStats.stats.roomDecorationCount = decorationsInStore.Count;
         PlayerStats.stats.tankCount = tanksInStore.Count;
 
-        if (deselectOnPlace || movingObject || Inventory.GetItemUsingSO(selectedItemType).quantity <= 0)
+        if (deselectOnPlace || selectedMovingObject || Inventory.GetItemUsingSO(selectedItemType).quantity <= 0)
             StopPlacing();
     }
 
@@ -712,18 +675,14 @@ public class DecorateShopController : MonoBehaviour
 
     public void PutDecorationAway(GameObject obj, DecorationItemSO so, bool tween = true)
     {
-        Debug.Log("A");
         if (!obj || !so) return;
-        Debug.Log("B");
 
         Inventory.AddItem(so.itemName);
 
         decorationsInStore.Remove(obj.GetComponent<Decoration>());
-        Debug.Log("C");
 
         if (tween) obj.gameObject.transform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InBack).OnComplete(() => DestroyDecoration(obj));
         else DestroyDecoration(obj);
-        Debug.Log("D");
 
         PlayerStats.stats.roomDecorationCount = decorationsInStore.Count;
         PlayerStats.stats.tankCount = tanksInStore.Count;
@@ -731,15 +690,12 @@ public class DecorateShopController : MonoBehaviour
 
     private void DestroyDecoration(GameObject obj)
     {
-        Debug.Log("E");
-
         if (obj == null) return;
+
         obj.SetActive(false);
         Destroy(obj.gameObject);
         UpdateGridMaterials();
         currentGrid.RebakeGrid();
-        Debug.Log("F");
-
     }
 
     private void GreyOutGrid()
@@ -751,38 +707,6 @@ public class DecorateShopController : MonoBehaviour
             if (m) m.material = decoratingGridMat;
         }
     }
-
-    //public void ToggleTransparentDecorarions()
-    //{
-    //    SetTransparentDecorations(!transparentDecorations);
-    //}
-
-    //private void SetTransparentDecorations(bool s)
-    //{
-    //    transparentDecorations = s;
-
-    //    if (transparentDecorations)  // All decorations are transparent
-    //    {
-    //        foreach (Decoration d in decorationsInStore)
-    //        {
-    //            SetObjectMaterials(d.gameObject, objectTransparentMat);
-    //        }
-    //    }
-
-    //    else  // Decorations on the level you aren't editing are transparent
-    //    {
-    //        foreach (Decoration d in decorationsInStore)
-    //        {
-    //            if (((editingTop && !d.floating) ||  // If it isn't on the level you are editing
-    //                (!editingTop && d.floating)) && decorating)
-    //                SetObjectMaterials(d.gameObject, objectTransparentMat);
-
-    //            else
-    //                d.ResetMaterials();
-    //        }
-    //    }
-    //}
-
 
 
 

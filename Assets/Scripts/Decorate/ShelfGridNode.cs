@@ -12,8 +12,9 @@ public class ShelfGridNode : MonoBehaviour
         CheckNodeValidity();
     }
 
-    private void CheckNodeValidity()
+    public void CheckNodeValidity()
     {
+        roomGridNode.invalid = false;
         LayerMask layer = LayerMask.GetMask("RoomDecoration");
         RaycastHit[] hit;
 
