@@ -1,28 +1,65 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
+using System.Reflection;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject inventory;
+    [SerializeField] private GameObject inventory;
+    [SerializeField] private float holdInteractionLength = 1f;
 
     private CameraLookCheck lookCheck;
     private Camera _camera;
     private PlayerInput _input;
     private GameObject _tankView;
     private Vector2 press;
-    private bool _pressed;
+    [SerializeField] public LayerMask shelfLayerMask;
+    [SerializeField] public LayerMask layerMask;
+    [SerializeField] private TextMeshProUGUI tooltip;
 
-    // Start is called before the first frame update
+    [Header("Hold Menu")]
+    private GameObject hoverTarget;
+    [HideInInspector] public Interactable targetInteractable;
+    public RMF_RadialMenu radialMenu;
+
+
     void Start()
     {
         lookCheck = GetComponentInChildren<CameraLookCheck>();
         _camera = GetComponentInChildren<Camera>();
         _input = GetComponent<PlayerInput>();
     }
+
+
+    private void Update()
+    {
+        hoverTarget = lookCheck.LookCheck(3, shelfLayerMask);
+        if (hoverTarget != null)
+        {
+            if (hoverTarget.GetComponent<Decoration>()) targetInteractable = hoverTarget.GetComponent<Decoration>().interactable;
+            else if (hoverTarget.GetComponent<Interactable>()) targetInteractable = hoverTarget.GetComponent<Interactable>();
+            else targetInteractable = hoverTarget.GetComponentInChildren<Interactable>();
+        }
+        else targetInteractable = null;
+
+        if (targetInteractable && targetInteractable.decoration && targetInteractable.decoration.CheckForItemsOnShelf())  // If it is a shelf and has items on it, ignore it and check again
+        {
+            hoverTarget = lookCheck.LookCheck(3, layerMask);
+            if (hoverTarget != null)
+            {
+                if (hoverTarget.GetComponent<Decoration>()) targetInteractable = hoverTarget.GetComponent<Decoration>().interactable;
+                else if (hoverTarget.GetComponent<Interactable>()) targetInteractable = hoverTarget.GetComponent<Interactable>();
+                else targetInteractable = hoverTarget.GetComponentInChildren<Interactable>();
+            }
+            else targetInteractable = null;
+        }
+
+        if (targetInteractable) targetInteractable.Show();
+
+        if (hoverTarget && hoverTarget.GetComponent<ToolTip>()) tooltip.text = hoverTarget.GetComponent<ToolTip>().toolTip;
+    }
+
 
     /// <summary>
     /// Called by the input manager
@@ -33,7 +70,9 @@ public class PlayerInteraction : MonoBehaviour
     /// </summary>
     public void OnPlayerClick(InputValue key)
     {
-        if (key.isPressed)
+        if (radialMenu.menuOpen) return;
+
+        if (key.Get<float>() == 1)
         {
             if (Store.decorateController.decorating)
             {
@@ -41,23 +80,26 @@ public class PlayerInteraction : MonoBehaviour
             }
             else
             {
-                LayerMask layer = LayerMask.GetMask("RoomDecoration") | LayerMask.GetMask("Decoration") | LayerMask.GetMask("Tanks");
-                GameObject target = lookCheck.LookCheck(3, layer);
-
-                if (target != null && target.GetComponent<Interactable>() != null)
-                {
-                    target.GetComponent<Interactable>().Action();
-                }
+                if (targetInteractable) targetInteractable.Action();
             }
         }
     }
 
+
     public void OnPlayerRightClick(InputValue key)
     {
-        if (key.isPressed)
+        if (radialMenu.menuOpen) return;
+
+        if (key.Get<float>() == 1)
         {
             if (Store.decorateController.decorating)
                 Store.decorateController.StopPlacing();
+            else
+            {
+                if (!targetInteractable || !targetInteractable.HasHoldActions()) return;
+
+                radialMenu.DisplayMenu(targetInteractable.GetHoldActions(), targetInteractable.decoration.decorationSO.itemName);
+            }
         }
     }
 

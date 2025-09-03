@@ -103,6 +103,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "HideRadialMenu",
+                    "type": "PassThrough",
+                    "id": "6d27d5ad-f5a0-4391-818c-75f988d61867",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -378,6 +387,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "PlayerRightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "13338d2a-d300-4390-8d57-fcbc41d9fc4f",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HideRadialMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8eec3131-beb1-4a1b-adc5-39352fbe0605",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HideRadialMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

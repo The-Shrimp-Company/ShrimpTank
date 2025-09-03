@@ -33,6 +33,8 @@ public class PlayerTablet : PlayerUIController
 
     public void OnOpenTablet()
     {
+        if (GetComponent<PlayerInteraction>().radialMenu.menuOpen) return;
+
         UIManager.instance.AssignNotifBar(notifBar);
         _tabletRect.gameObject.SetActive(true);
         UIManager.instance.GetCanvas().GetComponent<MainCanvas>().RaiseTablet();

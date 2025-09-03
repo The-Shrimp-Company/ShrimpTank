@@ -35,6 +35,8 @@ public class Radio : Interactable
         { 
             active = false; 
         }
+
+        AddHoldAction("Skip Song", StartNextSong);
     }
 
     private void SetupRadio()

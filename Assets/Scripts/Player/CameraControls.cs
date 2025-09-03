@@ -35,6 +35,8 @@ public class CameraControls : MonoBehaviour
         // If the player is in a menu that stops their movement
         if (UIManager.instance.GetScreen())
             _look = Vector2.zero;
+        if (GetComponent<PlayerInteraction>().radialMenu.menuOpen)
+            _look = Vector2.zero;
 
         // If the player is not using the correct action map
         if (_playerInput.currentActionMap.name != "Move")

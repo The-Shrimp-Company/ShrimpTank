@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,12 +12,14 @@ public class CrossHairSwitch : MonoBehaviour
     [SerializeField] private Sprite crosshairSprite;
     [SerializeField] private float crosshairSize = 1f;
 
-    [SerializeField] private Sprite interactSprite;
+    [SerializeField] private Sprite leftInteractSprite;
+    [SerializeField] private Sprite rightInteractSprite;
+    [SerializeField] private Sprite bothInteractSprite;
     [SerializeField] private float interactSize = 1f;
 
     [SerializeField] private Ease crosshairEase;
 
-    [HideInInspector] public bool hovering;
+    public PlayerInteraction playerInteraction;
 
     private void Start()
     {
@@ -28,26 +28,36 @@ public class CrossHairSwitch : MonoBehaviour
 
     private void Update()
     {
-        if(hovering == false && text.enabled)
+        if (playerInteraction.targetInteractable == null)
         {
-            if (crosshair.sprite != crosshairSprite)
-            {
-                ChangeSprite(crosshairSprite, crosshairSize);
-                FadeText(0);
-            }
+            ChangeSprite(crosshairSprite, crosshairSize);
+            FadeText(0);
+        }
+        else if (playerInteraction.targetInteractable.interactable && playerInteraction.targetInteractable.HasHoldActions())
+        {
+            ChangeSprite(bothInteractSprite, interactSize);
+            FadeText(1);
+        }
+        else if (playerInteraction.targetInteractable.HasHoldActions())
+        {
+            ChangeSprite(rightInteractSprite, interactSize);
+            FadeText(0);
+        }
+        else if (playerInteraction.targetInteractable.interactable)
+        {
+            ChangeSprite(leftInteractSprite, interactSize);
+            FadeText(1);
         }
         else
         {
-            if (crosshair.sprite != interactSprite)
-            {
-                ChangeSprite(interactSprite, interactSize);
-                FadeText(1);
-            }
+            ChangeSprite(crosshairSprite, crosshairSize);
+            FadeText(0);
         }
     }
 
     private void ChangeSprite(Sprite sprite, float size)
     {
+        if (crosshair.sprite == sprite) return;
         crosshair.sprite = sprite;
         DOTween.Kill(crosshairRect);
         crosshairRect.DOScale(new Vector2(size, size), 0.2f).SetEase(crosshairEase);
@@ -55,6 +65,7 @@ public class CrossHairSwitch : MonoBehaviour
 
     private void FadeText(float alpha)
     {
+        if (text.alpha == alpha) return;
         DOTween.Kill(text);
         text.DOFade(alpha, 0.15f);
     }

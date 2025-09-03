@@ -8,6 +8,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder.MeshOperations;
+using UnityEngine.UIElements;
 
 
 public enum Surface
@@ -33,6 +34,7 @@ public class DecorateShopController : MonoBehaviour
     private Dictionary<RoomGridNode, GameObject> nodes = new Dictionary<RoomGridNode, GameObject>();
     private RoomGridNode hoveredNode, previousHoveredNode, previousPreviousHoveredNode;
     [HideInInspector] public GameObject selectedObject;
+    [HideInInspector] public GameObject selectedMovingObject;
     [HideInInspector] public DecorationItemSO selectedItemType;
     private GameObject objectPreview;
 
@@ -316,44 +318,6 @@ public class DecorateShopController : MonoBehaviour
                     PlaceDecoration(selectedItemType);
                 }
             }
-            else  // Clicking on a different object whilst placing
-            {
-                //List<GameObject> objects = currentGrid.CheckNodeForObject(hoveredNode);
-                //if (objects.Contains(objectPreview)) objects.Remove(objectPreview);
-                //if (objects.Count != 0 && selectedObject != objects[0])
-                //{
-                //    StopPlacing();
-                //    selectedObject = objects[0];
-                //    if (selectedObject.GetComponent<Decoration>() && selectedObject.GetComponent<Decoration>().decorationSO != null)
-                //        decorateView.ChangeSelectedItem(selectedObject.GetComponent<Decoration>().decorationSO, selectedObject);
-                //    else Debug.LogWarning(selectedObject + " is missing the decoration script on it's root");
-                //    UpdateGridMaterials();
-                //}
-            }
-        }
-        else  // Selection mode
-        {
-            //List<GameObject> objects = currentGrid.CheckNodeForObject(hoveredNode);
-            //if (objects.Count != 0)
-            //{
-            //    if (selectedObject != objects[0])
-            //    {
-            //        selectedObject = objects[0];
-            //        if (selectedObject.GetComponent<Decoration>() && selectedObject.GetComponent<Decoration>().decorationSO != null)
-            //            decorateView.ChangeSelectedItem(selectedObject.GetComponent<Decoration>().decorationSO, selectedObject);
-            //        else Debug.LogWarning(selectedObject + " is missing the decoration script on it's root");
-            //    }
-            //    else  // Click on the same object again
-            //    {
-            //        selectedObject = null;
-            //        decorateView.ChangeSelectedItem(null, null);
-            //    }
-            //}
-            //else  // Click on an empty node
-            //{
-            //    selectedObject = null;
-            //    decorateView.ChangeSelectedItem(null, null);
-            //}
         }
 
         UpdateGridMaterials();
@@ -406,14 +370,6 @@ public class DecorateShopController : MonoBehaviour
 
     public void StopPlacing()
     {
-        decorating = false;
-        hoveredNode = null;
-        placementMode = false;
-        selectedObject = null;
-        movingObject = false;
-        ignoreShelves = false;
-        rotationInput = 0;
-
         if (objectPreview)
         {
             objectPreview.SetActive(false);
@@ -421,11 +377,25 @@ public class DecorateShopController : MonoBehaviour
             objectPreview = null;
         }
 
+        if (movingObject && selectedMovingObject && selectedItemType)
+        {
+            selectedMovingObject.SetActive(true);
+            currentGrid.RebakeGrid();
+        }
+
 
         //SetTransparentDecorations(false);
 
-        CrossHairScript.ShowCrosshair();
 
+        CrossHairScript.ShowCrosshair();
+        movingObject = false;
+        decorating = false;
+        hoveredNode = null;
+        placementMode = false;
+        selectedObject = null;
+        ignoreShelves = false;
+        selectedMovingObject = null;
+        rotationInput = 0;
 
         foreach (GameObject n in nodes.Values)
         {
@@ -482,12 +452,17 @@ public class DecorateShopController : MonoBehaviour
             hoveredNode.invalid = true;
 
 
+        if (movingObject && selectedMovingObject && selectedItemType)
+            PutDecorationAway(selectedMovingObject, selectedItemType, true);
+        movingObject = false;
+
+
         //SetTransparentDecorations(transparentDecorations);
         currentGrid.RebakeGrid();
         PlayerStats.stats.roomDecorationCount = decorationsInStore.Count;
         PlayerStats.stats.tankCount = tanksInStore.Count;
 
-        if (deselectOnPlace || movingObject || Inventory.GetItemUsingSO(selectedItemType).quantity <= 0)
+        if (deselectOnPlace || selectedMovingObject || Inventory.GetItemUsingSO(selectedItemType).quantity <= 0)
             StopPlacing();
     }
 
@@ -682,34 +657,32 @@ public class DecorateShopController : MonoBehaviour
         UpdateGridMaterials();
     }
 
-    public void MoveDecoration()
+    public void MoveDecoration(GameObject obj, DecorationItemSO so)
     {
-        //if (selectedObject == null) return;
-        //if (decorateView.selectedItemType == null) return;
-        //DecorationItemSO so = decorateView.selectedItemType;
-        //Quaternion rot = selectedObject.transform.rotation;
-        //PutDecorationAway();
-        //decorateView.ChangeSelectedItem(so, so.decorationPrefab);
-        //movingObject = true;
-        //StartPlacing(so.decorationPrefab, so);
-        //if (objectPreview != null)
-        //    objectPreview.transform.rotation = rot;
+        if (!obj || !so) return;
+
+        Quaternion rot = obj.transform.rotation;
+        movingObject = true;
+        selectedMovingObject = obj;
+        selectedItemType = so;
+        obj.SetActive(false);
+        UpdateGridMaterials();
+        currentGrid.RebakeGrid();
+        StartPlacing(so.decorationPrefab, so);
+        if (objectPreview != null)
+            objectPreview.transform.rotation = rot;
     }
 
-    public void PutDecorationAway()
+    public void PutDecorationAway(GameObject obj, DecorationItemSO so, bool tween = true)
     {
-        if (selectedObject == null) return;
-        if (currentGrid == null) return;
-        if (selectedItemType == null) return;
+        if (!obj || !so) return;
 
-        Inventory.AddItem(selectedItemType.itemName);
+        Inventory.AddItem(so.itemName);
 
-        decorationsInStore.Remove(selectedObject.GetComponent<Decoration>());
+        decorationsInStore.Remove(obj.GetComponent<Decoration>());
 
-        GameObject obj = selectedObject;
-        selectedObject.gameObject.transform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InBack).OnComplete(()=>DestroyDecoration(obj));
-
-        selectedObject = null;
+        if (tween) obj.gameObject.transform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InBack).OnComplete(() => DestroyDecoration(obj));
+        else DestroyDecoration(obj);
 
         PlayerStats.stats.roomDecorationCount = decorationsInStore.Count;
         PlayerStats.stats.tankCount = tanksInStore.Count;
@@ -718,6 +691,7 @@ public class DecorateShopController : MonoBehaviour
     private void DestroyDecoration(GameObject obj)
     {
         if (obj == null) return;
+
         obj.SetActive(false);
         Destroy(obj.gameObject);
         UpdateGridMaterials();
@@ -733,38 +707,6 @@ public class DecorateShopController : MonoBehaviour
             if (m) m.material = decoratingGridMat;
         }
     }
-
-    //public void ToggleTransparentDecorarions()
-    //{
-    //    SetTransparentDecorations(!transparentDecorations);
-    //}
-
-    //private void SetTransparentDecorations(bool s)
-    //{
-    //    transparentDecorations = s;
-
-    //    if (transparentDecorations)  // All decorations are transparent
-    //    {
-    //        foreach (Decoration d in decorationsInStore)
-    //        {
-    //            SetObjectMaterials(d.gameObject, objectTransparentMat);
-    //        }
-    //    }
-
-    //    else  // Decorations on the level you aren't editing are transparent
-    //    {
-    //        foreach (Decoration d in decorationsInStore)
-    //        {
-    //            if (((editingTop && !d.floating) ||  // If it isn't on the level you are editing
-    //                (!editingTop && d.floating)) && decorating)
-    //                SetObjectMaterials(d.gameObject, objectTransparentMat);
-
-    //            else
-    //                d.ResetMaterials();
-    //        }
-    //    }
-    //}
-
 
 
 

@@ -9,9 +9,13 @@ public class CrossHairScript : PlayerUIController
 
     private void Awake()
     {
-        UIManager.instance.Subscribe(this);
         toolTipText = GetComponent<CrossHairSwitch>().text;
         crosshair = GetComponent<CrossHairSwitch>().crosshair;
+    }
+
+    private void Start()
+    {
+        UIManager.instance.Subscribe(this);
     }
 
     public override void SwitchFocus()
