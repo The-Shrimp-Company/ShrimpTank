@@ -33,6 +33,7 @@ public class DecorateShopController : MonoBehaviour
     private Dictionary<RoomGridNode, GameObject> nodes = new Dictionary<RoomGridNode, GameObject>();
     private RoomGridNode hoveredNode, previousHoveredNode, previousPreviousHoveredNode;
     [HideInInspector] public GameObject selectedObject;
+    [HideInInspector] public GameObject selectedMovingObject;
     [HideInInspector] public DecorationItemSO selectedItemType;
     private GameObject objectPreview;
 
@@ -406,14 +407,6 @@ public class DecorateShopController : MonoBehaviour
 
     public void StopPlacing()
     {
-        decorating = false;
-        hoveredNode = null;
-        placementMode = false;
-        selectedObject = null;
-        movingObject = false;
-        ignoreShelves = false;
-        rotationInput = 0;
-
         if (objectPreview)
         {
             objectPreview.SetActive(false);
@@ -421,11 +414,25 @@ public class DecorateShopController : MonoBehaviour
             objectPreview = null;
         }
 
+        if (movingObject && selectedMovingObject && selectedItemType)
+        {
+            selectedMovingObject.SetActive(true);
+            currentGrid.RebakeGrid();
+        }
+
 
         //SetTransparentDecorations(false);
 
-        CrossHairScript.ShowCrosshair();
 
+        CrossHairScript.ShowCrosshair();
+        movingObject = false;
+        decorating = false;
+        hoveredNode = null;
+        placementMode = false;
+        selectedObject = null;
+        ignoreShelves = false;
+        selectedMovingObject = null;
+        rotationInput = 0;
 
         foreach (GameObject n in nodes.Values)
         {
@@ -480,6 +487,11 @@ public class DecorateShopController : MonoBehaviour
 
         if (hoveringShelf)
             hoveredNode.invalid = true;
+
+
+        if (movingObject && selectedMovingObject && selectedItemType)
+            PutDecorationAway(selectedMovingObject, selectedItemType, true);
+        movingObject = false;
 
 
         //SetTransparentDecorations(transparentDecorations);
@@ -682,34 +694,36 @@ public class DecorateShopController : MonoBehaviour
         UpdateGridMaterials();
     }
 
-    public void MoveDecoration()
+    public void MoveDecoration(GameObject obj, DecorationItemSO so)
     {
-        //if (selectedObject == null) return;
-        //if (decorateView.selectedItemType == null) return;
-        //DecorationItemSO so = decorateView.selectedItemType;
-        //Quaternion rot = selectedObject.transform.rotation;
-        //PutDecorationAway();
-        //decorateView.ChangeSelectedItem(so, so.decorationPrefab);
-        //movingObject = true;
-        //StartPlacing(so.decorationPrefab, so);
-        //if (objectPreview != null)
-        //    objectPreview.transform.rotation = rot;
+        if (!obj || !so) return;
+
+        Quaternion rot = obj.transform.rotation;
+        movingObject = true;
+        selectedMovingObject = obj;
+        selectedItemType = so;
+        obj.SetActive(false);
+        UpdateGridMaterials();
+        currentGrid.RebakeGrid();
+        StartPlacing(so.decorationPrefab, so);
+        if (objectPreview != null)
+            objectPreview.transform.rotation = rot;
     }
 
-    public void PutDecorationAway()
+    public void PutDecorationAway(GameObject obj, DecorationItemSO so, bool tween = true)
     {
-        if (selectedObject == null) return;
-        if (currentGrid == null) return;
-        if (selectedItemType == null) return;
+        Debug.Log("A");
+        if (!obj || !so) return;
+        Debug.Log("B");
 
-        Inventory.AddItem(selectedItemType.itemName);
+        Inventory.AddItem(so.itemName);
 
-        decorationsInStore.Remove(selectedObject.GetComponent<Decoration>());
+        decorationsInStore.Remove(obj.GetComponent<Decoration>());
+        Debug.Log("C");
 
-        GameObject obj = selectedObject;
-        selectedObject.gameObject.transform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InBack).OnComplete(()=>DestroyDecoration(obj));
-
-        selectedObject = null;
+        if (tween) obj.gameObject.transform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InBack).OnComplete(() => DestroyDecoration(obj));
+        else DestroyDecoration(obj);
+        Debug.Log("D");
 
         PlayerStats.stats.roomDecorationCount = decorationsInStore.Count;
         PlayerStats.stats.tankCount = tanksInStore.Count;
@@ -717,11 +731,15 @@ public class DecorateShopController : MonoBehaviour
 
     private void DestroyDecoration(GameObject obj)
     {
+        Debug.Log("E");
+
         if (obj == null) return;
         obj.SetActive(false);
         Destroy(obj.gameObject);
         UpdateGridMaterials();
         currentGrid.RebakeGrid();
+        Debug.Log("F");
+
     }
 
     private void GreyOutGrid()

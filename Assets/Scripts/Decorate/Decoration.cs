@@ -57,12 +57,13 @@ public class Decoration : MonoBehaviour
 
     public void MoveDecoration()
     {
-        Debug.Log("Move");
+        Store.decorateController.MoveDecoration(gameObject, decorationSO);
     }
 
     public void RemoveDecoration()
     {
-        Debug.Log("Remove");
+        Store.decorateController.PutDecorationAway(gameObject, decorationSO);
+
     }
 
     public bool CheckForItemsOnShelf()
