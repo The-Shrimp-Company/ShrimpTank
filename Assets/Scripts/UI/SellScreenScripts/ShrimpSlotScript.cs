@@ -18,9 +18,9 @@ public class ShrimpSlotScript : MonoBehaviour
 
     private void Update()
     {
-        if (CustomerManager.Instance.shrimpSaleSlots[index].shrimp != _shrimp)
+        if (CustomerManager.Instance.shrimpSaleSlots[index] == null || CustomerManager.Instance.shrimpSaleSlots[index].shrimp != _shrimp)
         {
-            Destroy(currentPreview.gameObject);
+            if (currentPreview != null) Destroy(currentPreview.gameObject);
             price.interactable = false;
             price.placeholder.GetComponent<TextMeshProUGUI>().text = "";
             price.text = "";

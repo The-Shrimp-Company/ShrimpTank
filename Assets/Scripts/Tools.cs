@@ -153,7 +153,7 @@ public static class Tools
 
     public static void SetTraitID(this Trait trait, string ID)
     {
-        trait.activeGene.ID = ID;
-        trait.inactiveGene.ID = ID;
+        trait.activeGene.ID = ID + trait.activeGene.ID.Substring(1);
+        trait.inactiveGene.ID = ID + trait.inactiveGene.ID.Substring(1);
     }
 }

@@ -14,7 +14,9 @@ public class Shop
     public int maxShrimpStock;
     public int shrimpSold;
 
-    public List<Trait> traits = new();
+    public List<Trait> partTraits = new();
+    public List<Trait> patternTraits = new();
+    public List<Trait> colourTraits = new();
 
     public Shop()
     {
