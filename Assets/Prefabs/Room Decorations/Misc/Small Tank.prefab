@@ -587,6 +587,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c81709ff3ead640b1e850481fc8ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  decoration: {fileID: 0}
+  interactable: 0
   shrimpInTank: []
   shrimpToAdd: []
   shrimpToRemove: []
@@ -609,6 +611,8 @@ MonoBehaviour:
   foodParent: {fileID: 1724462573742006033}
   waterLevel: {fileID: 358445018689480702}
   waterObject: {fileID: 5122782647130388157}
+  waterFilled: 0
+  waterFillAnimLength: 1
   waterQuality: 100
   waterQualityDecreaseSpeed: 5
   waterTemperature: 50
@@ -619,7 +623,7 @@ MonoBehaviour:
   waterPh: 7
   idealTemp: 0
   idealSalt: 0
-  idealHnc: 0
+  idealHno: 0
   idealPh: 0
   upgradeController: {fileID: 0}
   lights:
@@ -628,7 +632,6 @@ MonoBehaviour:
   sign: {fileID: 5947789648189943326}
   SaleSign: {fileID: 5994137002391903135}
   label: {fileID: 2617808344691637593}
-  openTankPrice: 5
   openTankLabel: {fileID: 8758368202101297274}
   tankGrid: {fileID: 9135166761670337101}
   camDock: {fileID: 4595576537860867106}
@@ -760,6 +763,7 @@ MonoBehaviour:
   decorationSO: {fileID: 11400000, guid: c959370a54c4aeb46b5c7661b2544009, type: 2}
   locked: 0
   floating: 0
+  interactable: {fileID: 0}
 --- !u!114 &2031429643969286776
 MonoBehaviour:
   m_ObjectHideFlags: 0

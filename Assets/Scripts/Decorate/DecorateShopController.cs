@@ -769,6 +769,9 @@ public class DecorateShopController : MonoBehaviour
         tank.GetComponent<TankUpgradeController>().LoadUpgrades(data.upgradeIDs);
         tank.upgradeState = data.upgradeState;
 
+        if (data.waterFilled) tank.FillWater();
+        else tank.EmptyWater();
+
         tank.waterTemperature = data.waterTemp;
         tank.waterQuality = data.waterQuality;
         tank.waterSalt = data.waterSalt;

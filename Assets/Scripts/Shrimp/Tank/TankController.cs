@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 using System;
+using DG.Tweening;
 
 [RequireComponent(typeof(TankUpgradeController))]
 public class TankController : Interactable
@@ -53,6 +54,10 @@ public class TankController : Interactable
     [Header("Water")]
     public Transform waterLevel;
     public GameObject waterObject;
+    private float waterHeight, waterScale;
+    [HideInInspector] public bool waterFilled;
+    [SerializeField] private float waterFillAnimLength;
+    private bool waterFilling;
 
     public float waterQuality = 100;
     [SerializeField] float waterQualityDecreaseSpeed = 5;
@@ -663,6 +668,95 @@ public class TankController : Interactable
     public override void OnStopHover()
     {
         player.GetComponent<PlayerInteraction>().SetTankFocus(this);
+    }
+
+
+    public void FillWater()
+    {
+        if (waterFilling) return;
+        bool animate = true;
+        if (waterHeight == 0)
+        {
+            waterHeight = waterObject.transform.localPosition.y;
+            waterScale = waterObject.transform.localScale.y;
+            animate = false;
+        }
+        waterFilling = true;
+        waterFilled = true;
+        waterObject.SetActive(true);
+        interactable = false;
+        RemoveHoldAction("Fill Water");
+        RemoveHoldAction("Empty Water");
+        RemoveHoldAction("Move Decoration");
+        RemoveHoldAction("Remove Decoration");
+
+        if (animate)
+        {
+            waterObject.transform.localPosition = new Vector3(waterObject.transform.localPosition.x, 0, waterObject.transform.localPosition.z);
+            waterObject.transform.localScale = new Vector3(waterObject.transform.localScale.x, 0, waterObject.transform.localScale.z);
+
+            waterObject.transform.DOLocalMoveY(waterHeight, waterFillAnimLength).OnComplete(WaterFinishFilling);
+            waterObject.transform.DOScaleY(waterScale, waterFillAnimLength);
+        }
+        else
+        {
+            waterObject.transform.localPosition = new Vector3(waterObject.transform.localPosition.x, waterHeight, waterObject.transform.localPosition.z);
+            waterObject.transform.localScale = new Vector3(waterObject.transform.localScale.x, waterScale, waterObject.transform.localScale.z);
+            WaterFinishFilling();
+        }
+    }
+
+    public void EmptyWater()
+    {
+        if (waterFilling) return;
+        bool animate = true;
+        if (waterHeight == 0)
+        {
+            waterHeight = waterObject.transform.localPosition.y;
+            waterScale = waterObject.transform.localScale.y;
+            animate = false;
+        }
+        waterFilling = true;
+        waterFilled = false;
+        interactable = false;
+        RemoveHoldAction("Fill Water");
+        RemoveHoldAction("Empty Water");
+        RemoveHoldAction("Move Decoration");
+        RemoveHoldAction("Remove Decoration");
+
+        if (animate)
+        {
+            waterObject.transform.localPosition = new Vector3(waterObject.transform.localPosition.x, waterHeight, waterObject.transform.localPosition.z);
+            waterObject.transform.localScale = new Vector3(waterObject.transform.localScale.x, waterScale, waterObject.transform.localScale.z);
+
+            waterObject.transform.DOLocalMoveY(0, waterFillAnimLength).OnComplete(WaterFinishFilling);
+            waterObject.transform.DOScaleY(0, waterFillAnimLength);
+        }
+        else
+        {
+            waterObject.transform.localPosition = new Vector3(waterObject.transform.localPosition.x, 0, waterObject.transform.localPosition.z);
+            waterObject.transform.localScale = new Vector3(waterObject.transform.localScale.x, 0, waterObject.transform.localScale.z);
+            WaterFinishFilling();
+        }
+    }
+
+    private void WaterFinishFilling() 
+    { 
+        waterFilling = false;
+        waterObject.SetActive(waterFilled);
+        if (waterFilled)
+        {
+            interactable = true;
+            AddHoldAction("Empty Water", EmptyWater);
+        }
+        else
+        {
+            interactable = false;
+            Decoration decoration = GetComponent<Decoration>();
+            AddHoldAction("Fill Water", FillWater);
+            AddHoldAction("Move Decoration", decoration.MoveDecoration);
+            AddHoldAction("Remove Decoration", decoration.RemoveDecoration);
+        }
     }
 
 
