@@ -8,6 +8,7 @@ public class ShrimpSelectionPopulation : ContentPopulation
 {
     private Request _request;
     private EmailScreen _window;
+    private ShrimpSlotScript _slot;
     private Email _email;
 
     public void Populate(Request request, EmailScreen window)
@@ -97,6 +98,39 @@ public class ShrimpSelectionPopulation : ContentPopulation
         }
     }
 
+    public void PopulateForSaleSelection(ShrimpSlotScript shrimpSlot)
+    {
+        _slot = shrimpSlot;
+        foreach(Shrimp s in ShrimpManager.instance.allShrimp)
+        {
+            if(s.saleSlotIndex != -1)
+            {
+                continue;
+            }
+            GameObject block = Instantiate(contentBlock, transform);
+            block.GetComponent<ShrimpSelectionBlock>().Populate(s.stats);
+            contentBlocks.Add(block.GetComponent<ContentBlock>());
+            Shrimp shrimp = s;
+            block.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                if (CustomerManager.Instance.shrimpSaleSlots[shrimpSlot.index] == null) CustomerManager.Instance.shrimpSaleSlots[shrimpSlot.index] = new();
+                else
+                {
+                    Shrimp oldShrimp = CustomerManager.Instance.shrimpSaleSlots[shrimpSlot.index].shrimp;
+                    oldShrimp.saleSlotIndex = -1;
+                    oldShrimp.stats.saleSlotIndex = 0;
+                }
+                CustomerManager.Instance.shrimpSaleSlots[shrimpSlot.index].shrimp = shrimp;
+                shrimp.stats.saleSlotIndex = shrimpSlot.index + 1;
+                CustomerManager.Instance.shrimpSaleSlots[shrimpSlot.index].value = 0;
+                shrimp.stats.assignedValue = 0;
+                shrimp.assignedValue = 0;
+                shrimp.saleSlotIndex = shrimpSlot.index;
+                shrimpSlot.CloseSelection();
+            });
+        }
+    }
+
     public void PopulateExcluding(EmailScreen emailScreen, Email email, List<ShrimpStats> shrimpToExclude)
     {
         _window = emailScreen;
@@ -174,6 +208,7 @@ public class ShrimpSelectionPopulation : ContentPopulation
 
     public void CloseScreen()
     {
-        _window.CloseSelection();
+        if(_window != null) _window.CloseSelection();
+        if (_slot != null) _slot.CloseSelection();
     }
 }

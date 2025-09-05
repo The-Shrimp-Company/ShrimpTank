@@ -13,6 +13,8 @@ public struct ShrimpStats
     public float hunger;  // Value from 0-100
     public float illnessLevel;  // Value from 0-100
     public int temperament;  // Value from 0-100
+    public int saleSlotIndex;
+    public float assignedValue;
 
     public int salineLevel; // Value from 0-100, starting at 50
     public int immunity; // Value from 0-100

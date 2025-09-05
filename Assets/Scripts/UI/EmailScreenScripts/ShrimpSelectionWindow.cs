@@ -20,4 +20,10 @@ public class ShrimpSelectionWindow : MonoBehaviour
     {
         screen.PopulateExcluding(emailScreen, email, shrimpToExclude);
     }
+
+    public ShrimpSelectionWindow PopulateForShrimpSale(ShrimpSlotScript shrimpSlot)
+    {
+        screen.PopulateForSaleSelection(shrimpSlot);
+        return this;
+    }
 }

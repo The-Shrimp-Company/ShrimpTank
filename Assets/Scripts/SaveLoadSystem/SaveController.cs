@@ -218,6 +218,7 @@ public class SaveController : MonoBehaviour
 
         // Requests
         d.requests = CustomerManager.Instance.requests.ToArray();
+        d.numSlots = CustomerManager.Instance.numSlots;
 
         // Tutorial
         d.tutorialFlags = Tutorial.instance.flags;
@@ -254,6 +255,7 @@ public class SaveController : MonoBehaviour
 
         // Requests
         CustomerManager.Instance.Initialize(d.requests);
+        CustomerManager.Instance.numSlots = d.numSlots;
 
         // Npcs
         NPCManager.Instance.Initialize();

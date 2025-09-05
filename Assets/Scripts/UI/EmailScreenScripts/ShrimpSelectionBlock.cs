@@ -67,4 +67,5 @@ public class ShrimpSelectionBlock : ContentBlock
     {
         email.CloseSelection();
     }
+
 }

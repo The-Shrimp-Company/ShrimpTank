@@ -4,8 +4,21 @@ using UnityEngine;
 
 public class SellScreenView : ScreenView
 {
-    public void UpdateList(Shrimp shrimp) 
+    [SerializeField] private Transform content;
+    [SerializeField] private GameObject shrimpSlot;
+
+    private List<ShrimpSlotScript> slots = new();
+
+    public override void Open(bool switchTab)
     {
-        //GetComponentInChildren<SellContent>().CreateContent(shrimp);
+        foreach(Transform child in content)
+        {
+            Destroy(child.gameObject);
+        }
+        for(int i = 0; i < CustomerManager.Instance.numSlots; i++)
+        {
+            slots.Add(Instantiate(shrimpSlot, content).GetComponent<ShrimpSlotScript>());
+            slots[i].SetValues(i);
+        }
     }
 }

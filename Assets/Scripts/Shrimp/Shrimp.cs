@@ -14,7 +14,7 @@ public class Shrimp : MonoBehaviour
 
     [Header("Activities")]
     public List<ShrimpActivity> shrimpActivities = new List<ShrimpActivity>();
-    private int minActivitiesInQueue = 2;
+    private int minActivitiesInQueue = 0;
 
     [Header("Pathfinding")]
     public ShrimpAgent agent;
@@ -47,6 +47,8 @@ public class Shrimp : MonoBehaviour
     [HideInInspector] public bool shrimpNameChanged;
     [HideInInspector] public bool loadedShrimp;  // Whether the shrimp has been loaded from a save file
     private bool focusingShrimp;
+    public int saleSlotIndex = -1; // indexing for the player sale slots. If the value is -1 they are not currently for sale.
+    public float assignedValue;
 
 
 
@@ -61,7 +63,14 @@ public class Shrimp : MonoBehaviour
         breedingTimer = ShrimpManager.instance.GetBreedingCooldown(stats, tank);
         stats.canBreed = false;
 
-
+        saleSlotIndex = stats.saleSlotIndex - 1;
+        assignedValue = stats.assignedValue;
+        if(saleSlotIndex != -1)
+        {
+            CustomerManager.Instance.shrimpSaleSlots[saleSlotIndex] = new();
+            CustomerManager.Instance.shrimpSaleSlots[saleSlotIndex].shrimp = this;
+            if(assignedValue != 0) CustomerManager.Instance.shrimpSaleSlots[saleSlotIndex].value = assignedValue;
+        }
 
         agent.shrimpModel.localScale = Vector2.zero;
         agent.shrimpModel.DOScale(ShrimpManager.instance.GetShrimpSize(TimeManager.instance.GetShrimpAge(stats.birthTime), stats.geneticSize), 0.5f).SetEase(shrimpAppearEase);  // Make the shrimp smoothly appear
@@ -247,6 +256,8 @@ public class Shrimp : MonoBehaviour
         //Destroy(gameObject);
     }
 
+
+    
 
     public void SellShrimp()
     {

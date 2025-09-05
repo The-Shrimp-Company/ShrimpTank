@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Shop
 {
     public string name;
@@ -12,6 +13,8 @@ public class Shop
     public List<Item> otherStock;
     public int maxShrimpStock;
     public int shrimpSold;
+
+    public List<Trait> traits = new();
 
     public Shop()
     {

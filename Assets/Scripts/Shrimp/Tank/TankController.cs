@@ -108,7 +108,7 @@ public class TankController : Interactable
     [HideInInspector] public Dictionary<IllnessSO, int> currentIllness = new Dictionary<IllnessSO, int>();
 
     [Header("Breeding")]
-    public float breedingCooldown = 45;
+    public float breedingCooldown = 20;
     [HideInInspector] public float breedingCooldownTimer;
     [HideInInspector] public bool shrimpCanBreed;
 
@@ -284,6 +284,10 @@ public class TankController : Interactable
                     }
                     shrimpInTank.Remove(shrimpToRemove[i]);
                     ShrimpManager.instance.RemoveShrimpFromStore(shrimpToRemove[i]);
+                }
+                if (shrimpToRemove[i].saleSlotIndex != -1)
+                {
+                    CustomerManager.Instance.shrimpSaleSlots[shrimpToRemove[i].saleSlotIndex] = new();
                 }
                 Destroy(shrimpToRemove[i].gameObject);
                 shrimpToRemove.RemoveAt(i);

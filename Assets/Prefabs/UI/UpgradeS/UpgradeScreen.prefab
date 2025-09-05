@@ -1600,8 +1600,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8986444441810471884}
   m_HandleRect: {fileID: 6187992125951271730}
   m_Direction: 2
-  m_Value: 1.0000029
-  m_Size: 0.62374264
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1966,7 +1966,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4437177854342469902}
   - component: {fileID: 1225211931624404893}
-  - component: {fileID: 7403144928149110599}
   - component: {fileID: 1941717309601830034}
   - component: {fileID: 7734348365484860202}
   - component: {fileID: 4612357016300261928}
@@ -2010,20 +2009,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5382316823195656821}
   m_CullTransparentMesh: 1
---- !u!114 &7403144928149110599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5382316823195656821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c14e2eb5d4473dd4e9465e287addc0bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shelves: {fileID: 0}
-  locksPlayerMovement: 0
 --- !u!114 &1941717309601830034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2079,7 +2064,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ec03bc786d3e14cbcdff68592d0b55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shelves: {fileID: 0}
   locksPlayerMovement: 0
 --- !u!223 &3847415575332341868
 Canvas:
@@ -3416,8 +3400,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4776241529231175460}
   m_HandleRect: {fileID: 5029628925132203750}
   m_Direction: 2
-  m_Value: 1.0000018
-  m_Size: 0.51246434
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

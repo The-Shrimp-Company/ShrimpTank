@@ -34,6 +34,8 @@ namespace SaveLoadSystem
 
         public Shop[] shops;
 
+        public int numSlots;
+
         public Email[] emails;
 
         public Notification[] notifications;

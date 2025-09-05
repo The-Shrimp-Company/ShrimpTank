@@ -10,7 +10,6 @@ public class SellContent : ContentPopulation
 {
     [SerializeField] private TextMeshProUGUI shrimpCount;
     [SerializeField] private TextMeshProUGUI shrimpPrice;
-    [SerializeField] private TextMeshProUGUI reputation;
     [SerializeField] private TMP_InputField storeName;
 
     // Start is called before the first frame update
@@ -23,7 +22,6 @@ public class SellContent : ContentPopulation
             price += EconomyManager.instance.GetShrimpValue(shrimp.stats);
         }
         shrimpPrice.text = "You have [£" + price + "] total value of shrimp.";
-        reputation.text = "You have [" + Reputation.GetReputation() + "] Reputation";
         storeName.text = Store.StoreName;
     }
 
@@ -40,7 +38,6 @@ public class SellContent : ContentPopulation
         {
             price += EconomyManager.instance.GetShrimpValue(shrimp.stats);
         }
-        reputation.text = "You have [" + Reputation.GetReputation() + "] Reputation";
         storeName.text = Store.StoreName;
     }
 

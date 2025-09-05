@@ -43,7 +43,14 @@ public class TankContentBlock : ContentBlock
         UpdateArrow(_shrimp.tank.waterSalt, _shrimp.stats.salineLevel, saltArrow);
         UpdateArrow(_shrimp.tank.waterPh, _shrimp.stats.PhPreference, pHArrow, 2);
         UpdateArrow(_shrimp.tank.waterAmmonium, _shrimp.stats.ammoniaPreference, HNOArrow);
-        
+        if (!ShrimpManager.instance.IsShrimpAdult(_shrimp.stats))
+        {
+            SetText(_shrimp.stats.name + " (child)");
+        }
+        else
+        {
+            SetText(_shrimp.stats.name);
+        }
     }
 
     private void UpdateArrow(float currentStat, float idealStat, Image statArrow, int MaxAllowableDifference = 10)

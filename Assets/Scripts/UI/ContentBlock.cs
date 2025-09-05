@@ -21,8 +21,8 @@ public class ContentBlock : MonoBehaviour
     {
         Canvas.ForceUpdateCanvases();
         text.text = textToSet;
-        FontTools.SizeFont(text);
-        text.fontSize = text.fontSize * 0.9f;
+        //FontTools.SizeFont(text);
+        //text.fontSize = text.fontSize * 0.9f;
     }
 
     public TextMeshProUGUI GetText()

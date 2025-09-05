@@ -332,7 +332,7 @@ public class TankViewScript : ScreenView
             });
             if (selectedShrimp.Contains(thisShrimp)) temp.checkbutton.GetComponent<Checkbox>().Check();
             else temp.checkbutton.GetComponent<Checkbox>().Uncheck();
-            if(TimeManager.instance.GetShrimpAge(thisShrimp.stats.birthTime) <= 4)
+            if (ShrimpManager.instance.IsShrimpAdult(thisShrimp.stats))
             {
                 temp.SetText(thisShrimp.name + " (child)");
             }
@@ -340,7 +340,7 @@ public class TankViewScript : ScreenView
             {
                 temp.SetText(thisShrimp.name);
             }
-                temp.SetShrimp(thisShrimp, this);
+            temp.SetShrimp(thisShrimp, this);
         }
 
 

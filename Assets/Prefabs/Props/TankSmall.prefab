@@ -684,7 +684,7 @@ MonoBehaviour:
   waterPh: 7
   idealTemp: 0
   idealSalt: 0
-  idealHnc: 0
+  idealHno: 0
   idealPh: 0
   upgradeController: {fileID: 0}
   lights:
@@ -693,7 +693,6 @@ MonoBehaviour:
   sign: {fileID: 5947789648189943326}
   SaleSign: {fileID: 5994137002391903135}
   label: {fileID: 2617808344691637593}
-  openTankPrice: 5
   openTankLabel: {fileID: 8758368202101297274}
   tankGrid: {fileID: 9135166761670337101}
   camDock: {fileID: 4595576537860867106}
@@ -756,7 +755,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   capacityCheckTime: 5
   illnessSpreadRate: 0.1
-  breedingCooldown: 90
+  breedingCooldown: 30
   breedingCooldownTimer: 0
   shrimpCanBreed: 0
   AlarmIds: []

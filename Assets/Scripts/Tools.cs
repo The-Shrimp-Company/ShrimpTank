@@ -150,4 +150,10 @@ public static class Tools
 
         return breedname;
     }
+
+    public static void SetTraitID(this Trait trait, string ID)
+    {
+        trait.activeGene.ID = ID;
+        trait.inactiveGene.ID = ID;
+    }
 }

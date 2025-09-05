@@ -7,6 +7,13 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using System.IO;
 using System.Text.Json.Serialization;
+using System;
+
+public class ShrimpShopSlot
+{
+    public Shrimp shrimp;
+    public float value;
+}
 
 public class CustomerManager : MonoBehaviour 
 {
@@ -18,7 +25,11 @@ public class CustomerManager : MonoBehaviour
     private float openSaleCoolDownCount = 0;
 
     [SerializeField]
-    private float openSaleCoolDown = 5;
+    private float openSaleCoolDown = 10;
+
+    [SerializeField] private float playerStoreTimer = 40;
+    private float playerStoreTime = 0;
+
 
     public List<TankController> openTanks = new();
     public List<Shrimp> ToPurchase { get; private set; } = new List<Shrimp>();
@@ -29,6 +40,9 @@ public class CustomerManager : MonoBehaviour
     private List<string> RandomEmails = new();
 
     public EmailScreen emailScreen;
+
+    public ShrimpShopSlot[] shrimpSaleSlots = new ShrimpShopSlot[10];
+    public int numSlots = 3;
 
 
     public void Awake()
@@ -46,6 +60,7 @@ public class CustomerManager : MonoBehaviour
 
     private void Update()
     {
+        // Section looking at selling from open tanks
         if (openSaleCoolDownCount > (openSaleCoolDown/openTanks.Count))
         {
             if (count < openTanks.Count)
@@ -58,9 +73,9 @@ public class CustomerManager : MonoBehaviour
                     {
                         value /= 4;
                     }
-                    if (Random.value * 20 < value)
+                    if (UnityEngine.Random.value * 20 < value)
                     {
-                        PurchaseShrimp(shrimp, value / Random.Range(1.2f, 2));
+                        PurchaseShrimp(shrimp, value / UnityEngine.Random.Range(0.8f, 1.5f));
                         break;
                     }
                 }
@@ -77,12 +92,51 @@ public class CustomerManager : MonoBehaviour
         }
         openSaleCoolDownCount += Time.deltaTime;
 
-        if(Random.Range(0, 1000) == 1 && requests.Count < 5 && coolDown < 0 && ShrimpManager.instance.allShrimp.Count > 5 && Reputation.GetReputation() > 40)
+        // Section handling requests given to the player
+        if(UnityEngine.Random.Range(0, 1000) == 1 && requests.Count < 5 && coolDown < 0 && ShrimpManager.instance.allShrimp.Count > 5 && Reputation.GetReputation() > 40)
         {
             coolDown = 300;
             MakeRequest();
         }
         coolDown--;
+
+        // Section handling player store
+        if(playerStoreTime > playerStoreTimer)
+        {
+            // Only run if there are slots available, and if any of those slots have shrimp in them
+            List<ShrimpShopSlot> activeSlots = shrimpSaleSlots.Where(x => x is not null).ToList();
+            if(numSlots != 0 && activeSlots.Count > 0)
+            {
+                ShrimpShopSlot currentSlot = null;
+                int lookedAtIndex;
+                do
+                {
+                    lookedAtIndex = UnityEngine.Random.Range(0, activeSlots.Count);
+                    currentSlot = activeSlots[lookedAtIndex];
+                } while (currentSlot.shrimp == null && currentSlot.value == 0);
+                if (EconomyManager.instance.GetShrimpValue(currentSlot.shrimp.stats) > currentSlot.value - UnityEngine.Random.Range(1, Reputation.GetReputation() / 10 + 1))
+                {
+                    currentSlot.shrimp.illnessCont.RemoveShrimp();
+                    PurchaseShrimp(currentSlot.shrimp, currentSlot.value);
+                    shrimpSaleSlots[Array.IndexOf(shrimpSaleSlots, currentSlot)] = new();
+                }
+                else
+                {
+                    Email complaint = EmailTools.CreateEmail();
+                    complaint.title = RandomEmails[UnityEngine.Random.Range(0, RandomEmails.Count)];
+                    complaint.subjectLine = currentSlot.shrimp.stats.name + " cost too much, so I didn't buy it";
+                    complaint.mainText = "I'm mad " + currentSlot.shrimp.stats.name +  " cost so much. Grr";
+                    complaint.CreateEmailButton("I don't care!", true);
+                    EmailManager.SendEmail(complaint, true);
+                }
+            }
+            playerStoreTime = 0;
+            
+        }
+        else
+        {
+            playerStoreTime += Time.deltaTime;
+        }
     }
 
     public void Initialize(Request[] requests = null)
@@ -96,12 +150,7 @@ public class CustomerManager : MonoBehaviour
         }
     }
 
-    public void AddShrimpToPurchase(Shrimp shrimp)
-    {
-        ToPurchase.Add(shrimp);
-
-        UIManager.instance.GetScreen()?.GetComponent<SellScreenView>()?.UpdateList(shrimp);
-    }
+    
 
     public void PurchaseShrimp(Shrimp shrimp, float value = 1)
     {
@@ -134,14 +183,14 @@ public class CustomerManager : MonoBehaviour
             Reputation.AddReputation(0.6f - shrimp.stats.illnessLevel / 100);
 
             Email email = EmailTools.CreateEmail();
-            int index = Random.Range(0, RandomEmails.Count);
+            int index = UnityEngine.Random.Range(0, RandomEmails.Count);
             email.title = RandomEmails[index];
             email.subjectLine = "I Love this shrimp!";
             email.mainText = "It's just what I wanted, so I got you this bonus!";
             email.value = Mathf.RoundToInt(shrimp.GetValue());
             MyButton button = email.CreateEmailButton("Add money", true);
             button.SetFunc(EmailFunctions.FunctionIndexes.AddMoney, email.value);
-            EmailManager.SendEmail(email, true, Random.Range(10, 30));
+            EmailManager.SendEmail(email, true, UnityEngine.Random.Range(10, 30));
         }
     }
 
@@ -218,7 +267,7 @@ public class CustomerManager : MonoBehaviour
             value = value
         };
         Email email = EmailTools.CreateEmail();
-        int emailIndex = Random.Range(0, RandomEmails.Count);
+        int emailIndex = UnityEngine.Random.Range(0, RandomEmails.Count);
         email.title = RandomEmails[emailIndex];
         email.subjectLine = "I would like a shrimp";
         email.mainText = message;
@@ -245,7 +294,7 @@ public class CustomerManager : MonoBehaviour
     {
         string message;
 
-        message = Request.Words[Random.Range(0, Request.Words.Length)];
+        message = Request.Words[UnityEngine.Random.Range(0, Request.Words.Length)];
 
         return message;
     }
