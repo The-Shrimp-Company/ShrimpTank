@@ -19,7 +19,7 @@ public static class ShrimpActivityManager
             options.Add(new ShrimpMovement());
             options.Add(new ShrimpSleeping());
             options.Add(new ShrimpBreeding());
-            options.Add(new ShrimpEating());
+            //options.Add(new ShrimpEating());
         }
         else
         {

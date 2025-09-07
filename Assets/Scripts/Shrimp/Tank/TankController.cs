@@ -50,6 +50,9 @@ public class TankController : Interactable
     [HideInInspector] public List<ShrimpFood> foodToAdd = new List<ShrimpFood>();
     [HideInInspector] public List<ShrimpFood> foodToRemove = new List<ShrimpFood>();
     public Transform foodParent;
+    public int fedToday;
+    public float starvationTimer;
+    public float starvationTime;
 
     [Header("Water")]
     public Transform waterLevel;
@@ -213,6 +216,7 @@ public class TankController : Interactable
         
 
         // Food Spawning
+        /*
         autoSpawnFoodTimer += Time.deltaTime;
         if (FoodStore > 0)
         {
@@ -225,12 +229,58 @@ public class TankController : Interactable
                 autoSpawnFoodTimer = 0;
             }
         }
+        */
+
+        // Deals with shrimp food
+        if(shrimpInTank.Count > 0)
+        {
+            if (fedToday <= TimeManager.instance.day - 2)
+            {
+                if(starvationTimer == 0)
+                {
+                    starvationTimer = UnityEngine.Random.Range(5, 30);
+                    starvationTime = 0;
+                }
+            }
+            else
+            {
+                starvationTimer = 0;
+            }
+
+            if (starvationTimer != 0)
+            {
+                if (starvationTime > starvationTimer)
+                {
+                    shrimpInTank[UnityEngine.Random.Range(0, shrimpInTank.Count)].KillShrimp();
+                    starvationTimer = UnityEngine.Random.Range(5, 30);
+                    starvationTime = 0;
+                }
+                else
+                {
+                    starvationTime += Time.deltaTime;
+                }
+            }
+        }
+        else
+        {
+            fedToday = TimeManager.instance.day-1;
+        }
+
 
         label.text = tankName;
 
         if (focusingTank) PlayerStats.stats.timeSpentFocusingTank += Time.deltaTime;
     }
 
+    public void FeedShrimp()
+    {
+        fedToday = TimeManager.instance.day;
+    }
+
+    public bool FedShrimpToday()
+    {
+        return fedToday == TimeManager.instance.day;
+    }
 
     private void AddToTank()
     {
@@ -370,7 +420,7 @@ public class TankController : Interactable
         CheckStatAlarm(waterPh, idealPh, 2, "Your tank has the wrong pH level", AlarmTypes.ph);
         if(shrimpInTank.Count > 0)
         {
-            CheckMinValueAlarm(foodInTank.Count, 0, "There is no food in the tank!", AlarmTypes.Food);
+            CheckMinValueAlarm(fedToday, TimeManager.instance.day-1, "There is no food in the tank!", AlarmTypes.Food);
         }
     }
 

@@ -16,11 +16,10 @@ public class FoodButton : MonoBehaviour
 
         GetComponent<Button>().onClick.AddListener(() =>
         {
-            if (Inventory.HasItem(food))
+            if (Inventory.HasItem(food) && !tank.FedShrimpToday())
             {
                 Inventory.RemoveItem(food);
-                GameObject newFood = Instantiate(((FoodItemSO)Inventory.GetSOForItem(food)).foodPrefab, tank.GetRandomSurfacePosition(), Quaternion.identity);
-                newFood.GetComponent<ShrimpFood>().CreateFood(tank, food);
+                tank.FeedShrimp();
                 itemCount.text = Inventory.GetItemQuantity(food).ToString();
                 if(Inventory.GetItemQuantity(food) <= 0)
                 {

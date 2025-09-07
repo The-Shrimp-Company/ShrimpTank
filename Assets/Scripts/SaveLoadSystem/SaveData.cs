@@ -73,6 +73,9 @@ namespace SaveLoadSystem
         public float waterSalt;
         public float waterHNC;
         public float waterPH;
+        public int fedToday;
+        public float starvationTimer;
+        public float starvationTime;
         public FoodSaveData[] shrimpFood;
     }
 

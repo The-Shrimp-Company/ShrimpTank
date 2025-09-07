@@ -83,13 +83,13 @@ public class SingleShopScript : ScreenView
         PhLabel.text = "ph:\n" + shrimp.PhPreference.ToString();
         if (Mathf.Abs(Store.GetDestinationTank().waterPh - shrimp.PhPreference) >= 2) PhLabel.text += "<color=red><size=20>\nTank not suitable</size></color>";
 
-
+        /*
         if (Store.GetDestinationTank().foodInTank.Count <= 0)
         {
             price.text = "Current Destination tank has no food, can't buy shrimp into it";
             price.transform.parent.GetComponent<Button>().interactable = false;
-        }
-        else if (Mathf.Abs(Store.GetDestinationTank().waterAmmonium - shrimp.ammoniaPreference) > 10 &&
+        }*/
+        if (Mathf.Abs(Store.GetDestinationTank().waterAmmonium - shrimp.ammoniaPreference) > 10 &&
             Mathf.Abs(Store.GetDestinationTank().waterSalt - shrimp.salineLevel) > 10 &&
             Mathf.Abs(Store.GetDestinationTank().waterPh - shrimp.PhPreference) > 2 &&
             Mathf.Abs(Store.GetDestinationTank().waterTemperature - shrimp.temperaturePreference) > 10)
