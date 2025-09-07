@@ -730,11 +730,11 @@ public class TankController : Interactable
     public void FillWater()
     {
         if (waterFilling) return;
-        Debug.Log("F");
+
         bool animate = true;
         if (waterHeight == 0)
         {
-            waterHeight = waterObject.transform.localPosition.y;
+            waterHeight = waterObject.transform.localPosition.z;
             waterScale = waterObject.transform.localScale.y;
             animate = false;
         }
@@ -749,15 +749,15 @@ public class TankController : Interactable
 
         if (animate)
         {
-            waterObject.transform.localPosition = new Vector3(waterObject.transform.localPosition.x, 0, waterObject.transform.localPosition.z);
+            waterObject.transform.localPosition = new Vector3(waterObject.transform.localPosition.x, waterObject.transform.localPosition.y, 0);
             waterObject.transform.localScale = new Vector3(waterObject.transform.localScale.x, 0, waterObject.transform.localScale.z);
 
-            waterObject.transform.DOLocalMoveY(waterHeight, waterFillAnimLength).OnComplete(WaterFinishFilling);
-            waterObject.transform.DOScaleY(waterScale, waterFillAnimLength);
+            waterObject.transform.DOLocalMoveZ(waterHeight, waterFillAnimLength).SetEase(Ease.InOutSine).OnComplete(WaterFinishFilling);
+            waterObject.transform.DOScaleY(waterScale, waterFillAnimLength).SetEase(Ease.InOutSine);
         }
         else
         {
-            waterObject.transform.localPosition = new Vector3(waterObject.transform.localPosition.x, waterHeight, waterObject.transform.localPosition.z);
+            waterObject.transform.localPosition = new Vector3(waterObject.transform.localPosition.x, waterObject.transform.localPosition.y, waterHeight);
             waterObject.transform.localScale = new Vector3(waterObject.transform.localScale.x, waterScale, waterObject.transform.localScale.z);
             WaterFinishFilling();
         }
@@ -766,12 +766,11 @@ public class TankController : Interactable
     public void EmptyWater()
     {
         if (waterFilling) return;
-        Debug.Log("E");
 
         bool animate = true;
         if (waterHeight == 0)
         {
-            waterHeight = waterObject.transform.localPosition.y;
+            waterHeight = waterObject.transform.localPosition.z;
             waterScale = waterObject.transform.localScale.y;
             animate = false;
         }
@@ -785,15 +784,15 @@ public class TankController : Interactable
 
         if (animate)
         {
-            waterObject.transform.localPosition = new Vector3(waterObject.transform.localPosition.x, waterHeight, waterObject.transform.localPosition.z);
+            waterObject.transform.localPosition = new Vector3(waterObject.transform.localPosition.x, waterObject.transform.localPosition.y, waterHeight);
             waterObject.transform.localScale = new Vector3(waterObject.transform.localScale.x, waterScale, waterObject.transform.localScale.z);
 
-            waterObject.transform.DOLocalMoveY(0, waterFillAnimLength).OnComplete(WaterFinishFilling);
-            waterObject.transform.DOScaleY(0, waterFillAnimLength);
+            waterObject.transform.DOLocalMoveZ(0, waterFillAnimLength).SetEase(Ease.InOutSine).OnComplete(WaterFinishFilling);
+            waterObject.transform.DOScaleY(0, waterFillAnimLength).SetEase(Ease.InOutSine);
         }
         else
         {
-            waterObject.transform.localPosition = new Vector3(waterObject.transform.localPosition.x, 0, waterObject.transform.localPosition.z);
+            waterObject.transform.localPosition = new Vector3(waterObject.transform.localPosition.x, waterObject.transform.localPosition.y, 0);
             waterObject.transform.localScale = new Vector3(waterObject.transform.localScale.x, 0, waterObject.transform.localScale.z);
             WaterFinishFilling();
         }
