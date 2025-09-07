@@ -104,7 +104,7 @@ public class CustomerManager : MonoBehaviour
         if(playerStoreTime > playerStoreTimer)
         {
             // Only run if there are slots available, and if any of those slots have shrimp in them
-            List<ShrimpShopSlot> activeSlots = shrimpSaleSlots.Where(x => x is not null).ToList();
+            List<ShrimpShopSlot> activeSlots = shrimpSaleSlots.Where(x => x is not null && x.value != 0).ToList();
             if(numSlots != 0 && activeSlots.Count > 0)
             {
                 ShrimpShopSlot currentSlot = null;
