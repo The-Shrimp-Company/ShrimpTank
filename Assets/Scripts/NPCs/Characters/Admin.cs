@@ -57,7 +57,7 @@ public class Admin : NPC
         {
             email.subjectLine = "Buying shrimp apparatus";
             email.mainText = "From what the system shows, you already have several tanks in your store, but what you don't have is any shrimp food. You can buy this from the store, which you " +
-                "now have access to. Buy some shrimp food now, and put it in your destination shrimp tank. You'll need to make sure your shrimp tanks have food before you put shrimp in them.";
+                "now have access to. Buy some shrimp food now, and remember you'll need to feed your shrimp once a day";
             important = true;
         }
         if(completion == 5)
@@ -229,7 +229,7 @@ public class Admin : NPC
                         .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "VetOpen")
                         .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 5);
                 }
-                if (sentEmail.subjectLine == "Buying shrimp apparatus" && Store.GetDestinationTank().foodInTank.Count > 0)
+                if (sentEmail.subjectLine == "Buying shrimp apparatus" && Inventory.GetInventoryItemsWithTag(ItemTags.Food).Count > 0)
                 {
                     sentEmail.CreateEmailButton("I've bought some food", true)
                         .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "ShrimpStoreOpen")
