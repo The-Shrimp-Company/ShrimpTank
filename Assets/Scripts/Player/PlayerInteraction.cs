@@ -106,7 +106,7 @@ public class PlayerInteraction : MonoBehaviour
 
     public void SetTankFocus(TankController tankController)
     {
-        if (tankController != null)
+        if (tankController != null && tankController.waterFilled)
         {
             if (_tankView != null) _tankView.GetComponent<TankController>().StopFocusingTank();
 
@@ -120,7 +120,6 @@ public class PlayerInteraction : MonoBehaviour
             tankController.FocusTank();
             _tankView = tankController.gameObject;
         }
-        else Debug.LogWarning("Cannot find tank to focus.");
     }
 
     /// <summary>
@@ -145,15 +144,11 @@ public class PlayerInteraction : MonoBehaviour
                     {
                         nextTank = null;
                         hit.transform.TryGetComponent(out nextTank);
-                        if (nextTank != null)
+                        if (nextTank != null && nextTank.waterFilled)
                         {
                             SetTankFocus(nextTank);
                         }
                     }
-                }
-                else
-                {
-                    //Debug.Log("HJEHFSDHFSD");
                 }
             }
         }

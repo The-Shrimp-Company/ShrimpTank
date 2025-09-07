@@ -5,6 +5,7 @@ using TMPro;
 using System.Linq;
 using System;
 using DG.Tweening;
+using SaveLoadSystem;
 
 [RequireComponent(typeof(TankUpgradeController))]
 public class TankController : Interactable
@@ -124,12 +125,14 @@ public class TankController : Interactable
     [Header("Alarms")]
     public List<string> AlarmIds = new List<string>();
 
+    [Header("Misc")]
+    [HideInInspector] public bool tankLoaded;
+
     [Header("Optimisation")]
     private LODLevel currentLODLevel;
     [SerializeField] float distanceCheckTime = 1;
     private float distanceCheckTimer;
     public Transform particleParent;
-    private Transform player;
 
     [Header("Tooltip")]
     private ToolTip tooltip;
@@ -145,7 +148,6 @@ public class TankController : Interactable
     {
         if (tankGrid == null) Debug.LogError("Pathfinding grid is missing");
         if (shrimpParent == null) Debug.LogError("Shrimp Parent is missing");
-        if (player == null) player = GameObject.Find("Player").transform;
 
         if (string.IsNullOrEmpty(tankName)) tankName = "Tank";
 
@@ -156,7 +158,9 @@ public class TankController : Interactable
 
         breedingCooldownTimer = breedingCooldown;
         shrimpCanBreed = false;
-
+        
+        if (!tankLoaded)
+            EmptyWater();
 
         if (autoSpawnTestShrimp)
         {
@@ -694,38 +698,39 @@ public class TankController : Interactable
 
     public override void Action()
     {
-        ItemSO so = Inventory.GetSOForItem(player.GetComponent<HeldItem>().GetHeldItem());
+        ItemSO so = Inventory.GetSOForItem(Store.player.GetComponent<HeldItem>().GetHeldItem());
         if (so && !so.tags.Contains(ItemTags.Shrimp))
         {
-            SpawnShrimp((player.GetComponent<HeldItem>().GetHeldItem() as ShrimpItem).shrimp);
-            player.GetComponent<HeldItem>().StopHoldingItem();
+            SpawnShrimp((Store.player.GetComponent<HeldItem>().GetHeldItem() as ShrimpItem).shrimp);
+            Store.player.GetComponent<HeldItem>().StopHoldingItem();
         }
         else
-            player.GetComponent<PlayerInteraction>().SetTankFocus(this);
+            Store.player.GetComponent<PlayerInteraction>().SetTankFocus(this);
     }
 
     public override void OnHover()
     {
         if (tooltip)
         {
-            if (!Inventory.GetSOForItem(player.GetComponent<HeldItem>().GetHeldItem()).tags.Contains(ItemTags.Shrimp))
+            if (!Inventory.GetSOForItem(Store.player.GetComponent<HeldItem>().GetHeldItem()).tags.Contains(ItemTags.Shrimp))
                 tooltip.toolTip = tankName;
             else
                 tooltip.toolTip = "Put shrimp in " + tankName;
         }
 
-        player.GetComponent<PlayerInteraction>().SetTankFocus(this);
+        Store.player.GetComponent<PlayerInteraction>().SetTankFocus(this);
     }
 
     public override void OnStopHover()
     {
-        player.GetComponent<PlayerInteraction>().SetTankFocus(this);
+        Store.player.GetComponent<PlayerInteraction>().SetTankFocus(this);
     }
 
 
     public void FillWater()
     {
         if (waterFilling) return;
+        Debug.Log("F");
         bool animate = true;
         if (waterHeight == 0)
         {
@@ -761,6 +766,8 @@ public class TankController : Interactable
     public void EmptyWater()
     {
         if (waterFilling) return;
+        Debug.Log("E");
+
         bool animate = true;
         if (waterHeight == 0)
         {
@@ -816,9 +823,7 @@ public class TankController : Interactable
     {
         if (currentLODLevel != LODLevel.High)
         {
-            if (player == null) player = GameObject.Find("Player").transform;
-
-            float dist = Vector3.Distance(player.position, transform.position);
+            float dist = Vector3.Distance(Store.player.transform.position, transform.position);
 
 
             if (dist < 4)

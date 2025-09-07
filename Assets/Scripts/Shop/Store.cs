@@ -9,6 +9,7 @@ using UnityEngine;
 public class Store : MonoBehaviour
 {
     public static string StoreName;
+    public static GameObject player;
     public static DecorateShopController decorateController;
 
     private static TankController destinationTank;
@@ -18,6 +19,7 @@ public class Store : MonoBehaviour
     void Awake()
     {
         decorateController = GetComponent<DecorateShopController>();
+        player = GameObject.Find("Player");
     }
 
 
