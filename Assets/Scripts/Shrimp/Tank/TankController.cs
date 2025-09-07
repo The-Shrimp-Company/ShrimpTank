@@ -53,6 +53,7 @@ public class TankController : Interactable
     public int fedToday;
     public float starvationTimer;
     public float starvationTime;
+    [SerializeField] private GameObject FoodAlertSign;
 
     [Header("Water")]
     public Transform waterLevel;
@@ -266,6 +267,7 @@ public class TankController : Interactable
             fedToday = TimeManager.instance.day-1;
         }
 
+        FoodAlertSign.SetActive(!FedShrimpToday());
 
         label.text = tankName;
 
