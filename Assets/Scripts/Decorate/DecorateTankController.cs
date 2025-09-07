@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Threading.Tasks;
+
 
 public class DecorateTankController : MonoBehaviour
 {
@@ -485,23 +487,24 @@ public class DecorateTankController : MonoBehaviour
             objectPreview.transform.rotation = rot;
     }
 
-    public void PutDecorationAway()
+    public void PutDecorationAway(TankController tank = null)
     {
         if (selectedObject == null) return;
-        if (currentGrid == null) return;
-        if (decorateView == null) return;
-        if (decorateView.selectedItemType == null) return;
+        if (!tank && currentTank) tank = currentTank;
 
-        Inventory.AddItem(decorateView.selectedItemType.itemName);
+        Inventory.AddItem(selectedObject.GetComponent<Decoration>().decorationSO.itemName);
 
-        currentTank.decorationsInTank.Remove(selectedObject);
+        tank.decorationsInTank.Remove(selectedObject);
 
         GameObject obj = selectedObject;
         selectedObject.gameObject.transform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InBack).OnComplete(()=>DestroyDecoration(obj));
-
         selectedObject = null;
-        decorateView.ChangeSelectedItem(null, null);
-        decorateView.UpdateContent();
+
+        if (decorateView)
+        {
+            decorateView.ChangeSelectedItem(null, null);
+            decorateView.UpdateContent();
+        }
     }
 
     private void DestroyDecoration(GameObject obj)
@@ -510,7 +513,24 @@ public class DecorateTankController : MonoBehaviour
         obj.SetActive(false);
         Destroy(obj.gameObject);
         UpdateGridMaterials();
-        currentGrid.RebakeGrid();
+        if (currentGrid) currentGrid.RebakeGrid();
+    }
+
+    public async void ClearTank(TankController tank = null)
+    {
+        if (!tank && currentTank) tank = currentTank;
+        if (tank.decorationsInTank.Count == 0) return;
+
+        int delay = 400 / tank.decorationsInTank.Count;
+        for (int i = tank.decorationsInTank.Count - 1; i >= 0; i--)
+        {
+            if (tank.decorationsInTank[i] == null) continue;
+            selectedObject = tank.decorationsInTank[i];
+            Debug.Log(selectedObject);
+            if (decorateView) decorateView.ChangeSelectedItem(tank.decorationsInTank[i].GetComponent<Decoration>().decorationSO, tank.decorationsInTank[i]);
+            PutDecorationAway(tank);
+            await Task.Delay(delay);
+        }
     }
 
     private void GreyOutGrid()

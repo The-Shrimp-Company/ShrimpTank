@@ -40,8 +40,8 @@ public class Decoration : MonoBehaviour
     {
         if (!locked && interactable)
         {
-            interactable.AddHoldAction("Move Decoration", MoveDecoration);
-            interactable.AddHoldAction("Remove Decoration", RemoveDecoration);
+            interactable.AddHoldAction("Move", MoveDecoration);
+            interactable.AddHoldAction("Remove", RemoveDecoration);
             interactable.decoration = this;
         }
     }

@@ -9,7 +9,6 @@ using Unity.VisualScripting;
 using System;
 using System.Xml;
 using DG.Tweening;
-using System.Threading.Tasks;
 
 public class TankDecorateViewScript : ScreenView
 {
@@ -154,17 +153,9 @@ public class TankDecorateViewScript : ScreenView
     }
 
 
-    public async void ClearTank()
+    public  void ClearTank()
     {
-        int delay = 400 / tank.decorationsInTank.Count;
-        for (int i = tank.decorationsInTank.Count - 1; i >= 0; i--)
-        {
-            if (tank.decorationsInTank[i] == null) continue;
-            DecorateTankController.Instance.selectedObject = tank.decorationsInTank[i];
-            ChangeSelectedItem(tank.decorationsInTank[i].GetComponent<Decoration>().decorationSO, tank.decorationsInTank[i]);
-            PutAway();
-            await Task.Delay(delay);
-        }
+        DecorateTankController.Instance.ClearTank();
     }
 
 

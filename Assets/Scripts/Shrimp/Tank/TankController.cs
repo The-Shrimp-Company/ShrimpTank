@@ -744,8 +744,8 @@ public class TankController : Interactable
         interactable = false;
         RemoveHoldAction("Fill Water");
         RemoveHoldAction("Empty Water");
-        RemoveHoldAction("Move Decoration");
-        RemoveHoldAction("Remove Decoration");
+        RemoveHoldAction("Move");
+        RemoveHoldAction("Remove");
 
         if (animate)
         {
@@ -767,6 +767,12 @@ public class TankController : Interactable
     {
         if (waterFilling) return;
 
+        if (shrimpInTank.Count != 0)
+        {
+            Debug.Log("Cannot empty tank with shrimp in it");
+            return;
+        }
+
         bool animate = true;
         if (waterHeight == 0)
         {
@@ -774,13 +780,16 @@ public class TankController : Interactable
             waterScale = waterObject.transform.localScale.y;
             animate = false;
         }
+
+        DecorateTankController.Instance.ClearTank(this);
+
         waterFilling = true;
         waterFilled = false;
         interactable = false;
         RemoveHoldAction("Fill Water");
         RemoveHoldAction("Empty Water");
-        RemoveHoldAction("Move Decoration");
-        RemoveHoldAction("Remove Decoration");
+        RemoveHoldAction("Move");
+        RemoveHoldAction("Remove");
 
         if (animate)
         {
@@ -812,8 +821,8 @@ public class TankController : Interactable
             interactable = false;
             Decoration decoration = GetComponent<Decoration>();
             AddHoldAction("Fill Water", FillWater);
-            AddHoldAction("Move Decoration", decoration.MoveDecoration);
-            AddHoldAction("Remove Decoration", decoration.RemoveDecoration);
+            AddHoldAction("Move", decoration.MoveDecoration);
+            AddHoldAction("Remove", decoration.RemoveDecoration);
         }
     }
 
