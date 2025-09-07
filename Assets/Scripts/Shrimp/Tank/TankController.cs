@@ -281,7 +281,7 @@ public class TankController : Interactable
 
     public bool FedShrimpToday()
     {
-        return fedToday == TimeManager.instance.day;
+        return (fedToday == TimeManager.instance.day || shrimpInTank.Count == 0);
     }
 
     private void AddToTank()
