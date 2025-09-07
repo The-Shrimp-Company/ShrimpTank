@@ -114,8 +114,9 @@ public class ShrimpSelectionPopulation : ContentPopulation
             block.GetComponent<Button>().onClick.AddListener(() =>
             {
                 if (CustomerManager.Instance.shrimpSaleSlots[shrimpSlot.index] == null) CustomerManager.Instance.shrimpSaleSlots[shrimpSlot.index] = new();
-                else
+                else if (CustomerManager.Instance.shrimpSaleSlots[shrimpSlot.index].shrimp != null)
                 {
+                    
                     Shrimp oldShrimp = CustomerManager.Instance.shrimpSaleSlots[shrimpSlot.index].shrimp;
                     oldShrimp.saleSlotIndex = -1;
                     oldShrimp.stats.saleSlotIndex = 0;
