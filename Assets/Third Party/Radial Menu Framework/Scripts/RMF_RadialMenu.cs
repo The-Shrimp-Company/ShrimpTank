@@ -8,7 +8,6 @@ using DG.Tweening;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.InputSystem;
-using static UnityEditor.Rendering.FilterWindow;
 
 
 [AddComponentMenu("Radial Menu Framework/RMF Core Script")]
