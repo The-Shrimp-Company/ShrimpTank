@@ -9,6 +9,8 @@ public class Shop
     public bool NpcOwned;
     public string NpcName;
     public int reputation;
+    public int minPlayerReputation;
+    public bool unlocked = false;
     public List<ShrimpStats> shrimpStock = new List<ShrimpStats>();
     public List<Item> otherStock;
     public int maxShrimpStock;
@@ -101,14 +103,27 @@ public class ShopManager : MonoBehaviour
     {
         foreach(Shop shop in shops)
         {
-            if(shop.shrimpStock.Count == shop.maxShrimpStock)
+            if (shop.unlocked)
             {
-                shop.shrimpStock.RemoveAt(Random.Range(0, shop.shrimpStock.Count - 1));
+                if (shop.shrimpStock.Count == shop.maxShrimpStock)
+                {
+                    shop.shrimpStock.RemoveAt(Random.Range(0, shop.shrimpStock.Count - 1));
+                }
+                shop.shrimpStock.Add(ShrimpManager.instance.CreateShrimpForShop(shop));
+                if (shop.shrimpStock.Count > shop.maxShrimpStock)
+                {
+                    shop.shrimpStock = shop.shrimpStock.GetRange(0, shop.maxShrimpStock);
+                }
             }
-            shop.shrimpStock.Add(ShrimpManager.instance.CreateShrimpForShop(shop));
-            if(shop.shrimpStock.Count > shop.maxShrimpStock)
+            else
             {
-                shop.shrimpStock = shop.shrimpStock.GetRange(0, shop.maxShrimpStock);
+                if (!shop.NpcOwned)
+                {
+                    if(Reputation.GetReputation() >= shop.minPlayerReputation)
+                    {
+                        shop.unlocked = true;
+                    }
+                }
             }
         }
     }

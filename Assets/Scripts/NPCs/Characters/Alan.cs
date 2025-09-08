@@ -88,7 +88,7 @@ public class Alan : NPC
                 email.subjectLine = "Ok, we are friends now";
                 email.mainText = "Now that we are friends, you can have access to my store. It should have come through as you get this email.";
                 NPCManager.Instance.GetNPCFromName("Joe@ShrimpMail.com").Data.flags.Add(flags.Contains("NoMoney") ? 4001.ToString() : 4000.ToString());
-                ShopManager.instance.shops.Add(new Shop() { NpcOwned = true, NpcName = name, maxShrimpStock = 4, name = "Alan's Shrimp Shop" });
+                ShopManager.instance.FindNpcShop(name).unlocked = true;
                 email.CreateEmailButton("Oh, thanks, that's great!", true)
                     .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 21);
             }
