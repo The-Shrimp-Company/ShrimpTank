@@ -179,44 +179,21 @@ public class GeneManager : MonoBehaviour
 
     private Trait PunnetSquareTrait(Trait parentATrait, Trait parentBTrait)
     {
+        // Seperate the genes of both traits
         Gene AA = parentATrait.activeGene;
         Gene AB = parentATrait.inactiveGene;
         Gene BA = parentBTrait.activeGene;
         Gene BB = parentBTrait.inactiveGene;
 
-
+        // List all combinations of genes in seperate traits
         Trait[] c = new Trait[4];
         c[0] = new Trait(AA, BA);
         c[1] = new Trait(AA, BB);
         c[2] = new Trait(AB, BA);
         c[3] = new Trait(AB, BB);
 
-        int[] d = new int[4];
-        d[0] = c[0].activeGene.dominance + c[0].inactiveGene.dominance;
-        d[1] = c[1].activeGene.dominance + c[1].inactiveGene.dominance;
-        d[2] = c[2].activeGene.dominance + c[2].inactiveGene.dominance;
-        d[3] = c[3].activeGene.dominance + c[3].inactiveGene.dominance;
-
-        // Find the total dominance of all possible options and pick a random number below that
-        int totalDominance = d[0] + d[1] + d[2] + d[3];
-        int rand = Random.Range(0, totalDominance + 1);
-
-        int chosenTrait;
-
-        // 
-        if (rand <= d[0])  // Trait c0 has been chosen (AA, BA)
-            chosenTrait = 0;
-
-        else if (rand <= d[0] + d[1])  // Trait c1 has been chosen (AA, BB)
-            chosenTrait = 1;
-
-        else if (rand <= d[0] + d[1] + d[2])  // Trait c2 has been chosen (AB, BA)
-            chosenTrait = 2;
-
-        else  // Trait c3 has been chosen (AB, BB)
-            chosenTrait = 3;
-
-
+        // Select a random index
+        int chosenTrait = Random.Range(0, 4);
 
 
         Trait RT;  // Trait to return

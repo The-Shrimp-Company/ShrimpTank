@@ -20,14 +20,17 @@ public class Shop
 
     public Shop()
     {
-
+        for(int i = 0; i < maxShrimpStock; i++)
+        {
+            shrimpStock.Add(ShrimpManager.instance.CreateShrimpForShop(this));
+        }
     }
 
     public Shop(int count)
     {
         for(int i = 0; i < count; i++)
         {
-            shrimpStock.Add(ShrimpManager.instance.CreateRandomShrimp(true, false));
+            shrimpStock.Add(ShrimpManager.instance.CreateShrimpForShop(this));
         }
     }
 
@@ -69,13 +72,23 @@ public class ShopManager : MonoBehaviour
 
     public void Initialize(List<Shop> shopsToLoad = null)
     {
-        shops = shopsToLoad ?? new List<Shop>();
+        shops = shopsToLoad ?? shops ?? new List<Shop>();
         if(shops.Count == 0)
         {
             shops.Add(new Shop(3) { maxShrimpStock = 4, name = "ShrimpShopSupreme", NpcOwned = false, reputation = 2 });
             shops.Add(new Shop(3) { maxShrimpStock = 4, name = "Not the only shrimp shop", NpcOwned = false, reputation = 2 });
             shops.Add(new Shop(3) { maxShrimpStock = 4, name = "The best shrimp shop", NpcOwned = false, reputation = 1 });
 
+        }
+        if(shopsToLoad == null)
+        {
+            foreach(Shop shop in shops)
+            {
+                for(int i = 0; i < shop.maxShrimpStock; i++)
+                {
+                    shop.shrimpStock.Add(ShrimpManager.instance.CreateShrimpForShop(shop));
+                }
+            }
         }
     }
 
@@ -92,7 +105,7 @@ public class ShopManager : MonoBehaviour
             {
                 shop.shrimpStock.RemoveAt(Random.Range(0, shop.shrimpStock.Count - 1));
             }
-            shop.shrimpStock.Add(ShrimpManager.instance.CreateRandomShrimp(true, false));
+            shop.shrimpStock.Add(ShrimpManager.instance.CreateShrimpForShop(shop));
             if(shop.shrimpStock.Count > shop.maxShrimpStock)
             {
                 shop.shrimpStock = shop.shrimpStock.GetRange(0, shop.maxShrimpStock);
