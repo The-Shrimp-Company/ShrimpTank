@@ -230,7 +230,11 @@ public static class EmailTools
         return button;
     }
 
-
+    static public void AddEmailText(this Email email, string textToAdd, string signiture = "")
+    {
+        email.mainText = email.mainText.Insert(email.mainText.Length - signiture.Length, textToAdd);
+        UIManager.instance.PushNotification(email.subjectLine, true);
+    }
 
     static public Email CreateEmail()
     {

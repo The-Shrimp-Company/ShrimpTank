@@ -31,44 +31,40 @@ public class Admin : NPC
             email.subjectLine = "Welcome to the Shrimping Community, " + Store.StoreName;
             email.mainText = "We have installed the community apps on your device for your convienience. You may choose to either have access to all of these applications now, " +
                 "or we can give you access over time, to walk you through the options available. Which would you like to pick?";
-            email.CreateEmailButton("Walk me through the systems", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 2)
-                .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "UpgradeStoreOpen");
+            email.CreateEmailButton("Walk me through the systems", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 2);
             email.CreateEmailButton("Give me everything (Not recommended for new players)", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 10)
                 .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "ShrimpStoreOpen", "OwnStoreOpen", "UpgradeStoreOpen", "VetOpen");
             important = true;
         }
 
+        #region Tutorial
+        if(completion == 2)
+        {
+            email.subjectLine = "Setting up tanks";
+            email.mainText = "It seems you already have some tanks in your store, but they're not quite set up yet. The first thing you'll need to do is to add water";
+        }
+
         if(completion == 3)
         {
             email.subjectLine = "Buying shrimp";
-            email.mainText = "Now that you have food in your destination tank, you can put shrimp in it. Go to the shrimp store and choose a shrimp to buy. Pay attention to the needs and preferences " +
-                "of the shrimp you are buying, and remember that the tank doesn't have to be perfect for the shrimp to be ok. Shrimp will be happier and healthier when more of their needs are met, but " +
-                "they can survive as long as at least one other their needs are met. If none of their needs are met though, they will die.";
-            important = true;
+            email.mainText = "Now that you have a tank set up, you'll want to buy some shrimp. There are several things to be aware of when doing this, the first being that not every shrimp is " +
+                "suited for the tank you've set up, and the second being that if you want to get any more shrimp out of the purchase, you'll want to get at least two, of different sexes. So, go into " +
+                "the store, and look for two shrimp, male and female, and both with similar needs.\nThen, make sure your destination tank is set up for them, so try and make sure the numbers are the " +
+                "same as what they need, and then buy them both. It's important to remember, they <color=yellow>don't</color> need to be perfect for each other, the shrimp won't die as long as they " +
+                "have at least <color=yellow>one</color> of their needs met";
         }
+
         if(completion == 4)
         {
-            email.subjectLine = "Checking your own store";
-            email.mainText = "You can also see your own store, to get information about what is in your store. This will tell you how many shrimp you have, and what your reputation score is" +
-                " at. Access this screen now.";
-            important = true;
+            email.subjectLine = "Caring for shrimp";
+            email.mainText = "Well, caring for shrimp isn't too hard. You need to make sure that the shrimp have something to eat, and you need to make sure that you keep their needs met. " +
+                "The more of their needs you meet, the better, but you can get away with only meeting <color=yellow>one</color> of their needs at a time. If you don't meet any of their needs, " +
+                "they will die pretty fast. You also have to feed them <color=yellow>at least once a day</color>, but as long as you've put the food in the tank every day, they should be able " +
+                "to feed themselves as much as they need. To start with, go into the store on your tablet, and <color=yellow>buy some shrimp food</color>.";
         }
-        if (completion == 2)
-        {
-            email.subjectLine = "Buying shrimp apparatus";
-            email.mainText = "From what the system shows, you already have several tanks in your store, but what you don't have is any shrimp food. You can buy this from the store, which you " +
-                "now have access to. Buy some shrimp food now, and remember you'll need to feed your shrimp once a day";
-            important = true;
-        }
-        if(completion == 5)
-        {
-            email.subjectLine = "Using the vet";
-            email.mainText = "Sometimes, when you have more shrimp, you may notice illnesses spreading through your store, and your tanks. The best way of fighting these illnesses is, of course," +
-                " to not let them happen in the first place, but sometimes this is not possible, and for that reason the community includes a very good shrimp vetinary service. You can find plenty " +
-                "useful information in this service, and as you expand the store, you will get further access to the vetinary services.";
-            important = true;
-        }
-        if(completion == 10)
+        #endregion
+
+        if (completion == 10)
         {
             email.subjectLine = "Account Fully Activated";
             email.mainText = "Your account is now fully activated, and you will be able to recieve emails from other shrimp store owners, and members of the community. Please be civil, and if you need " +
@@ -79,7 +75,8 @@ public class Admin : NPC
             important = true;
         }
 
-        if(completion == 3000)
+        #region Other NPC Interactions
+        if (completion == 3000)
         {
             email.subjectLine = "Complaint Investigation";
             email.mainText = "User Sue (Sue@ShrimpMail.com) has a logged a complaint against User Rival (Rival@YourRivalMail.com) on your behalf. " +
@@ -164,7 +161,9 @@ public class Admin : NPC
             email.mainText = "You have rejected every possible course of action that the Admin team can take. Your complaint will now be dropped. You cannot respond";
             email.CreateEmailButton("What do you mean I \"Cannot respond\"?", true);
         }
+        #endregion
 
+        #region Reputation Points
         if (Reputation.GetReputation() >= 20 && !flags.Contains("star1"))
         {
             email.subjectLine = "You have achieved Star 1";
@@ -200,6 +199,7 @@ public class Admin : NPC
             Tutorial.instance.flags.Add("extraShop");
             important = true;
         }
+        #endregion
 
         if (email.mainText != null)
         {
@@ -212,35 +212,84 @@ public class Admin : NPC
             NpcEmail(email, 0, important);
         }
 
-        if(sent)
+        #region Tutorial Responsiveness
+        if (sent)
         {
             Email sentEmail = EmailManager.instance.emails.Find((x) => { return x.sender == name; });
-            if (sentEmail != null && sentEmail.buttons == null)
+            if(sentEmail != null)
             {
-                if (sentEmail.subjectLine == "Buying shrimp" && PlayerStats.stats.shrimpBought > 0)
+                if (sentEmail.subjectLine == "Setting up tanks")
                 {
-                    sentEmail.CreateEmailButton("I've bought a shrimp", true)
-                        .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "OwnStoreOpen")
-                        .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 4);
+                    if (!flags.Contains("TankFilled"))
+                    {
+                        if (Store.decorateController.tanksInStore.Exists(x => x.waterFilled))
+                        {
+                            sentEmail.AddEmailText("\nNow that you've filled the tank with water, you need to add some salt to the water. You'll need enough salt for your shrimp. " +
+                                "Most shrimp like around 50 units of salt in their water, so if you add that much, it should be fine. <color=yellow>Salt will reduce with time</color> " +
+                                "so don't worry too much, but it's easier to add more than it is to take it away. For now, if you get it wrong, you can empty the tank and refil it to " +
+                                "correct the problem.", "\n\nAdmin");
+                            flags.Add("TankFilled");
+                        }
+                    }
+                    else if (!flags.Contains("AddedSalt"))
+                    {
+                        if (Store.decorateController.tanksInStore.Exists(x => x.waterFilled && x.waterSalt > 40))
+                        {
+                            sentEmail.AddEmailText("\nNow that the tank has a suitable amount of salt, you need to do the same thing for nitrate. Add around 50 nitrate to the tank, and if you " +
+                                "add too much, just empty the tank and start again. If you do need to reset the tank, remember to add more salt as well. <color=yellow>Nitrate will also reduce " +
+                                "with time</color>so you may have to top it up every once in a while.", "\n\nAdmin");
+                            flags.Add("AddedSalt");
+                        }
+                    }
+                    else if (!flags.Contains("AddedNitrate"))
+                    {
+                        if (Store.decorateController.tanksInStore.Exists(x => x.waterFilled && x.waterAmmonium > 40))
+                        {
+                            sentEmail.AddEmailText("\nIt seems you have got a tank to the right proportions. I do need to still explain pH. You tank has water in it, and that water is at a specific " +
+                                "pH level. It will start at 7, and your shrimp will all have different pH preferences. pH is the easiest quality of your tank to change, and is rarely changed by time, " +
+                                "so while you are beginning it is a good idea to <color=yellow>group shrimp by their pH preference</color>, but you can do what you want.", "\n\nAdmin");
+                            sentEmail.CreateEmailButton("I understand", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 3);
+                            Tutorial.instance.flags.Add("ShrimpStoreOpen");
+                            flags.Add("AddedNitrate");
+                        }
+                    }
                 }
-                if (sentEmail.subjectLine == "Checking your own store" && PlayerStats.stats.timesSellingAppOpened > 0)
+                else if (sentEmail.subjectLine == "Buying shrimp")
                 {
-                    sentEmail.CreateEmailButton("I've opened the store app", true)
-                        .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "VetOpen")
-                        .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 5);
+                    if (!flags.Contains("BoughtShrimp"))
+                    {
+                        if(Store.decorateController.tanksInStore.Exists(x => x.shrimpInTank.Exists(x => x.stats.gender) && x.shrimpInTank.Exists(x => !x.stats.gender)))
+                        {
+                            flags.Add("BoughtShrimp");
+                            sentEmail.CreateEmailButton("I've bought the shrimp", true)
+                                .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 4)
+                                .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "UpgradeStoreOpen");
+                        }
+                    }
                 }
-                if (sentEmail.subjectLine == "Buying shrimp apparatus" && Inventory.GetInventoryItemsWithTag(ItemTags.Food).Count > 0)
+                else if(sentEmail.subjectLine == "Caring for shrimp")
                 {
-                    sentEmail.CreateEmailButton("I've bought some food", true)
-                        .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "ShrimpStoreOpen")
-                        .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 3);
-                }
-                if(sentEmail.subjectLine == "Using the vet" && PlayerStats.stats.timesVetOpened > 0)
-                {
-                    sentEmail.CreateEmailButton("I've opened the vet", true)
-                        .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 10);
+                    if (!flags.Contains("BoughtFood"))
+                    {
+                        if(Inventory.GetInventoryItemsWithTag(ItemTags.Food).Count > 0)
+                        {
+                            flags.Add("BoughtFood");
+                            sentEmail.AddEmailText("\nNow that you have bought food, you must feed your shrimp. Go to the tank that has the shrimp in it, and <color=yellow>feed them</color>.", "\n\nAdmin");
+                        }
+                    }
+                    else if (!flags.Contains("FedShrimp"))
+                    {
+                        if(Store.decorateController.tanksInStore.Exists(x => x.shrimpInTank.Count > 0 && x.FedShrimpToday()))
+                        {
+                            flags.Add("FedShrimp");
+                            sentEmail.AddEmailText("So now you have set up a tank for shrimp, and you've bought shrimp, and you've fed shrimp. Well done!", "\n\nAdmin");
+                            sentEmail.CreateEmailButton("I understand", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, 10)
+                                .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "OwnStoreOpen", "VetOpen");
+                        }
+                    }
                 }
             }
         }
+        #endregion
     }
 }
