@@ -9,6 +9,7 @@ using System;
 using UnityEditor;
 using UnityEngine.Windows;
 using AYellowpaper.SerializedCollections;
+using System.Linq;
 
 public enum InventoryTabs
 {
@@ -48,13 +49,13 @@ public class ShopInventory : ScreenView
 
 
     [HideInInspector] public ItemSO selectedItemType;
+    [HideInInspector] public ShrimpStats selectedShrimp;
     [HideInInspector] public GameObject selectedItemGameObject;
 
 
     public override void Open(bool switchTab)
     {
-        Debug.Log("Opening shop decorate");
-        player = GameObject.Find("Player");
+        player = Store.player;
         shop = Store.decorateController;
         selectedItemType = null;
         selectedItemGameObject = null;
@@ -75,6 +76,7 @@ public class ShopInventory : ScreenView
             }
         }
 
+        Store.player.GetComponent<HeldItem>().StopHoldingItem();
         ChangeSelectedItem(null, null);
         ChangeTab(tabs[startingTab]);
         StartCoroutine(OpenTab(false));
@@ -99,6 +101,7 @@ public class ShopInventory : ScreenView
         contentBlocks.Clear();
 
         List<Item> items = Inventory.GetInventory(false, true);
+        items.Concat(Inventory.GetShrimpInventory());
 
         // Filter items here
         if (currentTab != null && tabFilters[currentTab] != null)
@@ -109,45 +112,82 @@ public class ShopInventory : ScreenView
 
         foreach (Item i in items)
         {
-            ItemSO so = Inventory.GetSOForItem(i);
-
-            if (so == null)
-            {
-                Debug.LogWarning("Cannot find SO for " + i.itemName);
-                return;
-            }
+            ShrimpItem shrimp = i as ShrimpItem;
 
             DecorationContentBlock content = Instantiate(_contentBlock, _content.transform).GetComponent<DecorationContentBlock>();
             contentBlocks.Add(content);
-            content.SetText(i.itemName);
-            content.SetDecoration(so);
-            content.ownedText.text = i.quantity.ToString();
-            content.priceText.text = "£" + so.purchaseValue.ToString();
 
-            if (selectedItemType == so) content.buttonSprite.color = content.selectedColour;
-            else if (i.quantity > 0) content.buttonSprite.color = content.inInventoryColour;
-            else if (so.purchaseValue <= Money.instance.money) content.buttonSprite.color = content.notInInventoryColour;
-            else if (so.purchaseValue > Money.instance.money) content.buttonSprite.color = content.cannotAffordColour;
+            if (shrimp == null)
+            { 
+                ItemSO so = Inventory.GetSOForItem(i);
 
-            content.button.onClick.AddListener(() =>
-            {
-                if (content.buttonSprite.color != content.selectedColour)  // If it isn't already selected
+                if (so == null)
                 {
-                    ChangeSelectedItem(so, content.gameObject);
+                    Debug.LogWarning("Cannot find SO for " + i.itemName);
+                    return;
                 }
-                else  // If it is already selected
+
+                content.SetText(i.itemName);
+
+                content.SetDecoration(so);
+                content.ownedText.text = i.quantity.ToString();
+                content.priceText.text = "£" + so.purchaseValue.ToString();
+
+                if (selectedItemType == so) content.buttonSprite.color = content.selectedColour;
+                else if (i.quantity > 0) content.buttonSprite.color = content.inInventoryColour;
+                else if (so.purchaseValue <= Money.instance.money) content.buttonSprite.color = content.notInInventoryColour;
+                else if (so.purchaseValue > Money.instance.money) content.buttonSprite.color = content.cannotAffordColour;
+
+                content.button.onClick.AddListener(() =>
                 {
-                    DecorationItemSO d = so as DecorationItemSO;
-                    if (d != null)
+                    if (content.buttonSprite.color != content.selectedColour)  // If it isn't already selected
                     {
-                        shop.StartPlacing(d.decorationPrefab, d);
+                        ChangeSelectedItem(so, content.gameObject);
+                    }
+                    else  // If it is already selected
+                    {
+                        DecorationItemSO d = so as DecorationItemSO;
+                        if (d != null)
+                        {
+                            shop.StartPlacing(d.decorationPrefab, d);
+                            Close();
+                            return;
+                        }
+                    }
+
+                    UpdateContent();
+                });
+            }
+
+            else  // Shrimp Item
+            {
+                content.SetText(shrimp.shrimp.GetBreedname());
+
+                content.ownedText.gameObject.SetActive(false);
+                content.priceText.text = "£" + EconomyManager.instance.GetShrimpValue(shrimp.shrimp).RoundMoney().ToString();
+
+                if (selectedShrimp.name == shrimp.shrimp.name && selectedShrimp.birthTime == shrimp.shrimp.birthTime) content.buttonSprite.color = content.selectedColour;
+                else if (i.quantity > 0) content.buttonSprite.color = content.inInventoryColour;
+                else content.buttonSprite.color = content.notInInventoryColour;
+                //else if (so.purchaseValue <= Money.instance.money) content.buttonSprite.color = content.notInInventoryColour;
+                //else if (so.purchaseValue > Money.instance.money) content.buttonSprite.color = content.cannotAffordColour;
+
+                content.button.onClick.AddListener(() =>
+                {
+                    if (content.buttonSprite.color != content.selectedColour)  // If it isn't already selected
+                    {
+                        ChangeSelectedItem(so, content.gameObject);
+                    }
+                    else  // If it is already selected
+                    {
+                        Store.player.GetComponent<HeldItem>().HoldItem(i);
                         Close();
                         return;
                     }
-                }
 
-                UpdateContent();
-            });
+                    UpdateContent();
+                });
+            }
         }
     }
 

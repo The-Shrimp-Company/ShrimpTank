@@ -21,11 +21,14 @@ public class HeldItem : MonoBehaviour
 
     public void HoldItem(Item i)
     {
+        StopHoldingItem();
         heldItem = i;
     }
 
     public void StopHoldingItem()
     {
+        if (heldItem == null) return;
+
         heldItem = null;
     }
 }

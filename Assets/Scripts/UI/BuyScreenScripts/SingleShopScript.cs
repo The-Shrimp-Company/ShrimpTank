@@ -74,14 +74,14 @@ public class SingleShopScript : ScreenView
         colour1.color = GeneManager.instance.GetTraitSO(shrimp.primaryColour.activeGene.ID).colour;
         colour2.color = GeneManager.instance.GetTraitSO(shrimp.secondaryColour.activeGene.ID).colour;
         //hunger.value = shrimp.hunger;
-        tempLabel.text = "Temperature:\n" + shrimp.temperaturePreference.ToString();
-        if (Mathf.Abs(Store.GetDestinationTank().waterTemperature - shrimp.temperaturePreference) >= 10) tempLabel.text += "<color=red><size=20>\nTank not suitable</size></color>";
-        saltLabel.text = "Salt:\n" + shrimp.salineLevel.ToString();
-        if (Mathf.Abs(Store.GetDestinationTank().waterSalt - shrimp.salineLevel) >= 10) saltLabel.text += "<color=red><size=20>\nTank not suitable</size></color>";
-        hnoLabel.text = "Ammonium:\n" + shrimp.ammoniaPreference.ToString();
-        if (Mathf.Abs(Store.GetDestinationTank().waterAmmonium - shrimp.ammoniaPreference) >= 10) hnoLabel.text += "<color=red><size=20>\nTank not suitable</size></color>";
-        PhLabel.text = "ph:\n" + shrimp.PhPreference.ToString();
-        if (Mathf.Abs(Store.GetDestinationTank().waterPh - shrimp.PhPreference) >= 2) PhLabel.text += "<color=red><size=20>\nTank not suitable</size></color>";
+        //tempLabel.text = "Temperature:\n" + shrimp.temperaturePreference.ToString();
+        //if (Mathf.Abs(Store.GetDestinationTank().waterTemperature - shrimp.temperaturePreference) >= 10) tempLabel.text += "<color=red><size=20>\nTank not suitable</size></color>";
+        //saltLabel.text = "Salt:\n" + shrimp.salineLevel.ToString();
+        //if (Mathf.Abs(Store.GetDestinationTank().waterSalt - shrimp.salineLevel) >= 10) saltLabel.text += "<color=red><size=20>\nTank not suitable</size></color>";
+        //hnoLabel.text = "Ammonium:\n" + shrimp.ammoniaPreference.ToString();
+        //if (Mathf.Abs(Store.GetDestinationTank().waterAmmonium - shrimp.ammoniaPreference) >= 10) hnoLabel.text += "<color=red><size=20>\nTank not suitable</size></color>";
+        //PhLabel.text = "ph:\n" + shrimp.PhPreference.ToString();
+        //if (Mathf.Abs(Store.GetDestinationTank().waterPh - shrimp.PhPreference) >= 2) PhLabel.text += "<color=red><size=20>\nTank not suitable</size></color>";
 
         /*
         if (Store.GetDestinationTank().foodInTank.Count <= 0)
@@ -89,19 +89,21 @@ public class SingleShopScript : ScreenView
             price.text = "Current Destination tank has no food, can't buy shrimp into it";
             price.transform.parent.GetComponent<Button>().interactable = false;
         }*/
-        if (Mathf.Abs(Store.GetDestinationTank().waterAmmonium - shrimp.ammoniaPreference) > 10 &&
-            Mathf.Abs(Store.GetDestinationTank().waterSalt - shrimp.salineLevel) > 10 &&
-            Mathf.Abs(Store.GetDestinationTank().waterPh - shrimp.PhPreference) > 2 &&
-            Mathf.Abs(Store.GetDestinationTank().waterTemperature - shrimp.temperaturePreference) > 10)
-        {
-            price.text = "Can't buy this shrimp with current destination tank. Shrimp will die.";
-            price.transform.parent.GetComponent<Button>().interactable = false;
-        }
-        else
-        {
-            price.text = "Buy Shrimp\n£" + EconomyManager.instance.GetShrimpValue(shrimp).RoundMoney().ToString();
-            price.transform.parent.GetComponent<Button>().interactable = true;
-        }
+        //if (Mathf.Abs(Store.GetDestinationTank().waterAmmonium - shrimp.ammoniaPreference) > 10 &&
+        //    Mathf.Abs(Store.GetDestinationTank().waterSalt - shrimp.salineLevel) > 10 &&
+        //    Mathf.Abs(Store.GetDestinationTank().waterPh - shrimp.PhPreference) > 2 &&
+        //    Mathf.Abs(Store.GetDestinationTank().waterTemperature - shrimp.temperaturePreference) > 10)
+        //{
+        //    price.text = "Can't buy this shrimp with current destination tank. Shrimp will die.";
+        //    price.transform.parent.GetComponent<Button>().interactable = false;
+        //}
+        //else
+        //{
+        //    price.text = "Buy Shrimp\n£" + EconomyManager.instance.GetShrimpValue(shrimp).RoundMoney().ToString();
+        //    price.transform.parent.GetComponent<Button>().interactable = true;
+        //}
+        price.text = "Buy Shrimp\n£" + EconomyManager.instance.GetShrimpValue(shrimp).RoundMoney().ToString();
+        price.transform.parent.GetComponent<Button>().interactable = true;
     }
 
     public void Deselect()

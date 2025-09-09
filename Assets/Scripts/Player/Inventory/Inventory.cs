@@ -11,6 +11,7 @@ public class Inventory
 
     private ItemSO[] loadedItemList;
     private List<Item> inventory = new List<Item>();
+    private List<ShrimpItem> shrimpInventory = new List<ShrimpItem>();
 
 
     private static int maxItemCount = 999;
@@ -61,7 +62,10 @@ public class Inventory
                 item = new FoodItem();
 
             else if (loadedItemList[i] as ShrimpItemSO != null)
+            {
                 item = new ShrimpItem();
+                continue;
+            }
 
             else
                 item = new Item();
@@ -91,37 +95,6 @@ public class Inventory
                 }
             }
         }
-
-
-
-
-        //if (loadedItemList == null || loadedItemList.Length == 0) return;
-
-        //if (inventory == null) inventory = new List<Item>();
-        //else inventory.Clear();
-
-        //for (int i = 0; i < loadedItemList.Length; i++)
-        //{
-        //    Item item;
-        //    if (loadedItemList[i] as MedicineItemSO != null)
-        //        item = new MedicineItem();
-
-        //    else if (loadedItemList[i] as UpgradeItemSO != null)
-        //        item = new UpgradeItem();
-
-        //    else if (loadedItemList[i] as DecorationItemSO != null)
-        //        item = new DecorationItem();
-
-        //    else if (loadedItemList[i] as FoodItemSO != null)
-        //        item = new FoodItem();
-
-        //    else
-        //        item = new Item();
-
-        //    //item = Array.Find(saveData, item => item.itemName == loadedItemList[i].itemName);
-
-        //    inventory.Add(item);
-        //}
     }
 
     public static void AddItem(Item newItem, int quantity = 1)
@@ -148,7 +121,7 @@ public class Inventory
         }
     }
 
-    public static bool RemoveItem(Item item, int quantity = 1)  // UPDATE
+    public static bool RemoveItem(Item item, int quantity = 1)
     {
         if (item == null) return false;
         return RemoveItem(item.itemName, quantity);
@@ -168,6 +141,29 @@ public class Inventory
                 }
             }
         }
+        return false;
+    }
+
+    public static void AddShrimp(ShrimpStats shrimp)
+    {
+        //if (instance.shrimpInventory.Contains(shrimp)) return;
+        ShrimpItem item = new ShrimpItem();
+        item.itemName = "Shrimp";
+        item.shrimp = shrimp;
+        instance.shrimpInventory.Add(item);
+    }
+
+    public static bool RemoveShrimp(ShrimpStats shrimp)
+    {
+        foreach (ShrimpItem item in instance.shrimpInventory)
+        {
+            if (item.shrimp.name == shrimp.name && item.shrimp.birthTime == shrimp.birthTime)
+            {
+                instance.shrimpInventory.Remove(item);
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -191,6 +187,7 @@ public class Inventory
 
         return false;
     }
+
 
     public static ItemSO GetSOForItem(Item item)
     {
@@ -259,6 +256,8 @@ public class Inventory
 
     public static List<Item> GetInventoryItemsWithTag(ItemTags tag) { return FilterItemsWithTag(GetInventory(), tag); }
 
+    public static List<ShrimpItem> GetShrimpInventory() { return instance.shrimpInventory; }
+
     public static List<Item> FilterItemsWithTag(List<Item> items, ItemTags tag)
     {
         List<Item> filteredItems = new List<Item>();
@@ -322,5 +321,7 @@ public class Inventory
         {
             item.quantity = 0;
         }
+
+        instance.shrimpInventory.Clear();
     }
 }
