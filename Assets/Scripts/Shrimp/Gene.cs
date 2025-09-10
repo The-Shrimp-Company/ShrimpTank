@@ -30,7 +30,7 @@ public struct Trait
 {
     public Gene activeGene;
     public Gene inactiveGene;
-    public bool obfuscated;
+    [HideInInspector] public bool obfuscated;
 
     public Trait(Gene a, Gene i)
     {

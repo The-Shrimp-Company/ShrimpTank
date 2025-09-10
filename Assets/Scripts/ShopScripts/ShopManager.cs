@@ -8,6 +8,8 @@ public class Shop
     public string name;
     public bool NpcOwned;
     public string NpcName;
+    [TextArea(1, 30)]
+    public string ShopMotto;
     public int reputation;
     public int minPlayerReputation;
     public bool unlocked = false;

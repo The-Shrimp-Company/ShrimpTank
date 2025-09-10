@@ -14,6 +14,8 @@ public class SingleShopScript : ScreenView
     private GameObject shrimpPreview;
     [SerializeField]
     private Transform contentParent;
+    [SerializeField] TextMeshProUGUI ShopName;
+    [SerializeField] TextMeshProUGUI ShopMotto;
 
     private List<ContentBlock> ContentBlocks = new List<ContentBlock>();
     private Shop thisShop;
@@ -24,6 +26,7 @@ public class SingleShopScript : ScreenView
     [SerializeField] private TextMeshProUGUI saltLabel, hnoLabel, tempLabel, PhLabel;
     [SerializeField] private Image colour1, colour2;
     [SerializeField] private TextMeshProUGUI price;
+    
 
     private ShrimpSelectionBlock selectedBlock;
 
@@ -41,6 +44,8 @@ public class SingleShopScript : ScreenView
             });
             ContentBlocks.Add(block);
         }
+        ShopName.text = shop.name;
+        ShopMotto.text = "\"" + shop.ShopMotto + "\"";
     }
 
     private void Update()

@@ -21,7 +21,7 @@ public class Reputation
         if (add < 0) PlayerStats.stats.reputationLost += add;
         if(!Tutorial.instance.flags.Contains("RepLevel1") && instance.reputation >= 20)
         {
-            foreach (Shop shop in ShopManager.instance.shops.Where(x => !x.NpcOwned))
+            foreach (Shop shop in ShopManager.instance.shops.Where(x => !x.NpcOwned && x.unlocked))
             {
                 shop.maxShrimpStock++;
             }
