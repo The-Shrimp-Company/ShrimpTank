@@ -30,6 +30,7 @@ public class ShopInventory : ScreenView
 
     [Header("Info Box")]
     [SerializeField] private CanvasGroup infoCanvasGroup;
+    [SerializeField] GameObject selectedItemInfoPanel;
     [SerializeField] TMP_Text selectedItemNameText;
     [SerializeField] Image selectedItemImage;
     [SerializeField] TMP_Text selectedItemDescriptionText;
@@ -38,6 +39,22 @@ public class ShopInventory : ScreenView
     [SerializeField] TMP_Text selectedItemSizeText;
     [SerializeField] TMP_Text selectedItemSurfacesText;
     [SerializeField] float infoFadeSpeed = 0.5f;
+
+    [Header("Shrimp Info Box")]
+    [SerializeField] GameObject selectedShrimpInfoPanel;
+    [SerializeField] TMP_Text selectedShrimpNameText;
+    [SerializeField] TMP_Text selectedShrimpBreedText;
+    [SerializeField] TMP_Text selectedShrimpValueText;
+    [SerializeField] Image selectedShrimpPrimaryColour;
+    [SerializeField] Image selectedShrimpSecondaryColour;
+    [SerializeField] TMP_Text selectedShrimpGenderText;
+    [SerializeField] TMP_Text selectedShrimpPatternText;
+    [SerializeField] TMP_Text selectedShrimpHeadText;
+    [SerializeField] TMP_Text selectedShrimpBodyText;
+    [SerializeField] TMP_Text selectedShrimpEyesText;
+    [SerializeField] TMP_Text selectedShrimpLegsText;
+    [SerializeField] TMP_Text selectedShrimpTailText;
+    [SerializeField] TMP_Text selectedShrimpTailFanText;
 
     [Header("Filters")]
     [SerializedDictionary("Button", "Filters")]
@@ -100,18 +117,20 @@ public class ShopInventory : ScreenView
 
         contentBlocks.Clear();
 
-        List<Item> items = Inventory.GetInventory(false, true);
-        items.Concat(Inventory.GetShrimpInventory());
+        List<Item> items = Inventory.GetInventory(true, false);
+        items = items.Concat(Inventory.GetShrimpInventory()).ToList();
+        items = Inventory.SortItemsByQuantityThenName(items);
 
         // Filter items here
         if (currentTab != null && tabFilters[currentTab] != null)
         {
-            items = Inventory.FilterItemsWithTags(items, tabFilters[currentTab].GetTabFilters());
+            items = Inventory.FilterItemsWithTags(items, GetTabFilters(currentTab));
             items = Inventory.FilterItemsWithTags(items, tabFilters[currentTab].GetActiveSubFilters());
         }
 
         foreach (Item i in items)
         {
+            Debug.Log(i.itemName);
             ShrimpItem shrimp = i as ShrimpItem;
 
             DecorationContentBlock content = Instantiate(_contentBlock, _content.transform).GetComponent<DecorationContentBlock>();
@@ -164,7 +183,7 @@ public class ShopInventory : ScreenView
                 content.SetText(shrimp.shrimp.GetBreedname());
 
                 content.ownedText.gameObject.SetActive(false);
-                content.priceText.text = "£" + EconomyManager.instance.GetShrimpValue(shrimp.shrimp).RoundMoney().ToString();
+                content.priceText.gameObject.SetActive(false);
 
                 if (selectedShrimp.name == shrimp.shrimp.name && selectedShrimp.birthTime == shrimp.shrimp.birthTime) content.buttonSprite.color = content.selectedColour;
                 else if (i.quantity > 0) content.buttonSprite.color = content.inInventoryColour;
@@ -176,7 +195,7 @@ public class ShopInventory : ScreenView
                 {
                     if (content.buttonSprite.color != content.selectedColour)  // If it isn't already selected
                     {
-                        ChangeSelectedItem(so, content.gameObject);
+                        ChangeSelectedItem(shrimp.shrimp);
                     }
                     else  // If it is already selected
                     {
@@ -194,7 +213,10 @@ public class ShopInventory : ScreenView
     public void ChangeSelectedItem(ItemSO so, GameObject obj)
     {
         selectedItemType = so;
+        selectedShrimp = new ShrimpStats();
         selectedItemGameObject = obj;
+        selectedItemInfoPanel.SetActive(true);
+        selectedShrimpInfoPanel.SetActive(false);
 
         if (selectedItemType != null)
         {
@@ -230,6 +252,40 @@ public class ShopInventory : ScreenView
         }
     }
 
+    public void ChangeSelectedItem(ShrimpStats shrimp)
+    {
+        selectedShrimp = shrimp;
+        selectedItemType = null;
+        selectedItemGameObject = null;
+        selectedItemInfoPanel.SetActive(false);
+        selectedShrimpInfoPanel.SetActive(true);
+
+        if (selectedShrimp.name != "")
+        {
+            selectedShrimpNameText.text = shrimp.name;
+            selectedShrimpBreedText.text = shrimp.GetBreedname();
+            selectedShrimpValueText.text = "£" + EconomyManager.instance.GetShrimpValue(shrimp).RoundMoney().ToString();
+            selectedShrimpPrimaryColour.color = GeneManager.instance.GetTraitSO(shrimp.primaryColour.activeGene.ID).colour;
+            selectedShrimpSecondaryColour.color = GeneManager.instance.GetTraitSO(shrimp.secondaryColour.activeGene.ID).colour;
+            selectedShrimpGenderText.text = shrimp.gender ? "Male" : "Female";
+            selectedShrimpPatternText.text = GeneManager.instance.GetTraitSO(shrimp.pattern.activeGene.ID).traitName;
+            selectedShrimpHeadText.text = GeneManager.instance.GetTraitSO(shrimp.head.activeGene.ID).set.ToString();
+            selectedShrimpBodyText.text = GeneManager.instance.GetTraitSO(shrimp.body.activeGene.ID).set.ToString();
+            selectedShrimpEyesText.text = GeneManager.instance.GetTraitSO(shrimp.eyes.activeGene.ID).set.ToString();
+            selectedShrimpLegsText.text = GeneManager.instance.GetTraitSO(shrimp.legs.activeGene.ID).set.ToString();
+            selectedShrimpTailText.text = GeneManager.instance.GetTraitSO(shrimp.tail.activeGene.ID).set.ToString();
+            selectedShrimpTailFanText.text = GeneManager.instance.GetTraitSO(shrimp.tailFan.activeGene.ID).set.ToString();
+
+            infoCanvasGroup.DOKill();
+            infoCanvasGroup.DOFade(1, infoFadeSpeed).SetEase(Ease.InOutSine);
+        }
+        else
+        {
+            infoCanvasGroup.DOKill();
+            infoCanvasGroup.DOFade(0, infoFadeSpeed).SetEase(Ease.InOutSine);
+        }
+    }
+
 
     public void ChangeTab(Button b)
     {
@@ -248,6 +304,21 @@ public class ShopInventory : ScreenView
         UpdateContent();
     }
 
+    private List<ItemTags> GetTabFilters(Button button)
+    {
+        if (tabFilters[button].allTab)
+        {
+            List<ItemTags> tags = new List<ItemTags>();
+            foreach (Button filter in tabFilters.Keys)
+            {
+                if (filter.gameObject.activeSelf)
+                    tags = tags.Concat(tabFilters[filter].GetTabFilters()).ToList();
+            }
+            return tags;
+        }
+
+        return tabFilters[currentTab].GetTabFilters();
+    }
 
     //public async void ClearTank()
     //{

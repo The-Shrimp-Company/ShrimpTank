@@ -23,6 +23,7 @@ namespace SaveLoadSystem
         public Settings gameSettings;
 
         public Item[] inventoryItems;
+        public ShrimpItem[] inventoryShrimp;
 
         public RoomDecorationSaveData[] roomDecorations;
 

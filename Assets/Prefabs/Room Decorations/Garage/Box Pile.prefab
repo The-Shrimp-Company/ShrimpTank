@@ -48,7 +48,7 @@ MonoBehaviour:
   decorationSO: {fileID: 11400000, guid: 5271735cfc8d4424bb8493803d432212, type: 2}
   locked: 0
   floating: 0
-  shelfSlots: []
+  interactable: {fileID: 0}
 --- !u!1 &2345520685547064126
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +169,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b06951693948e547aba29f573494160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tabsToShow: 
+  decoration: {fileID: 0}
+  interactable: 0
+  tabsToShow: 00000000010000000300000004000000
 --- !u!114 &2698299085051217771
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,15 +17,17 @@ public class Inventory
     private static int maxItemCount = 999;
 
 
-    public void Initialize(Item[] saveData = null)
+    public void Initialize(Item[] saveData = null, ShrimpItem[] shrimpSaveData = null)
     {
         LoadItemsFromResources();  // Gets a list of all items from the resources folder
 
         GenerateInventory();  // Initialises inventory with all items at 0 quantity
 
         if (saveData != null)
+        {
             LoadInventoryFromFile(saveData);  // Changes values such as quantity using the saved data
-
+            LoadShrimpInventoryFromFile(shrimpSaveData);  // Moves shrimp from save data to inventory
+        }
     }
 
     private void LoadItemsFromResources()
@@ -97,6 +99,16 @@ public class Inventory
         }
     }
 
+    private void LoadShrimpInventoryFromFile(ShrimpItem[] saveData)
+    {
+        if (saveData == null || saveData.Length == 0) return;
+
+        for (int i = saveData.Length - 1; i >= 0; i--)
+        {
+            AddShrimp(saveData[i].shrimp);
+        }
+    }
+
     public static void AddItem(Item newItem, int quantity = 1)
     {
         if (newItem == null) return;
@@ -150,6 +162,7 @@ public class Inventory
         ShrimpItem item = new ShrimpItem();
         item.itemName = "Shrimp";
         item.shrimp = shrimp;
+        item.quantity = 1;
         instance.shrimpInventory.Add(item);
     }
 
