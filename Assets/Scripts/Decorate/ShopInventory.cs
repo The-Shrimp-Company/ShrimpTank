@@ -83,13 +83,13 @@ public class ShopInventory : ScreenView
 
     public void OpenInventory(List<InventoryTabs> t)
     {
-        int startingTab = 0;
+        int startingTab = -1;
         if (t != null && t.Count != 0)
         {
             for (int i = 0; i < tabs.Count; i++)
             {
                 tabs[i].gameObject.SetActive(t.Contains((InventoryTabs)i));
-                if (startingTab == 0 && t.Contains((InventoryTabs)i)) startingTab = i;
+                if (startingTab == -1 && t.Contains((InventoryTabs)i)) startingTab = i;
             }
         }
 
@@ -166,9 +166,17 @@ public class ShopInventory : ScreenView
                     else  // If it is already selected
                     {
                         DecorationItemSO d = so as DecorationItemSO;
+                        MedicineItemSO m = so as MedicineItemSO;
+                        FoodItemSO f = so as FoodItemSO;
                         if (d != null)
                         {
                             shop.StartPlacing(d.decorationPrefab, d);
+                            Close();
+                            return;
+                        }
+                        else if (m != null || f != null) 
+                        {
+                            Store.player.GetComponent<HeldItem>().HoldItem(i);
                             Close();
                             return;
                         }
@@ -188,8 +196,6 @@ public class ShopInventory : ScreenView
                 if (selectedShrimp.name == shrimp.shrimp.name && selectedShrimp.birthTime == shrimp.shrimp.birthTime) content.buttonSprite.color = content.selectedColour;
                 else if (i.quantity > 0) content.buttonSprite.color = content.inInventoryColour;
                 else content.buttonSprite.color = content.notInInventoryColour;
-                //else if (so.purchaseValue <= Money.instance.money) content.buttonSprite.color = content.notInInventoryColour;
-                //else if (so.purchaseValue > Money.instance.money) content.buttonSprite.color = content.cannotAffordColour;
 
                 content.button.onClick.AddListener(() =>
                 {
@@ -319,20 +325,6 @@ public class ShopInventory : ScreenView
 
         return tabFilters[currentTab].GetTabFilters();
     }
-
-    //public async void ClearTank()
-    //{
-    //    int delay = 400 / shop.decorationsInStore.Count;
-    //    for (int i = shop.decorationsInStore.Count - 1; i >= 0; i--)
-    //    {
-    //        if (shop.decorationsInStore[i] == null) continue;
-    //        shop.selectedObject = shop.decorationsInStore[i].gameObject;
-    //        ChangeSelectedItem(shop.decorationsInStore[i].decorationSO, shop.decorationsInStore[i].gameObject);
-    //        PutAway();
-    //        await Task.Delay(delay);
-    //    }
-    //}
-
 
 
 

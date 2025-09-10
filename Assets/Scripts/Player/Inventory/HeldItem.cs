@@ -23,6 +23,7 @@ public class HeldItem : MonoBehaviour
     {
         StopHoldingItem();
         heldItem = i;
+        HeldItemChanged();
     }
 
     public void StopHoldingItem()
@@ -30,5 +31,19 @@ public class HeldItem : MonoBehaviour
         if (heldItem == null) return;
 
         heldItem = null;
+        HeldItemChanged();
+    }
+
+    private void HeldItemChanged()
+    {
+        if (handTransform.childCount > 0) Destroy(handTransform.GetChild(0).gameObject);
+        
+        if (heldItem != null)
+        {
+            ItemSO so = Inventory.GetSOForItem(heldItem);
+            if (so == null || so.heldItemPrefab == null) return;
+
+            GameObject go = Instantiate(so.heldItemPrefab, handTransform.position, handTransform.rotation, handTransform);
+        }
     }
 }
