@@ -97,16 +97,23 @@ public static class Tools
         return str;
     }
 
-    public static string GetBreedname(this ShrimpStats stats)
+    public static Dictionary<TraitSet, int> CountBreed(this ShrimpStats stats)
     {
         Dictionary<TraitSet, int> traitCount = new Dictionary<TraitSet, int>() { { TraitSet.Nylon, 0 }, { TraitSet.Anomalis, 0 }, { TraitSet.Caridid, 0 }, { TraitSet.Cherry, 0 } };
 
-        if(!stats.body.obfuscated) traitCount[GeneManager.instance.GetTraitSO(stats.body.activeGene.ID).set]++;
-        if(!stats.legs.obfuscated) traitCount[GeneManager.instance.GetTraitSO(stats.legs.activeGene.ID).set]++;
-        if(!stats.head.obfuscated) traitCount[GeneManager.instance.GetTraitSO(stats.head.activeGene.ID).set]++;
-        if(!stats.eyes.obfuscated) traitCount[GeneManager.instance.GetTraitSO(stats.eyes.activeGene.ID).set]++;
-        if(!stats.tail.obfuscated) traitCount[GeneManager.instance.GetTraitSO(stats.tail.activeGene.ID).set]++;
-        if(!stats.tailFan.obfuscated) traitCount[GeneManager.instance.GetTraitSO(stats.tailFan.activeGene.ID).set]++;
+        if (!stats.body.obfuscated) traitCount[GeneManager.instance.GetTraitSO(stats.body.activeGene.ID).set]++;
+        if (!stats.legs.obfuscated) traitCount[GeneManager.instance.GetTraitSO(stats.legs.activeGene.ID).set]++;
+        if (!stats.head.obfuscated) traitCount[GeneManager.instance.GetTraitSO(stats.head.activeGene.ID).set]++;
+        if (!stats.eyes.obfuscated) traitCount[GeneManager.instance.GetTraitSO(stats.eyes.activeGene.ID).set]++;
+        if (!stats.tail.obfuscated) traitCount[GeneManager.instance.GetTraitSO(stats.tail.activeGene.ID).set]++;
+        if (!stats.tailFan.obfuscated) traitCount[GeneManager.instance.GetTraitSO(stats.tailFan.activeGene.ID).set]++;
+
+        return traitCount;
+    }
+
+    public static string GetBreedname(this ShrimpStats stats)
+    {
+        Dictionary<TraitSet, int> traitCount = stats.CountBreed();
 
         string breedname = "";
 

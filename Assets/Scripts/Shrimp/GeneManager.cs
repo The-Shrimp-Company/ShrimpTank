@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
@@ -12,6 +13,15 @@ public enum InheritanceType
     Punnett,
     FlatAverage,
     RandomInStore
+}
+
+[System.Serializable]
+public struct Needs
+{
+    public int temperature;
+    public int salt;
+    public int nitrate;
+    public int pH;
 }
 
 public class GeneManager : MonoBehaviour
@@ -41,6 +51,9 @@ public class GeneManager : MonoBehaviour
 
     [Header("Owned Genes")]
     public bool weightRandomOwnedGene;
+
+    [Header("Breeds")]
+    public SerializedDictionary<TraitSet, Needs> breedNeeds;
 
     [Header("Traits")]
     public List<TraitSO> colourSOs = new List<TraitSO>();
@@ -655,16 +668,33 @@ public class GeneManager : MonoBehaviour
 
         s = ApplyStatModifier(s.pattern.activeGene.ID, s);
 
+        /*
         s = ApplyStatModifier(s.body.activeGene.ID, s);
         s = ApplyStatModifier(s.head.activeGene.ID, s);
         s = ApplyStatModifier(s.eyes.activeGene.ID, s);
         s = ApplyStatModifier(s.tail.activeGene.ID, s);
         s = ApplyStatModifier(s.tailFan.activeGene.ID, s);
         s = ApplyStatModifier(s.legs.activeGene.ID, s);
+        */
+
+        s = ApplyBodyStatModifiers(s);
 
         return s;
     }
 
+    private ShrimpStats ApplyBodyStatModifiers(ShrimpStats s)
+    {
+        Dictionary<TraitSet, int> breedCount = s.CountBreed();
+        foreach(KeyValuePair<TraitSet, int> pair in breedCount)
+        {
+            s.temperaturePreference += Mathf.RoundToInt(breedNeeds[pair.Key].temperature * (pair.Value / 6f));
+            s.salineLevel += Mathf.RoundToInt(breedNeeds[pair.Key].salt * (pair.Value / 6f));
+            s.ammoniaPreference += Mathf.RoundToInt(breedNeeds[pair.Key].nitrate * (pair.Value / 6f));
+            s.PhPreference += Mathf.RoundToInt(breedNeeds[pair.Key].pH * (pair.Value / 6f));
+        }
+
+        return s;
+    }
 
     private ShrimpStats ApplyStatModifier(string ID, ShrimpStats s)
     {
