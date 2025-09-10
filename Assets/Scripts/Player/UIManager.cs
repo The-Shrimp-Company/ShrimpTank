@@ -263,6 +263,7 @@ public class UIManager : MonoBehaviour
     }
 
     public GameObject GetCursor() { return _cursor; }
+
     public void SetCursorMasking(bool masking) { _cursor.GetComponent<FakeCursor>().SetCursorMasking(masking); }
 
     public void SetCanvas(Transform transform)

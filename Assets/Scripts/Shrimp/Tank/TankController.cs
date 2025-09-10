@@ -79,8 +79,13 @@ public class TankController : Interactable
 
     [HideInInspector] public float idealTemp = 0;
     [HideInInspector] public float idealSalt = 0;
-    [HideInInspector] public float idealHno = 0;
+    [HideInInspector] public float idealNitr = 0;
     [HideInInspector] public float idealPh = 0;
+
+    public float tempVariance = 10;
+    public float saltVariance = 10;
+    public float nitrVariance = 10;
+    public float pHVariance = 2;
 
 
     [Header("Upgrades")]
@@ -398,12 +403,12 @@ public class TankController : Interactable
         }
         idealTemp /= shrimpInTank.Count;
 
-        idealHno = 0;
+        idealNitr = 0;
         foreach(Shrimp shrimp in shrimpInTank)
         {
-            idealHno += shrimp.stats.ammoniaPreference;
+            idealNitr += shrimp.stats.ammoniaPreference;
         }
-        idealHno /= shrimpInTank.Count;
+        idealNitr /= shrimpInTank.Count;
 
         idealPh = 0;
         foreach(Shrimp shrimp in shrimpInTank)
@@ -420,10 +425,10 @@ public class TankController : Interactable
         idealSalt /= shrimpInTank.Count;
 
         // Sending stat alarms
-        CheckStatAlarm(waterTemperature, idealTemp, 10, "Your tank is the wrong temperature", AlarmTypes.Temp);
-        CheckStatAlarm(waterSalt, idealSalt, 10, "Your tank has the wrong salt level", AlarmTypes.Salt);
-        CheckStatAlarm(waterAmmonium, idealHno, 10, "Your tank has the wrong Ammonium Nitrate level", AlarmTypes.AmmoniumNitrate);
-        CheckStatAlarm(waterPh, idealPh, 2, "Your tank has the wrong pH level", AlarmTypes.ph);
+        CheckStatAlarm(waterTemperature, idealTemp, tempVariance, "Your tank is the wrong temperature", AlarmTypes.Temp);
+        CheckStatAlarm(waterSalt, idealSalt, saltVariance, "Your tank has the wrong salt level", AlarmTypes.Salt);
+        CheckStatAlarm(waterAmmonium, idealNitr, nitrVariance, "Your tank has the wrong Ammonium Nitrate level", AlarmTypes.AmmoniumNitrate);
+        CheckStatAlarm(waterPh, idealPh, pHVariance, "Your tank has the wrong pH level", AlarmTypes.ph);
         if(shrimpInTank.Count > 0)
         {
             CheckMinValueAlarm(dayLastFed, TimeManager.instance.day-2, "Shrimp Haven't been fed!", AlarmTypes.Food);

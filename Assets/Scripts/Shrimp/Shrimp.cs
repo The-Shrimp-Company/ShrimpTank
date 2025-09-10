@@ -149,18 +149,20 @@ public class Shrimp : MonoBehaviour
         TryAddActivity();
 
         // Check if the shrimp should die due to not having it's needs met
-        if (Mathf.Abs(tank.waterAmmonium - stats.ammoniaPreference) > 10 &&
-            Mathf.Abs(tank.waterSalt - stats.salineLevel) > 10 &&
-            Mathf.Abs(tank.waterPh - stats.PhPreference) > 2 &&
-            Mathf.Abs(tank.waterTemperature - stats.temperaturePreference) > 10)
+        if (Mathf.Abs(tank.waterAmmonium - stats.ammoniaPreference) > tank.nitrVariance &&
+            Mathf.Abs(tank.waterSalt - stats.salineLevel) > tank.saltVariance &&
+            Mathf.Abs(tank.waterPh - stats.PhPreference) > tank.pHVariance &&
+            Mathf.Abs(tank.waterTemperature - stats.temperaturePreference) > tank.tempVariance)
         {
             KillShrimp(DeathReason:"of poor tank conditions");
         }
         // Check if the shrimp should die due to hunger
+        /*
         else if(stats.hunger >= 10)
         {
             KillShrimp(DeathReason:"of hunger");
         }
+        */
         
     }
 

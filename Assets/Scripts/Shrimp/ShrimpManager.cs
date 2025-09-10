@@ -433,7 +433,11 @@ public class ShrimpManager : MonoBehaviour
         return moltSpeed.Evaluate((float)age / (float)maxShrimpAge) * 60; 
     }
 
-
+    /// <summary>
+    /// Will return a name from the list of available names, and will only return names which aren't in use by a shrimp. Will prioritise earlier names, 
+    /// and will reroll whenever it rolls a 20, or whenever it tries to assign a name it has already assigned.
+    /// </summary>
+    /// <returns></returns>
     public string GenerateShrimpName()
     {
         int randVal;
@@ -466,6 +470,7 @@ public class ShrimpManager : MonoBehaviour
 
         } while (shrimpWithName.Length != 0);
 
+        Debug.Log("Random name generator landed on:" + index);
         return names[index];
     }
 
