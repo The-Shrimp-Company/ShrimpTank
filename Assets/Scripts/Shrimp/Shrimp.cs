@@ -154,12 +154,12 @@ public class Shrimp : MonoBehaviour
             Mathf.Abs(tank.waterPh - stats.PhPreference) > 2 &&
             Mathf.Abs(tank.waterTemperature - stats.temperaturePreference) > 10)
         {
-            KillShrimp();
+            KillShrimp(DeathReason:"of poor tank conditions");
         }
         // Check if the shrimp should die due to hunger
         else if(stats.hunger >= 10)
         {
-            KillShrimp();
+            KillShrimp(DeathReason:"of hunger");
         }
         
     }
@@ -209,7 +209,7 @@ public class Shrimp : MonoBehaviour
         agent.shrimpModel.localScale = ShrimpManager.instance.GetShrimpSize(age, stats.geneticSize);
 
         if (ShrimpManager.instance.CheckForMoltFail(age, stats, tank))
-            KillShrimp();  // Molt has failed, the shrimp will now die
+            KillShrimp(DeathReason:"of old age");  // Molt has failed, the shrimp will now die
 
         moltSpeed = ShrimpManager.instance.GetMoltTime(age);
     }
@@ -230,8 +230,12 @@ public class Shrimp : MonoBehaviour
         stats.canBreed = false;
     }
 
-
-    public void KillShrimp()
+    /// <summary>
+    /// If you want to kill a shrimp, call this function.
+    /// </summary>
+    /// <param name="supressMessage">Set to true to prevent the player getting a dead shrimp email</param>
+    /// <param name="DeathReason">Give a reason for the shrimps death, which will be added to the email notification of the death. Does nothing if the email is supressed.</param>
+    public void KillShrimp(bool supressMessage = false, string DeathReason = "")
     {
         illnessCont.RemoveShrimp();
         tank.shrimpToRemove.Add(this);
@@ -246,7 +250,7 @@ public class Shrimp : MonoBehaviour
 
         // Spawn dead body
 
-        tank.ShrimpDiedAlarm(stats);
+        if(!supressMessage) tank.ShrimpDiedAlarm(stats, DeathReason);
 
 
         

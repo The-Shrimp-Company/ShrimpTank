@@ -778,7 +778,7 @@ public class DecorateShopController : MonoBehaviour
         tank.waterSalt = data.waterSalt;
         tank.waterAmmonium = data.waterHNC;
         tank.waterPh = data.waterPH;
-        tank.fedToday = data.fedToday;
+        tank.dayLastFed = data.fedToday;
         tank.starvationTime = data.starvationTime;
         tank.starvationTimer = data.starvationTimer;
         foreach (FoodSaveData foodSave in data.shrimpFood)

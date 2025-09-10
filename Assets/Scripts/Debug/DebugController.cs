@@ -677,7 +677,7 @@ public class DebugController : MonoBehaviour
 
         KILL_SHRIMP = new DebugCommand("kill_shrimp", "Kill the shrimp", "kill_shrimp", () =>
         {
-            focussedShrimp.GetShrimp().KillShrimp();
+            focussedShrimp.GetShrimp().KillShrimp(true);
         });
 
 

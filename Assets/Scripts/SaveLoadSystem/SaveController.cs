@@ -156,7 +156,7 @@ public class SaveController : MonoBehaviour
                 tankSave.waterSalt = t.waterSalt;
                 tankSave.waterPH = t.waterPh;
                 tankSave.waterHNC = t.waterAmmonium;
-                tankSave.fedToday = t.fedToday;
+                tankSave.fedToday = t.dayLastFed;
                 tankSave.starvationTime = t.starvationTime;
                 tankSave.starvationTimer = t.starvationTimer;
                 tankSave.alarmIds = t.AlarmIds.ToArray();

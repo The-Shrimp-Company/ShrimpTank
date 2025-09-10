@@ -51,7 +51,7 @@ public class TankController : Interactable
     [HideInInspector] public List<ShrimpFood> foodToAdd = new List<ShrimpFood>();
     [HideInInspector] public List<ShrimpFood> foodToRemove = new List<ShrimpFood>();
     public Transform foodParent;
-    public int fedToday;
+    public int dayLastFed;
     public float starvationTimer;
     public float starvationTime;
     [SerializeField] private GameObject FoodAlertSign;
@@ -239,7 +239,7 @@ public class TankController : Interactable
         // Deals with shrimp food
         if(shrimpInTank.Count > 0)
         {
-            if (fedToday <= TimeManager.instance.day - 2)
+            if (dayLastFed <= TimeManager.instance.day - 2)
             {
                 if(starvationTimer == 0)
                 {
@@ -256,7 +256,7 @@ public class TankController : Interactable
             {
                 if (starvationTime > starvationTimer)
                 {
-                    shrimpInTank[UnityEngine.Random.Range(0, shrimpInTank.Count)].KillShrimp();
+                    shrimpInTank[UnityEngine.Random.Range(0, shrimpInTank.Count)].KillShrimp(DeathReason:"of hunger");
                     starvationTimer = UnityEngine.Random.Range(5, 30);
                     starvationTime = 0;
                 }
@@ -268,7 +268,7 @@ public class TankController : Interactable
         }
         else
         {
-            fedToday = TimeManager.instance.day-1;
+            dayLastFed = TimeManager.instance.day-1;
         }
 
         FoodAlertSign.SetActive(!FedShrimpToday());
@@ -280,12 +280,12 @@ public class TankController : Interactable
 
     public void FeedShrimp()
     {
-        fedToday = TimeManager.instance.day;
+        dayLastFed = TimeManager.instance.day;
     }
 
     public bool FedShrimpToday()
     {
-        return (fedToday == TimeManager.instance.day || shrimpInTank.Count == 0);
+        return (dayLastFed == TimeManager.instance.day || shrimpInTank.Count == 0);
     }
 
     private void AddToTank()
@@ -426,17 +426,26 @@ public class TankController : Interactable
         CheckStatAlarm(waterPh, idealPh, 2, "Your tank has the wrong pH level", AlarmTypes.ph);
         if(shrimpInTank.Count > 0)
         {
-            CheckMinValueAlarm(fedToday, TimeManager.instance.day-1, "There is no food in the tank!", AlarmTypes.Food);
+            CheckMinValueAlarm(dayLastFed, TimeManager.instance.day-2, "Shrimp Haven't been fed!", AlarmTypes.Food);
         }
     }
 
-    private void CheckStatAlarm(float currentValue, float targetValue, float maximumDifference, string AlarmMessage, AlarmTypes alarmType)
+    /// <summary>
+    /// When given the current value and target value, if the two are further apart than the maximum difference, an alarm of the given type, 
+    /// with the given message wll be sent.
+    /// </summary>
+    /// <param name="currentValue"></param>
+    /// <param name="targetValue"></param>
+    /// <param name="maximumDifference">Value is inclusive.</param>
+    /// <param name="alarmMessage">Message to send</param>
+    /// <param name="alarmType">Defined in the enumerator, used to identify the previous alarms of the same type.</param>
+    private void CheckStatAlarm(float currentValue, float targetValue, float maximumDifference, string alarmMessage, AlarmTypes alarmType)
     {
         if (Mathf.Abs(currentValue - targetValue) >= maximumDifference)
         {
             Email email = CreateOrFindAlarm(alarmType);
             email.subjectLine = alarmType.ToString() + " warning in tank " + tankName;
-            email.mainText = AlarmMessage;
+            email.mainText = alarmMessage;
         }
         else
         {
@@ -449,6 +458,14 @@ public class TankController : Interactable
         }
     }
 
+    /// <summary>
+    /// Alternative of the CheckStatAlarm, used when there is a value which can be arbitrarily high, but not below a certain level. Otherwise identical to Check
+    /// StatAlarm.
+    /// </summary>
+    /// <param name="currentValue"></param>
+    /// <param name="minimumValue">Value is inclusive</param>
+    /// <param name="AlarmMessage"></param>
+    /// <param name="alarmType">USed to identify previous alarms from this tank of the same type.</param>
     private void CheckMinValueAlarm(float currentValue, float minimumValue, string AlarmMessage, AlarmTypes alarmType)
     {
         if(currentValue <= minimumValue)
@@ -468,7 +485,7 @@ public class TankController : Interactable
         }
     }
 
-    public void ShrimpDiedAlarm(ShrimpStats shrimp)
+    public void ShrimpDiedAlarm(ShrimpStats shrimp, string EmailMessage = "")
     {
         Email email = FindAlarm(AlarmTypes.ShrimpDeath);
         if(email != null)
@@ -482,6 +499,7 @@ public class TankController : Interactable
         }
 
         email.mainText += "\n" + shrimp.name + " has died";
+        if (EmailMessage != "") email.mainText += " " + EmailMessage;
         
         
     }
@@ -648,15 +666,17 @@ public class TankController : Interactable
             {
                 int r = UnityEngine.Random.Range(0, shrimpInTank.Count);
 
+                /*
                 Email email = EmailTools.CreateEmail();
                 email.title = "YourStore@notifSystem.store";
                 email.subjectLine = shrimpInTank[r].stats.name + " has died due to overpopulation";
                 email.mainText = shrimpInTank[r].stats.name + " was in " + tankName;
                 EmailManager.SendEmail(email);
+                */
 
                 PlayerStats.stats.shrimpDeathsThroughOverpopulation++;
 
-                shrimpInTank[r].KillShrimp();
+                shrimpInTank[r].KillShrimp(DeathReason:"of overpopulation");
             }
         }
     }

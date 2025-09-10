@@ -209,34 +209,28 @@ public class ShrimpManager : MonoBehaviour
         t2 = shop.patternTraits[Random.Range(0, shop.patternTraits.Count())];
         s.pattern = geneManager.TraitGene(InheritanceType.Punnett, 0, t1, t2, false);
 
-        shop.partTraits.ForEach(x => x.SetTraitID("B"));
-        t1 = shop.partTraits[Random.Range(0, shop.partTraits.Count())];
-        t2 = shop.partTraits[Random.Range(0, shop.partTraits.Count())];
+        t1 = shop.partTraits[Random.Range(0, shop.partTraits.Count())].SetTraitID("B");
+        t2 = shop.partTraits[Random.Range(0, shop.partTraits.Count())].SetTraitID("B");
         s.body = geneManager.TraitGene(InheritanceType.Punnett, 0, t1, t2, false);
 
-        shop.partTraits.ForEach(x => x.SetTraitID("H"));
-        t1 = shop.partTraits[Random.Range(0, shop.partTraits.Count())];
-        t2 = shop.partTraits[Random.Range(0, shop.partTraits.Count())];
+        t1 = shop.partTraits[Random.Range(0, shop.partTraits.Count())].SetTraitID("H");
+        t2 = shop.partTraits[Random.Range(0, shop.partTraits.Count())].SetTraitID("H");
         s.head = geneManager.TraitGene(InheritanceType.Punnett, 0, t1, t2, false);
 
-        shop.partTraits.ForEach(x => x.SetTraitID("E"));
-        t1 = shop.partTraits[Random.Range(0, shop.partTraits.Count())];
-        t2 = shop.partTraits[Random.Range(0, shop.partTraits.Count())];
+        t1 = shop.partTraits[Random.Range(0, shop.partTraits.Count())].SetTraitID("E");
+        t2 = shop.partTraits[Random.Range(0, shop.partTraits.Count())].SetTraitID("E");
         s.eyes = geneManager.TraitGene(InheritanceType.Punnett, 0, t1, t2, false);
 
-        shop.partTraits.ForEach(x => x.SetTraitID("T"));
-        t1 = shop.partTraits[Random.Range(0, shop.partTraits.Count())];
-        t2 = shop.partTraits[Random.Range(0, shop.partTraits.Count())];
+        t1 = shop.partTraits[Random.Range(0, shop.partTraits.Count())].SetTraitID("T");
+        t2 = shop.partTraits[Random.Range(0, shop.partTraits.Count())].SetTraitID("T");
         s.tail = geneManager.TraitGene(InheritanceType.Punnett, 0, t1, t2, false);
 
-        shop.partTraits.ForEach(x => x.SetTraitID("F"));
-        t1 = shop.partTraits[Random.Range(0, shop.partTraits.Count())];
-        t2 = shop.partTraits[Random.Range(0, shop.partTraits.Count())];
+        t1 = shop.partTraits[Random.Range(0, shop.partTraits.Count())].SetTraitID("F");
+        t2 = shop.partTraits[Random.Range(0, shop.partTraits.Count())].SetTraitID("F");
         s.tailFan = geneManager.TraitGene(InheritanceType.Punnett, 0, t1, t2, false);
 
-        shop.partTraits.ForEach(x => x.SetTraitID("L"));
-        t1 = shop.partTraits[Random.Range(0, shop.partTraits.Count())];
-        t2 = shop.partTraits[Random.Range(0, shop.partTraits.Count())];
+        t1 = shop.partTraits[Random.Range(0, shop.partTraits.Count())].SetTraitID("L");
+        t2 = shop.partTraits[Random.Range(0, shop.partTraits.Count())].SetTraitID("L");
         s.legs = geneManager.TraitGene(InheritanceType.Punnett, 0, t1, t2, false);
 
         s = geneManager.ApplyStatModifiers(s);
