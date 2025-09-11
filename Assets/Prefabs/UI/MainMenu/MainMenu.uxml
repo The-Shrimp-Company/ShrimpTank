@@ -3,13 +3,6 @@
     <ui:VisualElement name="LoadingScreen" style="display: flex; position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgb(217, 175, 207); align-items: center; justify-content: center;">
         <ui:Label tabindex="-1" text="Loading..." parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="true" name="LoadingText" style="color: rgb(115, 205, 205); -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(166, 133, 158); font-size: 60px; -unity-font-style: bold;" />
     </ui:VisualElement>
-    <ui:VisualElement name="MainScreen" class="MainScreen">
-        <ui:Label tabindex="-1" text="Shrimp Game" parse-escape-sequences="true" display-tooltip-when-elided="true" style="position: absolute; top: 62px; font-size: 60px; align-items: center; align-self: center; -unity-font-style: bold-and-italic; -unity-text-align: middle-center; -unity-text-outline-color: rgb(166, 133, 158); -unity-text-outline-width: 3px; color: rgb(115, 205, 205);" />
-        <ui:Button text="New Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MainMenuButton" class="Button" />
-        <ui:Button text="Continue" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ContinueButton" class="Button" />
-        <ui:Button text="Load Save" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SaveButton" class="Button" />
-        <ui:Button text="Quit Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="QuitButton" class="Button" />
-    </ui:VisualElement>
     <ui:VisualElement name="SaveMenu" class="MainScreen" style="justify-content: center; align-self: auto; align-items: center; flex-basis: auto; flex-shrink: 1; flex-grow: 1; overflow: hidden;">
         <ui:Label tabindex="-1" text="Saves" parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="true" style="position: absolute; top: 62px; font-size: 40px; align-items: center; align-self: center; -unity-font-style: bold; -unity-text-align: middle-center; -unity-text-outline-color: rgb(166, 133, 158); -unity-text-outline-width: 3px; color: rgb(115, 205, 205);" />
         <ui:Button text="Back" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BackMainMenu" class="Button" style="position: absolute; left: 0; bottom: 0;" />
@@ -22,5 +15,14 @@
         <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SaveFile3" class="Button" style="width: 359px; -unity-text-align: middle-left;">
             <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" style="white-space: nowrap; -unity-text-align: middle-right;" />
         </ui:Button>
+    </ui:VisualElement>
+    <ui:VisualElement name="MainScreen" class="MainScreen" style="justify-content: flex-end;">
+        <ui:Label tabindex="-1" text="Shrimp Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" class="TitleDown TitleUp" style="position: absolute; top: 13%; font-size: 70px; align-items: center; align-self: center; -unity-font-style: bold-and-italic; -unity-text-align: middle-center; -unity-text-outline-color: rgb(166, 133, 158); -unity-text-outline-width: 3px; color: rgb(115, 205, 205); transition-duration: 0.7s, 0.5s; transition-timing-function: ease-in-out, ease-in-out; transition-property: opacity, translate; transition-delay: 0.1s, 0s;" />
+        <ui:VisualElement name="MenuContainer" class="MenuUp MenuDown" style="transition-duration: 1s; transition-timing-function: ease-in-out; transition-delay: 0.5s;">
+            <ui:Button text="New Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MainMenuButton" class="Button" style="width: 100%; font-size: 24px; height: 20%;" />
+            <ui:Button text="Continue" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ContinueButton" class="Button" style="width: 100%; font-size: 24px; height: 20%;" />
+            <ui:Button text="Load Save" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SaveButton" class="Button" style="width: 100%; font-size: 24px; height: 20%;" />
+            <ui:Button text="Quit Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="QuitButton" class="Button" style="width: 100%; font-size: 24px; height: 20%;" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

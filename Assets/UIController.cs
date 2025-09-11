@@ -1,12 +1,12 @@
+using SaveLoadSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
-using SaveLoadSystem;
+using UnityEngine;
 using UnityEngine.InputSystem.Composites;
-using System;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class UIController : MonoBehaviour
 {
@@ -20,6 +20,8 @@ public class UIController : MonoBehaviour
 
     private bool loading = false;
     private int count;
+
+    private float menuup = 0;
 
     private AsyncOperation operation;
 
@@ -46,6 +48,8 @@ public class UIController : MonoBehaviour
         loadingScreen = root.Q<VisualElement>("LoadingScreen");
         saveScreen = root.Q<VisualElement>("SaveMenu");
 
+        
+
         // Ensuring correct order
         mainScreen.BringToFront();
     }
@@ -65,6 +69,17 @@ public class UIController : MonoBehaviour
             {
                 SceneManager.UnloadSceneAsync(0);
             }
+        }
+
+        if (menuup > 0.5 && menuup != -1)
+        {
+            GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("MenuContainer").RemoveFromClassList("MenuDown");
+            GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("Title").RemoveFromClassList("TitleUp");
+            menuup = -1;
+        }
+        else if(menuup != -1)
+        {
+            menuup += Time.deltaTime;
         }
     }
 
