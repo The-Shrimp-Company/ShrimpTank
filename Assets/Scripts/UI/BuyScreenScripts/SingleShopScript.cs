@@ -68,7 +68,7 @@ public class SingleShopScript : ScreenView
     {
         selectedBlock = newSelectedBlock;
         ShrimpStats shrimp = selectedBlock.GetShrimp();
-        sexLabel.text = "Sex: " + (shrimp.gender == true ? "M" : "F");
+        sexLabel.text = "Sex: " + (shrimp.sex == true ? "M" : "F");
         patternLabel.text = "Pattern: " + GeneManager.instance.GetTraitSO(shrimp.pattern.activeGene.ID).traitName;
         bodyLabel.text = "Body: " + GeneManager.instance.GetTraitSO(shrimp.body.activeGene.ID).set;
         legsLabel.text = "Legs: " + GeneManager.instance.GetTraitSO(shrimp.legs.activeGene.ID).set;

@@ -76,7 +76,7 @@ public class ShrimpManager : MonoBehaviour
         ShrimpStats s = new ShrimpStats();
 
         s.name = GenerateShrimpName();
-        s.gender = geneManager.RandomGender();
+        s.sex = geneManager.RandomSex();
         s.bornInStore = true;
         s.birthTime = TimeManager.instance.GetTotalTime();
         s.hunger = 0;
@@ -122,7 +122,7 @@ public class ShrimpManager : MonoBehaviour
         {
             s.name = "";
         }
-        s.gender = geneManager.RandomGender();
+        s.sex = geneManager.RandomSex();
         if (adultAge)
             s.birthTime = TimeManager.instance.CalculateBirthTimeFromAge(geneManager.IntGene(InheritanceType.FullRandom, Mathf.RoundToInt((maxShrimpAge - (1 + minAgeForAShrimpBeingBought)) * 0.9f), 0, 0, false) + Random.value + minAgeForAShrimpBeingBought);
         else s.birthTime = TimeManager.instance.CalculateBirthTimeFromAge(geneManager.IntGene(InheritanceType.FullRandom, Mathf.RoundToInt((maxShrimpAge - 1) * 0.9f), 0, 0, false) + Random.value);
@@ -180,8 +180,16 @@ public class ShrimpManager : MonoBehaviour
 
         ShrimpStats s = new ShrimpStats();
 
-
-        s.gender = geneManager.RandomGender();
+        // Assigns the sex of the shrimp. If the shop only has shrimp of one sex, it will force the outcome to be 
+        // the other sex. Otherwise, it will be random.
+        bool? sex = null;
+        if(shop.shrimpStock.Count >= 2)
+        {
+            var shrimpOfOneSex = shop.shrimpStock.Where(x => x.sex);
+            if (shrimpOfOneSex.Count() == shop.shrimpStock.Count) sex = false;
+            else if (shrimpOfOneSex.Count() == 0) sex = true;
+        }
+        s.sex = sex ?? geneManager.RandomSex();
         
         s.birthTime = TimeManager.instance.CalculateBirthTimeFromAge(geneManager.IntGene(InheritanceType.FullRandom, Mathf.RoundToInt((maxShrimpAge - (1 + minAgeForAShrimpBeingBought)) * 0.9f), 0, 0, false) + Random.value + minAgeForAShrimpBeingBought);
 
@@ -245,7 +253,7 @@ public class ShrimpManager : MonoBehaviour
         ShrimpStats s = new ShrimpStats();
 
         s.name = GenerateShrimpName();
-        s.gender = geneManager.RandomGender();
+        s.sex = geneManager.RandomSex();
         if (adultAge)
             s.birthTime = TimeManager.instance.CalculateBirthTimeFromAge(geneManager.IntGene(InheritanceType.FullRandom, Mathf.RoundToInt((maxShrimpAge - (1 + minAgeForAShrimpBeingBought)) * 0.9f), 0, 0, false) + Random.value + minAgeForAShrimpBeingBought);
         else s.birthTime = TimeManager.instance.CalculateBirthTimeFromAge(geneManager.IntGene(InheritanceType.FullRandom, Mathf.RoundToInt((maxShrimpAge - 1) * 0.9f), 0, 0, false) + Random.value);
@@ -301,7 +309,7 @@ public class ShrimpManager : MonoBehaviour
         ShrimpStats s = new ShrimpStats();
 
         s.name = GenerateShrimpName();
-        s.gender = geneManager.RandomGender();
+        s.sex = geneManager.RandomSex();
         s.birthTime = TimeManager.instance.CalculateBirthTimeFromAge(geneManager.IntGene(InheritanceType.FullRandom, Mathf.RoundToInt((maxShrimpAge - 1) * 0.9f), 0, 0, false) + Random.value);
         s.temperament = geneManager.IntGene(InheritanceType.FullRandom, maxShrimpTemperament, 0, 0, false);
         s.geneticSize = geneManager.IntGene(InheritanceType.FullRandom, maxGeneticShrimpSize, 0, 0, false);
@@ -354,7 +362,7 @@ public class ShrimpManager : MonoBehaviour
         ShrimpStats s = new ShrimpStats();
 
         s.name = GenerateShrimpName();
-        s.gender = geneManager.RandomGender();
+        s.sex = geneManager.RandomSex();
         s.birthTime = TimeManager.instance.GetTotalTime();
         s.hunger = 0;
         s.illnessLevel = 0;
@@ -531,13 +539,13 @@ public class ShrimpManager : MonoBehaviour
 
     public float GetBreedingCooldown(ShrimpStats stats, TankController tank)
     {
-        if (stats.gender == true)  // Male
+        if (stats.sex == true)  // Male
         {
             float t = maleBreedingTime.Evaluate(tank.shrimpInTank.Count);
             return Random.Range(t - maleBreedingRandomVariance, t + maleBreedingRandomVariance);
         }
 
-        else if (stats.gender == false)  // Female
+        else if (stats.sex == false)  // Female
         {
             float t = femaleBreedingTime.Evaluate(tank.shrimpInTank.Count);
             return Random.Range(t - femaleBreedingRandomVariance, t + femaleBreedingRandomVariance);

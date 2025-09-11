@@ -546,9 +546,9 @@ public class DebugController : MonoBehaviour
         SET_GENDER = new DebugCommand<string>("set_gender", "Change the gender of the shrimp (male / female)", "set_gender", (x) =>
         {
             if (x == "male")
-                focussedShrimp.GetShrimp().stats.gender = true;
+                focussedShrimp.GetShrimp().stats.sex = true;
             else if (x == "female")
-                focussedShrimp.GetShrimp().stats.gender = false;
+                focussedShrimp.GetShrimp().stats.sex = false;
         });
 
         SET_AGE = new DebugCommand<int>("set_age", "Set the age of the shrimp in days (Adult ~ 40, Death ~ 380)", "set_age", (x) =>

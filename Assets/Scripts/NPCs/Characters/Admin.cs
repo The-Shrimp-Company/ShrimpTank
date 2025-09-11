@@ -258,7 +258,7 @@ public class Admin : NPC
                 {
                     if (!flags.Contains("BoughtShrimp"))
                     {
-                        if(Store.decorateController.tanksInStore.Exists(x => x.shrimpInTank.Exists(x => x.stats.gender) && x.shrimpInTank.Exists(x => !x.stats.gender)))
+                        if(Store.decorateController.tanksInStore.Exists(x => x.shrimpInTank.Exists(x => x.stats.sex) && x.shrimpInTank.Exists(x => !x.stats.sex)))
                         {
                             flags.Add("BoughtShrimp");
                             sentEmail.CreateEmailButton("I've bought the shrimp", true)
