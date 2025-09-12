@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 48a303d058fdd0c42822edbe877b9e81, type: 2}
+  - {fileID: -5091358621934448353, guid: 846010637b40e6f41a186c853ce7913f, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -93,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6660774730794700038}
   m_Layer: 0
-  m_Name: Held Medicine
+  m_Name: Held Food
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
