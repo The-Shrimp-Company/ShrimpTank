@@ -395,11 +395,6 @@ public class TankViewScript : ScreenView
         idealHNOLabel.text = ((int)tank.idealHno).ToString();
     }
 
-    public void SetDestinationTank()
-    {
-        Store.SwitchDestinationTank(tank);
-    }
-
     public void SetOpenTank()
     {
         tank.toggleTankOpen();

@@ -18,3 +18,5 @@ MonoBehaviour:
   purchaseQuantity: 1
   itemDescription: 
   tags: 10000000
+  heldItemPrefab: {fileID: 54720155993976486, guid: 62b78a8e0be95a8478b19c2026f714b1,
+    type: 3}

@@ -89,8 +89,6 @@ public class TankController : Interactable
     [SerializeField] private List<Light> lights;
 
     [Header("Sale Tank")]
-    [SerializeField] private GameObject sign;
-    public bool destinationTank { get; private set; } = false;
     [SerializeField] private GameObject SaleSign;
     public bool openTank { get; private set; } = false;
     [SerializeField] private TextMeshProUGUI label;
@@ -153,8 +151,6 @@ public class TankController : Interactable
 
         upgradeController = GetComponent<TankUpgradeController>();
         tooltip = GetComponent<ToolTip>();
-
-        sign.SetActive(destinationTank);
 
         breedingCooldownTimer = breedingCooldown;
         shrimpCanBreed = false;
@@ -533,13 +529,6 @@ public class TankController : Interactable
         AlarmIds.Clear();
     }
 
-    public void ToggleDestinationTank()
-    {
-        destinationTank = !destinationTank;
-        sign.SetActive(destinationTank);
-    }
-
-
 
 
     public void toggleTankOpen()
@@ -702,10 +691,10 @@ public class TankController : Interactable
         if (so && so.tags.Contains(ItemTags.Shrimp))
         {
             ShrimpStats s = (Store.player.GetComponent<HeldItem>().GetHeldItem() as ShrimpItem).shrimp;
-            if (Mathf.Abs(Store.GetDestinationTank().waterAmmonium - s.ammoniaPreference) > 10 &&
-                Mathf.Abs(Store.GetDestinationTank().waterSalt - s.salineLevel) > 10 &&
-                Mathf.Abs(Store.GetDestinationTank().waterPh - s.PhPreference) > 2 &&
-                Mathf.Abs(Store.GetDestinationTank().waterTemperature - s.temperaturePreference) > 10)
+            if (Mathf.Abs(waterAmmonium - s.ammoniaPreference) > 10 &&
+                Mathf.Abs(waterSalt - s.salineLevel) > 10 &&
+                Mathf.Abs(waterPh - s.PhPreference) > 2 &&
+                Mathf.Abs(waterTemperature - s.temperaturePreference) > 10)
             {
                 //price.text = "Can't buy this shrimp with current destination tank. Shrimp will die.";
                 //price.transform.parent.GetComponent<Button>().interactable = false;

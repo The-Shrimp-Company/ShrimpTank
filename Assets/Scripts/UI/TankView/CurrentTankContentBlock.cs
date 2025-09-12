@@ -10,7 +10,7 @@ public class CurrentTankContentBlock : ContentBlock
     private Shrimp[] _shrimp;
     private PlayerInteraction player;
 
-    [SerializeField] private TextMeshProUGUI saleSign, destSign, warningSign;
+    [SerializeField] private TextMeshProUGUI saleSign, warningSign;
 
     public void Start()
     {
@@ -25,11 +25,6 @@ public class CurrentTankContentBlock : ContentBlock
         {
             saleSign.gameObject.SetActive(false);
             FontTools.SizeFont(saleSign);
-        }
-        if (!tank.destinationTank)
-        {
-            destSign.gameObject.SetActive(false);
-            FontTools.SizeFont(destSign);
         }
 
         foreach (Shrimp shrimp in _shrimp)

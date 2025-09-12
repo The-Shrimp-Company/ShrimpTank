@@ -57,8 +57,6 @@ public class ShrimpManager : MonoBehaviour
     [Header("Temperament")]
     private int maxShrimpTemperament = 100;
 
-    public TankController destTank;
-
 
     public void Awake()
     {

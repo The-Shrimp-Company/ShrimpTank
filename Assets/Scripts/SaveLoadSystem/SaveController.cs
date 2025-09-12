@@ -148,7 +148,6 @@ public class SaveController : MonoBehaviour
                 tankSave.tankName = t.tankName;
                 tankSave.tankId = t.tankId;
                 tankSave.upgradeState = t.upgradeState;
-                tankSave.destinationTank = t.destinationTank;
                 tankSave.openTank = t.openTank;
                 tankSave.upgradeIDs = t.GetComponent<TankUpgradeController>().SaveUpgrades();
                 tankSave.waterFilled = t.waterFilled;
