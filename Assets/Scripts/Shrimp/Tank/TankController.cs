@@ -272,7 +272,7 @@ public class TankController : Interactable
         }
 
         FoodAlertSign.SetActive(!FedShrimpToday());
-
+        MouseHover();
         label.text = tankName;
 
         if (focusingTank) PlayerStats.stats.timeSpentFocusingTank += Time.deltaTime;
@@ -699,7 +699,7 @@ public class TankController : Interactable
     public override void Action()
     {
         ItemSO so = Inventory.GetSOForItem(Store.player.GetComponent<HeldItem>().GetHeldItem());
-        if (so && !so.tags.Contains(ItemTags.Shrimp))
+        if (so && so.tags.Contains(ItemTags.Shrimp))
         {
             ShrimpStats s = (Store.player.GetComponent<HeldItem>().GetHeldItem() as ShrimpItem).shrimp;
             if (Mathf.Abs(Store.GetDestinationTank().waterAmmonium - s.ammoniaPreference) > 10 &&
@@ -714,29 +714,36 @@ public class TankController : Interactable
             {
                 SpawnShrimp((Store.player.GetComponent<HeldItem>().GetHeldItem() as ShrimpItem).shrimp);
                 Inventory.RemoveShrimp(s);
-                Store.player.GetComponent<HeldItem>().StopHoldingItem();
             }
         }
         else
             Store.player.GetComponent<PlayerInteraction>().SetTankFocus(this);
+
+        Store.player.GetComponent<HeldItem>().StopHoldingItem();
     }
 
     public override void OnHover()
     {
         if (tooltip)
         {
-            if (!Inventory.GetSOForItem(Store.player.GetComponent<HeldItem>().GetHeldItem()).tags.Contains(ItemTags.Shrimp))
-                tooltip.toolTip = tankName;
+            if (Store.player.GetComponent<HeldItem>().GetHeldItem() != null)
+            {
+                if (Inventory.GetSOForItem(Store.player.GetComponent<HeldItem>().GetHeldItem()).tags.Contains(ItemTags.Shrimp))
+                    tooltip.toolTip = "Put shrimp in " + tankName;
+                else if (Inventory.GetSOForItem(Store.player.GetComponent<HeldItem>().GetHeldItem()).tags.Contains(ItemTags.Food))
+                    tooltip.toolTip = "Put food in " + tankName;
+                else if (Inventory.GetSOForItem(Store.player.GetComponent<HeldItem>().GetHeldItem()).tags.Contains(ItemTags.Medicine))
+                    tooltip.toolTip = "Put medicine in " + tankName;
+            }
             else
-                tooltip.toolTip = "Put shrimp in " + tankName;
+                tooltip.toolTip = tankName;
+            
         }
-
-        Store.player.GetComponent<PlayerInteraction>().SetTankFocus(this);
     }
 
     public override void OnStopHover()
     {
-        Store.player.GetComponent<PlayerInteraction>().SetTankFocus(this);
+
     }
 
 

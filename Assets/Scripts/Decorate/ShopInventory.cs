@@ -130,7 +130,6 @@ public class ShopInventory : ScreenView
 
         foreach (Item i in items)
         {
-            Debug.Log(i.itemName);
             ShrimpItem shrimp = i as ShrimpItem;
 
             DecorationContentBlock content = Instantiate(_contentBlock, _content.transform).GetComponent<DecorationContentBlock>();
