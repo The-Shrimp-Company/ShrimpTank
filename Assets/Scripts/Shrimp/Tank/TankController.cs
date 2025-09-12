@@ -257,7 +257,7 @@ public class TankController : Interactable
             {
                 if (starvationTime > starvationTimer)
                 {
-                    shrimpInTank[UnityEngine.Random.Range(0, shrimpInTank.Count)].KillShrimp(DeathReason:"of hunger");
+                    shrimpInTank[UnityEngine.Random.Range(0, shrimpInTank.Count)].KillShrimp(DeathReason: "of hunger"); 
                     starvationTimer = UnityEngine.Random.Range(5, 30);
                     starvationTime = 0;
                 }
@@ -284,8 +284,8 @@ public class TankController : Interactable
         dayLastFed = TimeManager.instance.day;
     }
 
-    public bool FedShrimpToday() { return (fedToday == TimeManager.instance.day || shrimpInTank.Count == 0); }
-    public bool FedTankToday() { return (fedToday == TimeManager.instance.day); }
+    public bool FedShrimpToday() { return (dayLastFed == TimeManager.instance.day || shrimpInTank.Count == 0); }
+    public bool FedTankToday() { return (dayLastFed == TimeManager.instance.day); }
 
     private void AddToTank()
     {

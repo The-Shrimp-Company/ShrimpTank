@@ -272,7 +272,7 @@ public class ShopInventory : ScreenView
             selectedShrimpValueText.text = "£" + EconomyManager.instance.GetShrimpValue(shrimp).RoundMoney().ToString();
             selectedShrimpPrimaryColour.color = GeneManager.instance.GetTraitSO(shrimp.primaryColour.activeGene.ID).colour;
             selectedShrimpSecondaryColour.color = GeneManager.instance.GetTraitSO(shrimp.secondaryColour.activeGene.ID).colour;
-            selectedShrimpGenderText.text = shrimp.gender ? "Male" : "Female";
+            selectedShrimpGenderText.text = shrimp.sex ? "Male" : "Female";
             selectedShrimpPatternText.text = GeneManager.instance.GetTraitSO(shrimp.pattern.activeGene.ID).traitName;
             selectedShrimpHeadText.text = GeneManager.instance.GetTraitSO(shrimp.head.activeGene.ID).set.ToString();
             selectedShrimpBodyText.text = GeneManager.instance.GetTraitSO(shrimp.body.activeGene.ID).set.ToString();

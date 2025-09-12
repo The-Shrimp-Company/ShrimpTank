@@ -38,8 +38,8 @@ public class TankViewScript : ScreenView
     [Header("Status Labels")]
     [SerializeField] TextMeshProUGUI idealHeatLabel;
     [SerializeField] TextMeshProUGUI heatWarningLabel;
-    [SerializeField] TextMeshProUGUI idealNitrLabel;
-    [SerializeField] TextMeshProUGUI nitrWarningLabel;
+    [SerializeField] TextMeshProUGUI idealHNOLabel;
+    [SerializeField] TextMeshProUGUI hnoWarningLabel;
     [SerializeField] TextMeshProUGUI idealpHLabel;
     [SerializeField] TextMeshProUGUI pHWarningLabel;
     [SerializeField] TextMeshProUGUI idealSaltLabel;
@@ -351,7 +351,7 @@ public class TankViewScript : ScreenView
 
         // Check for temp preference
         idealHeat = (int)tank.idealTemp;
-        if(tank.shrimpInTank.Find(x => Mathf.Abs(idealHeat - x.stats.temperaturePreference) >= tank.tempVariance) != null)
+        if(tank.shrimpInTank.Find(x => Mathf.Abs(idealHeat - x.stats.temperaturePreference) > 10) != null)
         {
             heatWarningLabel.text = "Warning: Too much shrimp variety";
         }
@@ -362,7 +362,7 @@ public class TankViewScript : ScreenView
         idealHeatLabel.text = idealHeat.ToString();
 
         // Check for salt preference
-        if(tank.shrimpInTank.Find(x => Mathf.Abs(tank.idealSalt - x.stats.salineLevel) >= tank.saltVariance) != null)
+        if(tank.shrimpInTank.Find(x => Mathf.Abs(tank.idealSalt - x.stats.salineLevel) > 10) != null)
         {
             saltWarningLabel.text = "Warning: Too much shrimp variety";
         }
@@ -373,7 +373,7 @@ public class TankViewScript : ScreenView
         idealSaltLabel.text = ((int)tank.idealSalt).ToString();
 
         // Check for pH preference
-        if(tank.shrimpInTank.Find(x => Mathf.Abs(tank.idealPh - x.stats.PhPreference) >= tank.pHVariance) != null)
+        if(tank.shrimpInTank.Find(x => Mathf.Abs(tank.idealPh - x.stats.PhPreference) > 2) != null)
         {
             pHWarningLabel.text = "Warning: Too much shrimp variety";
         }
@@ -384,15 +384,15 @@ public class TankViewScript : ScreenView
         idealpHLabel.text = ((int)tank.idealPh).ToString();
 
         // Check for Ammonium preference
-        if(tank.shrimpInTank.Find(x => Mathf.Abs(tank.idealNitr - x.stats.ammoniaPreference) >= tank.nitrVariance) != null)
+        if(tank.shrimpInTank.Find(x => Mathf.Abs(tank.idealNitr - x.stats.ammoniaPreference) > 10) != null)
         {
-            nitrWarningLabel.text = "Warning: Too much shrimp variety";
+            hnoWarningLabel.text = "Warning: Too much shrimp variety";
         }
         else
         {
-            nitrWarningLabel.text = "";
+            hnoWarningLabel.text = "";
         }
-        idealNitrLabel.text = ((int)tank.idealNitr).ToString();
+        idealHNOLabel.text = ((int)tank.idealNitr).ToString();
     }
 
     public void SetOpenTank()
