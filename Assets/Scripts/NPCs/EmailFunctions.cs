@@ -121,7 +121,7 @@ static public class EmailFunctions
     {
         button.actions.Add(() =>
         {
-            ShrimpManager.instance.destTank.SpawnShrimp(button.data[(int)FunctionIndexes.SpawnShrimp].data[0].TryCast<ShrimpStats>());
+            Inventory.AddShrimp(button.data[(int)FunctionIndexes.SpawnShrimp].data[0].TryCast<ShrimpStats>());
         });
     }
 

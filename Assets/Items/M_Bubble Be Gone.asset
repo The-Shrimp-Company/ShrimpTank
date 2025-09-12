@@ -18,5 +18,7 @@ MonoBehaviour:
   purchaseQuantity: 1
   itemDescription: 
   tags: 0300000012000000
+  heldItemPrefab: {fileID: 5607206695084763870, guid: 49088195f027e7a4c8902dbe14e2f0d7,
+    type: 3}
   symptoms: 02000000
   strength: 100

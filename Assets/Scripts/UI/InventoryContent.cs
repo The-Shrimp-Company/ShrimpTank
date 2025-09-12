@@ -119,7 +119,7 @@ public class InventoryContent : ContentPopulation
                 {
                     foreach (Shrimp shrimp in thisShrimp)
                     {
-                        shrimp.GetComponent<IllnessController>().UseMedicine(thisBlock.item as Medicine);
+                        //shrimp.GetComponent<IllnessController>().UseMedicine(thisBlock.item as Medicine);
                     }
                     Inventory.RemoveItem(thisBlock.item, thisShrimp.Length);
                     ContentBlockUpdate(thisBlock);

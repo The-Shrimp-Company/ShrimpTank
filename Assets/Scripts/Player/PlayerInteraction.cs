@@ -94,6 +94,8 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (Store.decorateController.decorating)
                 Store.decorateController.StopPlacing();
+            else if (GetComponent<HeldItem>().GetHeldItem() != null)
+                GetComponent<HeldItem>().StopHoldingItem();
             else
             {
                 if (!targetInteractable || !targetInteractable.HasHoldActions()) return;

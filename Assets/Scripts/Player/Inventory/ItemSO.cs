@@ -12,4 +12,5 @@ public class ItemSO : ScriptableObject
     [SerializeReference][TextArea(1, 10)] public string itemDescription;
     //[SerializeReference] public float sellValue;
     [SerializeReference] public List<ItemTags> tags = new List<ItemTags>();
+    [SerializeReference] public GameObject heldItemPrefab;
 }

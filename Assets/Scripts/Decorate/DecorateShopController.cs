@@ -92,7 +92,6 @@ public class DecorateShopController : MonoBehaviour
                 if (tank != null)
                 {
                     tanksInStore.Add(tank);
-                    Store.SwitchDestinationTank(tank);
                     tank.tankName = "Tank " + tanksInStore.Count;
                 }
 
@@ -437,7 +436,6 @@ public class DecorateShopController : MonoBehaviour
         if (tank != null)
         {
             tanksInStore.Add(tank);
-            Store.SwitchDestinationTank(tank);
             tank.tankName = "Tank " + tanksInStore.Count;
             tank.tankId = Time.time.ToString();
         }
@@ -757,7 +755,6 @@ public class DecorateShopController : MonoBehaviour
         tank.tankId = data.tankId;
         tank.AlarmIds = data.alarmIds.ToList<String>();
 
-        if (data.destinationTank) Store.SwitchDestinationTank(tank);
         if (data.openTank) tank.toggleTankOpen();
 
         foreach (ShrimpStats s in data.shrimp)

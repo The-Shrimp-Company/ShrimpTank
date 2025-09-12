@@ -69,7 +69,6 @@ public class DebugController : MonoBehaviour
 
 
     public static DebugCommand<string> NAME_TANK;
-    public static DebugCommand DESTINATION_TANK;
     public static DebugCommand SALE_TANK;
     public static DebugCommand<float> SALE_PRICE;
 
@@ -171,42 +170,57 @@ public class DebugController : MonoBehaviour
 
         SPAWN_RANDOM = new DebugCommand<int>("spawn_random", "Spawns random shrimp in the destination tank", "spawn_random", (x) =>
         {
-            TankController targetTank = Store.GetDestinationTank();
-            if (focussedTank != null) targetTank = focussedTank.GetTank();
             for (int i = 0; i < x; i++)
-                targetTank.SpawnShrimp(TraitSet.None);
+            {
+                if (focussedTank != null)
+                    focussedTank.GetTank().SpawnShrimp(TraitSet.None);
+                else
+                    Store.SpawnShrimp(ShrimpManager.instance.CreateRandomShrimp(false), 0);
+            }
         });
 
         SPAWN_CHERRY = new DebugCommand<int>("spawn_cherry", "Spawns cherry shrimp in the destination tank", "spawn_cherry", (x) =>
         {
-            TankController targetTank = Store.GetDestinationTank();
-            if (focussedTank != null) targetTank = focussedTank.GetTank();
             for (int i = 0; i < x; i++)
-                targetTank.SpawnShrimp(TraitSet.Cherry);
+            {
+                if (focussedTank != null)
+                    focussedTank.GetTank().SpawnShrimp(TraitSet.None);
+                else
+                    Store.SpawnShrimp(ShrimpManager.instance.CreatePureBreedShrimp(TraitSet.Cherry, false), 0);
+            }
         });
 
         SPAWN_NYLON = new DebugCommand<int>("spawn_nylon", "Spawns nylon shrimp in the destination tank", "spawn_nylon", (x) =>
         {
-            TankController targetTank = Store.GetDestinationTank();
-            if (focussedTank != null) targetTank = focussedTank.GetTank();
             for (int i = 0; i < x; i++)
-                targetTank.SpawnShrimp(TraitSet.Nylon);
+            {
+                if (focussedTank != null)
+                    focussedTank.GetTank().SpawnShrimp(TraitSet.None);
+                else
+                    Store.SpawnShrimp(ShrimpManager.instance.CreatePureBreedShrimp(TraitSet.Nylon, false), 0);
+            }
         });
 
         SPAWN_ANOMALIS = new DebugCommand<int>("spawn_anomalis", "Spawns anomalis shrimp in the destination tank", "spawn_anomalis", (x) =>
         {
-            TankController targetTank = Store.GetDestinationTank();
-            if (focussedTank != null) targetTank = focussedTank.GetTank();
             for (int i = 0; i < x; i++)
-                targetTank.SpawnShrimp(TraitSet.Anomalis);
+            {
+                if (focussedTank != null)
+                    focussedTank.GetTank().SpawnShrimp(TraitSet.None);
+                else
+                    Store.SpawnShrimp(ShrimpManager.instance.CreatePureBreedShrimp(TraitSet.Anomalis, false), 0);
+            }
         });
 
         SPAWN_CARIDID = new DebugCommand<int>("spawn_caridid", "Spawns caridid shrimp in the destination tank", "spawn_caridid", (x) =>
         {
-            TankController targetTank = Store.GetDestinationTank();
-            if (focussedTank != null) targetTank = focussedTank.GetTank();
             for (int i = 0; i < x; i++)
-                targetTank.SpawnShrimp(TraitSet.Caridid);
+            {
+                if (focussedTank != null)
+                    focussedTank.GetTank().SpawnShrimp(TraitSet.None);
+                else
+                    Store.SpawnShrimp(ShrimpManager.instance.CreatePureBreedShrimp(TraitSet.Caridid, false), 0);
+            }
         });
 
 
@@ -445,11 +459,6 @@ public class DebugController : MonoBehaviour
             focussedTank.GetTank().tankName = x;
         });
 
-        DESTINATION_TANK = new DebugCommand("destination_tank", "Set this tank as the destination tank", "destination_tank", () =>
-        {
-            focussedTank.SetDestinationTank();
-        });
-
         SALE_TANK = new DebugCommand("sale_tank", "Toggle this tank as a sale tank", "sale_tank", () =>
         {
             focussedTank.SetOpenTank();
@@ -510,7 +519,6 @@ public class DebugController : MonoBehaviour
         tankCommandList = new List<object>
         {
             NAME_TANK,
-            DESTINATION_TANK,
             SALE_TANK,
             SALE_PRICE,
 

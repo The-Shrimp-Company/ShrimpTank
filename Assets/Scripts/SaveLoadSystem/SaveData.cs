@@ -23,6 +23,7 @@ namespace SaveLoadSystem
         public Settings gameSettings;
 
         public Item[] inventoryItems;
+        public ShrimpItem[] inventoryShrimp;
 
         public RoomDecorationSaveData[] roomDecorations;
 
@@ -64,7 +65,6 @@ namespace SaveLoadSystem
         public string tankName;
         public string tankId;
         public string[] alarmIds;
-        public bool destinationTank;
         public bool openTank;
         public string[] upgradeIDs;
         public bool waterFilled;

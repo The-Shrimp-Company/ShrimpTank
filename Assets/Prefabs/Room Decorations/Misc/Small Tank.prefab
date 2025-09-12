@@ -570,7 +570,6 @@ Transform:
   - {fileID: 2203429193121671375}
   - {fileID: 2395501523243585654}
   - {fileID: 3441831561490785096}
-  - {fileID: 2349540925443941879}
   - {fileID: 8237672759639352352}
   - {fileID: 3062476608419782382}
   - {fileID: 1167920689745556407}
@@ -634,7 +633,6 @@ MonoBehaviour:
   lights:
   - {fileID: 9082456001141851980}
   - {fileID: 4028579583741734310}
-  sign: {fileID: 5947789648189943326}
   SaleSign: {fileID: 5994137002391903135}
   label: {fileID: 2617808344691637593}
   openTankLabel: {fileID: 8758368202101297274}
@@ -703,6 +701,7 @@ MonoBehaviour:
   breedingCooldownTimer: 0
   shrimpCanBreed: 0
   AlarmIds: []
+  tankLoaded: 0
   distanceCheckTime: 1
   particleParent: {fileID: 7623248954326440091}
   autoSpawnTestShrimp: 0
@@ -2968,151 +2967,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5653139868829591735, guid: e7c90b0586289f64f9df479b5204ad7b,
     type: 3}
   m_PrefabInstance: {fileID: 2689938829933385684}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &3029934676954534251
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 2235153865005791252}
-    m_Modifications:
-    - target: {fileID: 763151834798322844, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 763151834798322844, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 763151834798322844, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 763151834798322844, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.24
-      objectReference: {fileID: 0}
-    - target: {fileID: 763151834798322844, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.0604
-      objectReference: {fileID: 0}
-    - target: {fileID: 763151834798322844, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.2073
-      objectReference: {fileID: 0}
-    - target: {fileID: 763151834798322844, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 763151834798322844, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 763151834798322844, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 763151834798322844, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 763151834798322844, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 763151834798322844, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 763151834798322844, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4974349919088642302, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 4974349919088642302, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5918358851338581136, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_text
-      value: Destination For Shrimp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5918358851338581136, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 0.19
-      objectReference: {fileID: 0}
-    - target: {fileID: 5918358851338581136, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_fontSizeBase
-      value: 0.19
-      objectReference: {fileID: 0}
-    - target: {fileID: 8684829751410966389, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_Name
-      value: DestTankSign
-      objectReference: {fileID: 0}
-    - target: {fileID: 8684829751410966389, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 8684829751410966389, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8684829751410966389, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8747526440545715039, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 8747526440545715039, guid: e7c90b0586289f64f9df479b5204ad7b,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e7c90b0586289f64f9df479b5204ad7b, type: 3}
---- !u!4 &2349540925443941879 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 763151834798322844, guid: e7c90b0586289f64f9df479b5204ad7b,
-    type: 3}
-  m_PrefabInstance: {fileID: 3029934676954534251}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5947789648189943326 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8684829751410966389, guid: e7c90b0586289f64f9df479b5204ad7b,
-    type: 3}
-  m_PrefabInstance: {fileID: 3029934676954534251}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3146262956983985386
 PrefabInstance:

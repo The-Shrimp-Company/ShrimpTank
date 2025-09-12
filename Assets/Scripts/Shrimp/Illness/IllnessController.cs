@@ -208,7 +208,7 @@ public class IllnessController : MonoBehaviour
     }
 
 
-    public void UseMedicine(Medicine m)
+    public void UseMedicine(MedicineItemSO m)
     {
         if (currentSymptoms == null || currentSymptoms.Count == 0) return;
         if (m == null || m.symptoms == null) return;

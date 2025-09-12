@@ -395,11 +395,6 @@ public class TankViewScript : ScreenView
         idealNitrLabel.text = ((int)tank.idealNitr).ToString();
     }
 
-    public void SetDestinationTank()
-    {
-        Store.SwitchDestinationTank(tank);
-    }
-
     public void SetOpenTank()
     {
         tank.toggleTankOpen();
