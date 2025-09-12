@@ -806,12 +806,12 @@ GameObject:
   - component: {fileID: 7942848074564292856}
   - component: {fileID: 3151483613799954150}
   m_Layer: 5
-  m_Name: MoveShrimp (1)
+  m_Name: Medicine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6704560668642043222
 RectTransform:
   m_ObjectHideFlags: 0

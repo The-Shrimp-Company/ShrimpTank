@@ -688,39 +688,51 @@ public class TankController : Interactable
         bool stopHolding = true;
 
         Item item = Store.player.GetComponent<HeldItem>().GetHeldItem();
-        ItemSO so = null; 
+        ItemSO so = null;
         if (item != null) so = Inventory.GetSOForItem(item);
-        if (so && so.tags.Contains(ItemTags.Shrimp))
-        {
-            ShrimpStats s = (item as ShrimpItem).shrimp;
-            if (Mathf.Abs(waterAmmonium - s.ammoniaPreference) > 10 &&
-                Mathf.Abs(waterSalt - s.salineLevel) > 10 &&
-                Mathf.Abs(waterPh - s.PhPreference) > 2 &&
-                Mathf.Abs(waterTemperature - s.temperaturePreference) > 10)
-            {
-                //price.text = "Can't buy this shrimp with current destination tank. Shrimp will die.";
-                //price.transform.parent.GetComponent<Button>().interactable = false;
-            }
-            else
-            {
-                SpawnShrimp((item as ShrimpItem).shrimp);
-                Inventory.RemoveShrimp(s);
-            }
-        }
-        else if (so && so.tags.Contains(ItemTags.Food) && !FedTankToday())
-        {
-            FeedShrimp();
-            Inventory.RemoveItem(item);
 
-            if (Inventory.GetItemQuantity(item) > 0) stopHolding = false;
-        }
-        else
+        if (!so)  // Not holding anything
         {
             Store.player.GetComponent<PlayerInteraction>().SetTankFocus(this);
         }
+        else
+        {
+            if (so.tags.Contains(ItemTags.Shrimp))  // Holding a Shrimp
+            {
+                ShrimpStats s = (item as ShrimpItem).shrimp;
+                if (Mathf.Abs(waterAmmonium - s.ammoniaPreference) > 10 &&
+                    Mathf.Abs(waterSalt - s.salineLevel) > 10 &&
+                    Mathf.Abs(waterPh - s.PhPreference) > 2 &&
+                    Mathf.Abs(waterTemperature - s.temperaturePreference) > 10)
+                {
+                    //price.text = "Can't buy this shrimp with current destination tank. Shrimp will die.";
+                    //price.transform.parent.GetComponent<Button>().interactable = false;
+                }
+                else
+                {
+                    SpawnShrimp((item as ShrimpItem).shrimp);
+                    Inventory.RemoveShrimp(s);
+                }
+            }
+            else if (so.tags.Contains(ItemTags.Food) && !FedTankToday())  // Holding Food
+            {
+                FeedShrimp();
+                Inventory.RemoveItem(item);
 
-        if (stopHolding)
-            Store.player.GetComponent<HeldItem>().StopHoldingItem();
+                if (Inventory.GetItemQuantity(item) > 0) stopHolding = false;
+            }
+            else if (so.tags.Contains(ItemTags.Medicine) && shrimpInTank.Count != 0)  // Holding Medicine
+            {
+                foreach (Shrimp shrimp in shrimpInTank)
+                {
+                    shrimp.illnessCont.UseMedicine((so as MedicineItemSO));
+                }
+
+                Inventory.RemoveItem(item);
+            }
+        }
+
+        if (stopHolding) Store.player.GetComponent<HeldItem>().StopHoldingItem();
         OnHover();
     }
 
@@ -734,7 +746,7 @@ public class TankController : Interactable
                     tooltip.toolTip = "Put shrimp in " + tankName;
                 else if (Inventory.GetSOForItem(Store.player.GetComponent<HeldItem>().GetHeldItem()).tags.Contains(ItemTags.Food) && !FedTankToday())
                     tooltip.toolTip = "Put food in " + tankName;
-                else if (Inventory.GetSOForItem(Store.player.GetComponent<HeldItem>().GetHeldItem()).tags.Contains(ItemTags.Medicine))
+                else if (Inventory.GetSOForItem(Store.player.GetComponent<HeldItem>().GetHeldItem()).tags.Contains(ItemTags.Medicine) && shrimpInTank.Count != 0)
                     tooltip.toolTip = "Put medicine in " + tankName;
                 else tooltip.toolTip = "";
             }
