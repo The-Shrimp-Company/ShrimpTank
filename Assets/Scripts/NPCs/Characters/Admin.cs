@@ -49,7 +49,7 @@ public class Admin : NPC
             email.subjectLine = "Buying shrimp";
             email.mainText = "Now that you have a tank set up, you'll want to buy some shrimp. There are several things to be aware of when doing this, the first being that not every shrimp is " +
                 "suited for the tank you've set up, and the second being that if you want to get any more shrimp out of the purchase, you'll want to get at least two, of different sexes. So, go into " +
-                "the store, and look for two shrimp, male and female, and both with similar needs.\nThen, make sure your destination tank is set up for them, so try and make sure the numbers are the " +
+                "the store, and look for two shrimp, male and female, and both with similar needs.\nThen, make sure your tank is set up for them, so try and make sure the numbers are the " +
                 "same as what they need, and then buy them both. It's important to remember, they <color=yellow>don't</color> need to be perfect for each other, the shrimp won't die as long as they " +
                 "have at least <color=yellow>one</color> of their needs met";
         }
@@ -62,7 +62,21 @@ public class Admin : NPC
                 "they will die pretty fast. You also have to feed them <color=yellow>at least once a day</color>, but as long as you've put the food in the tank every day, they should be able " +
                 "to feed themselves as much as they need. To start with, go into the store on your tablet, and <color=yellow>buy some shrimp food</color>.";
         }
-        #endregion
+
+        if(completion == 5)
+        {
+            email.subjectLine = "A few more things";
+            email.mainText = "Well, now that you have the caring for shrimp, and buying shrimp parts down, the rest of the process is quite simple. Firstly, if you have a healthy tank of shrimp, " +
+                "eventually they will breed and you will get more shrimp. This is good for obvious reasons, but it's important to note that <color=yellow>if you have too many shrimp in the same tank, they " +
+                "will stop breeding</color>. Next, you may be wondering how to make any money. Well, once you've bred some shrimp, all you need to do is to sell them on. Selling shrimp is done most " +
+                "commonly in one of two ways: either <color=yellow>making the tank open to customers</color> or by instead <color=yellow>listing specific shrimp in your store</color>. These both have " +
+                "their up and downsides. As a new store, you can only list so many shrimp at a time in your store, so you can't sell too many shrimp over there, and you have to set the price yourself, so " +
+                "you might end up setting it too low, and giving someone a really good deal, or you might set it too high and lose reputation. The other option lets you open a tank to customers, which does " +
+                "sell shrimp faster, but you can't set the price, and generally the shrimp will sell for a little less than what you could have gotten selling them on your store. You'll have to decide for " +
+                "yourself which is best.\n\nAlso, another thing to keep in mind is that the vet app will both provide medical services for you and you shrimp while also <color=yellow>having some useful " +
+                "information on shrimp care</color> which you can access for free. Check it out if you're feeling lost.";
+            email.CreateEmailButton("I understand", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 10);
+        }
 
         if (completion == 10)
         {
@@ -74,6 +88,7 @@ public class Admin : NPC
                 .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "AccountActivated");
             important = true;
         }
+        #endregion
 
         #region Other NPC Interactions
         if (completion == 3000)
@@ -248,8 +263,8 @@ public class Admin : NPC
                             sentEmail.AddEmailText("\nIt seems you have got a tank to the right proportions. I do need to still explain pH. You tank has water in it, and that water is at a specific " +
                                 "pH level. It will start at 7, and your shrimp will all have different pH preferences. pH is the easiest quality of your tank to change, and is rarely changed by time, " +
                                 "so while you are beginning it is a good idea to <color=yellow>group shrimp by their pH preference</color>, but you can do what you want.", "\n\nAdmin");
-                            sentEmail.CreateEmailButton("I understand", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 3);
-                            Tutorial.instance.flags.Add("ShrimpStoreOpen");
+                            sentEmail.CreateEmailButton("I understand", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 3)
+                                .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "ShrimpStoreOpen");
                             flags.Add("AddedNitrate");
                         }
                     }
@@ -274,7 +289,8 @@ public class Admin : NPC
                         if(Inventory.GetInventoryItemsWithTag(ItemTags.Food).Count > 0)
                         {
                             flags.Add("BoughtFood");
-                            sentEmail.AddEmailText("\nNow that you have bought food, you must feed your shrimp. Go to the tank that has the shrimp in it, and <color=yellow>feed them</color>.", "\n\nAdmin");
+                            sentEmail.AddEmailText("\nNow that you have bought food, you must feed your shrimp. Go to the storage boxes, by your stores door, and take the shrimp food out of it. Then go " +
+                                "and put some in the tank. The sign telling you to feed your shrimp will disapear when you have fed them.", "\n\nAdmin");
                         }
                     }
                     else if (!flags.Contains("FedShrimp"))
@@ -283,7 +299,7 @@ public class Admin : NPC
                         {
                             flags.Add("FedShrimp");
                             sentEmail.AddEmailText("So now you have set up a tank for shrimp, and you've bought shrimp, and you've fed shrimp. Well done!", "\n\nAdmin");
-                            sentEmail.CreateEmailButton("I understand", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, 10)
+                            sentEmail.CreateEmailButton("I understand", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, 5)
                                 .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "OwnStoreOpen", "VetOpen");
                         }
                     }

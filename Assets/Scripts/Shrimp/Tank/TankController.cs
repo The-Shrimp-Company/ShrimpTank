@@ -382,7 +382,7 @@ public class TankController : Interactable
 
 
         // Water Temperature
-        waterTemperature -= tempuratureChangeSpeed * updateTimer;
+        waterTemperature = Mathf.Clamp(waterTemperature - tempuratureChangeSpeed * updateTimer, 20, 80);
 
         waterSalt -= 0.01f * updateTimer * shrimpInTank.Count;
         
@@ -833,7 +833,7 @@ public class TankController : Interactable
         RemoveHoldAction("Remove");
 
         waterAmmonium = 0;
-        waterTemperature = 50;
+        waterTemperature = 20;
         waterSalt = 0;
         waterPh = 7;
 

@@ -239,27 +239,31 @@ public class Shrimp : MonoBehaviour
     /// <param name="DeathReason">Give a reason for the shrimps death, which will be added to the email notification of the death. Does nothing if the email is supressed.</param>
     public void KillShrimp(bool supressMessage = false, string DeathReason = "")
     {
-        illnessCont.RemoveShrimp();
-        tank.shrimpToRemove.Add(this);
-
-        if (focusingShrimp)
+        if (Tutorial.instance.flags.Contains("AccountActivated"))
         {
-            GetComponentInChildren<ShrimpCam>().Deactivate();
-            Camera.main.transform.SetPositionAndRotation(tank.GetCam().transform.position, tank.GetCam().transform.rotation);
-            UIManager.instance.CloseScreen();
-        }
+            illnessCont.RemoveShrimp();
+            tank.shrimpToRemove.Add(this);
+
+            if (focusingShrimp)
+            {
+                GetComponentInChildren<ShrimpCam>().Deactivate();
+                Camera.main.transform.SetPositionAndRotation(tank.GetCam().transform.position, tank.GetCam().transform.rotation);
+                UIManager.instance.CloseScreen();
+            }
 
 
-        // Spawn dead body
+            // Spawn dead body
 
-        if(!supressMessage) tank.ShrimpDiedAlarm(stats, DeathReason);
+            if(!supressMessage) tank.ShrimpDiedAlarm(stats, DeathReason);
 
 
         
 
-        PlayerStats.stats.shrimpDeaths++;
+            PlayerStats.stats.shrimpDeaths++;
 
-        //Destroy(gameObject);
+            //Destroy(gameObject);
+
+        }
     }
 
 

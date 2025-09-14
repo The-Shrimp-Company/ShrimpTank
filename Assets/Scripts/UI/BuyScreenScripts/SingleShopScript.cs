@@ -79,13 +79,13 @@ public class SingleShopScript : ScreenView
         colour1.color = GeneManager.instance.GetTraitSO(shrimp.primaryColour.activeGene.ID).colour;
         colour2.color = GeneManager.instance.GetTraitSO(shrimp.secondaryColour.activeGene.ID).colour;
         //hunger.value = shrimp.hunger;
-        //tempLabel.text = "Temperature:\n" + shrimp.temperaturePreference.ToString();
+        tempLabel.text = "Temperature:\n" + shrimp.temperaturePreference.ToString();
         //if (Mathf.Abs(Store.GetDestinationTank().waterTemperature - shrimp.temperaturePreference) >= 10) tempLabel.text += "<color=red><size=20>\nTank not suitable</size></color>";
-        //saltLabel.text = "Salt:\n" + shrimp.salineLevel.ToString();
+        saltLabel.text = "Salt:\n" + shrimp.salineLevel.ToString();
         //if (Mathf.Abs(Store.GetDestinationTank().waterSalt - shrimp.salineLevel) >= 10) saltLabel.text += "<color=red><size=20>\nTank not suitable</size></color>";
-        //hnoLabel.text = "Ammonium:\n" + shrimp.ammoniaPreference.ToString();
+        hnoLabel.text = "Ammonium:\n" + shrimp.ammoniaPreference.ToString();
         //if (Mathf.Abs(Store.GetDestinationTank().waterAmmonium - shrimp.ammoniaPreference) >= 10) hnoLabel.text += "<color=red><size=20>\nTank not suitable</size></color>";
-        //PhLabel.text = "ph:\n" + shrimp.PhPreference.ToString();
+        PhLabel.text = "ph:\n" + shrimp.PhPreference.ToString();
         //if (Mathf.Abs(Store.GetDestinationTank().waterPh - shrimp.PhPreference) >= 2) PhLabel.text += "<color=red><size=20>\nTank not suitable</size></color>";
 
         /*

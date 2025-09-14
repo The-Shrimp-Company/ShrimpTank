@@ -630,10 +630,10 @@ MonoBehaviour:
   idealSalt: 0
   idealNitr: 0
   idealPh: 0
-  tempVariance: 10
-  saltVariance: 10
-  nitrVariance: 10
-  pHVariance: 2
+  tempVariance: 5
+  saltVariance: 5
+  nitrVariance: 5
+  pHVariance: 1
   upgradeController: {fileID: 0}
   lights:
   - {fileID: 9082456001141851980}
