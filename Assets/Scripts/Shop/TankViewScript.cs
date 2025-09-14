@@ -251,17 +251,17 @@ public class TankViewScript : ScreenView
 
     public void AddSalt()
     {
-        tank.waterSalt += 10;
+        tank.waterSalt = Mathf.Clamp(tank.waterSalt + 10, 0, 100);
     }
 
     public void ChangePh(int dir)
     {
-        tank.waterPh += dir;
+        tank.waterPh = Mathf.Clamp(tank.waterPh + dir, 1, 14);
     }
 
     public void AddAmmonium()
     {
-        tank.waterAmmonium += 10;
+        tank.waterAmmonium = Mathf.Clamp(tank.waterAmmonium + 10, 0, 100);
     }
 
     public void SelectAll()
