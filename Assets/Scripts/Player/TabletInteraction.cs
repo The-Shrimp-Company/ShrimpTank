@@ -17,7 +17,7 @@ public class TabletInteraction : ScreenView
     [SerializeField]
     private GameObject BuyScreen;
     [SerializeField]
-    private GameObject UpgradeScreen;
+    private GameObject ItemShopScreen;
     [SerializeField]
     private GameObject InventoryScreen;
     [SerializeField]
@@ -56,10 +56,10 @@ public class TabletInteraction : ScreenView
         PlayerStats.stats.timesShrimpShopAppOpened++;
     }
 
-    public void OpenUpgrades()
+    public void OpenItemShop()
     {
-        GameObject upgradeScreen = Instantiate(UpgradeScreen, transform.parent.transform);
-        UIManager.instance.OpenScreen(upgradeScreen.GetComponent<ScreenView>());
+        GameObject itemShopScreen = Instantiate(ItemShopScreen, transform.parent.transform);
+        UIManager.instance.OpenScreen(itemShopScreen.GetComponent<ScreenView>());
         PlayerStats.stats.timesItemShopAppOpened++;
     }
 

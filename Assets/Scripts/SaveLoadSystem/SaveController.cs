@@ -116,6 +116,7 @@ public class SaveController : MonoBehaviour
 
         // Inventory
         d.inventoryItems = Inventory.GetInventory(false, false).ToArray();
+        d.inventoryShrimp = Inventory.GetShrimpInventory().ToArray();
 
         // Global Genes
         if (GeneManager.instance)
@@ -147,7 +148,6 @@ public class SaveController : MonoBehaviour
                 tankSave.tankName = t.tankName;
                 tankSave.tankId = t.tankId;
                 tankSave.upgradeState = t.upgradeState;
-                tankSave.destinationTank = t.destinationTank;
                 tankSave.openTank = t.openTank;
                 tankSave.upgradeIDs = t.GetComponent<TankUpgradeController>().SaveUpgrades();
                 tankSave.waterFilled = t.waterFilled;
@@ -252,7 +252,7 @@ public class SaveController : MonoBehaviour
         GameSettings.settings = d.gameSettings;
 
         // Inventory
-        Inventory.instance.Initialize(d.inventoryItems);
+        Inventory.instance.Initialize(d.inventoryItems, d.inventoryShrimp);
 
         // Room Decorations
         Store.decorateController.LoadDecorations(d.roomDecorations, d.tanks);

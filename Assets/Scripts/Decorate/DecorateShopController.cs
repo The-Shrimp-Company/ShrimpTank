@@ -92,7 +92,6 @@ public class DecorateShopController : MonoBehaviour
                 if (tank != null)
                 {
                     tanksInStore.Add(tank);
-                    Store.SwitchDestinationTank(tank);
                     tank.tankName = "Tank " + tanksInStore.Count;
                 }
 
@@ -308,9 +307,8 @@ public class DecorateShopController : MonoBehaviour
         {
             if (selectionValid && selectedObject != null)  // Clicking on a valid space
             {
-                if (Inventory.HasItem(selectedItemType.itemName))
+                if (Inventory.HasItem(selectedItemType.itemName) || movingObject)
                 {
-                    Inventory.RemoveItem(selectedItemType.itemName);
                     PlaceDecoration(selectedItemType);
                 }
                 else if (Money.instance.WithdrawMoney(selectedItemType.purchaseValue))
@@ -421,6 +419,8 @@ public class DecorateShopController : MonoBehaviour
 
         d.transform.rotation = objectPreview.transform.rotation;
 
+        if (!movingObject)
+            Inventory.RemoveItem(selectedItemType.itemName);
 
         // Set up decoration
         Decoration decoration;
@@ -437,7 +437,6 @@ public class DecorateShopController : MonoBehaviour
         if (tank != null)
         {
             tanksInStore.Add(tank);
-            Store.SwitchDestinationTank(tank);
             tank.tankName = "Tank " + tanksInStore.Count;
             tank.tankId = Time.time.ToString();
         }
@@ -677,7 +676,8 @@ public class DecorateShopController : MonoBehaviour
     {
         if (!obj || !so) return;
 
-        Inventory.AddItem(so.itemName);
+        if (!movingObject)
+            Inventory.AddItem(so.itemName);
 
         decorationsInStore.Remove(obj.GetComponent<Decoration>());
 
@@ -757,7 +757,6 @@ public class DecorateShopController : MonoBehaviour
         tank.tankId = data.tankId;
         tank.AlarmIds = data.alarmIds.ToList<String>();
 
-        if (data.destinationTank) Store.SwitchDestinationTank(tank);
         if (data.openTank) tank.toggleTankOpen();
 
         foreach (ShrimpStats s in data.shrimp)

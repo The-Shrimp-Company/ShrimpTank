@@ -256,7 +256,7 @@ public class GeneManager : MonoBehaviour
     }
 
 
-    public bool RandomGender()
+    public bool RandomSex()
     {
         return FullyRandomBool();  // 0 = Female, 1 = Male
     }

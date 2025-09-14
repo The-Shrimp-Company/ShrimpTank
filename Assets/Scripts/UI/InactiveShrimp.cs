@@ -11,6 +11,6 @@ public class InactiveShrimp : MonoBehaviour
     {
         GameObject newShrimp = Instantiate(GeneManager.instance.GetTraitSO(s.legs.activeGene.ID).part, shrimpModel);
         newShrimp.GetComponent<Legs>().Construct(s);
-        newShrimp.transform.SetLayerRecursively(LayerMask.NameToLayer("ShrimpUI"));
+        //newShrimp.transform.SetLayerRecursively(LayerMask.NameToLayer("ShrimpUI"));
     }
 }

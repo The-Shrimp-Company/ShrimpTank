@@ -76,3 +76,41 @@
     right: 0;
     bottom: 0;
 }
+
+.MenuDown {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: space-between;
+    align-self: center;
+    min-width: 277px;
+    min-height: 71px;
+    max-height: 475px;
+    top: auto;
+    bottom: 177px;
+    height: 460px;
+    width: 264px;
+    translate: 0 150%;
+    opacity: 0;
+}
+
+.MenuUp {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: space-between;
+    align-self: center;
+    min-width: 277px;
+    min-height: 71px;
+    max-height: 475px;
+    top: auto;
+    bottom: 177px;
+    height: 460px;
+    width: 264px;
+}
+
+.TitleDown {
+}
+
+.TitleUp {
+    translate: 0 -400%;
+    opacity: 0;
+}

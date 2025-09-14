@@ -80,7 +80,7 @@ public class PlayerInteraction : MonoBehaviour
             }
             else
             {
-                if (targetInteractable) targetInteractable.Action();
+                if (targetInteractable && targetInteractable.interactable) targetInteractable.Action();
             }
         }
     }
@@ -94,9 +94,11 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (Store.decorateController.decorating)
                 Store.decorateController.StopPlacing();
+            else if (GetComponent<HeldItem>().GetHeldItem() != null)
+                GetComponent<HeldItem>().StopHoldingItem();
             else
             {
-                if (!targetInteractable || !targetInteractable.HasHoldActions()) return;
+                if (!targetInteractable || !targetInteractable.holdInteractable || !targetInteractable.HasHoldActions()) return;
 
                 radialMenu.DisplayMenu(targetInteractable.GetHoldActions(), targetInteractable.decoration.decorationSO.itemName);
             }

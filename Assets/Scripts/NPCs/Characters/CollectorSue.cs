@@ -69,6 +69,16 @@ public class CollectorSue : NPC
                 data.completion.Dequeue();
             }
 
+            if(completion == 4 && shrimpBought.Count == 15)
+            {
+                email.subjectLine = "15 Shrimp bought!";
+                email.mainText = "I've now bought 15 different shrimp from you, and so I'm going to open my store to you. This is where I sell all my duplicate shrimp, which I don't need any more";
+                email.CreateEmailButton("Oh, thanks!", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 5);
+                important = true;
+                data.completion.Dequeue();
+                ShopManager.instance.FindNpcShop(name).unlocked = true;
+            }
+
             if(flags.Contains("WillBuy"))
             {
                 flags.Remove("WillBuy");

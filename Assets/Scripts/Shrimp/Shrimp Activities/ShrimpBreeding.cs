@@ -37,7 +37,7 @@ public class ShrimpBreeding : ShrimpActivity
             EndActivity();
             return;
         }
-        if (shrimp.stats.gender == false)  // Is female
+        if (shrimp.stats.sex == false)  // Is female
             female = true;
 
         breeding = false;

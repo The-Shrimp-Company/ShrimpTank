@@ -27,8 +27,8 @@
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
     color: rgb(0, 84, 87);
-    font-size: 21px;
-    -unity-text-align: upper-center;
+    font-size: 120%;
+    -unity-text-align: middle-center;
     -unity-font-style: bold-and-italic;
 }
 
@@ -67,4 +67,10 @@
     align-self: center;
     justify-content: center;
     align-items: center;
+}
+
+.my-text-field {
+}
+
+.unity-text-field {
 }

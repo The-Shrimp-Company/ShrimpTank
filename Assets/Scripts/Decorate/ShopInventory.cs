@@ -9,6 +9,7 @@ using System;
 using UnityEditor;
 using UnityEngine.Windows;
 using AYellowpaper.SerializedCollections;
+using System.Linq;
 
 public enum InventoryTabs
 {
@@ -29,6 +30,7 @@ public class ShopInventory : ScreenView
 
     [Header("Info Box")]
     [SerializeField] private CanvasGroup infoCanvasGroup;
+    [SerializeField] GameObject selectedItemInfoPanel;
     [SerializeField] TMP_Text selectedItemNameText;
     [SerializeField] Image selectedItemImage;
     [SerializeField] TMP_Text selectedItemDescriptionText;
@@ -37,6 +39,22 @@ public class ShopInventory : ScreenView
     [SerializeField] TMP_Text selectedItemSizeText;
     [SerializeField] TMP_Text selectedItemSurfacesText;
     [SerializeField] float infoFadeSpeed = 0.5f;
+
+    [Header("Shrimp Info Box")]
+    [SerializeField] GameObject selectedShrimpInfoPanel;
+    [SerializeField] TMP_Text selectedShrimpNameText;
+    [SerializeField] TMP_Text selectedShrimpBreedText;
+    [SerializeField] TMP_Text selectedShrimpValueText;
+    [SerializeField] Image selectedShrimpPrimaryColour;
+    [SerializeField] Image selectedShrimpSecondaryColour;
+    [SerializeField] TMP_Text selectedShrimpGenderText;
+    [SerializeField] TMP_Text selectedShrimpPatternText;
+    [SerializeField] TMP_Text selectedShrimpHeadText;
+    [SerializeField] TMP_Text selectedShrimpBodyText;
+    [SerializeField] TMP_Text selectedShrimpEyesText;
+    [SerializeField] TMP_Text selectedShrimpLegsText;
+    [SerializeField] TMP_Text selectedShrimpTailText;
+    [SerializeField] TMP_Text selectedShrimpTailFanText;
 
     [Header("Filters")]
     [SerializedDictionary("Button", "Filters")]
@@ -48,13 +66,13 @@ public class ShopInventory : ScreenView
 
 
     [HideInInspector] public ItemSO selectedItemType;
+    [HideInInspector] public ShrimpStats selectedShrimp;
     [HideInInspector] public GameObject selectedItemGameObject;
 
 
     public override void Open(bool switchTab)
     {
-        Debug.Log("Opening shop decorate");
-        player = GameObject.Find("Player");
+        player = Store.player;
         shop = Store.decorateController;
         selectedItemType = null;
         selectedItemGameObject = null;
@@ -65,16 +83,17 @@ public class ShopInventory : ScreenView
 
     public void OpenInventory(List<InventoryTabs> t)
     {
-        int startingTab = 0;
+        int startingTab = -1;
         if (t != null && t.Count != 0)
         {
             for (int i = 0; i < tabs.Count; i++)
             {
                 tabs[i].gameObject.SetActive(t.Contains((InventoryTabs)i));
-                if (startingTab == 0 && t.Contains((InventoryTabs)i)) startingTab = i;
+                if (startingTab == -1 && t.Contains((InventoryTabs)i)) startingTab = i;
             }
         }
 
+        Store.player.GetComponent<HeldItem>().StopHoldingItem();
         ChangeSelectedItem(null, null);
         ChangeTab(tabs[startingTab]);
         StartCoroutine(OpenTab(false));
@@ -98,63 +117,114 @@ public class ShopInventory : ScreenView
 
         contentBlocks.Clear();
 
-        List<Item> items = Inventory.GetInventory(false, true);
+        List<Item> items = Inventory.GetInventory(true, false);
+        items = items.Concat(Inventory.GetShrimpInventory()).ToList();
+        items = Inventory.SortItemsByQuantityThenName(items);
 
         // Filter items here
         if (currentTab != null && tabFilters[currentTab] != null)
         {
-            items = Inventory.FilterItemsWithTags(items, tabFilters[currentTab].GetTabFilters());
-            items = Inventory.FilterItemsWithTags(items, tabFilters[currentTab].GetActiveSubFilters());
+            items = Inventory.FilterItemsWithTags(items, GetTabFilters(currentTab));
+            foreach (ItemTags tag in tabFilters[currentTab].GetActiveSubFilters())
+            {
+                items = Inventory.FilterItemsWithTag(items, tag);
+            }
         }
 
         foreach (Item i in items)
         {
-            ItemSO so = Inventory.GetSOForItem(i);
-
-            if (so == null)
-            {
-                Debug.LogWarning("Cannot find SO for " + i.itemName);
-                return;
-            }
+            ShrimpItem shrimp = i as ShrimpItem;
 
             DecorationContentBlock content = Instantiate(_contentBlock, _content.transform).GetComponent<DecorationContentBlock>();
             contentBlocks.Add(content);
-            content.SetText(i.itemName);
-            content.SetDecoration(so);
-            content.ownedText.text = i.quantity.ToString();
-            content.priceText.text = "£" + so.purchaseValue.ToString();
 
-            if (selectedItemType == so) content.buttonSprite.color = content.selectedColour;
-            else if (i.quantity > 0) content.buttonSprite.color = content.inInventoryColour;
-            else if (so.purchaseValue <= Money.instance.money) content.buttonSprite.color = content.notInInventoryColour;
-            else if (so.purchaseValue > Money.instance.money) content.buttonSprite.color = content.cannotAffordColour;
+            if (shrimp == null)
+            { 
+                ItemSO so = Inventory.GetSOForItem(i);
 
-            content.button.onClick.AddListener(() =>
-            {
-                if (content.buttonSprite.color != content.selectedColour)  // If it isn't already selected
+                if (so == null)
                 {
-                    ChangeSelectedItem(so, content.gameObject);
+                    Debug.LogWarning("Cannot find SO for " + i.itemName);
+                    return;
                 }
-                else  // If it is already selected
+
+                content.SetText(i.itemName);
+
+                content.SetDecoration(so);
+                content.ownedText.text = i.quantity.ToString();
+                content.priceText.text = "£" + so.purchaseValue.ToString();
+
+                if (selectedItemType == so) content.buttonSprite.color = content.selectedColour;
+                else if (i.quantity > 0) content.buttonSprite.color = content.inInventoryColour;
+                else if (so.purchaseValue <= Money.instance.money) content.buttonSprite.color = content.notInInventoryColour;
+                else if (so.purchaseValue > Money.instance.money) content.buttonSprite.color = content.cannotAffordColour;
+
+                content.button.onClick.AddListener(() =>
                 {
-                    DecorationItemSO d = so as DecorationItemSO;
-                    if (d != null)
+                    if (content.buttonSprite.color != content.selectedColour)  // If it isn't already selected
                     {
-                        shop.StartPlacing(d.decorationPrefab, d);
+                        ChangeSelectedItem(so, content.gameObject);
+                    }
+                    else  // If it is already selected
+                    {
+                        DecorationItemSO d = so as DecorationItemSO;
+                        MedicineItemSO m = so as MedicineItemSO;
+                        FoodItemSO f = so as FoodItemSO;
+                        if (d != null)
+                        {
+                            shop.StartPlacing(d.decorationPrefab, d);
+                            Close();
+                            return;
+                        }
+                        else if (m != null || f != null) 
+                        {
+                            Store.player.GetComponent<HeldItem>().HoldItem(i);
+                            Close();
+                            return;
+                        }
+                    }
+
+                    UpdateContent();
+                });
+            }
+
+            else  // Shrimp Item
+            {
+                content.SetText(shrimp.shrimp.GetBreedname());
+
+                content.ownedText.gameObject.SetActive(false);
+                content.priceText.gameObject.SetActive(false);
+
+                if (selectedShrimp.name == shrimp.shrimp.name && selectedShrimp.birthTime == shrimp.shrimp.birthTime) content.buttonSprite.color = content.selectedColour;
+                else if (i.quantity > 0) content.buttonSprite.color = content.inInventoryColour;
+                else content.buttonSprite.color = content.notInInventoryColour;
+
+                content.button.onClick.AddListener(() =>
+                {
+                    if (content.buttonSprite.color != content.selectedColour)  // If it isn't already selected
+                    {
+                        ChangeSelectedItem(shrimp.shrimp);
+                    }
+                    else  // If it is already selected
+                    {
+                        Store.player.GetComponent<HeldItem>().HoldItem(i);
                         Close();
                         return;
                     }
-                }
 
-                UpdateContent();
-            });
+                    UpdateContent();
+                });
+            }
         }
     }
 
     public void ChangeSelectedItem(ItemSO so, GameObject obj)
     {
         selectedItemType = so;
+        selectedShrimp = new ShrimpStats();
         selectedItemGameObject = obj;
+        selectedItemInfoPanel.SetActive(true);
+        selectedShrimpInfoPanel.SetActive(false);
 
         if (selectedItemType != null)
         {
@@ -190,6 +260,40 @@ public class ShopInventory : ScreenView
         }
     }
 
+    public void ChangeSelectedItem(ShrimpStats shrimp)
+    {
+        selectedShrimp = shrimp;
+        selectedItemType = null;
+        selectedItemGameObject = null;
+        selectedItemInfoPanel.SetActive(false);
+        selectedShrimpInfoPanel.SetActive(true);
+
+        if (selectedShrimp.name != "")
+        {
+            selectedShrimpNameText.text = shrimp.name;
+            selectedShrimpBreedText.text = shrimp.GetBreedname();
+            selectedShrimpValueText.text = "£" + EconomyManager.instance.GetShrimpValue(shrimp).RoundMoney().ToString();
+            selectedShrimpPrimaryColour.color = GeneManager.instance.GetTraitSO(shrimp.primaryColour.activeGene.ID).colour;
+            selectedShrimpSecondaryColour.color = GeneManager.instance.GetTraitSO(shrimp.secondaryColour.activeGene.ID).colour;
+            selectedShrimpGenderText.text = shrimp.sex ? "Male" : "Female";
+            selectedShrimpPatternText.text = GeneManager.instance.GetTraitSO(shrimp.pattern.activeGene.ID).traitName;
+            selectedShrimpHeadText.text = GeneManager.instance.GetTraitSO(shrimp.head.activeGene.ID).set.ToString();
+            selectedShrimpBodyText.text = GeneManager.instance.GetTraitSO(shrimp.body.activeGene.ID).set.ToString();
+            selectedShrimpEyesText.text = GeneManager.instance.GetTraitSO(shrimp.eyes.activeGene.ID).set.ToString();
+            selectedShrimpLegsText.text = GeneManager.instance.GetTraitSO(shrimp.legs.activeGene.ID).set.ToString();
+            selectedShrimpTailText.text = GeneManager.instance.GetTraitSO(shrimp.tail.activeGene.ID).set.ToString();
+            selectedShrimpTailFanText.text = GeneManager.instance.GetTraitSO(shrimp.tailFan.activeGene.ID).set.ToString();
+
+            infoCanvasGroup.DOKill();
+            infoCanvasGroup.DOFade(1, infoFadeSpeed).SetEase(Ease.InOutSine);
+        }
+        else
+        {
+            infoCanvasGroup.DOKill();
+            infoCanvasGroup.DOFade(0, infoFadeSpeed).SetEase(Ease.InOutSine);
+        }
+    }
+
 
     public void ChangeTab(Button b)
     {
@@ -208,20 +312,21 @@ public class ShopInventory : ScreenView
         UpdateContent();
     }
 
+    private List<ItemTags> GetTabFilters(Button button)
+    {
+        if (tabFilters[button].allTab)
+        {
+            List<ItemTags> tags = new List<ItemTags>();
+            foreach (Button filter in tabFilters.Keys)
+            {
+                if (filter.gameObject.activeSelf)
+                    tags = tags.Concat(tabFilters[filter].GetTabFilters()).ToList();
+            }
+            return tags;
+        }
 
-    //public async void ClearTank()
-    //{
-    //    int delay = 400 / shop.decorationsInStore.Count;
-    //    for (int i = shop.decorationsInStore.Count - 1; i >= 0; i--)
-    //    {
-    //        if (shop.decorationsInStore[i] == null) continue;
-    //        shop.selectedObject = shop.decorationsInStore[i].gameObject;
-    //        ChangeSelectedItem(shop.decorationsInStore[i].decorationSO, shop.decorationsInStore[i].gameObject);
-    //        PutAway();
-    //        await Task.Delay(delay);
-    //    }
-    //}
-
+        return tabFilters[currentTab].GetTabFilters();
+    }
 
 
 

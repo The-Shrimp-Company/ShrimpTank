@@ -11,6 +11,7 @@ public class ShopInventoryFilter : MonoBehaviour
     [SerializeField] List<ItemTags> tabFilters;
     [SerializedDictionary("Filter", "Item Tag")]
     public SerializedDictionary<Button, ItemTags> subFilters;
+    public bool allTab;
 
 
     public List<ItemTags> GetTabFilters()

@@ -64,7 +64,7 @@ public static class ShrimpActivityManager
                 List<Shrimp> validShrimp = new List<Shrimp>();
                 foreach (Shrimp s in shrimp.tank.shrimpInTank)
                 {
-                    if (s.stats.gender != shrimp.stats.gender)  // Get all shrimp of the opposite gender, also excludes this shrimp
+                    if (s.stats.sex != shrimp.stats.sex)  // Get all shrimp of the opposite gender, also excludes this shrimp
                     {
                         // Other logic for who can breed here
 

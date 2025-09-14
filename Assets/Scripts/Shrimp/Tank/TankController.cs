@@ -6,6 +6,7 @@ using System.Linq;
 using System;
 using DG.Tweening;
 using SaveLoadSystem;
+using System.Drawing;
 
 [RequireComponent(typeof(TankUpgradeController))]
 public class TankController : Interactable
@@ -70,11 +71,11 @@ public class TankController : Interactable
     public float waterTemperature = 50;
     private float tempuratureRisingTarget;
     private float tempuratureRisingTimer;
-    [SerializeField] float tempuratureChangeSpeed = 5;
+    [SerializeField] float tempuratureChangeSpeed = 0.005f;
     [SerializeField][Range(0,50)] float naturalTempuratureVariation = 25;
 
-    [HideInInspector] public float waterSalt = 50;
-    [HideInInspector] public float waterAmmonium = 50;
+    [HideInInspector] public float waterSalt = 0;
+    [HideInInspector] public float waterAmmonium = 0;
     [HideInInspector] public float waterPh = 7;
 
     [HideInInspector] public float idealTemp = 0;
@@ -94,8 +95,6 @@ public class TankController : Interactable
     [SerializeField] private List<Light> lights;
 
     [Header("Sale Tank")]
-    [SerializeField] private GameObject sign;
-    public bool destinationTank { get; private set; } = false;
     [SerializeField] private GameObject SaleSign;
     public bool openTank { get; private set; } = false;
     [SerializeField] private TextMeshProUGUI label;
@@ -132,6 +131,7 @@ public class TankController : Interactable
 
     [Header("Misc")]
     [HideInInspector] public bool tankLoaded;
+    private bool invalidShrimpHover;
 
     [Header("Optimisation")]
     private LODLevel currentLODLevel;
@@ -158,8 +158,6 @@ public class TankController : Interactable
 
         upgradeController = GetComponent<TankUpgradeController>();
         tooltip = GetComponent<ToolTip>();
-
-        sign.SetActive(destinationTank);
 
         breedingCooldownTimer = breedingCooldown;
         shrimpCanBreed = false;
@@ -261,7 +259,7 @@ public class TankController : Interactable
             {
                 if (starvationTime > starvationTimer)
                 {
-                    shrimpInTank[UnityEngine.Random.Range(0, shrimpInTank.Count)].KillShrimp(DeathReason:"of hunger");
+                    shrimpInTank[UnityEngine.Random.Range(0, shrimpInTank.Count)].KillShrimp(DeathReason: "of hunger"); 
                     starvationTimer = UnityEngine.Random.Range(5, 30);
                     starvationTime = 0;
                 }
@@ -277,10 +275,12 @@ public class TankController : Interactable
         }
 
         FoodAlertSign.SetActive(!FedShrimpToday());
-
+        MouseHover();
         label.text = tankName;
 
         if (focusingTank) PlayerStats.stats.timeSpentFocusingTank += Time.deltaTime;
+        interactable = (!waterFilling && waterFilled && tooltip.toolTip != "");
+        holdInteractable = (!waterFilling && shrimpInTank.Count <= 0);
     }
 
     public void FeedShrimp()
@@ -288,10 +288,8 @@ public class TankController : Interactable
         dayLastFed = TimeManager.instance.day;
     }
 
-    public bool FedShrimpToday()
-    {
-        return (dayLastFed == TimeManager.instance.day || shrimpInTank.Count == 0);
-    }
+    public bool FedShrimpToday() { return (dayLastFed == TimeManager.instance.day || shrimpInTank.Count == 0); }
+    public bool FedTankToday() { return (dayLastFed == TimeManager.instance.day); }
 
     private void AddToTank()
     {
@@ -384,7 +382,7 @@ public class TankController : Interactable
 
 
         // Water Temperature
-        waterTemperature -= 0.01f * updateTimer;
+        waterTemperature = Mathf.Clamp(waterTemperature - tempuratureChangeSpeed * updateTimer, 20, 80);
 
         waterSalt -= 0.01f * updateTimer * shrimpInTank.Count;
         
@@ -556,13 +554,6 @@ public class TankController : Interactable
         AlarmIds.Clear();
     }
 
-    public void ToggleDestinationTank()
-    {
-        destinationTank = !destinationTank;
-        sign.SetActive(destinationTank);
-    }
-
-
 
 
     public void toggleTankOpen()
@@ -723,32 +714,102 @@ public class TankController : Interactable
 
     public override void Action()
     {
-        ItemSO so = Inventory.GetSOForItem(Store.player.GetComponent<HeldItem>().GetHeldItem());
-        if (so && !so.tags.Contains(ItemTags.Shrimp))
+        bool stopHolding = true;
+
+        Item item = Store.player.GetComponent<HeldItem>().GetHeldItem();
+        ItemSO so = null;
+        if (item != null) so = Inventory.GetSOForItem(item);
+
+        if (!so)  // Not holding anything
         {
-            SpawnShrimp((Store.player.GetComponent<HeldItem>().GetHeldItem() as ShrimpItem).shrimp);
-            Store.player.GetComponent<HeldItem>().StopHoldingItem();
+            Store.player.GetComponent<PlayerInteraction>().SetTankFocus(this);
         }
         else
-            Store.player.GetComponent<PlayerInteraction>().SetTankFocus(this);
+        {
+            if (so.tags.Contains(ItemTags.Shrimp))  // Holding a Shrimp
+            {
+                ShrimpStats s = (item as ShrimpItem).shrimp;
+
+                if (!invalidShrimpHover)
+                {
+                    SpawnShrimp((item as ShrimpItem).shrimp);
+                    Inventory.RemoveShrimp(s);
+                }
+                else
+                {
+                    // Water not suitable
+                    stopHolding = false;
+                }
+            }
+            else if (so.tags.Contains(ItemTags.Food) && !FedTankToday())  // Holding Food
+            {
+                FeedShrimp();
+                Inventory.RemoveItem(item);
+
+                if (Inventory.GetItemQuantity(item) > 0) stopHolding = false;
+            }
+            else if (so.tags.Contains(ItemTags.Medicine) && shrimpInTank.Count != 0)  // Holding Medicine
+            {
+                foreach (Shrimp shrimp in shrimpInTank)
+                {
+                    shrimp.illnessCont.UseMedicine((so as MedicineItemSO));
+                }
+
+                Inventory.RemoveItem(item);
+            }
+        }
+
+        if (stopHolding) Store.player.GetComponent<HeldItem>().StopHoldingItem();
+        OnHover();
     }
 
     public override void OnHover()
     {
         if (tooltip)
         {
-            if (!Inventory.GetSOForItem(Store.player.GetComponent<HeldItem>().GetHeldItem()).tags.Contains(ItemTags.Shrimp))
-                tooltip.toolTip = tankName;
-            else
-                tooltip.toolTip = "Put shrimp in " + tankName;
-        }
+            Item item = Store.player.GetComponent<HeldItem>().GetHeldItem();
+            invalidShrimpHover = false;
+            if (item != null)
+            {
+                if (Inventory.GetSOForItem(item).tags.Contains(ItemTags.Shrimp))
+                {
+                    int suitableTank = 0;
+                    if (Mathf.Abs(waterTemperature - (item as ShrimpItem).shrimp.temperaturePreference) >= 10) suitableTank++;
+                    if (Mathf.Abs(waterSalt - (item as ShrimpItem).shrimp.salineLevel) >= 10) suitableTank++;
+                    if (Mathf.Abs(waterAmmonium - (item as ShrimpItem).shrimp.ammoniaPreference) >= 10) suitableTank++;
+                    if (Mathf.Abs(waterPh - (item as ShrimpItem).shrimp.PhPreference) >= 2) suitableTank++;
 
-        Store.player.GetComponent<PlayerInteraction>().SetTankFocus(this);
+                    if (suitableTank == 4)
+                    {
+                        tooltip.toolTip = "<color=red>Water is not suitable for this Shrimp</color>";
+                        invalidShrimpHover = true;
+                    }
+                    //else if (!FedTankToday())
+                    //{
+                    //    tooltip.toolTip = "<color=red>Tank must have food</color>";
+                    //    invalidShrimpHover = true;
+                    //}
+                    else
+                    {
+                        tooltip.toolTip = "Put shrimp in " + tankName;
+                        invalidShrimpHover = false;
+                    }
+                }
+                else if (Inventory.GetSOForItem(item).tags.Contains(ItemTags.Food) && !FedTankToday() && shrimpInTank.Count > 0)
+                    tooltip.toolTip = "Put food in " + tankName;
+                else if (Inventory.GetSOForItem(item).tags.Contains(ItemTags.Medicine) && shrimpInTank.Count != 0)
+                    tooltip.toolTip = "Put medicine in " + tankName;
+                else tooltip.toolTip = "";
+            }
+            else
+                tooltip.toolTip = tankName;
+            
+        }
     }
 
     public override void OnStopHover()
     {
-        Store.player.GetComponent<PlayerInteraction>().SetTankFocus(this);
+
     }
 
 
@@ -766,11 +827,15 @@ public class TankController : Interactable
         waterFilling = true;
         waterFilled = true;
         waterObject.SetActive(true);
-        interactable = false;
         RemoveHoldAction("Fill Water");
         RemoveHoldAction("Empty Water");
         RemoveHoldAction("Move");
         RemoveHoldAction("Remove");
+
+        waterAmmonium = 0;
+        waterTemperature = 20;
+        waterSalt = 0;
+        waterPh = 7;
 
         if (animate)
         {
@@ -810,7 +875,6 @@ public class TankController : Interactable
 
         waterFilling = true;
         waterFilled = false;
-        interactable = false;
         RemoveHoldAction("Fill Water");
         RemoveHoldAction("Empty Water");
         RemoveHoldAction("Move");
@@ -838,12 +902,10 @@ public class TankController : Interactable
         waterObject.SetActive(waterFilled);
         if (waterFilled)
         {
-            interactable = true;
             AddHoldAction("Empty Water", EmptyWater);
         }
         else
         {
-            interactable = false;
             Decoration decoration = GetComponent<Decoration>();
             AddHoldAction("Fill Water", FillWater);
             AddHoldAction("Move", decoration.MoveDecoration);

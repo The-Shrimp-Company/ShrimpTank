@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69db3d77bcf83c543abd9b3ab44c5849, type: 3}
+  m_Name: Shrimp Item
+  m_EditorClassIdentifier: 
+  itemName: Shrimp
+  itemImage: {fileID: 0}
+  purchaseValue: 0
+  purchaseQuantity: 1
+  itemDescription: 
+  tags: 10000000
+  heldItemPrefab: {fileID: 54720155993976486, guid: 62b78a8e0be95a8478b19c2026f714b1,
+    type: 3}
