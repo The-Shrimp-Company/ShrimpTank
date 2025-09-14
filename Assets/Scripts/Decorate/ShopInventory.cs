@@ -125,7 +125,10 @@ public class ShopInventory : ScreenView
         if (currentTab != null && tabFilters[currentTab] != null)
         {
             items = Inventory.FilterItemsWithTags(items, GetTabFilters(currentTab));
-            items = Inventory.FilterItemsWithTags(items, tabFilters[currentTab].GetActiveSubFilters());
+            foreach (ItemTags tag in tabFilters[currentTab].GetActiveSubFilters())
+            {
+                items = Inventory.FilterItemsWithTag(items, tag);
+            }
         }
 
         foreach (Item i in items)
