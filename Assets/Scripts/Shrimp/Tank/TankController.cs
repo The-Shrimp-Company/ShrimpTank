@@ -6,6 +6,7 @@ using System.Linq;
 using System;
 using DG.Tweening;
 using SaveLoadSystem;
+using System.Drawing;
 
 [RequireComponent(typeof(TankUpgradeController))]
 public class TankController : Interactable
@@ -130,6 +131,7 @@ public class TankController : Interactable
 
     [Header("Misc")]
     [HideInInspector] public bool tankLoaded;
+    private bool invalidShrimpHover;
 
     [Header("Optimisation")]
     private LODLevel currentLODLevel;
@@ -727,18 +729,16 @@ public class TankController : Interactable
             if (so.tags.Contains(ItemTags.Shrimp))  // Holding a Shrimp
             {
                 ShrimpStats s = (item as ShrimpItem).shrimp;
-                if (Mathf.Abs(waterAmmonium - s.ammoniaPreference) > 10 &&
-                    Mathf.Abs(waterSalt - s.salineLevel) > 10 &&
-                    Mathf.Abs(waterPh - s.PhPreference) > 2 &&
-                    Mathf.Abs(waterTemperature - s.temperaturePreference) > 10)
-                {
-                    //price.text = "Can't buy this shrimp with current destination tank. Shrimp will die.";
-                    //price.transform.parent.GetComponent<Button>().interactable = false;
-                }
-                else
+
+                if (!invalidShrimpHover)
                 {
                     SpawnShrimp((item as ShrimpItem).shrimp);
                     Inventory.RemoveShrimp(s);
+                }
+                else
+                {
+                    // Water not suitable
+                    stopHolding = false;
                 }
             }
             else if (so.tags.Contains(ItemTags.Food) && !FedTankToday())  // Holding Food
@@ -767,13 +767,37 @@ public class TankController : Interactable
     {
         if (tooltip)
         {
-            if (Store.player.GetComponent<HeldItem>().GetHeldItem() != null)
+            Item item = Store.player.GetComponent<HeldItem>().GetHeldItem();
+            invalidShrimpHover = false;
+            if (item != null)
             {
-                if (Inventory.GetSOForItem(Store.player.GetComponent<HeldItem>().GetHeldItem()).tags.Contains(ItemTags.Shrimp))
-                    tooltip.toolTip = "Put shrimp in " + tankName;
-                else if (Inventory.GetSOForItem(Store.player.GetComponent<HeldItem>().GetHeldItem()).tags.Contains(ItemTags.Food) && !FedTankToday())
+                if (Inventory.GetSOForItem(item).tags.Contains(ItemTags.Shrimp))
+                {
+                    int suitableTank = 0;
+                    if (Mathf.Abs(waterTemperature - (item as ShrimpItem).shrimp.temperaturePreference) >= 10) suitableTank++;
+                    if (Mathf.Abs(waterSalt - (item as ShrimpItem).shrimp.salineLevel) >= 10) suitableTank++;
+                    if (Mathf.Abs(waterAmmonium - (item as ShrimpItem).shrimp.ammoniaPreference) >= 10) suitableTank++;
+                    if (Mathf.Abs(waterPh - (item as ShrimpItem).shrimp.PhPreference) >= 2) suitableTank++;
+
+                    if (suitableTank == 4)
+                    {
+                        tooltip.toolTip = "<color=red>Water is not suitable for this Shrimp</color>";
+                        invalidShrimpHover = true;
+                    }
+                    //else if (!FedTankToday())
+                    //{
+                    //    tooltip.toolTip = "<color=red>Tank must have food</color>";
+                    //    invalidShrimpHover = true;
+                    //}
+                    else
+                    {
+                        tooltip.toolTip = "Put shrimp in " + tankName;
+                        invalidShrimpHover = false;
+                    }
+                }
+                else if (Inventory.GetSOForItem(item).tags.Contains(ItemTags.Food) && !FedTankToday())
                     tooltip.toolTip = "Put food in " + tankName;
-                else if (Inventory.GetSOForItem(Store.player.GetComponent<HeldItem>().GetHeldItem()).tags.Contains(ItemTags.Medicine) && shrimpInTank.Count != 0)
+                else if (Inventory.GetSOForItem(item).tags.Contains(ItemTags.Medicine) && shrimpInTank.Count != 0)
                     tooltip.toolTip = "Put medicine in " + tankName;
                 else tooltip.toolTip = "";
             }
