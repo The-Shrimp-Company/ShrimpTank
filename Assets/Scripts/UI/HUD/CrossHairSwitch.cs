@@ -28,22 +28,23 @@ public class CrossHairSwitch : MonoBehaviour
 
     private void Update()
     {
-        if (playerInteraction.targetInteractable == null)
+        Interactable target = playerInteraction.targetInteractable;
+        if (target == null)
         {
             ChangeSprite(crosshairSprite, crosshairSize);
             FadeText(0);
         }
-        else if (playerInteraction.targetInteractable.interactable && playerInteraction.targetInteractable.HasHoldActions())
+        else if (target.interactable && target.holdInteractable && target.HasHoldActions())
         {
             ChangeSprite(bothInteractSprite, interactSize);
             FadeText(1);
         }
-        else if (playerInteraction.targetInteractable.HasHoldActions())
+        else if (target.holdInteractable && target.HasHoldActions())
         {
             ChangeSprite(rightInteractSprite, interactSize);
             FadeText(0);
         }
-        else if (playerInteraction.targetInteractable.interactable)
+        else if (target.interactable)
         {
             ChangeSprite(leftInteractSprite, interactSize);
             FadeText(1);

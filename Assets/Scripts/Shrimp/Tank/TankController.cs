@@ -277,6 +277,8 @@ public class TankController : Interactable
         label.text = tankName;
 
         if (focusingTank) PlayerStats.stats.timeSpentFocusingTank += Time.deltaTime;
+        interactable = (!waterFilling && waterFilled);
+        holdInteractable = (!waterFilling && shrimpInTank.Count <= 0);
     }
 
     public void FeedShrimp()
@@ -801,7 +803,6 @@ public class TankController : Interactable
         waterFilling = true;
         waterFilled = true;
         waterObject.SetActive(true);
-        interactable = false;
         RemoveHoldAction("Fill Water");
         RemoveHoldAction("Empty Water");
         RemoveHoldAction("Move");
@@ -845,7 +846,6 @@ public class TankController : Interactable
 
         waterFilling = true;
         waterFilled = false;
-        interactable = false;
         RemoveHoldAction("Fill Water");
         RemoveHoldAction("Empty Water");
         RemoveHoldAction("Move");
@@ -873,12 +873,10 @@ public class TankController : Interactable
         waterObject.SetActive(waterFilled);
         if (waterFilled)
         {
-            interactable = true;
             AddHoldAction("Empty Water", EmptyWater);
         }
         else
         {
-            interactable = false;
             Decoration decoration = GetComponent<Decoration>();
             AddHoldAction("Fill Water", FillWater);
             AddHoldAction("Move", decoration.MoveDecoration);
