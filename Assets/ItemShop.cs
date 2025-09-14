@@ -46,28 +46,13 @@ public class ItemShop : ScreenView
         selectedItemType = null;
         selectedItemGameObject = null;
         infoCanvasGroup.alpha = 0;
+        ChangeSelectedItem(null, null);
+        ChangeTab(tabs[0]);
+        UIManager.instance.SetCursorMasking(true);  // Enable cursor masking
+        UpdateContent();
         base.Open(switchTab);
     }
 
-
-    public void OpenShop(List<InventoryTabs> t)
-    {
-        int startingTab = -1;
-        if (t != null && t.Count != 0)
-        {
-            for (int i = 0; i < tabs.Count; i++)
-            {
-                tabs[i].gameObject.SetActive(t.Contains((InventoryTabs)i));
-                if (startingTab == -1 && t.Contains((InventoryTabs)i)) startingTab = i;
-            }
-        }
-
-        Store.player.GetComponent<HeldItem>().StopHoldingItem();
-        ChangeSelectedItem(null, null);
-        ChangeTab(tabs[startingTab]);
-        UIManager.instance.SetCursorMasking(true);  // Enable cursor masking
-        UpdateContent();
-    }
 
     private void OnEnable()
     {
