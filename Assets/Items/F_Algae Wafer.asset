@@ -18,7 +18,7 @@ MonoBehaviour:
   purchaseQuantity: 40
   itemDescription: 
   tags: 0200000012000000
-  heldItemPrefab: {fileID: 5607206695084763870, guid: 0f0377eda5e61f545b4d5acb1da4da87,
+  heldItemPrefab: {fileID: 5607206695084763870, guid: e697150cade73f549b037b8fd27e0b19,
     type: 3}
   foodPrefab: {fileID: 2843780405674553184, guid: 02d275baf18747b43a519e27d1ecd2cd,
     type: 3}
