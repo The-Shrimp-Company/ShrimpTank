@@ -279,7 +279,7 @@ public class TankController : Interactable
         label.text = tankName;
 
         if (focusingTank) PlayerStats.stats.timeSpentFocusingTank += Time.deltaTime;
-        interactable = (!waterFilling && waterFilled);
+        interactable = (!waterFilling && waterFilled && tooltip.toolTip != "");
         holdInteractable = (!waterFilling && shrimpInTank.Count <= 0);
     }
 
@@ -795,7 +795,7 @@ public class TankController : Interactable
                         invalidShrimpHover = false;
                     }
                 }
-                else if (Inventory.GetSOForItem(item).tags.Contains(ItemTags.Food) && !FedTankToday())
+                else if (Inventory.GetSOForItem(item).tags.Contains(ItemTags.Food) && !FedTankToday() && shrimpInTank.Count > 0)
                     tooltip.toolTip = "Put food in " + tankName;
                 else if (Inventory.GetSOForItem(item).tags.Contains(ItemTags.Medicine) && shrimpInTank.Count != 0)
                     tooltip.toolTip = "Put medicine in " + tankName;
