@@ -589,6 +589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   decoration: {fileID: 0}
   interactable: 0
+  holdInteractable: 0
   shrimpInTank: []
   shrimpToAdd: []
   shrimpToRemove: []
@@ -609,7 +610,7 @@ MonoBehaviour:
   foodToAdd: []
   foodToRemove: []
   foodParent: {fileID: 1724462573742006033}
-  fedToday: 0
+  dayLastFed: 0
   starvationTimer: 0
   starvationTime: 0
   FoodAlertSign: {fileID: 6760505264390908065}
@@ -620,15 +621,19 @@ MonoBehaviour:
   waterQuality: 100
   waterQualityDecreaseSpeed: 5
   waterTemperature: 50
-  tempuratureChangeSpeed: 5
+  tempuratureChangeSpeed: 0.1
   naturalTempuratureVariation: 25
   waterSalt: 50
   waterAmmonium: 50
   waterPh: 7
   idealTemp: 0
   idealSalt: 0
-  idealHno: 0
+  idealNitr: 0
   idealPh: 0
+  tempVariance: 10
+  saltVariance: 10
+  nitrVariance: 10
+  pHVariance: 2
   upgradeController: {fileID: 0}
   lights:
   - {fileID: 9082456001141851980}

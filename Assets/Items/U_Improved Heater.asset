@@ -16,8 +16,9 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
   purchaseValue: 70
   purchaseQuantity: 1
-  sellValue: 70
+  itemDescription: 
   tags: 0400000006000000
+  heldItemPrefab: {fileID: 0}
   upgradeType: 1
   upgradePrefab: {fileID: 9034102042131325629, guid: f52fe44497ffafa41a3d31298ab2002f,
     type: 3}
@@ -25,5 +26,5 @@ MonoBehaviour:
   repairCost: 15
   energyCost: 0
   filterCapacity: 0
-  heaterOutput: 0.02
+  heaterOutput: 0.25
   thermometer: 0

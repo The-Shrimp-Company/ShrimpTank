@@ -71,11 +71,11 @@ public class TankController : Interactable
     public float waterTemperature = 50;
     private float tempuratureRisingTarget;
     private float tempuratureRisingTimer;
-    [SerializeField] float tempuratureChangeSpeed = 5;
+    [SerializeField] float tempuratureChangeSpeed = 0.005f;
     [SerializeField][Range(0,50)] float naturalTempuratureVariation = 25;
 
-    [HideInInspector] public float waterSalt = 50;
-    [HideInInspector] public float waterAmmonium = 50;
+    [HideInInspector] public float waterSalt = 0;
+    [HideInInspector] public float waterAmmonium = 0;
     [HideInInspector] public float waterPh = 7;
 
     [HideInInspector] public float idealTemp = 0;
@@ -382,7 +382,7 @@ public class TankController : Interactable
 
 
         // Water Temperature
-        waterTemperature -= 0.01f * updateTimer;
+        waterTemperature -= tempuratureChangeSpeed * updateTimer;
 
         waterSalt -= 0.01f * updateTimer * shrimpInTank.Count;
         
@@ -831,6 +831,11 @@ public class TankController : Interactable
         RemoveHoldAction("Empty Water");
         RemoveHoldAction("Move");
         RemoveHoldAction("Remove");
+
+        waterAmmonium = 0;
+        waterTemperature = 50;
+        waterSalt = 0;
+        waterPh = 7;
 
         if (animate)
         {
