@@ -307,9 +307,8 @@ public class DecorateShopController : MonoBehaviour
         {
             if (selectionValid && selectedObject != null)  // Clicking on a valid space
             {
-                if (Inventory.HasItem(selectedItemType.itemName))
+                if (Inventory.HasItem(selectedItemType.itemName) || movingObject)
                 {
-                    Inventory.RemoveItem(selectedItemType.itemName);
                     PlaceDecoration(selectedItemType);
                 }
                 else if (Money.instance.WithdrawMoney(selectedItemType.purchaseValue))
@@ -420,6 +419,8 @@ public class DecorateShopController : MonoBehaviour
 
         d.transform.rotation = objectPreview.transform.rotation;
 
+        if (!movingObject)
+            Inventory.RemoveItem(selectedItemType.itemName);
 
         // Set up decoration
         Decoration decoration;
@@ -675,7 +676,8 @@ public class DecorateShopController : MonoBehaviour
     {
         if (!obj || !so) return;
 
-        Inventory.AddItem(so.itemName);
+        if (!movingObject)
+            Inventory.AddItem(so.itemName);
 
         decorationsInStore.Remove(obj.GetComponent<Decoration>());
 
