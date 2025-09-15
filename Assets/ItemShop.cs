@@ -98,6 +98,7 @@ public class ItemShop : ScreenView
                 Debug.LogWarning("Cannot find SO for " + i.itemName);
                 return;
             }
+            else if (so.reputationUnlockRequirement > Reputation.GetReputation()) return;  // Item not unlocked
 
             if (so.itemImage == null)
             {
