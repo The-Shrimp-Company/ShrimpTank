@@ -9,16 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc21b0c0ea7d1c44cb0f1834ae8404b6, type: 3}
-  m_Name: M_Bubble Be Gone
+  m_Script: {fileID: 11500000, guid: e8536f9e8c929be47bbd944e5887e460, type: 3}
+  m_Name: M_Salt Shaker
   m_EditorClassIdentifier: 
-  itemName: Bubble Be Gone
+  itemName: Salt Shaker
   itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
-  purchaseValue: 5
-  purchaseQuantity: 1
+  purchaseValue: 10
+  purchaseQuantity: 10
   itemDescription: 
-  tags: 03000000120000001e000000
-  heldItemPrefab: {fileID: 5607206695084763870, guid: b27229986edae31488de5609993ef928,
+  tags: 190000001a0000001e00000012000000
+  heldItemPrefab: {fileID: 5607206695084763870, guid: eabfdad6187d7f5438a00236c089bacf,
     type: 3}
-  symptoms: 02000000
-  strength: 100

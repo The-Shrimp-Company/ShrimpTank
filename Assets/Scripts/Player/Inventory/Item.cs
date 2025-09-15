@@ -37,6 +37,14 @@ public enum ItemTags
     Lighting,
     Storage,
     Water,
+
+    Minerals,
+    Salt,
+    PH,
+    Nitrate,
+    Temperature,
+
+    Holdable,
 }
 
 

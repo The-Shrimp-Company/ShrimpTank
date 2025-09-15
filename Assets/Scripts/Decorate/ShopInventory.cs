@@ -168,15 +168,13 @@ public class ShopInventory : ScreenView
                     else  // If it is already selected
                     {
                         DecorationItemSO d = so as DecorationItemSO;
-                        MedicineItemSO m = so as MedicineItemSO;
-                        FoodItemSO f = so as FoodItemSO;
                         if (d != null)
                         {
                             shop.StartPlacing(d.decorationPrefab, d);
                             Close();
                             return;
                         }
-                        else if (m != null || f != null) 
+                        else if (so.tags.Contains(ItemTags.Holdable)) 
                         {
                             Store.player.GetComponent<HeldItem>().HoldItem(i);
                             Close();
