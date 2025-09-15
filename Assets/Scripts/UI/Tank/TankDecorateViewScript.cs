@@ -90,7 +90,18 @@ public class TankDecorateViewScript : ScreenView
 
             DecorationContentBlock content = Instantiate(_contentBlock, _content.transform).GetComponent<DecorationContentBlock>();
             contentBlocks.Add(content);
-            content.SetText(i.itemName);
+
+            if (so.itemImage == null)
+            {
+                content.SetText(i.itemName);
+                content.itemImage.gameObject.SetActive(false);
+            }
+            else
+            {
+                content.SetText("");
+                content.itemImage.sprite = so.itemImage;
+            }
+
             content.SetDecoration(so);
             content.ownedText.text = i.quantity.ToString();
             content.priceText.text = "£" + so.purchaseValue.ToString();

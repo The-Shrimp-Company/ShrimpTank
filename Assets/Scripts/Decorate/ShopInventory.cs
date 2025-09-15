@@ -148,7 +148,17 @@ public class ShopInventory : ScreenView
                     return;
                 }
 
-                content.SetText(i.itemName);
+
+                if (so.itemImage == null)
+                {
+                    content.SetText(i.itemName);
+                    content.itemImage.gameObject.SetActive(false);
+                }
+                else
+                {
+                    content.SetText("");
+                    content.itemImage.sprite = so.itemImage;
+                }
 
                 content.SetDecoration(so);
                 content.ownedText.text = i.quantity.ToString();
@@ -190,6 +200,7 @@ public class ShopInventory : ScreenView
             {
                 content.SetText(shrimp.shrimp.GetBreedname());
 
+                content.itemImage.gameObject.SetActive(false);
                 content.ownedText.gameObject.SetActive(false);
                 content.priceText.gameObject.SetActive(false);
 
@@ -228,6 +239,7 @@ public class ShopInventory : ScreenView
         {
             selectedItemNameText.text = selectedItemType.itemName;
             selectedItemImage.sprite = selectedItemType.itemImage;
+            if (selectedItemType == null) selectedItemImage.gameObject.SetActive(false);
             selectedItemDescriptionText.text = selectedItemType.itemDescription;
             selectedItemQuantityText.text = "x" + Inventory.GetItemUsingSO(selectedItemType).quantity;
             selectedItemPriceText.text = "£" + selectedItemType.purchaseValue / selectedItemType.purchaseQuantity;

@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: RD_Radio
   m_EditorClassIdentifier: 
   itemName: Radio
-  itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
+  itemImage: {fileID: 21300000, guid: 481d8ad80a8ff9e41aa7527d3491c0fa, type: 3}
   purchaseValue: 15
   purchaseQuantity: 1
   itemDescription: A small radio that will play music
   tags: 07000000090000000c00000013000000
+  heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 4040673247270505239, guid: 882fe3b377f4fd1439845766dfae8811,
     type: 3}
   itemSize: 0

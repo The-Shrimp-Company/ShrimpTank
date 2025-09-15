@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: RD_Shelf Corner
   m_EditorClassIdentifier: 
   itemName: Shelf Corner
-  itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
+  itemImage: {fileID: 21300000, guid: fc889c8a303f70647a83c9479ace9e5b, type: 3}
   purchaseValue: 15
   purchaseQuantity: 1
   itemDescription: A small shelf with 3 spaces for tanks
   tags: 07000000010000000900000013000000
+  heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 8844570117771742220, guid: ff231fa3ce4584040a2d2032c08183b3,
     type: 3}
   itemSize: 0

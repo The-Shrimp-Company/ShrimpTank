@@ -13,6 +13,9 @@ public class DecorationContentBlock : ContentBlock, IPointerEnterHandler, IPoint
     public Image buttonSprite;
     public Button button;
 
+    public Image itemImage;
+
+
     public TMP_Text priceText;
     public TMP_Text ownedText;
 

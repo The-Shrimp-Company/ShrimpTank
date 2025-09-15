@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: RD_Box M
   m_EditorClassIdentifier: 
   itemName: Box
-  itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
+  itemImage: {fileID: 21300000, guid: 0104ca1b7f129e645be32d1eeac2a607, type: 3}
   purchaseValue: 5
   purchaseQuantity: 1
   itemDescription: A small box that will give you easier access to your storage
   tags: 0700000009000000130000000e00000017000000
+  heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 1818096667142979810, guid: ed0e845734981f04db16d2d66e8786af,
     type: 3}
   itemSize: 0

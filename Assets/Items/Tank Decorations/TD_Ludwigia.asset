@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TD_Ludwigia
   m_EditorClassIdentifier: 
   itemName: Ludwigia
-  itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
+  itemImage: {fileID: 21300000, guid: c1bc65cdc2493fa4fa44b306d539dcd4, type: 3}
   purchaseValue: 15
   purchaseQuantity: 1
   itemDescription: 
