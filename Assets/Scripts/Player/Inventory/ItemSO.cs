@@ -9,6 +9,7 @@ public class ItemSO : ScriptableObject
     [SerializeReference] public Sprite itemImage;
     [SerializeReference] public float purchaseValue;
     [SerializeReference] public int purchaseQuantity = 1;
+    [SerializeReference][Range(0, 100)] public float reputationUnlockRequirement;
     [SerializeReference][TextArea(1, 10)] public string itemDescription;
     //[SerializeReference] public float sellValue;
     [SerializeReference] public List<ItemTags> tags = new List<ItemTags>();

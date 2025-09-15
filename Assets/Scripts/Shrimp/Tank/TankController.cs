@@ -757,6 +757,13 @@ public class TankController : Interactable
 
                 Inventory.RemoveItem(item);
             }
+            else if (so.tags.Contains(ItemTags.Salt))  // Holding Salt
+            {
+                waterSalt = Mathf.Clamp(waterSalt + 10, 0, 100);
+                Inventory.RemoveItem(item);
+
+                if (Inventory.GetItemQuantity(item) > 0) stopHolding = false;
+            }
         }
 
         if (stopHolding) Store.player.GetComponent<HeldItem>().StopHoldingItem();
@@ -797,8 +804,10 @@ public class TankController : Interactable
                 }
                 else if (Inventory.GetSOForItem(item).tags.Contains(ItemTags.Food) && !FedTankToday() && shrimpInTank.Count > 0)
                     tooltip.toolTip = "Put food in " + tankName;
-                else if (Inventory.GetSOForItem(item).tags.Contains(ItemTags.Medicine) && shrimpInTank.Count != 0)
+                else if (Inventory.GetSOForItem(item).tags.Contains(ItemTags.Medicine) && shrimpInTank.Count > 0)
                     tooltip.toolTip = "Put medicine in " + tankName;
+                else if (Inventory.GetSOForItem(item).tags.Contains(ItemTags.Salt))
+                    tooltip.toolTip = "Put salt in " + tankName;
                 else tooltip.toolTip = "";
             }
             else

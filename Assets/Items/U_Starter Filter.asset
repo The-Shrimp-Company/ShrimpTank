@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: U_Starter Filter
   m_EditorClassIdentifier: 
   itemName: Starter Filter
-  itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
+  itemImage: {fileID: 0}
   purchaseValue: 30
   purchaseQuantity: 1
-  sellValue: 30
+  itemDescription: 
   tags: 0400000005000000
+  heldItemPrefab: {fileID: 0}
   upgradeType: 0
   upgradePrefab: {fileID: 9034102042131325629, guid: 83510a50ebf233546acd145f7b97977b,
     type: 3}

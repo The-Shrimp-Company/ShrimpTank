@@ -120,6 +120,7 @@ public class DebugController : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
 
         if (Debug.isDebugBuild) canShow = true;
+        else if (!Debug.isDebugBuild) canShow = true;
 
 #if UNITY_EDITOR
         canShow = true;

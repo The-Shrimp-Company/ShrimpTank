@@ -98,8 +98,18 @@ public class ItemShop : ScreenView
                 Debug.LogWarning("Cannot find SO for " + i.itemName);
                 return;
             }
+            else if (so.reputationUnlockRequirement > Reputation.GetReputation()) return;  // Item not unlocked
 
-            content.SetText(i.itemName);
+            if (so.itemImage == null)
+            {
+                content.SetText(i.itemName);
+                content.itemImage.gameObject.SetActive(false);
+            }
+            else
+            {
+                content.SetText("");
+                content.itemImage.sprite = so.itemImage;
+            }
 
             content.SetDecoration(so);
             content.ownedText.text = i.quantity.ToString();
@@ -139,6 +149,7 @@ public class ItemShop : ScreenView
         {
             selectedItemNameText.text = selectedItemType.itemName;
             selectedItemImage.sprite = selectedItemType.itemImage;
+            if (selectedItemType == null) selectedItemImage.gameObject.SetActive(false);
             selectedItemDescriptionText.text = selectedItemType.itemDescription;
             selectedItemQuantityText.text = "x" + selectedItemType.purchaseQuantity.ToString();
             selectedItemPriceText.text = "£" + selectedItemType.purchaseValue / selectedItemType.purchaseQuantity;

@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: RD_Shelf 1x1
   m_EditorClassIdentifier: 
   itemName: Shelf 1x1
-  itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
+  itemImage: {fileID: 21300000, guid: c555c936b23c1df4abd4b19ff25b0d55, type: 3}
   purchaseValue: 15
   purchaseQuantity: 1
   itemDescription: A small shelf with 3 spaces for tanks
   tags: 07000000010000000900000013000000
+  heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 8844570117771742220, guid: 8bd92182f8f6ce2468696f1cacb02cea,
     type: 3}
   itemSize: 0

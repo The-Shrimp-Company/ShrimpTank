@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: M_Vibrancee
   m_EditorClassIdentifier: 
   itemName: Vibrancee
-  itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
+  itemImage: {fileID: 21300000, guid: 22818825c36b07f4ca02e8495409da26, type: 3}
   purchaseValue: 5
   purchaseQuantity: 1
   itemDescription: 
-  tags: 0300000012000000
+  tags: 03000000120000001e000000
   heldItemPrefab: {fileID: 5607206695084763870, guid: fb609fe4d7d0eea41963a3f97a641b9c,
     type: 3}
   symptoms: 00000000

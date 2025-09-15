@@ -458,6 +458,7 @@ public class DecorateShopController : MonoBehaviour
 
         //SetTransparentDecorations(transparentDecorations);
         currentGrid.RebakeGrid();
+
         PlayerStats.stats.roomDecorationCount = decorationsInStore.Count;
         PlayerStats.stats.tankCount = tanksInStore.Count;
 

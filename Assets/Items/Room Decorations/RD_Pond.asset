@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: RD_Pond
   m_EditorClassIdentifier: 
   itemName: Pond
-  itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
+  itemImage: {fileID: 21300000, guid: 7747440cedeffa04ca3216b438d99bd2, type: 3}
   purchaseValue: 15
   purchaseQuantity: 1
   itemDescription: A small pond
   tags: 0700000009000000130000001700000018000000
+  heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 1818096667142979810, guid: 8e7868a1144993e438f4f7baa9d0dabe,
     type: 3}
   itemSize: 0

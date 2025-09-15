@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: RD_Tank S
   m_EditorClassIdentifier: 
   itemName: Small Tank
-  itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
+  itemImage: {fileID: 21300000, guid: 78bf1bc9747d4f14aa1fdbea742c8b3a, type: 3}
   purchaseValue: 15
   purchaseQuantity: 1
   itemDescription: A small shrimp tank
   tags: 07000000000000000c00000013000000
+  heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 1463401828186235566, guid: eefa18ec6b71485459de5d6d77d94dd9,
     type: 3}
   itemSize: 0

@@ -148,7 +148,17 @@ public class ShopInventory : ScreenView
                     return;
                 }
 
-                content.SetText(i.itemName);
+
+                if (so.itemImage == null)
+                {
+                    content.SetText(i.itemName);
+                    content.itemImage.gameObject.SetActive(false);
+                }
+                else
+                {
+                    content.SetText("");
+                    content.itemImage.sprite = so.itemImage;
+                }
 
                 content.SetDecoration(so);
                 content.ownedText.text = i.quantity.ToString();
@@ -168,15 +178,13 @@ public class ShopInventory : ScreenView
                     else  // If it is already selected
                     {
                         DecorationItemSO d = so as DecorationItemSO;
-                        MedicineItemSO m = so as MedicineItemSO;
-                        FoodItemSO f = so as FoodItemSO;
                         if (d != null)
                         {
                             shop.StartPlacing(d.decorationPrefab, d);
                             Close();
                             return;
                         }
-                        else if (m != null || f != null) 
+                        else if (so.tags.Contains(ItemTags.Holdable)) 
                         {
                             Store.player.GetComponent<HeldItem>().HoldItem(i);
                             Close();
@@ -192,6 +200,7 @@ public class ShopInventory : ScreenView
             {
                 content.SetText(shrimp.shrimp.GetBreedname());
 
+                content.itemImage.gameObject.SetActive(false);
                 content.ownedText.gameObject.SetActive(false);
                 content.priceText.gameObject.SetActive(false);
 
@@ -230,6 +239,7 @@ public class ShopInventory : ScreenView
         {
             selectedItemNameText.text = selectedItemType.itemName;
             selectedItemImage.sprite = selectedItemType.itemImage;
+            if (selectedItemType == null) selectedItemImage.gameObject.SetActive(false);
             selectedItemDescriptionText.text = selectedItemType.itemDescription;
             selectedItemQuantityText.text = "x" + Inventory.GetItemUsingSO(selectedItemType).quantity;
             selectedItemPriceText.text = "£" + selectedItemType.purchaseValue / selectedItemType.purchaseQuantity;

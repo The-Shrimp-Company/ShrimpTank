@@ -367,9 +367,9 @@ RectTransform:
   - {fileID: 8083897362069294006}
   - {fileID: 2246266833678825916}
   - {fileID: 2406911701205297681}
+  - {fileID: 391019964599003380}
   - {fileID: 6128995841594774740}
   - {fileID: 7802982650244986881}
-  - {fileID: 391019964599003380}
   m_Father: {fileID: 8228166943336302552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1711,7 +1711,7 @@ GameObject:
   - component: {fileID: 5319551889858778987}
   - component: {fileID: 2902963893349762482}
   - component: {fileID: 1561065051341646005}
-  - component: {fileID: 3150384905042165785}
+  - component: {fileID: 6787553146734717784}
   m_Layer: 5
   m_Name: Tooltips
   m_TagString: Untagged
@@ -1817,7 +1817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801873a9fa7f7f844a4b6a13cc953625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!225 &3150384905042165785
+--- !u!225 &6787553146734717784
 CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2255,7 +2255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2406911701205297681
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2272,10 +2272,10 @@ RectTransform:
   - {fileID: 9125038744657239619}
   m_Father: {fileID: 3135029904003237601}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1502.6931, y: -187.5}
+  m_SizeDelta: {x: 175, y: 175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8564528893292797459
 CanvasRenderer:
@@ -2737,7 +2737,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.03, y: 0}
   m_AnchorMax: {x: 0.97, y: 0.05}
-  m_AnchoredPosition: {x: 0, y: -453.0021}
+  m_AnchoredPosition: {x: 0, y: -453.00238}
   m_SizeDelta: {x: 0, y: 918}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5437397301593834742
@@ -4760,7 +4760,7 @@ PrefabInstance:
     - target: {fileID: 8212859529225170684, guid: da7cc99513db8fb4fb67737c87e0604e,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0.996
       objectReference: {fileID: 0}
     - target: {fileID: 8212859529225170684, guid: da7cc99513db8fb4fb67737c87e0604e,
         type: 3}
