@@ -20,7 +20,7 @@ public class Admin : NPC
         if(completion == 0)
         {
             email.subjectLine = "Account activation";
-            email.mainText = "You must activate your account to be able to sell shrimp.";
+            email.mainText = "You must activate your shrimp community account.";
             important = true;
             email.CreateEmailButton("Activate Account", true)
                 .SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 1);
@@ -29,7 +29,7 @@ public class Admin : NPC
         if(completion == 1)
         {
             email.subjectLine = "Welcome to the Shrimping Community, " + Store.StoreName;
-            email.mainText = "We have installed the community apps on your device for your convienience. You may choose to either have access to all of these applications now, " +
+            email.mainText = "We aare now installing the community apps on your device for your convienience. You may choose to either have access to all of these applications now, " +
                 "or we can give you access over time, to walk you through the options available. Which would you like to pick?";
             email.CreateEmailButton("Walk me through the systems", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 2);
             email.CreateEmailButton("Give me everything (Not recommended for new players)", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 10)
@@ -41,7 +41,8 @@ public class Admin : NPC
         if(completion == 2)
         {
             email.subjectLine = "Setting up tanks";
-            email.mainText = "It seems you already have some tanks in your store, but they're not quite set up yet. The first thing you'll need to do is to add water";
+            email.mainText = "It seems you already have some tanks in your store, but they're not quite set up yet. The first thing you'll need to do is to add water. To do this, go to the tanks, " +
+                "and add water to them.";
         }
 
         if(completion == 3)
