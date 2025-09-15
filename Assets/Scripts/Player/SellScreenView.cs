@@ -11,6 +11,7 @@ public class SellScreenView : ScreenView
 
     public override void Open(bool switchTab)
     {
+        if (!content) return;
         foreach(Transform child in content)
         {
             Destroy(child.gameObject);

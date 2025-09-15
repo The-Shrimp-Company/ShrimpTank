@@ -1628,24 +1628,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &457463621 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2813109099557982993, guid: 31a20ebe32afbe74eb99989f5bce8972,
-    type: 3}
-  m_PrefabInstance: {fileID: 1844871743}
-  m_PrefabAsset: {fileID: 0}
---- !u!225 &457463627
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 457463621}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!4 &515640799 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2235153865005791252, guid: eefa18ec6b71485459de5d6d77d94dd9,
@@ -5902,16 +5884,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2720041480363419811, guid: 31a20ebe32afbe74eb99989f5bce8972,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -272.9627
-      objectReference: {fileID: 0}
-    - target: {fileID: 2813109099557982993, guid: 31a20ebe32afbe74eb99989f5bce8972,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3208068542315173564, guid: 31a20ebe32afbe74eb99989f5bce8972,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -6042,11 +6014,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4254099566559694792, guid: 31a20ebe32afbe74eb99989f5bce8972,
-        type: 3}
-      propertyPath: shelves
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4412292536443764535, guid: 31a20ebe32afbe74eb99989f5bce8972,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -6082,11 +6049,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 2086121278}
-    - target: {fileID: 6016822387961557353, guid: 31a20ebe32afbe74eb99989f5bce8972,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6128995841594774740, guid: 31a20ebe32afbe74eb99989f5bce8972,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -6120,7 +6082,7 @@ PrefabInstance:
     - target: {fileID: 6333301001878489509, guid: 31a20ebe32afbe74eb99989f5bce8972,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -453.00214
+      value: -453.00244
       objectReference: {fileID: 0}
     - target: {fileID: 6482094422919810959, guid: 31a20ebe32afbe74eb99989f5bce8972,
         type: 3}
@@ -6332,17 +6294,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8517308738094435917, guid: 31a20ebe32afbe74eb99989f5bce8972,
-        type: 3}
-      propertyPath: shelves
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8517308738094435917, guid: 31a20ebe32afbe74eb99989f5bce8972,
-        type: 3}
-      propertyPath: BuyScreen
-      value: 
-      objectReference: {fileID: 5382316823195656821, guid: 19223fd4d71c8454880058a989520907,
-        type: 3}
     - target: {fileID: 8811801900352492727, guid: 31a20ebe32afbe74eb99989f5bce8972,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -6373,20 +6324,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8902168481894851932, guid: 31a20ebe32afbe74eb99989f5bce8972,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -966.0013
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4254099566559694792, guid: 31a20ebe32afbe74eb99989f5bce8972, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2813109099557982993, guid: 31a20ebe32afbe74eb99989f5bce8972,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 457463627}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31a20ebe32afbe74eb99989f5bce8972, type: 3}
 --- !u!114 &1844871744 stripped
 MonoBehaviour:
