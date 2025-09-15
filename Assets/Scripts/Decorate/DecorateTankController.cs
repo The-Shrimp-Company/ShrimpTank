@@ -77,6 +77,7 @@ public class DecorateTankController : MonoBehaviour
         newMenu.GetComponent<Canvas>().planeDistance = 1;
         decorateView = newMenu.GetComponent<ScreenView>() as TankDecorateViewScript;
         UIManager.instance.SetCursorMasking(false);
+        currentGrid.RebakeGrid();
 
         camAngle = 0;
         ChangeCam(0);
@@ -371,9 +372,10 @@ public class DecorateTankController : MonoBehaviour
 
 
         SetTransparentDecorations(transparentDecorations);
+        decorateView.UpdateContent();
         currentGrid.RebakeGrid();
 
-        if (deselectOnPlace || movingObject)
+        if (deselectOnPlace || movingObject || Inventory.GetItemUsingSO(decorateView.selectedItemType).quantity <= 0)
             StopPlacing();
     }
 

@@ -30,7 +30,7 @@ public class ItemShop : ScreenView
     [Header("Filters")]
     [SerializedDictionary("Button", "Filters")]
     [SerializeField] List<Button> tabs;
-    public SerializedDictionary<Button, ShopInventoryFilter> tabFilters;
+    public SerializedDictionary<Button, ItemShopFilter> tabFilters;
     private Button currentTab;
     public Color tabDeselectedColour, tabSelectedColour;
 
@@ -71,9 +71,9 @@ public class ItemShop : ScreenView
 
         contentBlocks.Clear();
 
-        List<Item> items = Inventory.GetInventory(true, false);
+        List<Item> items = Inventory.GetInventory(false, false);
         items = items.Concat(Inventory.GetShrimpInventory()).ToList();
-        items = Inventory.SortItemsByQuantityThenName(items);
+        items = Inventory.SortItemsByName(items);
 
         // Filter items here
         if (currentTab != null && tabFilters[currentTab] != null)
@@ -106,7 +106,6 @@ public class ItemShop : ScreenView
             content.priceText.text = "£" + so.purchaseValue.ToString();
 
             if (selectedItemType == so) content.buttonSprite.color = content.selectedColour;
-            else if (i.quantity > 0) content.buttonSprite.color = content.inInventoryColour;
             else if (so.purchaseValue <= Money.instance.money) content.buttonSprite.color = content.notInInventoryColour;
             else if (so.purchaseValue > Money.instance.money) content.buttonSprite.color = content.cannotAffordColour;
 
@@ -141,7 +140,7 @@ public class ItemShop : ScreenView
             selectedItemNameText.text = selectedItemType.itemName;
             selectedItemImage.sprite = selectedItemType.itemImage;
             selectedItemDescriptionText.text = selectedItemType.itemDescription;
-            selectedItemQuantityText.text = "x" + Inventory.GetItemUsingSO(selectedItemType).quantity;
+            selectedItemQuantityText.text = "x" + selectedItemType.purchaseQuantity.ToString();
             selectedItemPriceText.text = "£" + selectedItemType.purchaseValue / selectedItemType.purchaseQuantity;
 
             DecorationItemSO d = selectedItemType as DecorationItemSO;

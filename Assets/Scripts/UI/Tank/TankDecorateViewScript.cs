@@ -67,7 +67,7 @@ public class TankDecorateViewScript : ScreenView
 
         contentBlocks.Clear();
 
-        List<Item> items = Inventory.GetInventory(false, true);
+        List<Item> items = Inventory.GetInventory(true, true);
 
         // Filter items here
         items = Inventory.FilterItemsWithTag(items, ItemTags.TankDecoration);

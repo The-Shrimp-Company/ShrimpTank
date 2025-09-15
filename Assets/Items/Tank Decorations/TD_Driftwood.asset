@@ -17,7 +17,8 @@ MonoBehaviour:
   purchaseValue: 15
   purchaseQuantity: 1
   itemDescription: 
-  tags: 0800000009000000
+  tags: 080000000900000015000000
+  heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 8225099896835639060, guid: ec730e7b8c0492b4d9dd51484f328b18,
     type: 3}
   itemSize: 2
