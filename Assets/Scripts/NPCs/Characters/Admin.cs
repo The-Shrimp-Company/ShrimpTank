@@ -52,7 +52,7 @@ public class Admin : NPC
                 "suited for the tank you've set up, and the second being that if you want to get any more shrimp out of the purchase, you'll want to get at least two, of different sexes. So, go into " +
                 "the store, and look for two shrimp, male and female, and both with similar needs.\nThen, make sure your tank is set up for them, so try and make sure the numbers are the " +
                 "same as what they need, and then buy them both. It's important to remember, they <color=yellow>don't</color> need to be perfect for each other, the shrimp won't die as long as they " +
-                "have at least <color=yellow>one</color> of their needs met";
+                "have at least <color=yellow>one</color> of their needs met.";
         }
 
         if(completion == 4)
@@ -290,7 +290,7 @@ public class Admin : NPC
                         if(Inventory.GetInventoryItemsWithTag(ItemTags.Food).Count > 0)
                         {
                             flags.Add("BoughtFood");
-                            sentEmail.AddEmailText("\nNow that you have bought food, you must feed your shrimp. Go to the storage boxes, by your stores door, and take the shrimp food out of it. Then go " +
+                            sentEmail.AddEmailText("\nNow that you have bought food, you must feed your shrimp. Go to the storage boxes by your store's door, and take the shrimp food out of it. Then go " +
                                 "and put some in the tank. The sign telling you to feed your shrimp will disapear when you have fed them.", "\n\nAdmin");
                         }
                     }
