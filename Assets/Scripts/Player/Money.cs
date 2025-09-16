@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Money
 {
-    private float startingMoney = 75;
+    private float startingMoney = 150;
     private float _money = 75;
 
     static public Money instance = new Money();
