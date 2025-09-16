@@ -29,7 +29,7 @@ public class Admin : NPC
         if(completion == 1)
         {
             email.subjectLine = "Welcome to the Shrimping Community, " + Store.StoreName;
-            email.mainText = "We aare now installing the community apps on your device for your convienience. You may choose to either have access to all of these applications now, " +
+            email.mainText = "We are now installing the community apps on your device for your convienience. You may choose to either have access to all of these applications now, " +
                 "or we can give you access over time, to walk you through the options available. Which would you like to pick?";
             email.CreateEmailButton("Walk me through the systems", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 2);
             email.CreateEmailButton("Give me everything (Not recommended for new players)", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 10)
@@ -253,7 +253,7 @@ public class Admin : NPC
                         {
                             sentEmail.AddEmailText("\nNow that the tank has a suitable amount of salt, you need to do the same thing for nitrate. Add around 50 nitrate to the tank, and if you " +
                                 "add too much, just empty the tank and start again. If you do need to reset the tank, remember to add more salt as well. <color=yellow>Nitrate will also reduce " +
-                                "with time</color>so you may have to top it up every once in a while.", "\n\nAdmin");
+                                "with time</color> so you may have to top it up every once in a while.", "\n\nAdmin");
                             flags.Add("AddedSalt");
                         }
                     }
@@ -261,7 +261,7 @@ public class Admin : NPC
                     {
                         if (Store.decorateController.tanksInStore.Exists(x => x.waterFilled && x.waterAmmonium > 40))
                         {
-                            sentEmail.AddEmailText("\nIt seems you have got a tank to the right proportions. I do need to still explain pH. You tank has water in it, and that water is at a specific " +
+                            sentEmail.AddEmailText("\nIt seems you have got a tank to the right proportions. I do need to still explain pH. Your tank has water in it, and that water is at a specific " +
                                 "pH level. It will start at 7, and your shrimp will all have different pH preferences. pH is the easiest quality of your tank to change, and is rarely changed by time, " +
                                 "so while you are beginning it is a good idea to <color=yellow>group shrimp by their pH preference</color>, but you can do what you want.", "\n\nAdmin");
                             sentEmail.CreateEmailButton("I understand", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 3)

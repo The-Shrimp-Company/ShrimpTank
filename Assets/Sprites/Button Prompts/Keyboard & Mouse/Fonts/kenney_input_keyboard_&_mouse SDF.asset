@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: kenney_input_keyboard_&_mouse SDF
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: 389283039
   material: {fileID: 9064320139086013245}
-  materialHashCode: 0
+  materialHashCode: 1964701599
   m_Version: 1.1.0
   m_SourceFontFileGUID: 8c86078ed23d9084ebf730c094cc590b
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 8c86078ed23d9084ebf730c094cc590b,
@@ -185,30 +185,29 @@ MonoBehaviour:
 
       keyboard_arrow_up: U+E023
 
-      keyboard_arrow_up_outline:
-      U+E024
+      keyboard_arrow_up_outline: U+E024
 
-      keyboard_arrows: U+E025
+      keyboard_arrows:
+      U+E025
 
       keyboard_arrows_all: U+E026
 
-      keyboard_arrows_down:
-      U+E027
+      keyboard_arrows_down: U+E027
 
-      keyboard_arrows_down_outline: U+E028
+      keyboard_arrows_down_outline:
+      U+E028
 
-      keyboard_arrows_horizontal:
-      U+E029
+      keyboard_arrows_horizontal: U+E029
 
-      keyboard_arrows_horizontal_outline: U+E02A
+      keyboard_arrows_horizontal_outline:
+      U+E02A
 
-      keyboard_arrows_left:
-      U+E02B
+      keyboard_arrows_left: U+E02B
 
-      keyboard_arrows_left_outline: U+E02C
+      keyboard_arrows_left_outline:
+      U+E02C
 
-      keyboard_arrows_none:
-      U+E02D
+      keyboard_arrows_none: U+E02D
 
       keyboard_arrows_right: U+E02E
 
@@ -227,54 +226,54 @@ MonoBehaviour:
 
       keyboard_asterisk: U+E034
 
-      keyboard_asterisk_outline:
-      U+E035
+      keyboard_asterisk_outline: U+E035
 
-      keyboard_b: U+E036
+      keyboard_b:
+      U+E036
 
       keyboard_b_outline: U+E037
 
-      keyboard_backspace:
-      U+E038
+      keyboard_backspace: U+E038
 
-      keyboard_backspace_icon: U+E039
+      keyboard_backspace_icon:
+      U+E039
 
-      keyboard_backspace_icon_alternative:
-      U+E03A
+      keyboard_backspace_icon_alternative: U+E03A
 
-      keyboard_backspace_icon_alternative_outline: U+E03B
+      keyboard_backspace_icon_alternative_outline:
+      U+E03B
 
-      keyboard_backspace_icon_outline:
-      U+E03C
+      keyboard_backspace_icon_outline: U+E03C
 
-      keyboard_backspace_outline: U+E03D
+      keyboard_backspace_outline:
+      U+E03D
 
-      keyboard_bracket_close:
-      U+E03E
+      keyboard_bracket_close: U+E03E
 
-      keyboard_bracket_close_outline: U+E03F
+      keyboard_bracket_close_outline:
+      U+E03F
 
-      keyboard_bracket_greater:
-      U+E040
+      keyboard_bracket_greater: U+E040
 
-      keyboard_bracket_greater_outline: U+E041
+      keyboard_bracket_greater_outline:
+      U+E041
 
-      keyboard_bracket_less:
-      U+E042
+      keyboard_bracket_less: U+E042
 
-      keyboard_bracket_less_outline: U+E043
+      keyboard_bracket_less_outline:
+      U+E043
 
-      keyboard_bracket_open:
-      U+E044
+      keyboard_bracket_open: U+E044
 
-      keyboard_bracket_open_outline: U+E045
+      keyboard_bracket_open_outline:
+      U+E045
 
       keyboard_c: U+E046
 
-      keyboard_c_outline:
-      U+E047
+      keyboard_c_outline: U+E047
 
-      keyboard_capslock: U+E048
+      keyboard_capslock:
+      U+E048
 
       keyboard_capslock_icon: U+E049
 
@@ -407,109 +406,108 @@ MonoBehaviour:
 
       keyboard_function: U+E080
 
-      keyboard_function_outline:
-      U+E081
+      keyboard_function_outline: U+E081
 
-      keyboard_g: U+E082
+      keyboard_g:
+      U+E082
 
       keyboard_g_outline: U+E083
 
-      keyboard_h:
-      U+E084
+      keyboard_h: U+E084
 
-      keyboard_h_outline: U+E085
+      keyboard_h_outline:
+      U+E085
 
       keyboard_home: U+E086
 
-      keyboard_home_outline:
-      U+E087
+      keyboard_home_outline: U+E087
 
-      keyboard_i: U+E088
+      keyboard_i:
+      U+E088
 
       keyboard_i_outline: U+E089
 
-      keyboard_insert:
-      U+E08A
+      keyboard_insert: U+E08A
 
-      keyboard_insert_outline: U+E08B
+      keyboard_insert_outline:
+      U+E08B
 
       keyboard_j: U+E08C
 
-      keyboard_j_outline:
-      U+E08D
+      keyboard_j_outline: U+E08D
 
-      keyboard_k: U+E08E
+      keyboard_k:
+      U+E08E
 
       keyboard_k_outline: U+E08F
 
-      keyboard_l:
-      U+E090
+      keyboard_l: U+E090
 
-      keyboard_l_outline: U+E091
+      keyboard_l_outline:
+      U+E091
 
       keyboard_m: U+E092
 
-      keyboard_m_outline:
-      U+E093
+      keyboard_m_outline: U+E093
 
-      keyboard_minus: U+E094
+      keyboard_minus:
+      U+E094
 
       keyboard_minus_outline: U+E095
 
-      keyboard_n:
-      U+E096
+      keyboard_n: U+E096
 
-      keyboard_n_outline: U+E097
+      keyboard_n_outline:
+      U+E097
 
       keyboard_numlock: U+E098
 
-      keyboard_numlock_outline:
-      U+E099
+      keyboard_numlock_outline: U+E099
 
-      keyboard_numpad_enter: U+E09A
+      keyboard_numpad_enter:
+      U+E09A
 
-      keyboard_numpad_enter_outline:
-      U+E09B
+      keyboard_numpad_enter_outline: U+E09B
 
-      keyboard_numpad_plus: U+E09C
+      keyboard_numpad_plus:
+      U+E09C
 
-      keyboard_numpad_plus_outline:
-      U+E09D
+      keyboard_numpad_plus_outline: U+E09D
 
       keyboard_o: U+E09E
 
-      keyboard_o_outline: U+E09F
+      keyboard_o_outline:
+      U+E09F
 
-      keyboard_option:
-      U+E0A0
+      keyboard_option: U+E0A0
 
       keyboard_option_outline: U+E0A1
 
-      keyboard_outline: U+E0A2
+      keyboard_outline:
+      U+E0A2
 
-      keyboard_p:
-      U+E0A3
+      keyboard_p: U+E0A3
 
       keyboard_p_outline: U+E0A4
 
-      keyboard_page_down: U+E0A5
+      keyboard_page_down:
+      U+E0A5
 
-      keyboard_page_down_outline:
-      U+E0A6
+      keyboard_page_down_outline: U+E0A6
 
       keyboard_page_up: U+E0A7
 
-      keyboard_page_up_outline: U+E0A8
+      keyboard_page_up_outline:
+      U+E0A8
 
-      keyboard_period:
-      U+E0A9
+      keyboard_period: U+E0A9
 
       keyboard_period_outline: U+E0AA
 
-      keyboard_plus: U+E0AB
+      keyboard_plus:
+      U+E0AB
 
-      keyboard_plus_outline:
-      U+E0AC
+      keyboard_plus_outline: U+E0AC
 
       keyboard_printscreen: U+E0AD
 
@@ -558,18 +556,17 @@ MonoBehaviour:
 
       keyboard_shift_outline: U+E0C0
 
-      keyboard_slash_back:
-      U+E0C1
+      keyboard_slash_back: U+E0C1
 
-      keyboard_slash_back_outline: U+E0C2
+      keyboard_slash_back_outline:
+      U+E0C2
 
-      keyboard_slash_forward:
-      U+E0C3
+      keyboard_slash_forward: U+E0C3
 
-      keyboard_slash_forward_outline: U+E0C4
+      keyboard_slash_forward_outline:
+      U+E0C4
 
-      keyboard_space:
-      U+E0C5
+      keyboard_space: U+E0C5
 
       keyboard_space_icon: U+E0C6
 
@@ -833,9 +830,9 @@ Material:
     - _OutlineWidth: 0
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 1
-    - _ScaleRatioB: 1
-    - _ScaleRatioC: 1
+    - _ScaleRatioA: 0.8333333
+    - _ScaleRatioB: 0.6770833
+    - _ScaleRatioC: 0.6770833
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
