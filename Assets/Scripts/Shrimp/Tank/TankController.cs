@@ -744,6 +744,7 @@ public class TankController : Interactable
             else if (so.tags.Contains(ItemTags.Food) && !FedTankToday())  // Holding Food
             {
                 FeedShrimp();
+                Store.player.GetComponent<HeldItem>().UseHeldItem();
                 Inventory.RemoveItem(item);
 
                 if (Inventory.GetItemQuantity(item) > 0) stopHolding = false;
@@ -755,6 +756,7 @@ public class TankController : Interactable
                     shrimp.illnessCont.UseMedicine((so as MedicineItemSO));
                 }
 
+                Store.player.GetComponent<HeldItem>().UseHeldItem();
                 Inventory.RemoveItem(item);
             }
             else if (so.tags.Contains(ItemTags.Salt))  // Holding Salt

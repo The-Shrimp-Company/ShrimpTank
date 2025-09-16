@@ -281,14 +281,8 @@ public class DecorateShopController : MonoBehaviour
             if (objectPreview != null && selectedItemType != null)
             {
                 if (hoveredNode != null && hoveredNode != previousHoveredNode && previousHoveredNode == previousPreviousHoveredNode)
-                {
-                    Debug.Log(hoveredNode.worldPos);
+                {                    objectPreview.transform.position = GetPlacementPosition();
 
-                    Debug.Log("Shelf - " + hoveringShelf);
-
-                    objectPreview.transform.position = GetPlacementPosition();
-
-                    //    //GetCurrentSurface() // Wall & ceiling rotations
                 }
                 else if (hoveredNode == null) objectPreview.transform.position = new Vector3(0, 100000, 0);
             }
@@ -304,6 +298,9 @@ public class DecorateShopController : MonoBehaviour
 
         else
             return hoveredNode.worldPos + selectedItemType.gridSnapOffset;
+
+        //    //GetCurrentSurface() // Wall & ceiling rotations
+
     }
 
 

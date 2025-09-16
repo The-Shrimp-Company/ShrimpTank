@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,10 @@ public class HeldItem : MonoBehaviour
     {
         StopHoldingItem();
         heldItem = i;
+
         HeldItemChanged();
+        handTransform.localScale = Vector3.zero;
+        handTransform.DOScale(Vector3.one, 0.1f).SetEase(Ease.OutSine);
     }
 
     public void StopHoldingItem()
@@ -31,7 +35,9 @@ public class HeldItem : MonoBehaviour
         if (heldItem == null) return;
 
         heldItem = null;
-        HeldItemChanged();
+
+        handTransform.localScale = Vector3.one;
+        handTransform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InSine).OnComplete(HeldItemChanged);
     }
 
     private void HeldItemChanged()
@@ -52,5 +58,17 @@ public class HeldItem : MonoBehaviour
                 go.GetComponent<InactiveShrimp>().Construct(((ShrimpItem)GetHeldItem()).shrimp);
             }
         }
+    }
+
+    public void UseHeldItem()
+    {
+        if (handTransform.childCount == 0 || heldItem == null) return;
+
+        //Transform obj = handTransform.GetChild(0).transform;
+        //if (obj == null) return;
+
+        //obj.DOKill();
+        //obj.position = Vector3.zero;
+        //obj.DOShakePosition(0.2f, 0.01f);
     }
 }
