@@ -16,7 +16,10 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: 82a1e5cc93af6ac498662a956c36e34b, type: 3}
   purchaseValue: 5
   purchaseQuantity: 1
-  itemDescription: 
+  reputationUnlockRequirement: 0
+  itemDescription: "Are your shrimp producing bubbles? Is this upsetting to you?
+    Do you want your shrimp to calm down? Do you want them to be... less bubbly?
+    Pop those bubbles with Bubbles Be Gone<sup>\xA9</sup>"
   tags: 03000000120000001e000000
   heldItemPrefab: {fileID: 5607206695084763870, guid: b27229986edae31488de5609993ef928,
     type: 3}

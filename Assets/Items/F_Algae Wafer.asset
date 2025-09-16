@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Algae Wafer
   itemImage: {fileID: 21300000, guid: dca19442bf74a084398dfabaf7b0543b, type: 3}
-  purchaseValue: 10
-  purchaseQuantity: 40
-  itemDescription: 
+  purchaseValue: 6
+  purchaseQuantity: 10
+  reputationUnlockRequirement: 0
+  itemDescription: 'Ingredients: Algae (99%), Wafer'
   tags: 02000000120000001e000000
   heldItemPrefab: {fileID: 5607206695084763870, guid: e697150cade73f549b037b8fd27e0b19,
     type: 3}

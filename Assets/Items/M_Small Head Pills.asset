@@ -16,7 +16,10 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: 9df07f2443f89004ebab227101e07241, type: 3}
   purchaseValue: 5
   purchaseQuantity: 1
-  itemDescription: 
+  reputationUnlockRequirement: 0
+  itemDescription: Is your shrimp getting too big headed? Is it's ego out of control?
+    Do you want it to... have a smaller head? Just feed it this, and it's head will
+    Shhhhrrrrinnnkkkkk right down! (Sold in multipack, not to be sold seperately)
   tags: 03000000120000001e000000
   heldItemPrefab: {fileID: 5607206695084763870, guid: 86594b55d95952c4f832a4944f13c8c6,
     type: 3}

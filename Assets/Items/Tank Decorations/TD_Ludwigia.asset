@@ -16,7 +16,8 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: c1bc65cdc2493fa4fa44b306d539dcd4, type: 3}
   purchaseValue: 15
   purchaseQuantity: 1
-  itemDescription: 
+  reputationUnlockRequirement: 0
+  itemDescription: Now with real mites!
   tags: 080000000900000013000000
   heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 2365947059943908405, guid: 892a65d101ac0454184e42509decfa57,

@@ -16,7 +16,8 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: 7f93e2cdd7e4fe342b24b952d94758bd, type: 3}
   purchaseValue: 1
   purchaseQuantity: 1
-  itemDescription: 
+  reputationUnlockRequirement: 0
+  itemDescription: Like the pebble but even more small.
   tags: 080000000900000013000000
   heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 4155561012857790365, guid: c7a9dcfa46c00454293a63d93b3f49c8,

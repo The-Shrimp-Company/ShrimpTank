@@ -16,7 +16,8 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: 40415b7f4eb282c42af6c121cfaa5a4e, type: 3}
   purchaseValue: 15
   purchaseQuantity: 1
-  itemDescription: 
+  reputationUnlockRequirement: 0
+  itemDescription: 'Disclaimer: Not made of real eels'
   tags: 080000000900000014000000
   heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 7085104327436212836, guid: d739af2efc9107c43b6dd96cf027a04c,

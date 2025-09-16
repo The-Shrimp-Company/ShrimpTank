@@ -16,7 +16,10 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: 8bf1ce0101f5d164ca06fb296a40cbc8, type: 3}
   purchaseValue: 10
   purchaseQuantity: 1
-  itemDescription: 
+  reputationUnlockRequirement: 0
+  itemDescription: Despite the name, it's actually quite a big plant. Not compared
+    to regular water lettuce mind you, but it's the perfect size to fit in your shrimp
+    tank!
   tags: 080000000d00000014000000
   heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 4984127487984152811, guid: 9b27c5af0133a9b40ba2b74224f88701,

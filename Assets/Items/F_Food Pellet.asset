@@ -15,8 +15,16 @@ MonoBehaviour:
   itemName: Food Pellet
   itemImage: {fileID: 21300000, guid: 4d62d7a4c37dd3345afaa4a50a581da4, type: 3}
   purchaseValue: 5
-  purchaseQuantity: 20
-  itemDescription: 
+  purchaseQuantity: 10
+  reputationUnlockRequirement: 0
+  itemDescription: 'Ingredients: Wouldn''t you like to know, eh? I''m sure it would
+    make your day knowing what kinda<size=-1> stuff we shove</size><size=-3> in this
+    tub of shrimp food eh? This </size><size=-5>stuff here though, is Shrimp Food,
+    and as such doesn''t</size><size=-7> require any legal disclosure of ingredient
+    information.</size><size=-9> Now I know whatcha thinking, eh? You''re thinking,
+    doesn''t that break the animal welfare act of ''98, ehh? And you''d be right,</size><size=-11>
+    apart from the fact that we''re selling this stuff dirt cheap, eh? So you''re
+    not gonna snitch on us, Right?</size>'
   tags: 02000000120000001e000000
   heldItemPrefab: {fileID: 5607206695084763870, guid: 0f0377eda5e61f545b4d5acb1da4da87,
     type: 3}

@@ -16,7 +16,9 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: aa9027931764e824c893f7f4279d5fbd, type: 3}
   purchaseValue: 15
   purchaseQuantity: 1
-  itemDescription: 
+  reputationUnlockRequirement: 0
+  itemDescription: We found this! On the beach! Buy it from us! Please! <size=-10>we
+    have so much student debt</size>
   tags: 080000000900000015000000
   heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 8225099896835639060, guid: ec730e7b8c0492b4d9dd51484f328b18,

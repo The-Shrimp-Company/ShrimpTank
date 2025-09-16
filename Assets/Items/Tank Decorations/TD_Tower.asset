@@ -16,7 +16,9 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: 0b7b5aec7644c3d40aa8b071f2616118, type: 3}
   purchaseValue: 25
   purchaseQuantity: 1
-  itemDescription: 
+  reputationUnlockRequirement: 0
+  itemDescription: Like the one that rapunzel lived in, but instead of an evil witch
+    living there, growing lettuce, it's a bunch of shrimp eating algae!
   tags: 080000000900000015000000
   heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 7347275847670674649, guid: 95dce8654568dbc4c9e357c71ac26602,
