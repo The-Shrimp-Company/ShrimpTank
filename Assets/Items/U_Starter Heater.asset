@@ -16,7 +16,8 @@ MonoBehaviour:
   itemImage: {fileID: 0}
   purchaseValue: 30
   purchaseQuantity: 1
-  itemDescription: 
+  reputationUnlockRequirement: 0
+  itemDescription: A bit basic, but it does the job.
   tags: 0400000006000000
   heldItemPrefab: {fileID: 0}
   upgradeType: 1

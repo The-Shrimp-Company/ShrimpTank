@@ -16,7 +16,9 @@ MonoBehaviour:
   itemImage: {fileID: 0}
   purchaseValue: 70
   purchaseQuantity: 1
-  itemDescription: 
+  reputationUnlockRequirement: 0
+  itemDescription: Now with even more heating power! Just don't forget to leave it
+    on too long...
   tags: 0400000006000000
   heldItemPrefab: {fileID: 0}
   upgradeType: 1

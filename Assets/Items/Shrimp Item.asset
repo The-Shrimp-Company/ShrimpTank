@@ -16,7 +16,8 @@ MonoBehaviour:
   itemImage: {fileID: 0}
   purchaseValue: 0
   purchaseQuantity: 1
-  itemDescription: 
+  reputationUnlockRequirement: 0
+  itemDescription: Shrimp
   tags: 10000000
   heldItemPrefab: {fileID: 54720155993976486, guid: 62b78a8e0be95a8478b19c2026f714b1,
     type: 3}

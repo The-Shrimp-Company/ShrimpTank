@@ -16,7 +16,8 @@ MonoBehaviour:
   itemImage: {fileID: 0}
   purchaseValue: 70
   purchaseQuantity: 1
-  itemDescription: 
+  reputationUnlockRequirement: 0
+  itemDescription: The water will be CLEANER!
   tags: 0400000005000000
   heldItemPrefab: {fileID: 0}
   upgradeType: 0

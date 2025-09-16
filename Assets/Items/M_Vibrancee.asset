@@ -16,7 +16,10 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: 22818825c36b07f4ca02e8495409da26, type: 3}
   purchaseValue: 5
   purchaseQuantity: 1
-  itemDescription: 
+  reputationUnlockRequirement: 0
+  itemDescription: Are your shrimp feeling dull? Are they feeling... down? Well with
+    our signiture product, Vibrancee, you can fix that! Just add to your shrimp,
+    and they'll be bright and Vibrant<sup>TM</sup>.
   tags: 03000000120000001e000000
   heldItemPrefab: {fileID: 5607206695084763870, guid: fb609fe4d7d0eea41963a3f97a641b9c,
     type: 3}
