@@ -52,7 +52,7 @@ public class Admin : NPC
                 "suited for the tank you've set up, and the second being that if you want to get any more shrimp out of the purchase, you'll want to get at least two, of different sexes. So, go into " +
                 "the store, and look for two shrimp, male and female, and both with similar needs.\nThen, make sure your tank is set up for them, so try and make sure the numbers are the " +
                 "same as what they need, and then buy them both. It's important to remember, they <color=yellow>don't</color> need to be perfect for each other, the shrimp won't die as long as they " +
-                "have at least <color=yellow>one</color> of their needs met.";
+                "have at least <color=yellow>one</color> of their needs met. Finally, you need to <color=yellow>get those shrimp</color> from the delivery pond, and put them into their new home.";
         }
 
         if(completion == 4)
