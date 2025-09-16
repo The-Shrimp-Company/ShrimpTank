@@ -16,7 +16,10 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: 8399c42828f5b374c8c8eaf1a8c27b65, type: 3}
   purchaseValue: 20
   purchaseQuantity: 1
-  itemDescription: 
+  reputationUnlockRequirement: 0
+  itemDescription: Not that you have any friends to come drink coffee with you around
+    your lovely coffee table, but at the very least you can put a shrimp tank on
+    it.
   tags: 07000000090000000f0000001300000001000000
   heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 4040673247270505239, guid: fb126ae7d470ffe4ebd32124e47bceac,

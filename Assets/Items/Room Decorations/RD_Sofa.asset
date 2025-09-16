@@ -16,7 +16,9 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: e002838cba42c82419cf39c6f5bf0cf4, type: 3}
   purchaseValue: 20
   purchaseQuantity: 1
-  itemDescription: 
+  reputationUnlockRequirement: 0
+  itemDescription: You still don't have friends, and you can't even put a shrimp
+    tank on this. Why would you want this?
   tags: 07000000090000000f00000014000000
   heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 4040673247270505239, guid: 6912608254096bc46b7d913a2ad9e9ce,

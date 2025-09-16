@@ -16,7 +16,8 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: 02d3c16c058044f46aab7885bbc2ff63, type: 3}
   purchaseValue: 5
   purchaseQuantity: 1
-  itemDescription: 
+  reputationUnlockRequirement: 0
+  itemDescription: A pile of crates
   tags: 0700000009000000130000000e000000
   heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 1818096667142979810, guid: a65b3f9327f1bdc4e9226a491208e6e6,

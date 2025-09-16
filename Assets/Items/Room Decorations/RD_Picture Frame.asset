@@ -16,8 +16,10 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
   purchaseValue: 0
   purchaseQuantity: 1
-  itemDescription: TEST ITEM
+  reputationUnlockRequirement: 0
+  itemDescription: TEST ITEM DO NOT BUY IT WILL CORRUPT YOUR GAME FILES
   tags: 070000000a000000130000000b000000
+  heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 1818096667142979810, guid: 12183d3d0a9da6e428a02856991b57c1,
     type: 3}
   itemSize: 0

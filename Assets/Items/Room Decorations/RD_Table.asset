@@ -16,7 +16,10 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: abf9237c23db4874b86fd595939c0fc0, type: 3}
   purchaseValue: 25
   purchaseQuantity: 1
-  itemDescription: 
+  reputationUnlockRequirement: 0
+  itemDescription: Like the coffee table, but capable of holding 4 WHOLE shrimp tanks!
+    Genuinely, I cannot believe there is a way of holding 4 WHOLE shrimp tanks with
+    one purchase! And it's so space efficient too! Truly, a bargain.
   tags: 07000000090000000f0000001400000001000000
   heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 4040673247270505239, guid: a431ce818bbad74499cf40ac5c772c74,

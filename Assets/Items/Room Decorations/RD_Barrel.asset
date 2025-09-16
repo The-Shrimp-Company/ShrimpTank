@@ -16,7 +16,8 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: d58cab4c35fec3f45b24e6c4f1f97f0f, type: 3}
   purchaseValue: 5
   purchaseQuantity: 1
-  itemDescription: 
+  reputationUnlockRequirement: 0
+  itemDescription: For all the extra water you might need, if you can get it open!
   tags: 0700000009000000130000000e000000
   heldItemPrefab: {fileID: 0}
   decorationPrefab: {fileID: 1818096667142979810, guid: 3b5026e7d9b3255469f689ff72bc0fb2,
