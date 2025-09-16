@@ -46,10 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decorationSO: {fileID: 11400000, guid: 52c62bd70819cc247a4c4e77dd9e1a11, type: 2}
-  locked: 0
+  locked: 1
   floating: 0
-  shelfSlots:
-  - {fileID: 8047791924935535018}
+  interactable: {fileID: 0}
 --- !u!1 &2210393197497147550
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,7 +149,7 @@ MonoBehaviour:
   IncludeFaces: 15
   IncludeFoam: 15
   TileSize: 0.1
-  ShowDebug: 1
+  ShowDebug: 0
   RealtimeUpdates: 1
 --- !u!1 &3621477133143979249
 GameObject:
@@ -304,6 +303,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b06951693948e547aba29f573494160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  decoration: {fileID: 0}
+  interactable: 0
+  holdInteractable: 0
   tabsToShow: 02000000
 --- !u!114 &5109458149548371599
 MonoBehaviour:
@@ -317,7 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6dbafe8f0204704b914586365c6b51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toolTip: Open Storage
+  toolTip: View Shrimp
 --- !u!1 &7432431541141155645
 GameObject:
   m_ObjectHideFlags: 0

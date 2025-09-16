@@ -46,8 +46,6 @@ public class DecorateShopController : MonoBehaviour
     public float rotationSnap = 90;
     public float placementRange = 10;
     private int rotationInput;
-    private bool transparentDecorations;
-    private bool transparentShrimp;
     private bool movingObject;
     private bool hoveringShelf;
 
@@ -162,6 +160,7 @@ public class DecorateShopController : MonoBehaviour
 
         layerMask = LayerMask.GetMask("GridNode") | LayerMask.GetMask("ShelfGridNode");
         hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), placementRange, layerMask, QueryTriggerInteraction.Collide);
+        bool shelfItem = selectedItemType.placementSurfaces.Contains(PlacementSurfaces.Shelf);
         hoveredNode = null;
         if (hits.Length == 0) return;
         for (int i = hits.Length - 1; i >= 0; i--)
@@ -177,30 +176,30 @@ public class DecorateShopController : MonoBehaviour
                     if (node.invalid)  // If the node is taken
                     {
                         hoveredNode = null;
-                        continue;
+                        break;
                     }
 
-                    if (!selectedItemType.placementSurfaces.Contains(PlacementSurfaces.Shelf) && node.shelf)  // If it is not a shelf item and hits a shelf
+                    if (!shelfItem && node.shelf)  // If it is not a shelf item and hits a shelf
                     {
                         hoveredNode = null;
-                        continue;
+                        break;
                     }
 
-                    if (selectedItemType.placementSurfaces.Contains(PlacementSurfaces.Shelf) && node.shelf && !nodes[node].GetComponent<ShelfGridNode>())  // If it is a shelf item and hits a shelf
+                    if (shelfItem && node.shelf && !nodes[node].GetComponent<ShelfGridNode>())  // If it is a shelf item and hits a shelf
                     {
-                        continue;
+                        break;
                     }
 
-                    if (selectedItemType.placementSurfaces.Contains(PlacementSurfaces.Shelf) && node.shelf && nodes[node].GetComponent<ShelfGridNode>())  // If it is a shelf item and hits a shelf slot
+                    if (shelfItem && node.shelf && nodes[node].GetComponent<ShelfGridNode>())  // If it is a shelf item and hits a shelf slot
                     {
                         hoveredNode = node;
                         hoveringShelf = true;
-                        continue;
+                        break;
                     }
 
-                    if (hoveredNode != null)  // If we want to get a new node
+                    if (hoveredNode != null || shelfItem)  // If we want to get a new node
                     {
-                        continue;
+                        break;
                     }
 
                     hoveredNode = node;
@@ -283,11 +282,11 @@ public class DecorateShopController : MonoBehaviour
             {
                 if (hoveredNode != null && hoveredNode != previousHoveredNode && previousHoveredNode == previousPreviousHoveredNode)
                 {
-                    if (hoveringShelf)
-                        objectPreview.transform.position = hoveredNode.worldPos;
+                    Debug.Log(hoveredNode.worldPos);
 
-                    else
-                        objectPreview.transform.position = hoveredNode.worldPos + selectedItemType.gridSnapOffset;
+                    Debug.Log("Shelf - " + hoveringShelf);
+
+                    objectPreview.transform.position = GetPlacementPosition();
 
                     //    //GetCurrentSurface() // Wall & ceiling rotations
                 }
@@ -296,6 +295,15 @@ public class DecorateShopController : MonoBehaviour
 
             CheckPlacementValidity();
         }
+    }
+
+    private Vector3 GetPlacementPosition()
+    {
+        if (hoveringShelf)
+            return hoveredNode.worldPos;
+
+        else
+            return hoveredNode.worldPos + selectedItemType.gridSnapOffset;
     }
 
 
@@ -393,6 +401,8 @@ public class DecorateShopController : MonoBehaviour
         selectedObject = null;
         ignoreShelves = false;
         selectedMovingObject = null;
+        previousHoveredNode = null;
+        previousPreviousHoveredNode = null;
         rotationInput = 0;
 
         foreach (GameObject n in nodes.Values)
@@ -410,7 +420,7 @@ public class DecorateShopController : MonoBehaviour
         PlacementSurfaces surface = GetCurrentSurface();
         GameObject d = Instantiate(selectedObject, decorationParent);
 
-        d.transform.position = objectPreview.transform.position;
+        d.transform.position = GetPlacementPosition();
 
         Sequence sequence = DOTween.Sequence(d);
         d.transform.localScale = objectPreview.transform.localScale;
