@@ -300,7 +300,7 @@ public class Admin : NPC
                         {
                             flags.Add("FedShrimp");
                             sentEmail.AddEmailText("So now you have set up a tank for shrimp, and you've bought shrimp, and you've fed shrimp. Well done!", "\n\nAdmin");
-                            sentEmail.CreateEmailButton("I understand", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, 5)
+                            sentEmail.CreateEmailButton("I understand", true).SetFunc(EmailFunctions.FunctionIndexes.SetCompletion, name, 5)
                                 .SetFunc(EmailFunctions.FunctionIndexes.SetTutorialFlag, "OwnStoreOpen", "VetOpen");
                         }
                     }
