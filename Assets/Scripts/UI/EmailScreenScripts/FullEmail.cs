@@ -24,8 +24,8 @@ public class FullEmail : MonoBehaviour
         ID = _email.ID;
         EmailManager.instance.openEmail = this;
         body.text = email.mainText;
-        title.text = "From:" + email.sender ?? email.title ?? "WhoKnows";
-        subject.text = "Subject Line:" + email.subjectLine;
+        title.text = "From: " + email.sender ?? email.title ?? "WhoKnows";
+        subject.text = "Subject Line: " + email.subjectLine;
         body.fontSize = 30;
         if(email.buttons != null)
         {
@@ -59,8 +59,8 @@ public class FullEmail : MonoBehaviour
     private void Update()
     {
         body.text = _email.mainText;
-        title.text = "From:" + _email.sender ?? _email.title ?? "WhoKnows";
-        subject.text = "Subject Line:" + _email.subjectLine;
+        title.text = "From: " + _email.sender ?? _email.title ?? "WhoKnows";
+        subject.text = "Subject Line: " + _email.subjectLine;
         if(_email.buttons != null && _email.buttons.Count != buttons.Count)
         {
             if (_email.buttons != null)

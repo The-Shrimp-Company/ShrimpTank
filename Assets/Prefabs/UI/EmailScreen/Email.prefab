@@ -423,7 +423,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 5264572349257113971}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.7985371
+  m_Size: 0.9188037
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -838,6 +838,7 @@ MonoBehaviour:
   title: {fileID: 7464130916172926377}
   subject: {fileID: 4063586351895380635}
   body: {fileID: 3398177639995632962}
+  ID: 
 --- !u!114 &227670464874101174
 MonoBehaviour:
   m_ObjectHideFlags: 0
