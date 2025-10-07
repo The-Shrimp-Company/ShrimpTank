@@ -83,7 +83,7 @@ public class SingleShopScript : ScreenView
         //if (Mathf.Abs(Store.GetDestinationTank().waterTemperature - shrimp.temperaturePreference) >= 10) tempLabel.text += "<color=red><size=20>\nTank not suitable</size></color>";
         saltLabel.text = "Salt:\n" + shrimp.salineLevel.ToString();
         //if (Mathf.Abs(Store.GetDestinationTank().waterSalt - shrimp.salineLevel) >= 10) saltLabel.text += "<color=red><size=20>\nTank not suitable</size></color>";
-        hnoLabel.text = "Ammonium:\n" + shrimp.ammoniaPreference.ToString();
+        hnoLabel.text = "Nitrate:\n" + shrimp.ammoniaPreference.ToString();
         //if (Mathf.Abs(Store.GetDestinationTank().waterAmmonium - shrimp.ammoniaPreference) >= 10) hnoLabel.text += "<color=red><size=20>\nTank not suitable</size></color>";
         PhLabel.text = "ph:\n" + shrimp.PhPreference.ToString();
         //if (Mathf.Abs(Store.GetDestinationTank().waterPh - shrimp.PhPreference) >= 2) PhLabel.text += "<color=red><size=20>\nTank not suitable</size></color>";

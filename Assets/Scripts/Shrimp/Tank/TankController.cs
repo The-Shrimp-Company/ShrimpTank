@@ -425,7 +425,7 @@ public class TankController : Interactable
         // Sending stat alarms
         CheckStatAlarm(waterTemperature, idealTemp, tempVariance, "Your tank is the wrong temperature", AlarmTypes.Temp);
         CheckStatAlarm(waterSalt, idealSalt, saltVariance, "Your tank has the wrong salt level", AlarmTypes.Salt);
-        CheckStatAlarm(waterAmmonium, idealNitr, nitrVariance, "Your tank has the wrong Ammonium Nitrate level", AlarmTypes.AmmoniumNitrate);
+        CheckStatAlarm(waterAmmonium, idealNitr, nitrVariance, "Your tank has the wrong Nitrate level", AlarmTypes.AmmoniumNitrate);
         CheckStatAlarm(waterPh, idealPh, pHVariance, "Your tank has the wrong pH level", AlarmTypes.ph);
         if(shrimpInTank.Count > 0)
         {

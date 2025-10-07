@@ -105,7 +105,7 @@ public class UpgradePanel : MonoBehaviour
             }
             saltLabel.text = "Salt Level: " + ((int)tank.waterSalt).ToString();
             phLabel.text = "pH Level: " + ((int)tank.waterPh).ToString();
-            ammoniumLabel.text = "Ammonium Nitrate Level: " + ((int)tank.waterAmmonium).ToString();
+            ammoniumLabel.text = "Nitrate Level: " + ((int)tank.waterAmmonium).ToString();
         }
     }
 
