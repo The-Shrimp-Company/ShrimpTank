@@ -384,9 +384,9 @@ public class TankController : Interactable
         // Water Temperature
         waterTemperature = Mathf.Clamp(waterTemperature - tempuratureChangeSpeed * updateTimer, 20, 80);
 
-        waterSalt -= 0.01f * updateTimer * shrimpInTank.Count;
+        waterSalt = Mathf.Clamp(waterSalt - 0.01f * updateTimer * shrimpInTank.Count, 0, 100);
         
-        waterAmmonium -= 0.01f * updateTimer * shrimpInTank.Count * UnityEngine.Random.value;
+        waterAmmonium = Mathf.Clamp(waterAmmonium - 0.01f * updateTimer * shrimpInTank.Count * UnityEngine.Random.value, 0, 100);
 
 
 
