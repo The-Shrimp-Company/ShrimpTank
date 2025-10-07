@@ -107,6 +107,8 @@ public class EmailManager
 
     public void Initialize()
     {
+        notifications.Clear();
+        alarmNotifs.Clear();
         if(SaveManager.CurrentSaveData.emails != null)
         {
             emails = SaveManager.CurrentSaveData.emails.ToList();
