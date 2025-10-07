@@ -181,13 +181,13 @@ public class ShopInventory : ScreenView
                         if (d != null)
                         {
                             shop.StartPlacing(d.decorationPrefab, d);
-                            Close();
+                            Exit();
                             return;
                         }
                         else if (so.tags.Contains(ItemTags.Holdable)) 
                         {
                             Store.player.GetComponent<HeldItem>().HoldItem(i);
-                            Close();
+                            Exit();
                             return;
                         }
                     }
@@ -217,7 +217,7 @@ public class ShopInventory : ScreenView
                     else  // If it is already selected
                     {
                         Store.player.GetComponent<HeldItem>().HoldItem(i);
-                        Close();
+                        Exit();
                         return;
                     }
 
@@ -339,7 +339,7 @@ public class ShopInventory : ScreenView
     }
 
 
-
+    /*
     public override void Close(bool switchTab) { CloseScreen(); }
     public override void Close() { CloseScreen(); }
 
@@ -351,7 +351,7 @@ public class ShopInventory : ScreenView
         UIManager.instance.input.SwitchCurrentActionMap("Move");
         base.Close();
     }
-
+    */
 
     public void UISelect()
     {

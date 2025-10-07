@@ -43,7 +43,8 @@ public class HeldItem : MonoBehaviour
     private void HeldItemChanged()
     {
         if (handTransform.childCount > 0) Destroy(handTransform.GetChild(0).gameObject);
-        CrossHairScript.ShowCrosshair();
+
+        if(UIManager.instance.CheckLevel() == 0) CrossHairScript.ShowCrosshair();
 
 
         if (heldItem != null)
