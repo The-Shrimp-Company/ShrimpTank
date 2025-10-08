@@ -22,6 +22,7 @@ public class Inventory
         LoadItemsFromResources();  // Gets a list of all items from the resources folder
 
         GenerateInventory();  // Initialises inventory with all items at 0 quantity
+        GenerateShrimpInventory();  // Initialises shrimp inventory
 
         if (saveData != null)
         {
@@ -77,6 +78,12 @@ public class Inventory
 
             inventory.Add(item);
         }
+    }
+
+    private void GenerateShrimpInventory()
+    {
+        if (shrimpInventory == null) shrimpInventory = new List<ShrimpItem>();
+        else shrimpInventory.Clear();
     }
 
     private void LoadInventoryFromFile(Item[] saveData)
