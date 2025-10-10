@@ -104,7 +104,8 @@ public class TankDecorateViewScript : ScreenView
 
             content.SetDecoration(so);
             content.ownedText.text = i.quantity.ToString();
-            content.priceText.text = "£" + so.purchaseValue.ToString();
+            content.priceText.text = "";
+            //content.priceText.text = "£" + so.purchaseValue.ToString();
 
             if (selectedItemType == so) content.buttonSprite.color = content.selectedColour;
             else if (i.quantity > 0) content.buttonSprite.color = content.inInventoryColour;

@@ -159,12 +159,12 @@ public class ShopInventory : ScreenView
 
                 content.SetDecoration(so);
                 content.ownedText.text = i.quantity.ToString();
-                content.priceText.text = "£" + so.purchaseValue.ToString();
+                content.priceText.text = "£" + EconomyManager.instance.RoundMoney(so.purchaseValue / so.purchaseQuantity).ToString();
 
                 if (selectedItemType == so) content.buttonSprite.color = content.selectedColour;
                 else if (i.quantity > 0) content.buttonSprite.color = content.inInventoryColour;
-                else if (so.purchaseValue <= Money.instance.money) content.buttonSprite.color = content.notInInventoryColour;
-                else if (so.purchaseValue > Money.instance.money) content.buttonSprite.color = content.cannotAffordColour;
+                //else if (so.purchaseValue <= Money.instance.money) content.buttonSprite.color = content.notInInventoryColour;
+                //else if (so.purchaseValue > Money.instance.money) content.buttonSprite.color = content.cannotAffordColour;
 
                 content.button.onClick.AddListener(() =>
                 {

@@ -24,7 +24,7 @@ public class Decoration : MonoBehaviour
             materials.Add(me, ma);
         }
 
-        if (decorationSO.tags.Contains(ItemTags.RoomDecoration))
+        if (decorationSO != null && decorationSO.tags.Contains(ItemTags.RoomDecoration))
         {
             if (GetComponent<Interactable>()) interactable = GetComponent<Interactable>();
             else if (GetComponentInChildren<Interactable>()) interactable = GetComponentInChildren<Interactable>();

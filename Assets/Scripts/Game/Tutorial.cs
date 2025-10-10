@@ -23,17 +23,17 @@ public class Tutorial : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
-        if (DataStore.Assigned)
-        {
-            Debug.Log(DataStore.StoreName);
-        }
-        else
-        {
-            Debug.Log(SaveManager.CurrentSaveData.storeName);
-        }
-    }
+    //void Start()
+    //{
+    //    if (DataStore.Assigned)
+    //    {
+    //        Debug.Log(DataStore.StoreName);
+    //    }
+    //    else
+    //    {
+    //        Debug.Log(SaveManager.CurrentSaveData.storeName);
+    //    }
+    //}
 
     public void init()
     {

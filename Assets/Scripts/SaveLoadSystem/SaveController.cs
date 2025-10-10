@@ -32,7 +32,6 @@ public class SaveController : MonoBehaviour
             return;
         }
 
-        Debug.Log("Autosave");
         LoadGame("Autosave");
     }
 

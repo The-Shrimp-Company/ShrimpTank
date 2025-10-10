@@ -154,7 +154,7 @@ public class ItemShop : ScreenView
             selectedItemQuantityText.text = "x" + selectedItemType.purchaseQuantity.ToString();
 
             if (selectedItemType.purchaseQuantity == 1) selectedItemPriceText.text = "£" + selectedItemType.purchaseValue;
-            else selectedItemPriceText.text = "£" + selectedItemType.purchaseValue / selectedItemType.purchaseQuantity + " Each";
+            else selectedItemPriceText.text = "£" + EconomyManager.instance.RoundMoney(selectedItemType.purchaseValue / selectedItemType.purchaseQuantity) + " Each";
 
             DecorationItemSO d = selectedItemType as DecorationItemSO;
             if (d != null)
