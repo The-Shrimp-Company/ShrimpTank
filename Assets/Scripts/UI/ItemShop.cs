@@ -152,7 +152,9 @@ public class ItemShop : ScreenView
             if (selectedItemType == null) selectedItemImage.gameObject.SetActive(false);
             selectedItemDescriptionText.text = selectedItemType.itemDescription;
             selectedItemQuantityText.text = "x" + selectedItemType.purchaseQuantity.ToString();
-            selectedItemPriceText.text = "£" + selectedItemType.purchaseValue / selectedItemType.purchaseQuantity;
+
+            if (selectedItemType.purchaseQuantity == 1) selectedItemPriceText.text = "£" + selectedItemType.purchaseValue;
+            else selectedItemPriceText.text = "£" + selectedItemType.purchaseValue / selectedItemType.purchaseQuantity + " Each";
 
             DecorationItemSO d = selectedItemType as DecorationItemSO;
             if (d != null)
