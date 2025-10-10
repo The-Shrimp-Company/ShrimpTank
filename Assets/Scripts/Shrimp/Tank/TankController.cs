@@ -586,7 +586,7 @@ public class TankController : Interactable
     }
 
 
-    public void SpawnShrimp(ShrimpStats s, bool gameLoading = false)
+    public GameObject SpawnShrimp(ShrimpStats s, bool gameLoading = false)
     {
         upgradeController = GetComponent<TankUpgradeController>();
         
@@ -614,6 +614,8 @@ public class TankController : Interactable
         shrimpToAdd.Add(shrimp);
 
         CheckMostShrimpInTank();
+
+        return newShrimp;
     }
  
     public void MoveShrimp(Shrimp shrimp)
