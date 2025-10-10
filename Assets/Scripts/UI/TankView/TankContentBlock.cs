@@ -12,6 +12,8 @@ public class TankContentBlock : ContentBlock
     private GameObject shrimpView;
 
     [SerializeField] private TextMeshProUGUI breedname;
+    [SerializeField] private TextMeshProUGUI gender;
+    [SerializeField] private GameObject age;
 
     public Button main, checkbutton;
 
@@ -33,7 +35,9 @@ public class TankContentBlock : ContentBlock
         _tankView = tankView;
         breedname.text = shrimp.stats.GetBreedname();
         primaryColour.color = GeneManager.instance.GetTraitSO(_shrimp.stats.primaryColour.activeGene.ID).colour;
-        secondaryColour.color = GeneManager.instance.GetTraitSO(_shrimp.stats.secondaryColour.activeGene.ID).colour;
+        secondaryColour.color = GeneManager.instance.GetTraitSO(_shrimp.stats.secondaryColour.activeGene.ID).colour;  
+        gender.text = shrimp.stats.sex ? "Male" : "Female";
+        age.SetActive(!ShrimpManager.instance.IsShrimpAdult(shrimp.stats));
     }
 
     private void Update()
@@ -43,14 +47,8 @@ public class TankContentBlock : ContentBlock
         UpdateArrow(_shrimp.tank.waterSalt, _shrimp.stats.salineLevel, saltArrow);
         UpdateArrow(_shrimp.tank.waterPh, _shrimp.stats.PhPreference, pHArrow, 2);
         UpdateArrow(_shrimp.tank.waterAmmonium, _shrimp.stats.ammoniaPreference, HNOArrow);
-        if (!ShrimpManager.instance.IsShrimpAdult(_shrimp.stats))
-        {
-            SetText(_shrimp.stats.name + " (child)");
-        }
-        else
-        {
-            SetText(_shrimp.stats.name);
-        }
+        age.SetActive(!ShrimpManager.instance.IsShrimpAdult(_shrimp.stats));
+        SetText(_shrimp.stats.name);
     }
 
     private void UpdateArrow(float currentStat, float idealStat, Image statArrow, int MaxAllowableDifference = 10)
