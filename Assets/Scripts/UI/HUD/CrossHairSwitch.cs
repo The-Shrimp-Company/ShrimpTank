@@ -42,7 +42,8 @@ public class CrossHairSwitch : MonoBehaviour
         else if (target.holdInteractable && target.HasHoldActions())
         {
             ChangeSprite(rightInteractSprite, interactSize);
-            FadeText(0);
+            if (target.tooltipAlwaysVisible) FadeText(1);
+            else FadeText(0);
         }
         else if (target.interactable)
         {
@@ -52,7 +53,8 @@ public class CrossHairSwitch : MonoBehaviour
         else
         {
             ChangeSprite(crosshairSprite, crosshairSize);
-            FadeText(0);
+            if (target.tooltipAlwaysVisible) FadeText(1);
+            else FadeText(0);
         }
     }
 

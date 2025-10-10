@@ -6,10 +6,12 @@ using UnityEngine.Events;
 public class Interactable : MonoBehaviour
 {
     protected bool hovering = false;
+    protected bool hoveringEnter = false;
     protected bool wasHovering = false;
     [HideInInspector] public Decoration decoration;
     [HideInInspector] public bool interactable;
     [HideInInspector] public bool holdInteractable;
+    [HideInInspector] public bool tooltipAlwaysVisible;  // Whether the tooltip can be seen when the item is not interactable
     protected Dictionary<string, UnityAction> holdActions = new Dictionary<string, UnityAction>();
 
     private void Awake()
@@ -18,19 +20,19 @@ public class Interactable : MonoBehaviour
         holdInteractable = true;
     }
 
-    // Update is called once per frame
-    protected virtual void MouseHover()
+
+    protected virtual void MouseHover()  // Call in update on an object that you want the hover function on
     {
-        if (hovering && !wasHovering)
+        if (hoveringEnter && !wasHovering)
         {
             OnHover();
         }
-        if (!hovering && wasHovering)
+        if (!hoveringEnter && wasHovering)
         {
             OnStopHover();
         }
-        wasHovering = hovering;
-        hovering = false;
+        wasHovering = hoveringEnter;
+        hoveringEnter = false;
     }
 
     public void AddHoldAction(string name,  UnityAction action)
@@ -59,7 +61,7 @@ public class Interactable : MonoBehaviour
 
     public virtual void Show()
     {
-        hovering = true;
+        hoveringEnter = true;
     }
 
     public virtual void Action()
@@ -69,11 +71,11 @@ public class Interactable : MonoBehaviour
 
     public virtual void OnHover()
     {
-
+        hovering = true;
     }
 
     public virtual void OnStopHover()
     {
-
+        hovering = false;
     }
 }

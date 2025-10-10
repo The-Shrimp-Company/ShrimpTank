@@ -170,7 +170,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   decoration: {fileID: 0}
   interactable: 0
+  holdInteractable: 0
   tabsToShow: 00000000010000000300000004000000
+  itemTypesHeld: 070000001200000011000000
+  noItemsTooltip: No Items Available
+  itemsTooltip: Open Storage
 --- !u!114 &3100305873396892973
 MonoBehaviour:
   m_ObjectHideFlags: 0

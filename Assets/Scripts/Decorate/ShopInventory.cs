@@ -5,9 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using DG.Tweening;
-using System;
-using UnityEditor;
-using UnityEngine.Windows;
 using AYellowpaper.SerializedCollections;
 using System.Linq;
 
@@ -337,6 +334,7 @@ public class ShopInventory : ScreenView
 
         return tabFilters[currentTab].GetTabFilters();
     }
+
 
 
     /*

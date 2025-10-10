@@ -34,6 +34,14 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Update()
     {
+        if (Store.decorateController.decorating) 
+        {
+            hoverTarget = null;
+            targetInteractable = null;
+            return;
+        }
+
+
         hoverTarget = lookCheck.LookCheck(3, shelfLayerMask);
         if (hoverTarget != null)
         {

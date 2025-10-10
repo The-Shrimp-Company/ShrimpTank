@@ -307,6 +307,9 @@ MonoBehaviour:
   interactable: 0
   holdInteractable: 0
   tabsToShow: 02000000
+  itemTypesHeld: 10000000
+  noItemsTooltip: No Shrimp Available
+  itemsTooltip: View Shrimp
 --- !u!114 &5109458149548371599
 MonoBehaviour:
   m_ObjectHideFlags: 0
