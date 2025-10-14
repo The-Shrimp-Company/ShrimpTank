@@ -591,6 +591,7 @@ MonoBehaviour:
   decoration: {fileID: 0}
   interactable: 0
   holdInteractable: 0
+  tooltipAlwaysVisible: 0
   shrimpInTank: []
   shrimpToAdd: []
   shrimpToRemove: []
@@ -3149,9 +3150,7 @@ PrefabInstance:
     - target: {fileID: 5918358851338581136, guid: e7c90b0586289f64f9df479b5204ad7b,
         type: 3}
       propertyPath: m_text
-      value: 'All Shrimp:
-
-'
+      value: All Shrimp For Sale
       objectReference: {fileID: 0}
     - target: {fileID: 8684829751410966389, guid: e7c90b0586289f64f9df479b5204ad7b,
         type: 3}

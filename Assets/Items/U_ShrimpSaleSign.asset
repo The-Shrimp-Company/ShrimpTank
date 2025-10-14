@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8536f9e8c929be47bbd944e5887e460, type: 3}
+  m_Name: U_ShrimpSaleSign
+  m_EditorClassIdentifier: 
+  itemName: Open Sale Sign
+  itemImage: {fileID: 0}
+  purchaseValue: 5
+  purchaseQuantity: 1
+  reputationUnlockRequirement: 20
+  itemDescription: Put this sign on one of your tanks, and customers will be able
+    to see the shrimp in the tank, as if by magic! They will then be able to buy
+    the shrimp online, but be careful, because they will tend to pay less than what
+    you might want them to!
+  tags: 1e00000004000000
+  heldItemPrefab: {fileID: 0}

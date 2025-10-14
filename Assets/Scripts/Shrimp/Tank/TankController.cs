@@ -768,6 +768,13 @@ public class TankController : Interactable
 
                 if (Inventory.GetItemQuantity(item) > 0) stopHolding = false;
             }
+            else if (so.itemName == "Open Sale Sign")
+            {
+                if(openTank == false)
+                {
+                    toggleTankOpen();
+                }
+            }
         }
 
         if (stopHolding) Store.player.GetComponent<HeldItem>().StopHoldingItem();
