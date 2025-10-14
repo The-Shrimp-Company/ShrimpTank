@@ -139,8 +139,7 @@ public class PlayerInteraction : MonoBehaviour
     /// <param name="Key"></param>
     public void OnSwitchTank(InputValue Key)
     {
-        TankViewScript view;
-        UIManager.instance.GetScreen().TryGetComponent(out view);
+        TankViewScript view = UIManager.instance.GetScreen()?.GetComponent<TankViewScript>();
         if (view != null)
         {
             if (Key.Get<Vector2>().normalized != press)
