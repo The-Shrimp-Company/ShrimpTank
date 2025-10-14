@@ -269,6 +269,11 @@ public class Inventory
             items.Add(item);
         }
 
+        foreach(Item item in instance.shrimpInventory)
+        {
+            items.Add(item);
+        }
+
         if (sort) items = SortItemsByQuantityThenName(items);
 
         return items;
