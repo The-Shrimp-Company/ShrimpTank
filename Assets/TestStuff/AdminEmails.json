@@ -1,0 +1,49 @@
+{
+  "Admin": {
+    "name": {
+      "en": "Admin@admin.ShrimpCo.com",
+      "fi": "",
+      "no": ""
+    },
+    "Emails": [
+      {
+        "Email1": {
+          "text": {
+            "subjectLine": {
+              "en": "Account activation",
+              "fi": "",
+              "no": ""
+            },
+            "mainText": {
+              "en": "You must activate your shrimp community account.",
+              "fi": "",
+              "no": ""
+            }
+          },
+          "buttons": []
+        },
+        "Email2": {
+          "text": {
+            "subjectLine": {
+              "en": "Welcome to the Shrimping Community, "
+            },
+            "mainText": {
+              "en": "We are now installing the community apps on your device for your convienience. You may choose to either have access to all of these applications now, or we can give you access over time, to walk you through the options available. Which would you like to pick?"
+            }
+          },
+          "buttons": []
+        },
+        "Email3": {
+          "text":{
+            "subjectLine":{
+              "en": "Setting up tanks"
+            },
+            "mainText":{
+              "en": "It seems you already have some tanks in your store, but they're not quite set up yet. The first thing you'll need to do is to add water. To do this, go to the tanks, and add water to them."
+            }
+          }
+        }
+      }
+    ]
+  }
+}
