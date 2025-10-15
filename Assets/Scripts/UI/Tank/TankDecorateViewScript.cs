@@ -218,7 +218,7 @@ public class TankDecorateViewScript : ScreenView
         Camera.main.transform.position = tank.GetCam().transform.position;
         Camera.main.transform.rotation = tank.GetCam().transform.rotation;
         DecorateTankController.Instance.StopDecorating();
-        UIManager.instance.SetCursorMasking(true);
+        //UIManager.instance.SetCursorMasking(true);
         base.Close();
     }
 
