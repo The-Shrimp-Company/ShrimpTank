@@ -204,7 +204,7 @@ public class ShrimpView : ScreenView
 
     public IEnumerator CloseTab(bool switchTab)
     {
-        UIManager.instance.SetCursorMasking(true);  // Enable cursor masking
+        //UIManager.instance.SetCursorMasking(true);  // Enable cursor masking
         DOTween.Kill(panel);  // End currently running tweens
 
         if (switchTab)  // If we are switching to another menu
