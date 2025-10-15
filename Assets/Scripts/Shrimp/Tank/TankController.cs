@@ -743,6 +743,15 @@ public class TankController : Interactable
                     stopHolding = false;
                 }
             }
+
+            else if (so.tags.Contains(ItemTags.TankUpgrade))  // Holding an upgrade
+            {
+                UpgradeItemSO upgradeItemSO = so as UpgradeItemSO;
+                if (upgradeItemSO == null) return;
+                upgradeController.AddUpgrade(upgradeItemSO);
+                Inventory.RemoveItem(Inventory.GetItemUsingSO(so));
+            }
+
             else if (so.tags.Contains(ItemTags.Food) && !FedTankToday())  // Holding Food
             {
                 FeedShrimp();
@@ -751,6 +760,7 @@ public class TankController : Interactable
 
                 if (Inventory.GetItemQuantity(item) > 0) stopHolding = false;
             }
+
             else if (so.tags.Contains(ItemTags.Medicine) && shrimpInTank.Count != 0)  // Holding Medicine
             {
                 foreach (Shrimp shrimp in shrimpInTank)
@@ -761,19 +771,13 @@ public class TankController : Interactable
                 Store.player.GetComponent<HeldItem>().UseHeldItem();
                 Inventory.RemoveItem(item);
             }
+
             else if (so.tags.Contains(ItemTags.Salt))  // Holding Salt
             {
                 waterSalt = Mathf.Clamp(waterSalt + 10, 0, 100);
                 Inventory.RemoveItem(item);
 
                 if (Inventory.GetItemQuantity(item) > 0) stopHolding = false;
-            }
-            else if (so.itemName == "Open Sale Sign")
-            {
-                if(openTank == false)
-                {
-                    toggleTankOpen();
-                }
             }
         }
 
@@ -813,6 +817,8 @@ public class TankController : Interactable
                         invalidShrimpHover = false;
                     }
                 }
+                else if (Inventory.GetSOForItem(item).tags.Contains(ItemTags.TankUpgrade))
+                    tooltip.toolTip = "Put " + item.itemName + " in " + tankName;
                 else if (Inventory.GetSOForItem(item).tags.Contains(ItemTags.Food) && !FedTankToday() && shrimpInTank.Count > 0)
                     tooltip.toolTip = "Put food in " + tankName;
                 else if (Inventory.GetSOForItem(item).tags.Contains(ItemTags.Medicine) && shrimpInTank.Count > 0)

@@ -18,8 +18,9 @@ MonoBehaviour:
   purchaseQuantity: 1
   reputationUnlockRequirement: 0
   itemDescription: A bit basic, but it does the job.
-  tags: 0400000006000000
-  heldItemPrefab: {fileID: 0}
+  tags: 04000000060000001e000000
+  heldItemPrefab: {fileID: 5607206695084763870, guid: eb4745f70071fdf41a34c6d2355acaa2,
+    type: 3}
   upgradeType: 1
   upgradePrefab: {fileID: 9034102042131325629, guid: 141d672322e844749bd0a356063ac800,
     type: 3}

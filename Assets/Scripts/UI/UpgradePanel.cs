@@ -9,17 +9,26 @@ using System;
 public class UpgradePanel : MonoBehaviour
 {
     [Header("Heater")]
-    [SerializeField] private Button heaterButton;
+    [SerializeField] private GameObject heaterPanel;
+    [SerializeField] private TMP_Text heaterName;
     [SerializeField] private Slider heaterSlider;
     [SerializeField] private Button heaterRepair;
+    [SerializeField] private Button heaterRemove;
     [SerializeField] private TextMeshProUGUI currentTemp;
     [SerializeField] private RectTransform tempArrow;
     private float prevTemp;
     private int arrowTimer;
 
     [Header("Filter")]
-    [SerializeField] private Button filterButton;
+    [SerializeField] private GameObject filterPanel;
+    [SerializeField] private TMP_Text filterName;
     [SerializeField] private Button filterRepair;
+    [SerializeField] private Button filterRemove;
+
+    [Header("Label")]
+    [SerializeField] private GameObject labelPanel;
+    [SerializeField] private TMP_Text labelName;
+    [SerializeField] private Button labelRemove;
 
     [Header("Salt")]
     [SerializeField] private TextMeshProUGUI saltLabel;
@@ -40,36 +49,7 @@ public class UpgradePanel : MonoBehaviour
         {
             tank = value;
 
-            if (tank.GetComponent<TankUpgradeController>().CheckForUpgrade(UpgradeTypes.Heater))
-            {
-                heaterButton.GetComponentInChildren<TextMeshProUGUI>().text = tank.GetComponent<TankUpgradeController>().GetUpgrade(UpgradeTypes.Heater).upgrade.itemName;
-                if(tank.GetComponent<TankUpgradeController>().GetUpgrade(UpgradeTypes.Heater).upgrade.thermometer != Thermometer.AutomaticThermometer)
-                {
-                    heaterSlider.gameObject.SetActive(false);
-                }
-                else
-                {
-                    heaterSlider.gameObject.SetActive(true);
-                }
-                currentTemp.enabled = true;
-                prevTemp = tank.waterTemperature;
-            }
-            else
-            {
-                heaterRepair.interactable = false;
-                heaterSlider.enabled = false;
-                currentTemp.enabled = false;
-            }
-
-            if (tank.GetComponent<TankUpgradeController>().CheckForUpgrade(UpgradeTypes.Filter))
-            {
-                filterButton.GetComponentInChildren<TextMeshProUGUI>().text = tank.GetComponent<TankUpgradeController>().GetUpgrade(UpgradeTypes.Filter).upgrade.itemName;
-
-            }
-            else
-            {
-                filterRepair.interactable = false;
-            }
+            UpdatePanel();
             /*
             if(!(Tutorial.instance.flags.Contains("AccountActivated") || Tutorial.instance.flags.Contains("UpgradeStoreOpen")))
             {
@@ -109,10 +89,73 @@ public class UpgradePanel : MonoBehaviour
         }
     }
 
+    private void UpdatePanel()
+    {
+        if (!tank) return;
+
+        if (tank.GetComponent<TankUpgradeController>().CheckForUpgrade(UpgradeTypes.Heater))
+        {
+            heaterName.text = tank.GetComponent<TankUpgradeController>().GetUpgrade(UpgradeTypes.Heater).upgrade.itemName;
+            heaterRemove.interactable = true;
+            if (tank.GetComponent<TankUpgradeController>().GetUpgrade(UpgradeTypes.Heater).upgrade.thermometer != Thermometer.AutomaticThermometer)
+            {
+                heaterSlider.gameObject.SetActive(false);
+            }
+            else
+            {
+                heaterSlider.gameObject.SetActive(true);
+            }
+            currentTemp.enabled = true;
+            prevTemp = tank.waterTemperature;
+        }
+        else
+        {
+            heaterPanel.SetActive(false);
+            heaterRemove.interactable = false;
+            heaterRepair.interactable = false;
+            heaterSlider.enabled = false;
+            currentTemp.enabled = false;
+        }
+
+        if (tank.GetComponent<TankUpgradeController>().CheckForUpgrade(UpgradeTypes.Filter))
+        {
+            filterName.text = tank.GetComponent<TankUpgradeController>().GetUpgrade(UpgradeTypes.Filter).upgrade.itemName;
+            filterRemove.interactable = true;
+        }
+        else
+        {
+            filterPanel.SetActive(false);
+            filterRemove.interactable = false;
+            filterRepair.interactable = false;
+        }
+
+        if (tank.GetComponent<TankUpgradeController>().CheckForUpgrade(UpgradeTypes.Label))
+        {
+            labelName.text = tank.GetComponent<TankUpgradeController>().GetUpgrade(UpgradeTypes.Label).upgrade.itemName;
+            labelRemove.interactable = true;
+        }
+        else
+        {
+            labelPanel.SetActive(false);
+            labelRemove.interactable = false;
+        }
+    }
+
     public void ChangeTemp()
     {
         ((Heater)tank.GetComponent<TankUpgradeController>().GetUpgrade(UpgradeTypes.Heater)).SetTargetTemperature(heaterSlider.value);
     }
 
-
+    public void RemoveHeater() { RemoveUpgrade(UpgradeTypes.Heater); }
+    public void RemoveFilter() { RemoveUpgrade(UpgradeTypes.Filter); }
+    public void RemoveLabel() { RemoveUpgrade(UpgradeTypes.Label); }
+    private void RemoveUpgrade(UpgradeTypes type)
+    {
+        TankUpgradeController controller = tank.GetComponent<TankUpgradeController>();
+        if (controller && controller.CheckForUpgrade(type))
+        {
+            controller.RemoveUpgrade(type);
+            UpdatePanel();
+        }
+    }
 }

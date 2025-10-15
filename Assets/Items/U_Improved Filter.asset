@@ -18,8 +18,9 @@ MonoBehaviour:
   purchaseQuantity: 1
   reputationUnlockRequirement: 0
   itemDescription: The water will be CLEANER!
-  tags: 0400000005000000
-  heldItemPrefab: {fileID: 0}
+  tags: 04000000050000001e000000
+  heldItemPrefab: {fileID: 5607206695084763870, guid: c09c44068c0bd7846afb902914aec68a,
+    type: 3}
   upgradeType: 0
   upgradePrefab: {fileID: 9034102042131325629, guid: f4c51c8568374664190c2c65813780e3,
     type: 3}

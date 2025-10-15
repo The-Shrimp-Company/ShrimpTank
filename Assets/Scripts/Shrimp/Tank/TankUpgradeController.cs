@@ -15,7 +15,7 @@ public class TankUpgradeController : MonoBehaviour
     {
         tank = GetComponent<TankController>();
 
-        if (upgradeScripts.Count == 0)  // If we haven't already loaded upgrades
+        if (upgradeScripts.Count == 0 && !tank.tankLoaded)  // If we haven't already loaded upgrades
         {
             foreach (UpgradeItemSO u in startingUpgrades)
             {
@@ -75,12 +75,9 @@ public class TankUpgradeController : MonoBehaviour
 
     public void RemoveUpgrade(UpgradeTypes upgradeType)
     {
-        // Add it back to the inventory?
-
-
-
         if (upgradeScripts.ContainsKey(upgradeType) && upgradeScripts[upgradeType] != null)
         {
+            Inventory.AddItem(Inventory.GetItemUsingSO(upgradeScripts[upgradeType].upgrade));
             upgradeScripts[upgradeType].RemoveUpgrade();
             upgradeScripts[upgradeType] = null;
         }
@@ -144,10 +141,18 @@ public class TankUpgradeController : MonoBehaviour
 
         foreach (KeyValuePair<UpgradeTypes, TankUpgrade> upgrade in upgradeScripts)
         {
-            if (upgrade.Value.upgrade != null && index <= ids.Length)
+            if (index <= ids.Length)
             {
-                ids[index] = upgrade.Value.upgrade.itemName;
-                index++;
+                if (upgrade.Value == null)
+                {
+                    ids[index] = "";
+                    index++;
+                }
+                else if (upgrade.Value.upgrade != null)
+                {
+                    ids[index] = upgrade.Value.upgrade.itemName;
+                    index++;
+                }
             }
         }
 

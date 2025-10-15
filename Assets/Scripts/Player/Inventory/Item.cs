@@ -45,6 +45,7 @@ public enum ItemTags
     Temperature,
 
     Holdable,
+    Label
 }
 
 

@@ -21,6 +21,6 @@ MonoBehaviour:
     to see the shrimp in the tank, as if by magic! They will then be able to buy
     the shrimp online, but be careful, because they will tend to pay less than what
     you might want them to!
-  tags: 1e0000000400000012000000
+  tags: 1e000000040000001f000000
   heldItemPrefab: {fileID: 1922775819664780899, guid: 69473317507001f4ca757b9eddb9f74d,
     type: 3}

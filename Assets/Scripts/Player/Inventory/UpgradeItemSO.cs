@@ -32,7 +32,7 @@ public enum UpgradeTypes
     PhIndicator,
     MineralRegulator,
     FoodDispenser,
-    PriceTag,
+    Label,
     Decorations
 }
 

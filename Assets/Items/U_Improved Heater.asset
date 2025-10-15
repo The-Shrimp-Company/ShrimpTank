@@ -19,8 +19,9 @@ MonoBehaviour:
   reputationUnlockRequirement: 0
   itemDescription: Now with even more heating power! Just don't forget to leave it
     on too long...
-  tags: 0400000006000000
-  heldItemPrefab: {fileID: 0}
+  tags: 04000000060000001e000000
+  heldItemPrefab: {fileID: 5607206695084763870, guid: 08dceb1a60bfce34c8fba7de07daceab,
+    type: 3}
   upgradeType: 1
   upgradePrefab: {fileID: 9034102042131325629, guid: f52fe44497ffafa41a3d31298ab2002f,
     type: 3}
