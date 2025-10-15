@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: U_ShrimpSaleSign
   m_EditorClassIdentifier: 
   itemName: Open Sale Sign
-  itemImage: {fileID: 0}
+  itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
   purchaseValue: 5
   purchaseQuantity: 1
   reputationUnlockRequirement: 20
@@ -21,5 +21,6 @@ MonoBehaviour:
     to see the shrimp in the tank, as if by magic! They will then be able to buy
     the shrimp online, but be careful, because they will tend to pay less than what
     you might want them to!
-  tags: 1e00000004000000
-  heldItemPrefab: {fileID: 0}
+  tags: 1e0000000400000012000000
+  heldItemPrefab: {fileID: 1922775819664780899, guid: 69473317507001f4ca757b9eddb9f74d,
+    type: 3}

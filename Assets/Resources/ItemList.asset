@@ -24,6 +24,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: acb7fdf5a6cf52440b182feffe42a47b, type: 2}
   - {fileID: 11400000, guid: b2fad02914d55cb4a92ceb19388f00e4, type: 2}
   - {fileID: 11400000, guid: a9a5a20adae17d94b85911d319cbd61e, type: 2}
+  - {fileID: 11400000, guid: a4a6e9a1d6420d145aaf3cae58287831, type: 2}
   roomDecorations:
   - {fileID: 11400000, guid: c959370a54c4aeb46b5c7661b2544009, type: 2}
   - {fileID: 11400000, guid: 528cb69190c57b14f8dfb1fe066731d9, type: 2}

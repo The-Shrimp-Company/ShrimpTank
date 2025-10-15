@@ -1170,7 +1170,7 @@
                     "name": "ExitView",
                     "type": "Button",
                     "id": "dbe82bba-1ada-421e-865a-21eef7553ffa",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -1195,9 +1195,9 @@
                 },
                 {
                     "name": "SwitchTank",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "3a9a61cf-447d-4c4e-bf94-0c8776c47432",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -1642,7 +1642,7 @@
                     "name": "New action",
                     "type": "Button",
                     "id": "548258fd-53bc-4014-a67e-ab6ceda86885",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
