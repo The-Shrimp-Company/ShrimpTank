@@ -103,6 +103,14 @@ public class TankViewScript : ScreenView
     public virtual void Update()
     {
         //base.Update();
+        for(int i = selectedShrimp.Count - 1; i >=0; i--)
+        {
+            if (selectedShrimp[i] == null)
+            {
+                selectedShrimp.RemoveAt(i);
+            }
+        }
+
 
         if(selectedShrimp.Count > 0)
         {
