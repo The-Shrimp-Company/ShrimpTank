@@ -65,7 +65,7 @@ public class UpgradePanel : MonoBehaviour
     {
         if (tank != null)
         {
-            currentTemp.text = Math.Round(tank.waterTemperature, 1).ToString();
+            currentTemp.text = Math.Round(tank.waterTemperature, 1).ToString() + "°C";
             if(arrowTimer > 20)
             {
                 arrowTimer = 0;
