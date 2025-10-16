@@ -359,7 +359,7 @@ public class TankViewScript : ScreenView
         {
             heatWarningLabel.text = "";
         }
-        idealHeatLabel.text = idealHeat.ToString();
+        idealHeatLabel.text = idealHeat.ToString() + "°C";
 
         // Check for salt preference
         if(tank.shrimpInTank.Find(x => Mathf.Abs(tank.idealSalt - x.stats.salineLevel) > 10) != null)
