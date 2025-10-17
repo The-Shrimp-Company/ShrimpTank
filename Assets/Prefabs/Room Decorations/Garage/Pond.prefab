@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decorationSO: {fileID: 11400000, guid: 52c62bd70819cc247a4c4e77dd9e1a11, type: 2}
-  locked: 1
+  locked: 0
   floating: 0
   interactable: {fileID: 0}
 --- !u!1 &2210393197497147550
@@ -306,6 +306,7 @@ MonoBehaviour:
   decoration: {fileID: 0}
   interactable: 0
   holdInteractable: 0
+  tooltipAlwaysVisible: 0
   tabsToShow: 02000000
   itemTypesHeld: 10000000
   noItemsTooltip: No Shrimp Available

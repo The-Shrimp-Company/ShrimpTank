@@ -668,7 +668,6 @@ public class DecorateShopController : MonoBehaviour
     {
         if (!obj || !so) return;
 
-        Quaternion rot = obj.transform.rotation;
         movingObject = true;
         selectedMovingObject = obj;
         selectedItemType = so;
@@ -676,8 +675,16 @@ public class DecorateShopController : MonoBehaviour
         UpdateGridMaterials();
         currentGrid.RebakeGrid();
         StartPlacing(so.decorationPrefab, so);
-        if (objectPreview != null)
-            objectPreview.transform.rotation = rot;
+
+        // Calculate starting rotation
+        Vector3 rot = obj.transform.rotation.eulerAngles;
+        Vector3 vec = Camera.main.transform.eulerAngles;
+        vec.x = (Mathf.Round(vec.x / rotationSnap) * rotationSnap) - (Mathf.Round(rot.x / rotationSnap) * rotationSnap);
+        vec.y = (Mathf.Round(vec.y / rotationSnap) * rotationSnap) - (Mathf.Round(rot.y / rotationSnap) * rotationSnap);
+        vec.z = (Mathf.Round(vec.z / rotationSnap) * rotationSnap) - (Mathf.Round(rot.z / rotationSnap) * rotationSnap);
+        int t = (int)(vec.x + vec.y + vec.z);
+        if (t % 180 == 0) t -= 180;
+        rotationInput = t;
     }
 
     public void PutDecorationAway(GameObject obj, DecorationItemSO so, bool tween = true)

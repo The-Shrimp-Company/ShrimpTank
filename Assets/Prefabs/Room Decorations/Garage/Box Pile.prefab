@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decorationSO: {fileID: 11400000, guid: 5271735cfc8d4424bb8493803d432212, type: 2}
-  locked: 1
+  locked: 0
   floating: 0
   interactable: {fileID: 0}
 --- !u!1 &1980361461479598063
@@ -443,6 +443,7 @@ MonoBehaviour:
   decoration: {fileID: 0}
   interactable: 0
   holdInteractable: 0
+  tooltipAlwaysVisible: 0
   tabsToShow: 00000000010000000300000004000000
   itemTypesHeld: 070000001200000011000000
   noItemsTooltip: No Items Available
