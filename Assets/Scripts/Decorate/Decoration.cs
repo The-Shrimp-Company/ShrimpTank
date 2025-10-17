@@ -55,6 +55,16 @@ public class Decoration : MonoBehaviour
         }
     }
 
+    public void SetLayer(LayerMask layer = default)
+    {
+        gameObject.layer = layer;
+
+        foreach (Collider c in GetComponentsInChildren<Collider>())
+        {
+            c.gameObject.layer = layer;
+        }
+    }
+
     public void MoveDecoration()
     {
         Store.decorateController.MoveDecoration(gameObject, decorationSO);

@@ -93,7 +93,8 @@ public class TankGrid : MonoBehaviour
         node.invalid = false;
 
         LayerMask layer = LayerMask.GetMask("Decoration");
-        if (Physics.CheckBox(node.worldPos, Vector3.one * pointDistance / 2f, Quaternion.identity, layer, QueryTriggerInteraction.Ignore))
+        Collider[] hit = Physics.OverlapBox(node.worldPos, Vector3.one * pointDistance / 2f, Quaternion.identity, layer, QueryTriggerInteraction.Ignore);
+        if (hit != null && hit.Length != 0 && hit[0].name != "Object Preview")
         {
             node.invalid = true;
 
