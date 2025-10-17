@@ -132,12 +132,12 @@ GameObject:
   - component: {fileID: 6171749459268175197}
   - component: {fileID: 4839115875152010492}
   - component: {fileID: 795027388215833699}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!224 &5653139868829591735
 RectTransform:
@@ -234,12 +234,13 @@ GameObject:
   - component: {fileID: 763151834798322844}
   - component: {fileID: 7925615937132735782}
   - component: {fileID: 7510606025193393956}
-  m_Layer: 0
+  - component: {fileID: -1431554351928861505}
+  m_Layer: 13
   m_Name: OpenTankSign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &763151834798322844
 Transform:
@@ -251,7 +252,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: -0.0065}
-  m_LocalScale: {x: 1, y: 1, z: 0.06894374}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5653139868829591735}
@@ -307,6 +308,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-1431554351928861505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8684829751410966389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdca1ea64e1420748a1d87c561c870c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgrade: {fileID: 0}
+  working: 1
+  brokenParticlesPrefab: {fileID: 0}
+  unlockReqTotalShrimp: 0
+  unlockReqShrimpInOneTank: 0
 --- !u!1 &8747526440545715039
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,12 +336,12 @@ GameObject:
   - component: {fileID: 5178720102417877578}
   - component: {fileID: 7879878421878972195}
   - component: {fileID: 5918358851338581136}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!224 &5178720102417877578
 RectTransform:
@@ -372,11 +390,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Open
-
-    For
-
-    Customers'
+  m_text: All Shrimp For Sale
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

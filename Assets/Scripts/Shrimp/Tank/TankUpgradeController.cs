@@ -88,6 +88,11 @@ public class TankUpgradeController : MonoBehaviour
                 Destroy(upgradeNodes[upgradeType].GetChild(0).gameObject);
         }
 
+        if (tank.tankViewScript)
+        {
+            UpgradePanel panel = tank.tankViewScript.GetComponentInChildren<UpgradePanel>();
+            if (panel) panel.UpdatePanel();
+        }
 
         tank.tankGrid.InitializeGrid();  // Rebake the pathfinding grid
     }

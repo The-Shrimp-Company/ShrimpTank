@@ -95,10 +95,8 @@ public class TankController : Interactable
     [SerializeField] private List<Light> lights;
 
     [Header("Sale Tank")]
-    [SerializeField] private GameObject SaleSign;
-    public bool openTank { get; private set; } = false;
     [SerializeField] private TextMeshProUGUI label;
-    [SerializeField] private TextMeshProUGUI openTankLabel;
+    public bool openTank { get; private set; } = false;
 
     [Header("Pathfinding")]
     public TankGrid tankGrid;  // The grid used for pathfinding
@@ -158,8 +156,6 @@ public class TankController : Interactable
 
         upgradeController = GetComponent<TankUpgradeController>();
         tooltip = GetComponent<ToolTip>();
-
-        SaleSign.GetComponentInChildren<Button>().onClick.AddListener(() => { toggleTankOpen(false); });
 
         breedingCooldownTimer = breedingCooldown;
         shrimpCanBreed = false;
@@ -567,11 +563,6 @@ public class TankController : Interactable
         openTank = set ?? !openTank;
         if (openTank) CustomerManager.Instance.openTanks.Add(this);
         else CustomerManager.Instance.openTanks.Remove(this);
-        SaleSign.SetActive(openTank);
-        if(openTank == false)
-        {
-            Inventory.AddItem(Inventory.GetItemUsingName("Open Sale Sign"));
-        }
         return set == null ? false : true;
     }
 
@@ -756,24 +747,10 @@ public class TankController : Interactable
 
             else if (so.tags.Contains(ItemTags.TankUpgrade))  // Holding an upgrade
             {
-                if (so.tags.Contains(ItemTags.Label))
-                {
-                    if(so.itemName == "Open Sale Sign")
-                    {
-                        if (openTank != true)
-                        {
-                            toggleTankOpen();
-                            Inventory.RemoveItem(Inventory.GetItemUsingSO(so));
-                        }
-                    }
-                }
-                else
-                {
-                    UpgradeItemSO upgradeItemSO = so as UpgradeItemSO;
-                    if (upgradeItemSO == null) return;
-                    upgradeController.AddUpgrade(upgradeItemSO);
-                    Inventory.RemoveItem(Inventory.GetItemUsingSO(so));
-                }
+                UpgradeItemSO upgradeItemSO = so as UpgradeItemSO;
+                if (upgradeItemSO == null) return;
+                upgradeController.AddUpgrade(upgradeItemSO);
+                Inventory.RemoveItem(Inventory.GetItemUsingSO(so));
             }
 
             else if (so.tags.Contains(ItemTags.Food) && !FedTankToday())  // Holding Food

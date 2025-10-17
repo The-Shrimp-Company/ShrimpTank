@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8536f9e8c929be47bbd944e5887e460, type: 3}
-  m_Name: U_ShrimpSaleSign
+  m_Script: {fileID: 11500000, guid: 6099156fd9ecf7144bc7e5b7786f22b3, type: 3}
+  m_Name: U_ShrimpSaleLabel
   m_EditorClassIdentifier: 
   itemName: Open Sale Sign
   itemImage: {fileID: 21300000, guid: 951ab3a84aeac59448eb918ea455f596, type: 3}
@@ -21,6 +21,15 @@ MonoBehaviour:
     to see the shrimp in the tank, as if by magic! They will then be able to buy
     the shrimp online, but be careful, because they will tend to pay less than what
     you might want them to!
-  tags: 1e000000040000001f000000
+  tags: 040000001f0000001e000000
   heldItemPrefab: {fileID: 1922775819664780899, guid: 69473317507001f4ca757b9eddb9f74d,
     type: 3}
+  upgradeType: 6
+  upgradePrefab: {fileID: 8684829751410966389, guid: e7c90b0586289f64f9df479b5204ad7b,
+    type: 3}
+  breakRate: 0
+  repairCost: 0
+  energyCost: 0
+  filterCapacity: 0
+  heaterOutput: 0
+  thermometer: 0

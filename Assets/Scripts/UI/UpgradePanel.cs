@@ -89,7 +89,7 @@ public class UpgradePanel : MonoBehaviour
         }
     }
 
-    private void UpdatePanel()
+    public void UpdatePanel()
     {
         if (!tank) return;
 
