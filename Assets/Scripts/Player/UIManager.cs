@@ -295,7 +295,6 @@ public class UIManager : MonoBehaviour
             tooltips.SetActive(true);
             Cursor.lockState = CursorLockMode.Locked;
             input.SwitchCurrentActionMap("Move");
-            Debug.Log("SetPeripherals, no screens");
         }
         else
         {
@@ -310,7 +309,6 @@ public class UIManager : MonoBehaviour
             {
                 input.SwitchCurrentActionMap("TankView");
             }
-            Debug.Log("SetPeripherals, still screens");
         }
         Cursor.visible = false;
     }
