@@ -87,10 +87,6 @@ public class ItemShop : ScreenView
 
         foreach (Item i in items)
         {
-
-            DecorationContentBlock content = Instantiate(_contentBlock, _content.transform).GetComponent<DecorationContentBlock>();
-            contentBlocks.Add(content);
-
             ItemSO so = Inventory.GetSOForItem(i);
 
             if (so == null)
@@ -98,7 +94,10 @@ public class ItemShop : ScreenView
                 Debug.LogWarning("Cannot find SO for " + i.itemName);
                 return;
             }
-            else if (so.reputationUnlockRequirement > Reputation.GetReputation()) return;  // Item not unlocked
+            else if (so.reputationUnlockRequirement > Reputation.GetReputation()) continue;  // Item not unlocked
+
+            DecorationContentBlock content = Instantiate(_contentBlock, _content.transform).GetComponent<DecorationContentBlock>();
+            contentBlocks.Add(content);
 
             if (so.itemImage == null)
             {

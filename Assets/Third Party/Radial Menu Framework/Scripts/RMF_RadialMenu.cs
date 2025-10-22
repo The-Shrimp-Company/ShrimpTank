@@ -211,10 +211,10 @@ public class RMF_RadialMenu : MonoBehaviour {
         if (angleOffset != 0 && useLazySelection) {
 
             //Current element index we're pointing at.
-            index = (int)(currentAngle / angleOffset);
+            index = Mathf.Abs((int)(currentAngle / angleOffset));
 
-            if (elements != null && elements.Count >= index && elements[index] != null) {
-
+            if (elements != null && elements.Count >= index && elements[index] != null) 
+            {
                 //Select it.
                 selectButton(index);
 
