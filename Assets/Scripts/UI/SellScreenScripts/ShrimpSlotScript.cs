@@ -22,8 +22,15 @@ public class ShrimpSlotScript : MonoBehaviour
         {
             if (currentPreview != null) Destroy(currentPreview.gameObject);
             price.interactable = false;
-            price.placeholder.GetComponent<TextMeshProUGUI>().text = "";
+            price.placeholder.GetComponent<TextMeshProUGUI>().text = "Set Price";
             price.text = "";
+        }
+        else
+        {
+            if (price.text.Length > 0 && price.text[0] != '£')
+            {
+                price.text = "£" + price.text;
+            }
         }
     }
 
@@ -64,6 +71,10 @@ public class ShrimpSlotScript : MonoBehaviour
 
     public void SetPrice(string value)
     {
+        if (value.Length > 0 && value[0] == '£')
+        {
+            value = value.Substring(1);
+        }
         float price = float.Parse(value);
         CustomerManager.Instance.shrimpSaleSlots[index].value = price;
         CustomerManager.Instance.shrimpSaleSlots[index].shrimp.stats.assignedValue = price;
