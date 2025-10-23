@@ -224,6 +224,734 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1001 &98230330
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 54720155993976486, guid: 56f30f19df340c445bf5c82680513ac6,
+        type: 3}
+      propertyPath: m_Name
+      value: TrialNewShrimp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214714820716463435, guid: 56f30f19df340c445bf5c82680513ac6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.4004097
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214714820716463435, guid: 56f30f19df340c445bf5c82680513ac6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214714820716463435, guid: 56f30f19df340c445bf5c82680513ac6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.520584
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214714820716463435, guid: 56f30f19df340c445bf5c82680513ac6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214714820716463435, guid: 56f30f19df340c445bf5c82680513ac6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214714820716463435, guid: 56f30f19df340c445bf5c82680513ac6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214714820716463435, guid: 56f30f19df340c445bf5c82680513ac6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214714820716463435, guid: 56f30f19df340c445bf5c82680513ac6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214714820716463435, guid: 56f30f19df340c445bf5c82680513ac6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214714820716463435, guid: 56f30f19df340c445bf5c82680513ac6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 56f30f19df340c445bf5c82680513ac6, type: 3}
+--- !u!1 &300278325
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 300278332}
+  - component: {fileID: 300278331}
+  - component: {fileID: 300278330}
+  - component: {fileID: 300278329}
+  - component: {fileID: 300278328}
+  - component: {fileID: 300278327}
+  - component: {fileID: 300278326}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &300278326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300278325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f53b813154b11124a8eed4981eafa573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flags: []
+--- !u!114 &300278327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300278325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66106b5073db29d4698ebb695ce09dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secondsInADay: 180
+  totalTime: 0
+  year: 0
+  month: 0
+  day: 0
+  hour: 0
+  minute: 0
+  prevYear: 0
+  prevDay: 0
+--- !u!114 &300278328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300278325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8d837e2dcf6cba47a0643dee968014f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decorateView: {fileID: 0}
+  selectedObject: {fileID: 0}
+  decorating: 0
+  placementMode: 0
+  editingTop: 0
+  editingLayer: 0
+  rotationSnap: 45
+  deselectOnPlace: 0
+  decoratingGridPrefab: {fileID: 7075755009106335745, guid: b11972cef56dd6c4591d1010203b990d,
+    type: 3}
+  decoratingGridMat: {fileID: 2100000, guid: f03d301c5c6c02642b6cd4ce25e5e2f1, type: 2}
+  decoratingGridTakenMat: {fileID: 2100000, guid: 7f85d37fc1f72af46ba39b1a2e533e3b,
+    type: 2}
+  decoratingGridHovered: {fileID: 2100000, guid: 93a0e191e5f3add49a45a62238320d94,
+    type: 2}
+  decoratingGridValidMat: {fileID: 2100000, guid: 761ce1f3695178f40ace67a7323838ff,
+    type: 2}
+  decoratingGridInvalidMat: {fileID: 2100000, guid: 6c1f2fe24c3af5941b4a5df25a2e6d74,
+    type: 2}
+  objectPreviewValidMat: {fileID: 2100000, guid: 0a095f3560117ba43bc67d92af7aea0d,
+    type: 2}
+  objectPreviewInvalidMat: {fileID: 2100000, guid: 645dd24fa2be03b46a6a9d2294902b84,
+    type: 2}
+  objectTransparentMat: {fileID: 2100000, guid: d32f1362d3ec76e41b65c55770d0ffc8,
+    type: 2}
+  showNodes: 1
+  testItem: {fileID: 7075755009106335745, guid: b222cf2c437d3b641821ec5249c58b41,
+    type: 3}
+--- !u!114 &300278329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300278325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a738ffe8f38fd444b883c2fdf6581e46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minTraitValue: 0.35
+  maxTraitValue: 1
+  weightTowardsDominancePercentage: 50
+  valueFluctuation: 0.05
+  valueFluctuationStrength:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -1
+      value: 0.5
+      inSlope: 1.5177964
+      outSlope: 1.5177964
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.06463879
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.5
+      inSlope: -1.5607285
+      outSlope: -1.5607285
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.06286073
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  pureShrimpMultiplier: 1.5
+  pureColourShrimpMultiplier: 0.5
+  healthMultiplier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0036631308
+      value: 1.25046
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0041742
+      value: 0.5022046
+      inSlope: -0.9956493
+      outSlope: -0.9956493
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.0850699
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  timeBetweenValueReturnUpdates: 30
+  valueReturnAmount: 0.01
+  percentageOfTraitsToReturnValue: 15
+  percentageOfTraitsToUpdateDaily: 35
+  maxDailyValueUpdateAmount: 3.5
+--- !u!114 &300278330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300278325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cef58e4d6dc96c4eb0a032ff6bea2e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  geneWeightingPercentage: 10
+  dominanceWeightingPercentage: 30
+  mutationChance: 5
+  sizeInheritance: 1
+  temperamentInheritance: 1
+  colourInheritance: 2
+  patternInheritance: 2
+  bodyPartInheritance: 2
+  dominanceCanMutate: 0
+  sizeCanMutate: 0
+  temperamentCanMutate: 0
+  colourCanMutate: 1
+  patternCanMutate: 1
+  bodyPartCanMutate: 1
+  dominanceWeighting: 0
+  weightRandomOwnedGene: 0
+  breedNeeds:
+    _serializedList:
+    - Key: 1
+      Value:
+        temperature: 5
+        salt: 4
+        nitrate: -5
+        pH: 1
+    - Key: 2
+      Value:
+        temperature: 10
+        salt: 9
+        nitrate: 10
+        pH: 2
+    - Key: 3
+      Value:
+        temperature: -12
+        salt: -10
+        nitrate: 10
+        pH: -3
+    - Key: 4
+      Value:
+        temperature: -6
+        salt: -5
+        nitrate: 5
+        pH: -1
+  colourSOs:
+  - {fileID: 11400000, guid: 0c8d181e25939744692352003705ef54, type: 2}
+  - {fileID: 11400000, guid: 4e3304b89c8fc184cb2b28607c1f761e, type: 2}
+  - {fileID: 11400000, guid: e65a977504c41ff4b8a6f1b4b00f26c4, type: 2}
+  - {fileID: 11400000, guid: 6fbd4d0fdc1237f4c8e67ff4ecd201b7, type: 2}
+  - {fileID: 11400000, guid: 51764cd1bbfc68e46b5703725d0dc926, type: 2}
+  - {fileID: 11400000, guid: b79a148271aaf5c4fac8c115434f829b, type: 2}
+  - {fileID: 11400000, guid: 77aaaa610c630c14899edac7f4501e6c, type: 2}
+  - {fileID: 11400000, guid: c7bc9a9bbf752274db51dd272a3af933, type: 2}
+  - {fileID: 11400000, guid: 72b8e20ce21c5374dbfc478186ecf31d, type: 2}
+  - {fileID: 11400000, guid: 1a51037f309316847a2e79de85d91d80, type: 2}
+  - {fileID: 11400000, guid: 20b667cffe9cc214992bd669bc41bd8d, type: 2}
+  patternSOs:
+  - {fileID: 11400000, guid: 31566aa4c1a5ac546b1167fb9d1c1e5f, type: 2}
+  - {fileID: 11400000, guid: 7f36dee4fe4b5934bb85106b8099413c, type: 2}
+  - {fileID: 11400000, guid: 3881e940a9c05094482a73b943f4208b, type: 2}
+  - {fileID: 11400000, guid: 08729d66439b4f24cb781361949c96e1, type: 2}
+  - {fileID: 11400000, guid: 4a1cb7e405da8284e864c3da1443c887, type: 2}
+  - {fileID: 11400000, guid: dbc8514f4af22c344890146b72e19efc, type: 2}
+  bodySOs:
+  - {fileID: 11400000, guid: ed3c0e5085cdec04e976edeedf17430d, type: 2}
+  headSOs:
+  - {fileID: 11400000, guid: c35b2d85519e1dd4fa5dacd4aa3466cc, type: 2}
+  eyeSOs:
+  - {fileID: 11400000, guid: 949d064e58dadb045a9ef1bfdc64b0c4, type: 2}
+  tailSOs:
+  - {fileID: 11400000, guid: 14ad2297db8d62b4e94d0704a8425112, type: 2}
+  tailFanSOs:
+  - {fileID: 11400000, guid: 829e5bee00fd4644d94801aaf4984d2b, type: 2}
+  legsSOs:
+  - {fileID: 11400000, guid: 1a9df5f638e35974fa735424e05d1d34, type: 2}
+--- !u!114 &300278331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300278325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a280a4dd24c20ca499b4b9e5bec81afe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shrimpPrefab: {fileID: 54720155993976486, guid: 21daee279c03fcf4aa8f04f323ee84e1,
+    type: 3}
+  allShrimp: []
+  childSize: 0.25
+  sizeThroughChildhood:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0010162601
+      value: 0.19872814
+      inSlope: 0.78219396
+      outSlope: 0.78219396
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.040609136
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  adultSize: 0.3
+  sizeThroughAdulthood:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.46156734
+      outSlope: 0.46156734
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.045731723
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fullyGrownSize: 0.65
+  geneticSizeImpact: 0.25
+  maxShrimpIllness: 100
+  maxShrimpAge: 30
+  moltSpeed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5029297
+      inSlope: 14.117435
+      outSlope: 14.117435
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.067417696
+    - serializedVersion: 3
+      time: 0.10073781
+      value: 1.5119269
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.06772844
+    - serializedVersion: 3
+      time: 1
+      value: 1.509875
+      inSlope: -0.0022816819
+      outSlope: -0.0022816819
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  moltSpeedRequiredToBeAdult: 1.5
+  minAgeForAShrimpBeingBought: 3
+  femaleBreedingTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 90
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 13
+      value: 120
+      inSlope: 6.16368
+      outSlope: 6.16368
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.22853324
+      outWeight: 1
+    - serializedVersion: 3
+      time: 15
+      value: 180
+      inSlope: 65.62717
+      outSlope: 65.62717
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.23106194
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  femaleBreedingRandomVariance: 40
+  maleBreedingTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 60
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 13
+      value: 80
+      inSlope: 4.633244
+      outSlope: 4.633244
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.09921947
+      outWeight: 0.86670035
+    - serializedVersion: 3
+      time: 15
+      value: 120
+      inSlope: 49.561043
+      outSlope: 49.561043
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.08521366
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maleBreedingRandomVariance: 20
+  shrimpInTankBreedingLimit: 15
+  minChildrenToGiveBirthTo: 3
+  maxChildrenToGiveBirthTo: 5
+  shrimpNaturalDeathAge:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5000082
+      value: -0.00030253176
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.85882515
+      value: 0.26942575
+      inSlope: 1.8675907
+      outSlope: 1.8675907
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.085205376
+      outWeight: 1
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  shrimpIllnessDeathChance:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.4
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.3
+      inSlope: 0.92202204
+      outSlope: 0.92202204
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.13211378
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  shrimpTemperatureDeathChance:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.05
+      value: 0
+      inSlope: 0.040248156
+      outSlope: 0.040248156
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.3
+      inSlope: 0.9071805
+      outSlope: 0.9071805
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.0959801
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  shrimpWaterQualityDeathChance:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.3
+      inSlope: 1.9295588
+      outSlope: 1.9295588
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.13428569
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &300278332
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300278325}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.968953, y: 1.498772, z: -3.0528042}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 459590343}
+  - {fileID: 2083458084}
+  - {fileID: 1122347521}
+  - {fileID: 1769036845}
+  - {fileID: 1707105686}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &459590342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 459590343}
+  - component: {fileID: 459590345}
+  - component: {fileID: 459590344}
+  m_Layer: 0
+  m_Name: CustomerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &459590343
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459590342}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1017.28546, y: 552.60187, z: 3.0508838}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 300278332}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &459590344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459590342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53aa8f8f0885c2c4c93989c4ceb5cd5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &459590345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459590342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13f8f642b0d27f946a9dfbbcb08edb59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openSaleCoolDown: 5
+  playerStoreTimer: 40
+  openTanks: []
+  requests: []
+  emailScreen: {fileID: 0}
+  numSlots: 3
 --- !u!1 &769986811
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,6 +1179,52 @@ MonoBehaviour:
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
   m_ScrollDeltaPerTick: 6
+--- !u!1 &1122347520
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1122347521}
+  - component: {fileID: 1122347522}
+  m_Layer: 0
+  m_Name: Save Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1122347521
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122347520}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.968953, y: -1.498772, z: 3.0528042}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 300278332}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1122347522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122347520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c979e747cf537349b2079e9be27010f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autosaveTime: 15
+  loadPlayerPosition: 1
 --- !u!1 &1386458865
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,6 +1359,842 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1386458865}
   m_CullTransparentMesh: 1
+--- !u!1 &1707105685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1707105686}
+  - component: {fileID: 1707105688}
+  - component: {fileID: 1707105687}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1707105686
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707105685}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.968953, y: -2.1401167, z: 3.0528042}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 300278332}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1707105687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707105685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: 964f27cc401f74445b2f19ac3a8c7fd4,
+    type: 3}
+  m_PointAction: {fileID: 1209205223197628450, guid: 964f27cc401f74445b2f19ac3a8c7fd4,
+    type: 3}
+  m_MoveAction: {fileID: 1297072236126436532, guid: 964f27cc401f74445b2f19ac3a8c7fd4,
+    type: 3}
+  m_SubmitAction: {fileID: 6700515586442338268, guid: 964f27cc401f74445b2f19ac3a8c7fd4,
+    type: 3}
+  m_CancelAction: {fileID: -449094660041867826, guid: 964f27cc401f74445b2f19ac3a8c7fd4,
+    type: 3}
+  m_LeftClickAction: {fileID: 3085134338708819609, guid: 964f27cc401f74445b2f19ac3a8c7fd4,
+    type: 3}
+  m_MiddleClickAction: {fileID: -5037686083920085497, guid: 964f27cc401f74445b2f19ac3a8c7fd4,
+    type: 3}
+  m_RightClickAction: {fileID: 2764674507500748104, guid: 964f27cc401f74445b2f19ac3a8c7fd4,
+    type: 3}
+  m_ScrollWheelAction: {fileID: -2815598614355057013, guid: 964f27cc401f74445b2f19ac3a8c7fd4,
+    type: 3}
+  m_TrackedDevicePositionAction: {fileID: -6634992476387840560, guid: 964f27cc401f74445b2f19ac3a8c7fd4,
+    type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 9038051857629382611, guid: 964f27cc401f74445b2f19ac3a8c7fd4,
+    type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 2
+  m_CursorLockBehavior: 1
+  m_ScrollDeltaPerTick: 6
+--- !u!114 &1707105688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707105685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!1 &1769036844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1769036845}
+  - component: {fileID: 1769036846}
+  m_Layer: 0
+  m_Name: UI Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1769036845
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769036844}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.7052453, y: 0.40812647, z: -0.19868135}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 300278332}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1769036846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769036844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 749790cb66ec2d84ba98ebba383b61eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subMenu: 0
+  triggerSound: 0
+  input: {fileID: 0}
+  notifTime: 0
+  notifTimer: 5
+  TabletView: {fileID: 0}
+  tabletParent: {fileID: 0}
+--- !u!1 &2083458083
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2083458084}
+  - component: {fileID: 2083458086}
+  - component: {fileID: 2083458085}
+  m_Layer: 0
+  m_Name: NPCManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2083458084
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083458083}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -17.017311, y: -6.648111, z: 3.1053078}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 300278332}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2083458085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083458083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37a9dee827e0ca44adbe4f2e76b97b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shops:
+  - name: Little Shop Of Shrimp
+    NpcOwned: 0
+    NpcName: 
+    ShopMotto: 
+    reputation: 2
+    minPlayerReputation: 0
+    unlocked: 1
+    shrimpStock: []
+    otherStock: []
+    maxShrimpStock: 4
+    shrimpSold: 0
+    partTraits:
+    - activeGene:
+        ID: B001
+        dominance: 70
+      inactiveGene:
+        ID: B002
+        dominance: 60
+      obfuscated: 0
+    - activeGene:
+        ID: B001
+        dominance: 50
+      inactiveGene:
+        ID: B003
+        dominance: 20
+      obfuscated: 0
+    patternTraits:
+    - activeGene:
+        ID: P004
+        dominance: 80
+      inactiveGene:
+        ID: P001
+        dominance: 50
+      obfuscated: 0
+    - activeGene:
+        ID: P002
+        dominance: 30
+      inactiveGene:
+        ID: P005
+        dominance: 25
+      obfuscated: 0
+    colourTraits:
+    - activeGene:
+        ID: C003
+        dominance: 55
+      inactiveGene:
+        ID: C001
+        dominance: 50
+      obfuscated: 0
+    - activeGene:
+        ID: C008
+        dominance: 55
+      inactiveGene:
+        ID: C002
+        dominance: 44
+      obfuscated: 0
+    - activeGene:
+        ID: C003
+        dominance: 45
+      inactiveGene:
+        ID: C010
+        dominance: 40
+      obfuscated: 0
+  - name: Brain Over Prawn
+    NpcOwned: 0
+    NpcName: 
+    ShopMotto: 
+    reputation: 2
+    minPlayerReputation: 0
+    unlocked: 1
+    shrimpStock: []
+    otherStock: []
+    maxShrimpStock: 4
+    shrimpSold: 0
+    partTraits:
+    - activeGene:
+        ID: B002
+        dominance: 69
+      inactiveGene:
+        ID: B001
+        dominance: 61
+      obfuscated: 0
+    - activeGene:
+        ID: B002
+        dominance: 49
+      inactiveGene:
+        ID: B004
+        dominance: 19
+      obfuscated: 0
+    patternTraits:
+    - activeGene:
+        ID: P003
+        dominance: 80
+      inactiveGene:
+        ID: P002
+        dominance: 50
+      obfuscated: 0
+    - activeGene:
+        ID: P004
+        dominance: 30
+      inactiveGene:
+        ID: P006
+        dominance: 25
+      obfuscated: 0
+    colourTraits:
+    - activeGene:
+        ID: C004
+        dominance: 55
+      inactiveGene:
+        ID: C005
+        dominance: 50
+      obfuscated: 0
+    - activeGene:
+        ID: C009
+        dominance: 55
+      inactiveGene:
+        ID: C006
+        dominance: 44
+      obfuscated: 0
+    - activeGene:
+        ID: C007
+        dominance: 45
+      inactiveGene:
+        ID: C011
+        dominance: 40
+      obfuscated: 0
+  - name: Clives
+    NpcOwned: 0
+    NpcName: 
+    ShopMotto: 'Here at Clives, we '
+    reputation: 1
+    minPlayerReputation: 0
+    unlocked: 1
+    shrimpStock: []
+    otherStock: []
+    maxShrimpStock: 4
+    shrimpSold: 0
+    partTraits:
+    - activeGene:
+        ID: B002
+        dominance: 61
+      inactiveGene:
+        ID: B002
+        dominance: 29
+      obfuscated: 0
+    - activeGene:
+        ID: B002
+        dominance: 59
+      inactiveGene:
+        ID: B001
+        dominance: 36
+      obfuscated: 0
+    - activeGene:
+        ID: B003
+        dominance: 45
+      inactiveGene:
+        ID: B004
+        dominance: 41
+      obfuscated: 0
+    patternTraits:
+    - activeGene:
+        ID: P002
+        dominance: 80
+      inactiveGene:
+        ID: P003
+        dominance: 50
+      obfuscated: 0
+    - activeGene:
+        ID: P006
+        dominance: 30
+      inactiveGene:
+        ID: P004
+        dominance: 25
+      obfuscated: 0
+    - activeGene:
+        ID: P001
+        dominance: 60
+      inactiveGene:
+        ID: P005
+        dominance: 34
+      obfuscated: 0
+    colourTraits:
+    - activeGene:
+        ID: C004
+        dominance: 55
+      inactiveGene:
+        ID: C005
+        dominance: 50
+      obfuscated: 0
+    - activeGene:
+        ID: C009
+        dominance: 55
+      inactiveGene:
+        ID: C006
+        dominance: 44
+      obfuscated: 0
+    - activeGene:
+        ID: C007
+        dominance: 45
+      inactiveGene:
+        ID: C011
+        dominance: 40
+      obfuscated: 0
+    - activeGene:
+        ID: C004
+        dominance: 70
+      inactiveGene:
+        ID: C008
+        dominance: 57
+      obfuscated: 0
+    - activeGene:
+        ID: C003
+        dominance: 65
+      inactiveGene:
+        ID: C001
+        dominance: 32
+      obfuscated: 0
+  - name: Alan's Amazing Shrimp Shop
+    NpcOwned: 1
+    NpcName: Alan@ShrimpMail.com
+    ShopMotto: 
+    reputation: 4
+    minPlayerReputation: 0
+    unlocked: 0
+    shrimpStock: []
+    otherStock: []
+    maxShrimpStock: 4
+    shrimpSold: 0
+    partTraits:
+    - activeGene:
+        ID: B002
+        dominance: 69
+      inactiveGene:
+        ID: B001
+        dominance: 61
+      obfuscated: 0
+    - activeGene:
+        ID: B002
+        dominance: 49
+      inactiveGene:
+        ID: B004
+        dominance: 19
+      obfuscated: 0
+    patternTraits:
+    - activeGene:
+        ID: P003
+        dominance: 80
+      inactiveGene:
+        ID: P002
+        dominance: 50
+      obfuscated: 0
+    - activeGene:
+        ID: P004
+        dominance: 30
+      inactiveGene:
+        ID: P006
+        dominance: 25
+      obfuscated: 0
+    colourTraits:
+    - activeGene:
+        ID: C004
+        dominance: 55
+      inactiveGene:
+        ID: C005
+        dominance: 50
+      obfuscated: 0
+    - activeGene:
+        ID: C009
+        dominance: 55
+      inactiveGene:
+        ID: C006
+        dominance: 44
+      obfuscated: 0
+    - activeGene:
+        ID: C007
+        dominance: 45
+      inactiveGene:
+        ID: C011
+        dominance: 40
+      obfuscated: 0
+  - name: Sue's Shrimp Store
+    NpcOwned: 1
+    NpcName: Sue@ShrimpMail.com
+    ShopMotto: 
+    reputation: 0
+    minPlayerReputation: 0
+    unlocked: 0
+    shrimpStock: []
+    otherStock: []
+    maxShrimpStock: 4
+    shrimpSold: 0
+    partTraits:
+    - activeGene:
+        ID: B002
+        dominance: 69
+      inactiveGene:
+        ID: B001
+        dominance: 61
+      obfuscated: 0
+    - activeGene:
+        ID: B002
+        dominance: 49
+      inactiveGene:
+        ID: B004
+        dominance: 19
+      obfuscated: 0
+    patternTraits:
+    - activeGene:
+        ID: P003
+        dominance: 80
+      inactiveGene:
+        ID: P002
+        dominance: 50
+      obfuscated: 0
+    - activeGene:
+        ID: P004
+        dominance: 30
+      inactiveGene:
+        ID: P006
+        dominance: 25
+      obfuscated: 0
+    colourTraits:
+    - activeGene:
+        ID: C004
+        dominance: 55
+      inactiveGene:
+        ID: C005
+        dominance: 50
+      obfuscated: 0
+    - activeGene:
+        ID: C009
+        dominance: 55
+      inactiveGene:
+        ID: C006
+        dominance: 44
+      obfuscated: 0
+    - activeGene:
+        ID: C007
+        dominance: 45
+      inactiveGene:
+        ID: C011
+        dominance: 40
+      obfuscated: 0
+  - name: Joe's Joyous Shrimp
+    NpcOwned: 1
+    NpcName: Joe@ShrimpMail.com
+    ShopMotto: 
+    reputation: 0
+    minPlayerReputation: 0
+    unlocked: 0
+    shrimpStock: []
+    otherStock: []
+    maxShrimpStock: 4
+    shrimpSold: 0
+    partTraits:
+    - activeGene:
+        ID: B002
+        dominance: 69
+      inactiveGene:
+        ID: B001
+        dominance: 61
+      obfuscated: 0
+    - activeGene:
+        ID: B002
+        dominance: 49
+      inactiveGene:
+        ID: B004
+        dominance: 19
+      obfuscated: 0
+    patternTraits:
+    - activeGene:
+        ID: P003
+        dominance: 80
+      inactiveGene:
+        ID: P002
+        dominance: 50
+      obfuscated: 0
+    - activeGene:
+        ID: P004
+        dominance: 30
+      inactiveGene:
+        ID: P006
+        dominance: 25
+      obfuscated: 0
+    colourTraits:
+    - activeGene:
+        ID: C004
+        dominance: 55
+      inactiveGene:
+        ID: C005
+        dominance: 50
+      obfuscated: 0
+    - activeGene:
+        ID: C009
+        dominance: 55
+      inactiveGene:
+        ID: C006
+        dominance: 44
+      obfuscated: 0
+    - activeGene:
+        ID: C007
+        dominance: 45
+      inactiveGene:
+        ID: C011
+        dominance: 40
+      obfuscated: 0
+  - name: Jemma's Shop
+    NpcOwned: 1
+    NpcName: I.Love.Horses@HorseMail.com
+    ShopMotto: 
+    reputation: 0
+    minPlayerReputation: 0
+    unlocked: 0
+    shrimpStock: []
+    otherStock: []
+    maxShrimpStock: 4
+    shrimpSold: 0
+    partTraits:
+    - activeGene:
+        ID: B002
+        dominance: 69
+      inactiveGene:
+        ID: B001
+        dominance: 61
+      obfuscated: 0
+    - activeGene:
+        ID: B002
+        dominance: 49
+      inactiveGene:
+        ID: B004
+        dominance: 19
+      obfuscated: 0
+    patternTraits:
+    - activeGene:
+        ID: P003
+        dominance: 80
+      inactiveGene:
+        ID: P002
+        dominance: 50
+      obfuscated: 0
+    - activeGene:
+        ID: P004
+        dominance: 30
+      inactiveGene:
+        ID: P006
+        dominance: 25
+      obfuscated: 0
+    colourTraits:
+    - activeGene:
+        ID: C004
+        dominance: 55
+      inactiveGene:
+        ID: C005
+        dominance: 50
+      obfuscated: 0
+    - activeGene:
+        ID: C009
+        dominance: 55
+      inactiveGene:
+        ID: C006
+        dominance: 44
+      obfuscated: 0
+    - activeGene:
+        ID: C007
+        dominance: 45
+      inactiveGene:
+        ID: C011
+        dominance: 40
+      obfuscated: 0
+  - name: We Sell Shrimp
+    NpcOwned: 0
+    NpcName: 
+    ShopMotto: 
+    reputation: 3
+    minPlayerReputation: 20
+    unlocked: 0
+    shrimpStock: []
+    otherStock: []
+    maxShrimpStock: 4
+    shrimpSold: 0
+    partTraits:
+    - activeGene:
+        ID: B001
+        dominance: 60
+      inactiveGene:
+        ID: B001
+        dominance: 30
+      obfuscated: 0
+    - activeGene:
+        ID: B001
+        dominance: 60
+      inactiveGene:
+        ID: B002
+        dominance: 35
+      obfuscated: 0
+    - activeGene:
+        ID: B002
+        dominance: 45
+      inactiveGene:
+        ID: B003
+        dominance: 31
+      obfuscated: 0
+    patternTraits:
+    - activeGene:
+        ID: P002
+        dominance: 80
+      inactiveGene:
+        ID: P003
+        dominance: 50
+      obfuscated: 0
+    - activeGene:
+        ID: P006
+        dominance: 30
+      inactiveGene:
+        ID: P004
+        dominance: 25
+      obfuscated: 0
+    - activeGene:
+        ID: P001
+        dominance: 60
+      inactiveGene:
+        ID: P005
+        dominance: 34
+      obfuscated: 0
+    colourTraits:
+    - activeGene:
+        ID: C004
+        dominance: 55
+      inactiveGene:
+        ID: C005
+        dominance: 50
+      obfuscated: 0
+    - activeGene:
+        ID: C009
+        dominance: 55
+      inactiveGene:
+        ID: C006
+        dominance: 44
+      obfuscated: 0
+    - activeGene:
+        ID: C007
+        dominance: 45
+      inactiveGene:
+        ID: C011
+        dominance: 40
+      obfuscated: 0
+  - name: The Shrimp House
+    NpcOwned: 0
+    NpcName: 
+    ShopMotto: 
+    reputation: 4
+    minPlayerReputation: 40
+    unlocked: 0
+    shrimpStock: []
+    otherStock: []
+    maxShrimpStock: 4
+    shrimpSold: 0
+    partTraits:
+    - activeGene:
+        ID: B002
+        dominance: 61
+      inactiveGene:
+        ID: B002
+        dominance: 29
+      obfuscated: 0
+    - activeGene:
+        ID: B002
+        dominance: 59
+      inactiveGene:
+        ID: B001
+        dominance: 36
+      obfuscated: 0
+    - activeGene:
+        ID: B003
+        dominance: 45
+      inactiveGene:
+        ID: B004
+        dominance: 41
+      obfuscated: 0
+    patternTraits:
+    - activeGene:
+        ID: P002
+        dominance: 80
+      inactiveGene:
+        ID: P003
+        dominance: 50
+      obfuscated: 0
+    - activeGene:
+        ID: P006
+        dominance: 30
+      inactiveGene:
+        ID: P004
+        dominance: 25
+      obfuscated: 0
+    - activeGene:
+        ID: P001
+        dominance: 60
+      inactiveGene:
+        ID: P005
+        dominance: 34
+      obfuscated: 0
+    colourTraits:
+    - activeGene:
+        ID: C004
+        dominance: 55
+      inactiveGene:
+        ID: C005
+        dominance: 50
+      obfuscated: 0
+    - activeGene:
+        ID: C009
+        dominance: 55
+      inactiveGene:
+        ID: C006
+        dominance: 44
+      obfuscated: 0
+    - activeGene:
+        ID: C007
+        dominance: 45
+      inactiveGene:
+        ID: C011
+        dominance: 40
+      obfuscated: 0
+    - activeGene:
+        ID: C004
+        dominance: 70
+      inactiveGene:
+        ID: C008
+        dominance: 57
+      obfuscated: 0
+    - activeGene:
+        ID: C003
+        dominance: 65
+      inactiveGene:
+        ID: C001
+        dominance: 32
+      obfuscated: 0
+--- !u!114 &2083458086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083458083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c820011580501540afb5ce4b063b4bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -592,3 +2202,5 @@ SceneRoots:
   - {fileID: 957950824}
   - {fileID: 769986815}
   - {fileID: 47497723}
+  - {fileID: 300278332}
+  - {fileID: 98230330}

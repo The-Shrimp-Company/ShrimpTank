@@ -26,7 +26,7 @@ public class Legs : PartScript
 
             body = Instantiate(GeneManager.instance.GetTraitSO(s.body.activeGene.ID).part, bodyNode).GetComponent<Body>().Construct(s, ref tFan, ref tail, ref head, ref eyes);
 
-            SetAnimation(AnimNames.swimming);
+            SetAnimation(AnimNames.Swimming);
 
             body.GetComponent<LODGroup>().localReferencePoint = body.transform.InverseTransformPoint(transform.TransformPoint(GetComponent<LODGroup>().localReferencePoint));
             body.GetComponent<LODGroup>().size = GetComponent<LODGroup>().size;
@@ -51,7 +51,7 @@ public class Legs : PartScript
 
         body = Instantiate(GeneManager.instance.GetTraitSO(s.body.activeGene.ID).part, bodyNode).GetComponent<Body>().Construct(s, ref tFan, ref tail, ref head, ref eyes);
 
-        SetAnimation(AnimNames.swimming);
+        SetAnimation(AnimNames.Swimming);
 
         SetLodLevels(transform.TransformPoint(GetComponent<LODGroup>().localReferencePoint), GetComponent<LODGroup>().size);
     }
@@ -92,11 +92,8 @@ public class Legs : PartScript
 
     public void SetAnimation(AnimNames anim)
     {
-        /*
-        head.StartAnimation(anim);
         StartAnimation(anim);
+        head.StartAnimation(anim);
         tail.StartAnimation(anim);
-        //tFan.StartAnimation(anim);
-        */
     }
 }

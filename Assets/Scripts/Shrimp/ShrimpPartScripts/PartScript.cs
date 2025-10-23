@@ -8,20 +8,16 @@ public class PartScript : MonoBehaviour
 {
     public enum AnimNames
     {
-        breedingF,
-        breedingM,
-        eating,
-        fighting,
-        idle,
-        swimming
+        Swimming,
+        Idle,
+        Fighting,
+        Eating,
+        BreedingM,
+        BreedingF
     }
 
 
     protected List<GameObject> objs = new List<GameObject>();
-
-    [SerializeField] protected SerializedDictionary<AnimNames, AnimationClip> animations;
-
-    private Animation Animation;
 
     protected ShrimpStats s;
     protected void SetMaterials(TraitSet trait)
@@ -113,20 +109,8 @@ public class PartScript : MonoBehaviour
     }
 
 
-    public void StartAnimation(AnimNames anim)
+    public void StartAnimation(AnimNames name)
     {
-        if(Animation == null)
-        {
-            Animation = gameObject.GetComponent<Animation>();
-        }
-        if(Animation.GetClipCount() > 0)
-        {
-            Animation.Stop();
-        }
-        Animation.AddClip(animations[anim], "current");
-
-        Animation.Play("current");
-        
-
+        GetComponent<Animator>().SetInteger("State", (int)name);
     }
 }
