@@ -50,6 +50,7 @@ public class TankViewScript : ScreenView
 
     [Header("Right Side")]
     [SerializeField] private Animator contextBox;
+    [SerializeField] private TextMeshProUGUI selectionCount;
     [SerializeField] private Animator upgradeBox;
 
     [SerializeField] private UpgradePanel upgrades;
@@ -111,6 +112,7 @@ public class TankViewScript : ScreenView
             }
         }
 
+        selectionCount.text = "Shrimp Selected: " + (selectedShrimp?.Count ?? '0');
 
         if(selectedShrimp.Count > 0)
         {
