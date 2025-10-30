@@ -1,0 +1,1 @@
+Due to the nature of the animation system, there will be very little order here, but the golden rule is that every single animation controller should be set up in basically the same way, with the ONLY difference between each one being the actual animations in each state.

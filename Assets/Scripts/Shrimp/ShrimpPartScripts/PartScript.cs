@@ -12,8 +12,8 @@ public class PartScript : MonoBehaviour
         Idle,
         Fighting,
         Eating,
-        BreedingM,
-        BreedingF
+        BreedM,
+        BreedF
     }
 
 
@@ -111,6 +111,6 @@ public class PartScript : MonoBehaviour
 
     public void StartAnimation(AnimNames name)
     {
-        GetComponent<Animator>().SetInteger("State", (int)name);
+        GetComponent<Animator>().SetTrigger(name.ToString());
     }
 }
