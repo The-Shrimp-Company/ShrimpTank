@@ -26,7 +26,7 @@ public class Legs : PartScript
 
             body = Instantiate(GeneManager.instance.GetTraitSO(s.body.activeGene.ID).part, bodyNode).GetComponent<Body>().Construct(s, ref tFan, ref tail, ref head, ref eyes);
 
-            SetAnimation(AnimNames.Swimming);
+            //SetAnimation(AnimNames.Swimming);
 
             body.GetComponent<LODGroup>().localReferencePoint = body.transform.InverseTransformPoint(transform.TransformPoint(GetComponent<LODGroup>().localReferencePoint));
             body.GetComponent<LODGroup>().size = GetComponent<LODGroup>().size;
