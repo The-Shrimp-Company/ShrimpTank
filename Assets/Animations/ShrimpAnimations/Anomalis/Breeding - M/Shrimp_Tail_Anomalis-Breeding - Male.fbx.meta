@@ -33,18 +33,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Tail_LOD0|Anomalis_Fan.Breeding - Male
-      takeName: Tail_LOD0|Anomalis_Fan.Breeding - Male
+      name: Tail_LOD0|Anomalis_Tail.Breeding - Male
+      takeName: Tail_LOD0|Anomalis_Tail.Breeding - Male
       internalID: -4678649109901887705
       firstFrame: 0
-      lastFrame: 541
+      lastFrame: 440
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

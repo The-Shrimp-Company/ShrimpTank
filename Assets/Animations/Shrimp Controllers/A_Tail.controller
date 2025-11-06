@@ -50,7 +50,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Leg|Anomalis_Legs_Idle
+  m_Name: Tail|Anomalis_Tail_Idle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -63,7 +63,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -9127179560779135024, guid: ee46b9c4a35e9184083879e277933673,
+  m_Motion: {fileID: -4110280848009068847, guid: 1415c5b982b912843b2d79a8f6f4cf4a,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -152,7 +152,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Leg|Anomalis_Legs_Eating
+  m_Name: Tail|Anomalis_Tail_Eating
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -165,7 +165,8 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 546167989220067141, guid: b50d2aa481113074fa32f70b22b7b20a, type: 3}
+  m_Motion: {fileID: -5243176998527303295, guid: f301f091185be9c4dbf3a56e6b00e6f0,
+    type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -288,7 +289,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Leg|Anomalis_Legs_Fighting
+  m_Name: Tail|Anomalis_Tail_Fighting
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -301,7 +302,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -3763485057062048684, guid: 2a0938eda5d969143900579c48d23a02,
+  m_Motion: {fileID: 7819455142769728607, guid: 442e0b433902aea449c313d29d187a5c,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -315,7 +316,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Leg|Anomalis_Legs_Swimming
+  m_Name: Tail|Anomalis_Tail_Swimming
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -328,7 +329,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7147726391802428529, guid: 7942ebcbc63cbe44fa5890263557bb19,
+  m_Motion: {fileID: -8053488755465415792, guid: 1c850c8daea2d1b4ab92f36296fcd283,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
