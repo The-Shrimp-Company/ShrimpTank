@@ -36,8 +36,8 @@ ModelImporter:
       name: Legs|Cherry_Legs.Swimming
       takeName: Legs|Cherry_Legs.Swimming
       internalID: -505152612230753402
-      firstFrame: 0
-      lastFrame: 420
+      firstFrame: 160
+      lastFrame: 319
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -45,7 +45,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

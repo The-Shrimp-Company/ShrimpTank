@@ -36,8 +36,8 @@ ModelImporter:
       name: Tail_LOD0|ANylon_Tail.Swimming
       takeName: Tail_LOD0|ANylon_Tail.Swimming
       internalID: 5516127579871529669
-      firstFrame: 0
-      lastFrame: 425
+      firstFrame: 160
+      lastFrame: 319
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -45,7 +45,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

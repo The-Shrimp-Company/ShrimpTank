@@ -36,8 +36,8 @@ ModelImporter:
       name: Leg|Anomalis_Legs.Eating
       takeName: Leg|Anomalis_Legs.Eating
       internalID: 546167989220067141
-      firstFrame: 0
-      lastFrame: 491
+      firstFrame: 160
+      lastFrame: 319
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -45,7 +45,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

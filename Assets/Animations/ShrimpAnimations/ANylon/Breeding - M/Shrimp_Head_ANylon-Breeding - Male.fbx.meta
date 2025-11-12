@@ -36,8 +36,8 @@ ModelImporter:
       name: Head|ANylon_Head.Breeding - Male
       takeName: Head|ANylon_Head.Breeding - Male
       internalID: 4220111783432878447
-      firstFrame: 0
-      lastFrame: 420
+      firstFrame: 70
+      lastFrame: 110
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -45,7 +45,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

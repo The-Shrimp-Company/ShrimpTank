@@ -36,8 +36,8 @@ ModelImporter:
       name: Tail_LOD0|Cherry_Tail_Swimming
       takeName: Tail_LOD0|Cherry_Tail_Swimming
       internalID: 3708141778405405545
-      firstFrame: 0
-      lastFrame: 385
+      firstFrame: 160
+      lastFrame: 319
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -45,7 +45,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

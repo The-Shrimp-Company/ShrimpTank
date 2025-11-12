@@ -36,8 +36,8 @@ ModelImporter:
       name: Tail_LOD0|ANylon_Tail.Breeding - Male
       takeName: Tail_LOD0|ANylon_Tail.Breeding - Male
       internalID: 7449337529242241583
-      firstFrame: 0
-      lastFrame: 425
+      firstFrame: 70
+      lastFrame: 110
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -45,7 +45,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

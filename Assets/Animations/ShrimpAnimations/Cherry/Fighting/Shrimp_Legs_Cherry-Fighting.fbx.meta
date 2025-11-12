@@ -37,7 +37,7 @@ ModelImporter:
       takeName: Legs|Cherry_Legs.Fighting
       internalID: 6407240430597745359
       firstFrame: 0
-      lastFrame: 420
+      lastFrame: 320
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -45,7 +45,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

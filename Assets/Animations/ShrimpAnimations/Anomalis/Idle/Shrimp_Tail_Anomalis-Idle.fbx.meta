@@ -36,8 +36,8 @@ ModelImporter:
       name: Tail_LOD0|Anomalis_Legs.Idle
       takeName: Tail_LOD0|Anomalis_Legs.Idle
       internalID: -4110280848009068847
-      firstFrame: 0
-      lastFrame: 491
+      firstFrame: 160
+      lastFrame: 319
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -45,7 +45,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

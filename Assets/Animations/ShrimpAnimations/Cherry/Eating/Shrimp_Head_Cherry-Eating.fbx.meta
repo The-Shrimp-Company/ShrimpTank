@@ -36,8 +36,8 @@ ModelImporter:
       name: Armature_LOD0|Cherry_Head.Eating
       takeName: Armature_LOD0|Cherry_Head.Eating
       internalID: 1520051605152155301
-      firstFrame: 0
-      lastFrame: 420
+      firstFrame: 160
+      lastFrame: 319
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -45,7 +45,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

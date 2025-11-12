@@ -36,8 +36,8 @@ ModelImporter:
       name: Tail_LOD0|Anomalis_Tail.Swimming
       takeName: Tail_LOD0|Anomalis_Tail.Swimming
       internalID: -8053488755465415792
-      firstFrame: 0
-      lastFrame: 440
+      firstFrame: 160
+      lastFrame: 319
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -45,7 +45,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
