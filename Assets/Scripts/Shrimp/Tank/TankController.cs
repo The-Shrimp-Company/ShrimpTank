@@ -159,9 +159,13 @@ public class TankController : Interactable
 
         breedingCooldownTimer = breedingCooldown;
         shrimpCanBreed = false;
-        
+
+        /*
         if (!tankLoaded)
             EmptyWater();
+        */
+        
+        if(!waterFilled) FillWater();
 
         if (autoSpawnTestShrimp)
         {

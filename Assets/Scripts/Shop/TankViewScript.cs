@@ -588,4 +588,9 @@ public class TankViewScript : ScreenView
     }
 
     public TankController GetTank() {  return tank; }
+
+    public override void Exit()
+    {
+        
+    }
 }

@@ -34,38 +34,43 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Update()
     {
-        if (Store.decorateController.decorating) 
+        //if (Store.decorateController.decorating) 
+        //{
+        //    hoverTarget = null;
+        //    targetInteractable = null;
+        //    return;
+        //}
+
+
+        //hoverTarget = lookCheck.LookCheck(3, shelfLayerMask);
+        //if (hoverTarget != null)
+        //{
+        //    if (hoverTarget.GetComponent<Decoration>()) targetInteractable = hoverTarget.GetComponent<Decoration>().interactable;
+        //    else if (hoverTarget.GetComponent<Interactable>()) targetInteractable = hoverTarget.GetComponent<Interactable>();
+        //    else targetInteractable = hoverTarget.GetComponentInChildren<Interactable>();
+        //}
+        //else targetInteractable = null;
+
+        //if (targetInteractable && targetInteractable.decoration && targetInteractable.decoration.CheckForItemsOnShelf())  // If it is a shelf and has items on it, ignore it and check again
+        //{
+        //    hoverTarget = lookCheck.LookCheck(3, layerMask);
+        //    if (hoverTarget != null)
+        //    {
+        //        if (hoverTarget.GetComponent<Decoration>()) targetInteractable = hoverTarget.GetComponent<Decoration>().interactable;
+        //        else if (hoverTarget.GetComponent<Interactable>()) targetInteractable = hoverTarget.GetComponent<Interactable>();
+        //        else targetInteractable = hoverTarget.GetComponentInChildren<Interactable>();
+        //    }
+        //    else targetInteractable = null;
+        //}
+
+        //if (targetInteractable) targetInteractable.Show();
+
+        //if (hoverTarget && hoverTarget.GetComponent<ToolTip>()) tooltip.text = hoverTarget.GetComponent<ToolTip>().toolTip;
+
+        if (_tankView == null)
         {
-            hoverTarget = null;
-            targetInteractable = null;
-            return;
+            SetTankFocus(FindAnyObjectByType<TankController>());
         }
-
-
-        hoverTarget = lookCheck.LookCheck(3, shelfLayerMask);
-        if (hoverTarget != null)
-        {
-            if (hoverTarget.GetComponent<Decoration>()) targetInteractable = hoverTarget.GetComponent<Decoration>().interactable;
-            else if (hoverTarget.GetComponent<Interactable>()) targetInteractable = hoverTarget.GetComponent<Interactable>();
-            else targetInteractable = hoverTarget.GetComponentInChildren<Interactable>();
-        }
-        else targetInteractable = null;
-
-        if (targetInteractable && targetInteractable.decoration && targetInteractable.decoration.CheckForItemsOnShelf())  // If it is a shelf and has items on it, ignore it and check again
-        {
-            hoverTarget = lookCheck.LookCheck(3, layerMask);
-            if (hoverTarget != null)
-            {
-                if (hoverTarget.GetComponent<Decoration>()) targetInteractable = hoverTarget.GetComponent<Decoration>().interactable;
-                else if (hoverTarget.GetComponent<Interactable>()) targetInteractable = hoverTarget.GetComponent<Interactable>();
-                else targetInteractable = hoverTarget.GetComponentInChildren<Interactable>();
-            }
-            else targetInteractable = null;
-        }
-
-        if (targetInteractable) targetInteractable.Show();
-
-        if (hoverTarget && hoverTarget.GetComponent<ToolTip>()) tooltip.text = hoverTarget.GetComponent<ToolTip>().toolTip;
     }
 
 
@@ -167,18 +172,18 @@ public class PlayerInteraction : MonoBehaviour
     /// Can only be called from the tank view action map
     /// Will leave tank view
     /// </summary>
-    public void OnExitView()
-    {
-        if (_tankView != null)
-        {
-            _tankView.GetComponent<TankController>().StopFocusingTank();
-            _camera.transform.localPosition = Vector3.up / 2;
-            RoomGridNode pos = ShopGrid.Instance.GetTankTeleportPosition(_tankView.GetComponent<TankController>().GetCam().transform.position, 3);
-            if (pos != null) transform.position = new Vector3(pos.worldPos.x, transform.position.y, pos.worldPos.z);
-            _tankView = null;
-        }
-        UIManager.instance.ClearScreens();
-    }
+    //public void OnExitView()
+    //{
+    //    if (_tankView != null)
+    //    {
+    //        _tankView.GetComponent<TankController>().StopFocusingTank();
+    //        _camera.transform.localPosition = Vector3.up / 2;
+    //        RoomGridNode pos = ShopGrid.Instance.GetTankTeleportPosition(_tankView.GetComponent<TankController>().GetCam().transform.position, 3);
+    //        if (pos != null) transform.position = new Vector3(pos.worldPos.x, transform.position.y, pos.worldPos.z);
+    //        _tankView = null;
+    //    }
+    //    UIManager.instance.ClearScreens();
+    //}
 
 
 
@@ -210,6 +215,7 @@ public class PlayerInteraction : MonoBehaviour
     public void OnCancel()
     {
         Debug.Log("Function Called");
+        
         if (!UIManager.instance.IsTabletScreen())
         {
             UIManager.instance.GetScreen()?.Exit();
