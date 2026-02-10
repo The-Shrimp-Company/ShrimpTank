@@ -1257,6 +1257,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3818692476379578532, guid: eefa18ec6b71485459de5d6d77d94dd9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: de17a3555e82c57408e2700520e7e152, type: 2}
     - target: {fileID: 6950740630838357689, guid: eefa18ec6b71485459de5d6d77d94dd9,
         type: 3}
       propertyPath: m_Mesh
@@ -1371,6 +1376,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3818692476379578532, guid: eefa18ec6b71485459de5d6d77d94dd9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4e9804a056d1615499332064f076359e, type: 2}
     - target: {fileID: 4028579583741734310, guid: eefa18ec6b71485459de5d6d77d94dd9,
         type: 3}
       propertyPath: m_ColorTemperature
@@ -2570,6 +2580,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3818692476379578532, guid: eefa18ec6b71485459de5d6d77d94dd9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1a696f9c4cf3db34d88f6b04159eedc5, type: 2}
     - target: {fileID: 6950740630838357689, guid: eefa18ec6b71485459de5d6d77d94dd9,
         type: 3}
       propertyPath: m_Mesh
@@ -3020,6 +3035,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3818692476379578532, guid: eefa18ec6b71485459de5d6d77d94dd9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ddebfed968c09347aeb619f15340428, type: 2}
     - target: {fileID: 6950740630838357689, guid: eefa18ec6b71485459de5d6d77d94dd9,
         type: 3}
       propertyPath: m_Mesh
@@ -8839,6 +8859,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3818692476379578532, guid: eefa18ec6b71485459de5d6d77d94dd9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a9136270b5b689e43a6b3eab0be617ec, type: 2}
     - target: {fileID: 6950740630838357689, guid: eefa18ec6b71485459de5d6d77d94dd9,
         type: 3}
       propertyPath: m_Mesh
@@ -9172,6 +9197,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3818692476379578532, guid: eefa18ec6b71485459de5d6d77d94dd9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 51c3bcd93add09c478854ce6a262084a, type: 2}
     - target: {fileID: 6950740630838357689, guid: eefa18ec6b71485459de5d6d77d94dd9,
         type: 3}
       propertyPath: m_Mesh
@@ -10451,7 +10481,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0406c11e41dcd4241913bd7864435de7, type: 2}
+      objectReference: {fileID: 2100000, guid: a6b603c087d2b3349b9cb11225e4ee04, type: 2}
     - target: {fileID: 6950740630838357689, guid: eefa18ec6b71485459de5d6d77d94dd9,
         type: 3}
       propertyPath: m_Mesh
@@ -11132,6 +11162,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3818692476379578532, guid: eefa18ec6b71485459de5d6d77d94dd9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 68afd03d0b50d7a498a85eee832ace02, type: 2}
     - target: {fileID: 4028579583741734310, guid: eefa18ec6b71485459de5d6d77d94dd9,
         type: 3}
       propertyPath: m_ColorTemperature
