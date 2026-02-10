@@ -1,6 +1,7 @@
 using SaveLoadSystem;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -29,6 +30,8 @@ public class IllnessController : MonoBehaviour
 
     public void UpdateIllness(float elapsedTime)
     {
+        if (!EnabledFeatures.IllnessEnabled) return;
+
         // Illnesses will not start to appear until certain requirements are met
         if (unlockReqTotalShrimp > PlayerStats.stats.totalShrimp &&
             unlockReqShrimpInOneTank > PlayerStats.stats.mostShrimpInOneTank)
@@ -106,6 +109,7 @@ public class IllnessController : MonoBehaviour
 
     public void AddIllness(IllnessSO i)
     {
+        if (!EnabledFeatures.IllnessEnabled) return;
         if (currentIllness.Contains(i)) return;
 
         foreach (IllnessSymptoms s in i.symptoms)
