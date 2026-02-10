@@ -236,10 +236,7 @@ public class DebugController : MonoBehaviour
 
         MAX_INVENTORY = new DebugCommand("max_inventory", "Give yourself the max number of items in the inventory", "max_inventory", () =>
         {
-            foreach(Item item in Inventory.GetInventory(false))
-            {
-                Inventory.AddItem(item, Inventory.GetMaxItemCount());
-            }
+            Inventory.MaxInventory();
         });
 
         CLEAR_INVENTORY = new DebugCommand("clear_inventory", "Remove all items from the inventory", "clear_inventory", () =>

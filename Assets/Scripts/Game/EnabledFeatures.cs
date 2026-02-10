@@ -5,4 +5,5 @@ using UnityEngine;
 public class EnabledFeatures
 {
     public static bool IllnessEnabled = false;
+    public static bool InventoryEnabled = false;
 }

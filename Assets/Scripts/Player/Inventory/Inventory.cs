@@ -29,6 +29,8 @@ public class Inventory
             LoadInventoryFromFile(saveData);  // Changes values such as quantity using the saved data
             LoadShrimpInventoryFromFile(shrimpSaveData);  // Moves shrimp from save data to inventory
         }
+
+        if (!EnabledFeatures.InventoryEnabled) MaxInventory();
     }
 
     private void LoadItemsFromResources()
@@ -148,7 +150,9 @@ public class Inventory
 
     public static bool RemoveItem(string itemName, int quantity = 1)
     {
-        foreach(Item item in instance.inventory)
+        if (!EnabledFeatures.InventoryEnabled) return true;
+
+        foreach (Item item in instance.inventory)
         {
             if(item.itemName == itemName)
             {
@@ -339,6 +343,14 @@ public class Inventory
 
     public static ItemSO[] GetLoadedItems() { return instance.loadedItemList; }  // Returns all item scriptable objects
     public static int GetMaxItemCount() { return maxItemCount; }
+
+    public static void MaxInventory()
+    {
+        foreach (Item item in Inventory.GetInventory(false))
+        {
+            Inventory.AddItem(item, Inventory.GetMaxItemCount());
+        }
+    }
 
     public static void ClearInventory()
     {
