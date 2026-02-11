@@ -292,14 +292,14 @@ public class UIManager : MonoBehaviour
         if (_screenStack.Count == 0)
         {
             _cursor.SetActive(false);
-            tooltips.SetActive(true);
+            //tooltips.SetActive(true);
             Cursor.lockState = CursorLockMode.Locked;
             input.SwitchCurrentActionMap("Move");
         }
         else
         {
             Cursor.lockState = CursorLockMode.Confined;
-            tooltips.SetActive(false);
+            //tooltips.SetActive(false);
             _cursor.SetActive(true);
             if (IsTabletScreen())
             {

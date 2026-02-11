@@ -24,25 +24,25 @@ public class CrossHairScript : PlayerUIController
         {
             if (UIManager.instance.GetScreen() == null)
             {
-                ShowCrosshair();
+                //ShowCrosshair();
             }
             else
             {
-                HideCrosshair();
+                //HideCrosshair();
             }
         }
     }
 
     public static void ShowCrosshair()
     {
-        toolTipText.enabled = true;
-        toolTipText.alpha = 0f;
-        crosshair.enabled = true;
+        //toolTipText.enabled = true;
+        //toolTipText.alpha = 0f;
+        //crosshair.enabled = true;
     }
 
     public static void HideCrosshair()
     {
-        toolTipText.enabled = false;
-        crosshair.enabled = false;
+        //toolTipText.enabled = false;
+        //crosshair.enabled = false;
     }
 }
