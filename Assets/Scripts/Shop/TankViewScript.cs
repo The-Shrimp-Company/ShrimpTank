@@ -480,6 +480,13 @@ public class TankViewScript : ScreenView
         screen.GetComponentInChildren<InventoryContent>().FoodAssignement(this, tank, screen);
     }
 
+
+    public void AddRandomShrimp()
+    {
+        tank.SpawnShrimp(ShrimpManager.instance.CreateRandomShrimp(true));
+    }
+
+
     public IEnumerator OpenTab(bool switchTab)
     {
         UIManager.instance.SetCursorMasking(true);  // Enable cursor masking

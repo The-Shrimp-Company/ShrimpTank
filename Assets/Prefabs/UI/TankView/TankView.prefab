@@ -1286,7 +1286,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Set Destination Tank
+  m_text: Add Shrimp
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3440,7 +3440,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3693816031302594156}
   m_HandleRect: {fileID: 5881836059078495782}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3861,12 +3861,12 @@ GameObject:
   - component: {fileID: 2541413600787694656}
   - component: {fileID: 3136391278506741601}
   m_Layer: 5
-  m_Name: Set Tank
+  m_Name: AddShrimp
   m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4604070641747164987
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3883,7 +3883,7 @@ RectTransform:
   m_Father: {fileID: 1160506725339480958}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.03, y: 0.015000001}
-  m_AnchorMax: {x: 0.48, y: 0.16147223}
+  m_AnchorMax: {x: 0.98, y: 0.0942025}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3971,7 +3971,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 131927633617552070}
         m_TargetAssemblyTypeName: TankViewScript, Assembly-CSharp
-        m_MethodName: SetDestinationTank
+        m_MethodName: AddRandomShrimp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7672,7 +7672,7 @@ RectTransform:
   - {fileID: 8254881439589868189}
   m_Father: {fileID: 1160506725339480958}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.03, y: 0.015000001}
+  m_AnchorMin: {x: 0.03, y: 0.1013925}
   m_AnchorMax: {x: 0.98, y: 0.76}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
@@ -9187,8 +9187,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2525123677235244900}
   m_HandleRect: {fileID: 8697419140985594460}
   m_Direction: 2
-  m_Value: 1.0000008
-  m_Size: 0.84537864
+  m_Value: 1.0000005
+  m_Size: 0.8453786
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10324,8 +10324,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7429803288333087775}
   m_HandleRect: {fileID: 8831197776778143200}
   m_Direction: 0
-  m_Value: -0.000000100312626
-  m_Size: 0.5275573
+  m_Value: 0
+  m_Size: 0.52755725
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

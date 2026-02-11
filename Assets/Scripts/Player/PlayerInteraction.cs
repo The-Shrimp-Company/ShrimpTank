@@ -169,6 +169,7 @@ public class PlayerInteraction : MonoBehaviour
     /// </summary>
     public void OnExitView()
     {
+        /*
         if (_tankView != null)
         {
             _tankView.GetComponent<TankController>().StopFocusingTank();
@@ -178,6 +179,7 @@ public class PlayerInteraction : MonoBehaviour
             _tankView = null;
         }
         UIManager.instance.ClearScreens();
+        */
     }
 
 
