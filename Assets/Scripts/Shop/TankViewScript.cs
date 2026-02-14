@@ -491,44 +491,47 @@ public class TankViewScript : ScreenView
     {
         UIManager.instance.SetCursorMasking(true);  // Enable cursor masking
 
-        if ((switchTab && switchAnimationSpeed != 0) || (!switchTab && openAnimationSpeed != 0))  // Setting anim speed to 0 disables the animation
-        {
-            // Move the panels offscreen depending on if we are switching or opening a new tab
-            leftPanel.transform.localPosition = switchTab ? leftPanelSwitchInPos : leftPanelClosePos;
-            upgradeBox.transform.localPosition = switchTab ? upgradeBoxSwitchInPos : upgradeBoxClosePos;
+        //if ((switchTab && switchAnimationSpeed != 0) || (!switchTab && openAnimationSpeed != 0))  // Setting anim speed to 0 disables the animation
+        //{
+        //    // Move the panels offscreen depending on if we are switching or opening a new tab
+        //    //leftPanel.transform.localPosition = switchTab ? leftPanelSwitchInPos : leftPanelClosePos;
+        //    //upgradeBox.transform.localPosition = switchTab ? upgradeBoxSwitchInPos : upgradeBoxClosePos;
 
-            // Temporarily hide extra sections that shouldn't be showing
-            upgradeBox.enabled = false;
-            contextBox.enabled = false;
-            contextBox.gameObject.SetActive(false);
+        //    // Temporarily hide extra sections that shouldn't be showing
+        //    upgradeBox.enabled = false;
+        //    contextBox.enabled = false;
+        //    contextBox.gameObject.SetActive(false);
 
-            if (switchTab)  // If we are switching from another menu
-            {
-                yield return new WaitForSeconds(switchAnimationSpeed / 1.2f);  // Wait for the other one to close partially
+        //    if (switchTab)  // If we are switching from another menu
+        //    {
+        //        yield return new WaitForSeconds(switchAnimationSpeed / 1.2f);  // Wait for the other one to close partially
 
-                // Move this menu onto the screen
-                leftPanel.GetComponent<RectTransform>().DOAnchorPos(Vector2.zero, switchAnimationSpeed).SetEase(switchAnimationEase, 1.4f);
-                upgradeBox.GetComponent<RectTransform>().DOAnchorPos(Vector2.zero, switchAnimationSpeed).SetEase(switchAnimationEase, 1.4f);
+        //        // Move this menu onto the screen
+        //        leftPanel.GetComponent<RectTransform>().DOAnchorPos(Vector2.zero, switchAnimationSpeed).SetEase(switchAnimationEase, 1.4f);
+        //        upgradeBox.GetComponent<RectTransform>().DOAnchorPos(Vector2.zero, switchAnimationSpeed).SetEase(switchAnimationEase, 1.4f);
 
-                yield return new WaitForSeconds(switchAnimationSpeed);
-            }
-            else  // If we don't have a menu open already
-            {
-                GetComponent<CanvasGroup>().alpha = 0f;  // Make the menu transparent
-                GetComponent<CanvasGroup>().DOFade(1, openAnimationSpeed).SetEase(Ease.OutCubic);  // Fade the menu in
+        //        yield return new WaitForSeconds(switchAnimationSpeed);
+        //    }
+        //    else  // If we don't have a menu open already
+        //    {
+        //        GetComponent<CanvasGroup>().alpha = 0f;  // Make the menu transparent
+        //        GetComponent<CanvasGroup>().DOFade(1, openAnimationSpeed).SetEase(Ease.OutCubic);  // Fade the menu in
 
-                // Move this menu onto the screen
-                leftPanel.GetComponent<RectTransform>().DOAnchorPos(Vector2.zero, openAnimationSpeed).SetEase(Ease.OutBack);
-                upgradeBox.GetComponent<RectTransform>().DOAnchorPos(Vector2.zero, openAnimationSpeed).SetEase(Ease.OutBack);
+        //        // Move this menu onto the screen
+        //        //leftPanel.GetComponent<RectTransform>().DOAnchorPos(Vector2.zero, openAnimationSpeed).SetEase(Ease.OutBack);
+        //        //upgradeBox.GetComponent<RectTransform>().DOAnchorPos(Vector2.zero, openAnimationSpeed).SetEase(Ease.OutBack);
 
-                yield return new WaitForSeconds(openAnimationSpeed);
-            }
-        }
+        //        yield return new WaitForSeconds(openAnimationSpeed);
+        //    }
+        //}
 
-        // Enable all parts that we disabled earlier
-        contextBox.gameObject.SetActive(true);
-        upgradeBox.enabled = true;
-        contextBox.enabled = true;
+        //// Enable all parts that we disabled earlier
+        //contextBox.gameObject.SetActive(true);
+        //upgradeBox.enabled = true;
+        //contextBox.enabled = true;
+        GetComponent<CanvasGroup>().alpha = 0f;  // Make the menu transparent
+        GetComponent<CanvasGroup>().DOFade(1, openAnimationSpeed).SetEase(Ease.OutQuint);  // Fade the menu in
+        yield return new WaitForSeconds(openAnimationSpeed);
     }
 
 
@@ -537,43 +540,47 @@ public class TankViewScript : ScreenView
     {
         UIManager.instance.SetCursorMasking(true);  // Enable cursor masking
 
-        if ((switchTab && switchAnimationSpeed != 0) || (!switchTab && openAnimationSpeed != 0))  // Setting anim speed to 0 disables the animation
-        {
-            // End currently running tweens
-            DOTween.Kill(leftPanel);
-            DOTween.Kill(upgradeBox);
+        //if ((switchTab && switchAnimationSpeed != 0) || (!switchTab && openAnimationSpeed != 0))  // Setting anim speed to 0 disables the animation
+        //{
+        //    // End currently running tweens
+        //    DOTween.Kill(leftPanel);
+        //    DOTween.Kill(upgradeBox);
 
-            // Remove extra sections of the menu
-            upgradeBox.enabled = false;
-            contextBox.enabled = false;
+        //    // Remove extra sections of the menu
+        //    upgradeBox.enabled = false;
+        //    contextBox.enabled = false;
 
-            if (switchTab)  // If we are switching to another menu
-            {
-                // Move the panels offscreen
-                leftPanel.GetComponent<RectTransform>().DOAnchorPos(leftPanelSwitchOutPos, switchAnimationSpeed).SetEase(switchAnimationEase, 1.4f);
-                upgradeBox.GetComponent<RectTransform>().DOAnchorPos(upgradeBoxSwitchOutPos, switchAnimationSpeed).SetEase(switchAnimationEase, 1.4f);
-                contextBox.GetComponent<RectTransform>().DOAnchorPos(upgradeBoxSwitchOutPos, switchAnimationSpeed).SetEase(switchAnimationEase, 1.4f);
+        //    if (switchTab)  // If we are switching to another menu
+        //    {
+        //        // Move the panels offscreen
+        //        leftPanel.GetComponent<RectTransform>().DOAnchorPos(leftPanelSwitchOutPos, switchAnimationSpeed).SetEase(switchAnimationEase, 1.4f);
+        //        upgradeBox.GetComponent<RectTransform>().DOAnchorPos(upgradeBoxSwitchOutPos, switchAnimationSpeed).SetEase(switchAnimationEase, 1.4f);
+        //        contextBox.GetComponent<RectTransform>().DOAnchorPos(upgradeBoxSwitchOutPos, switchAnimationSpeed).SetEase(switchAnimationEase, 1.4f);
 
-                yield return new WaitForSeconds(switchAnimationSpeed);
-            }
-            else  // If we are fully closing the menu
-            {
-                // Move the panels offscreen
-                leftPanel.GetComponent<RectTransform>().DOAnchorPos(leftPanelClosePos, openAnimationSpeed).SetEase(Ease.InBack);
-                upgradeBox.GetComponent<RectTransform>().DOAnchorPos(upgradeBoxClosePos, openAnimationSpeed).SetEase(Ease.InBack);
-                contextBox.GetComponent<RectTransform>().DOAnchorPos(upgradeBoxClosePos, openAnimationSpeed).SetEase(Ease.InBack);
+        //        yield return new WaitForSeconds(switchAnimationSpeed);
+        //    }
+        //    else  // If we are fully closing the menu
+        //    {
+        //        // Move the panels offscreen
+        //        //leftPanel.GetComponent<RectTransform>().DOAnchorPos(leftPanelClosePos, openAnimationSpeed).SetEase(Ease.InBack);
+        //        //upgradeBox.GetComponent<RectTransform>().DOAnchorPos(upgradeBoxClosePos, openAnimationSpeed).SetEase(Ease.InBack);
+        //        //contextBox.GetComponent<RectTransform>().DOAnchorPos(upgradeBoxClosePos, openAnimationSpeed).SetEase(Ease.InBack);
                 
-                GetComponent<CanvasGroup>().DOFade(0, openAnimationSpeed).SetEase(Ease.InCubic);  // Fade the menu out
+        //        GetComponent<CanvasGroup>().DOFade(0, openAnimationSpeed).SetEase(Ease.InCubic);  // Fade the menu out
 
-                yield return new WaitForSeconds(openAnimationSpeed);
-            }
+        //        yield return new WaitForSeconds(openAnimationSpeed);
+        //    }
 
-            // End the tweens
-            DOTween.Kill(leftPanel);
-            DOTween.Kill(upgradeBox);
-            DOTween.Kill(contextBox);
-        }
+        //    // End the tweens
+        //    DOTween.Kill(leftPanel);
+        //    DOTween.Kill(upgradeBox);
+        //    DOTween.Kill(contextBox);
+        //}
 
+        DOTween.Kill(leftPanel);
+        DOTween.Kill(upgradeBox);
+        GetComponent<CanvasGroup>().DOFade(0, openAnimationSpeed).SetEase(Ease.InQuint);  // Fade the menu out
+        yield return new WaitForSeconds(openAnimationSpeed);
 
         base.Close(switchTab);
     }

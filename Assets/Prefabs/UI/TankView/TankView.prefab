@@ -3440,7 +3440,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3693816031302594156}
   m_HandleRect: {fileID: 5881836059078495782}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -7599,10 +7599,10 @@ MonoBehaviour:
   upgradeBox: {fileID: 4987525888990841834}
   upgrades: {fileID: 1088746170828097567}
   filter: {fileID: 8098637220333860942}
-  openAnimationSpeed: 0.3
+  openAnimationSpeed: 0.25
   leftPanelClosePos: {x: -1200, y: 0, z: 0}
   upgradeBoxClosePos: {x: 1200, y: 0, z: 0}
-  switchAnimationSpeed: 0
+  switchAnimationSpeed: 5.4
   switchAnimationEase: 27
   leftPanelSwitchInPos: {x: -736.38, y: 1200, z: 0}
   leftPanelSwitchOutPos: {x: 0, y: -1200, z: 0}
@@ -9188,7 +9188,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8697419140985594460}
   m_Direction: 2
   m_Value: 1.0000005
-  m_Size: 0.8453786
+  m_Size: 0.84537864
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10325,7 +10325,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8831197776778143200}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.52755725
+  m_Size: 0.5275573
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

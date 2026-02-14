@@ -22,10 +22,10 @@ public class ShrimpCam : MonoBehaviour
     {
         CamZoom = 1;
 
-        DOTween.Kill(Camera.main);
-        Camera.main.transform.DOMove(GetTargetCameraPosition(), camSwitchSpeed).SetEase(camSwitchEase).OnComplete(SetActive);
-        Camera.main.transform.DORotate(GetTargetCameraRotation(), camSwitchSpeed).SetEase(camSwitchEase);
-
+        //DOTween.Kill(Camera.main);
+        //Camera.main.transform.DOMove(GetTargetCameraPosition(), camSwitchSpeed).SetEase(camSwitchEase).OnComplete(SetActive);
+        //Camera.main.transform.DORotate(GetTargetCameraRotation(), camSwitchSpeed).SetEase(camSwitchEase);
+        SetActive();
         return this;
     }
 

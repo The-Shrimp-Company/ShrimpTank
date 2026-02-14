@@ -187,6 +187,7 @@ public class EmailManager
 
     static public void RemoveEmail(Email email)
     {
+        if (!EnabledFeatures.EmailsEnabled) return; 
 
         NPCManager.Instance.GetNPCFromName(email.sender)?.EmailDestroyed();
 

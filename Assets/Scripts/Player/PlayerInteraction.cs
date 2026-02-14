@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Reflection;
 using TMPro;
 using UnityEngine;
@@ -17,6 +18,11 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] public LayerMask shelfLayerMask;
     [SerializeField] public LayerMask layerMask;
     [SerializeField] private TextMeshProUGUI tooltip;
+
+    [SerializeField] private float camMoveTime = 0.6f;
+    private Vector3 targetCamPos;
+    private Quaternion targetCamRot;
+    private bool camMoving;
 
     [Header("Hold Menu")]
     private GameObject hoverTarget;
@@ -120,8 +126,9 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (_tankView != null) _tankView.GetComponent<TankController>().StopFocusingTank();
 
-            _camera.transform.position = tankController.GetCam().transform.position;
-            _camera.transform.rotation = tankController.GetCam().transform.rotation;
+            //_camera.transform.position = tankController.GetCam().transform.position;
+            //_camera.transform.rotation = tankController.GetCam().transform.rotation;
+            MoveCamera(tankController.GetCam().transform.position, tankController.GetCam().transform.rotation);
 
             //Debug.Log("GetHere");
 
@@ -131,6 +138,23 @@ public class PlayerInteraction : MonoBehaviour
             _tankView = tankController.gameObject;
         }
     }
+
+    private void MoveCamera(Vector3 pos, Quaternion rot)
+    {
+        targetCamPos = pos;
+        targetCamRot = rot;
+
+        Ease ease = Ease.InOutSine;
+        if (camMoving) ease = Ease.OutSine;
+
+        _camera.transform.DOKill();
+        _camera.transform.DOMove(targetCamPos, camMoveTime).SetEase(ease).OnComplete(CameraFinishedMoving);
+        _camera.transform.DORotate(targetCamRot.eulerAngles, camMoveTime).SetEase(ease);
+        camMoving = true;
+    }
+
+    private void CameraFinishedMoving() { camMoving = false; }
+
 
     /// <summary>
     /// Can only be called from tank view action map
