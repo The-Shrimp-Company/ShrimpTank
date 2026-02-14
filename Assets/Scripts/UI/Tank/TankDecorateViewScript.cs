@@ -98,7 +98,7 @@ public class TankDecorateViewScript : ScreenView
             }
             else
             {
-                content.SetText("");
+                content.SetText(i.itemName);
                 content.itemImage.sprite = so.itemImage;
             }
 
