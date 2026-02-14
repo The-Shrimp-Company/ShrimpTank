@@ -60,6 +60,8 @@ public class CustomerManager : MonoBehaviour
 
     private void Update()
     {
+        if (!EnabledFeatures.CustomersEnabled) return;
+
         // Section looking at selling from open tanks
         if (openSaleCoolDownCount > (openSaleCoolDown/openTanks.Count))
         {
@@ -141,6 +143,7 @@ public class CustomerManager : MonoBehaviour
 
     public void Initialize(Request[] requests = null)
     {
+        if (!EnabledFeatures.CustomersEnabled) return;
 
         Instance.requests = requests?.ToList() ?? Instance.requests;
 

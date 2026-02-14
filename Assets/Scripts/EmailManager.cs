@@ -137,6 +137,8 @@ public class EmailManager
 
     static public void SendEmailDirect(Email email, bool important)
     {
+        if (!EnabledFeatures.EmailsEnabled) return;
+
         if (important) email.tag = Email.EmailTags.Important;
         instance.emails.Add(email);
 
