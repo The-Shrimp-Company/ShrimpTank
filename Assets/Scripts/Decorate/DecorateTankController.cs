@@ -76,7 +76,7 @@ public class DecorateTankController : MonoBehaviour
         newMenu.GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
         newMenu.GetComponent<Canvas>().planeDistance = 1;
         decorateView = newMenu.GetComponent<ScreenView>() as TankDecorateViewScript;
-        UIManager.instance.SetCursorMasking(false);
+        //UIManager.instance.SetCursorMasking(false);
         currentGrid.RebakeGrid();
 
         camAngle = 0;

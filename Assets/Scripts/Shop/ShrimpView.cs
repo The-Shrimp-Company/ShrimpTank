@@ -93,7 +93,7 @@ public class ShrimpView : ScreenView
                 Populate(_shrimp);
                 GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
                 //GetComponent<Canvas>().planeDistance = 1;
-                UIManager.instance.SetCursorMasking(false);
+                //UIManager.instance.SetCursorMasking(false);
                 _shrimp.GetComponentInChildren<ShrimpCam>().SetCam();
 
                 DOTween.Kill(panel);
@@ -179,7 +179,7 @@ public class ShrimpView : ScreenView
 
     public IEnumerator OpenTab(bool switchTab)
     {
-        UIManager.instance.SetCursorMasking(true);  // Enable cursor masking
+        //UIManager.instance.SetCursorMasking(true);  // Enable cursor masking
         panel.transform.localPosition = switchTab ? panelSwitchInPos : panelClosePos;  // Move the panel offscreen
 
 

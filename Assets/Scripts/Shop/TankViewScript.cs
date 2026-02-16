@@ -325,7 +325,7 @@ public class TankViewScript : ScreenView
                 thisShrimp.GetComponentInChildren<ShrimpCam>().SetCam();
                 newitem.GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
                 newitem.GetComponent<Canvas>().planeDistance = 1;
-                UIManager.instance.SetCursorMasking(false);
+                //UIManager.instance.SetCursorMasking(false);
             });
             temp.checkbutton.onClick.AddListener(() =>
             {
@@ -441,7 +441,7 @@ public class TankViewScript : ScreenView
                 newitem.GetComponent<ShrimpView>().Populate(_shrimp);
                 newitem.GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
                 newitem.GetComponent<Canvas>().planeDistance = 1;
-                UIManager.instance.SetCursorMasking(false);
+                //UIManager.instance.SetCursorMasking(false);
                 _shrimp.GetComponentInChildren<ShrimpCam>().SetCam();
             }
         }
@@ -489,7 +489,7 @@ public class TankViewScript : ScreenView
 
     public IEnumerator OpenTab(bool switchTab)
     {
-        UIManager.instance.SetCursorMasking(true);  // Enable cursor masking
+        //UIManager.instance.SetCursorMasking(true);  // Enable cursor masking
 
         //if ((switchTab && switchAnimationSpeed != 0) || (!switchTab && openAnimationSpeed != 0))  // Setting anim speed to 0 disables the animation
         //{
@@ -538,7 +538,7 @@ public class TankViewScript : ScreenView
 
     public IEnumerator CloseTab(bool switchTab)
     {
-        UIManager.instance.SetCursorMasking(true);  // Enable cursor masking
+        //UIManager.instance.SetCursorMasking(true);  // Enable cursor masking
 
         //if ((switchTab && switchAnimationSpeed != 0) || (!switchTab && openAnimationSpeed != 0))  // Setting anim speed to 0 disables the animation
         //{

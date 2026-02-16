@@ -8,6 +8,7 @@ using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 using DG.Tweening;
 
+/*
 public class FakeCursor : MonoBehaviour
 {
     private RectTransform rect;
@@ -53,3 +54,4 @@ public class FakeCursor : MonoBehaviour
         }
     }
 }
+*/

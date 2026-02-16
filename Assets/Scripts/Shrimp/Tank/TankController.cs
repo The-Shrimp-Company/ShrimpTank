@@ -704,7 +704,7 @@ public class TankController : Interactable
         UIManager.instance.SwitchScreen(newView.GetComponent<ScreenView>());
         newView.GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
         newView.GetComponent<Canvas>().planeDistance = 1;
-        UIManager.instance.SetCursorMasking(false);
+        //UIManager.instance.SetCursorMasking(false);
         SwitchLODLevel(LODLevel.Mid);
         tankNameChanged = false;
     }

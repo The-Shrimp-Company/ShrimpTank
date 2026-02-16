@@ -193,17 +193,14 @@ public class PlayerInteraction : MonoBehaviour
     /// </summary>
     public void OnExitView()
     {
-        /*
         if (_tankView != null)
         {
             _tankView.GetComponent<TankController>().StopFocusingTank();
             _camera.transform.localPosition = Vector3.up / 2;
-            RoomGridNode pos = ShopGrid.Instance.GetTankTeleportPosition(_tankView.GetComponent<TankController>().GetCam().transform.position, 3);
-            if (pos != null) transform.position = new Vector3(pos.worldPos.x, transform.position.y, pos.worldPos.z);
+            _camera.transform.localRotation = Quaternion.identity;
             _tankView = null;
         }
         UIManager.instance.ClearScreens();
-        */
     }
 
 

@@ -115,7 +115,7 @@ public class DecorateShopController : MonoBehaviour
         newMenu.GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
         newMenu.GetComponent<Canvas>().planeDistance = 1;
         inventoryScreen = newMenu.GetComponent<ScreenView>() as ShopInventory;
-        UIManager.instance.SetCursorMasking(false);
+        //UIManager.instance.SetCursorMasking(false);
     }
 
 

@@ -279,8 +279,14 @@ public class SaveController : MonoBehaviour
     }
 
 
-    private void NewGame()
+    public void NewGame()
     {
+        Inventory.instance = new Inventory();
+        CustomerManager.Instance = new CustomerManager();
+        EmailManager.instance = new EmailManager();
+        ShopManager.instance = new ShopManager();
+        NPCManager.Instance = new NPCManager();
+        ShrimpManager.instance.WipeAllShrimp();
         PlayerStats.stats = new Stats();
         SaveManager.CurrentSaveData = new SaveData();
         Inventory.instance.Initialize();

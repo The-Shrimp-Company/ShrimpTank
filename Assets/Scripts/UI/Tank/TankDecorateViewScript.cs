@@ -236,7 +236,7 @@ public class TankDecorateViewScript : ScreenView
 
     public IEnumerator OpenTab(bool switchTab)
     {
-        UIManager.instance.SetCursorMasking(true);  // Enable cursor masking
+        //UIManager.instance.SetCursorMasking(true);  // Enable cursor masking
         yield return new WaitForSeconds(0);
 
         //if ((switchTab && switchAnimationSpeed != 0) || (!switchTab && openAnimationSpeed != 0))  // Setting anim speed to 0 disables the animation

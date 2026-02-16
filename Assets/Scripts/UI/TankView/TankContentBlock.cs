@@ -73,6 +73,6 @@ public class TankContentBlock : ContentBlock
         _shrimp.GetComponentInChildren<ShrimpCam>().SetCam();
         newitem.GetComponent<Canvas>().worldCamera = UIManager.instance.GetCamera();
         newitem.GetComponent<Canvas>().planeDistance = 1;
-        UIManager.instance.SetCursorMasking(false);
+        //UIManager.instance.SetCursorMasking(false);
     }
 }

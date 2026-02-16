@@ -552,5 +552,12 @@ public class ShrimpManager : MonoBehaviour
         return 0;
     }
 
-    
+    public void WipeAllShrimp()
+    {
+        while(allShrimp.Count > 0)
+        {
+            allShrimp[0].KillShrimp();
+            allShrimp.RemoveAt(0);
+        }
+    }
 }

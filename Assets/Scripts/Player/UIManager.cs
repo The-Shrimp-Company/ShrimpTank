@@ -64,6 +64,9 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         _tabletStack.Push(TabletView);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        
     }
 
     private void Update()
@@ -264,7 +267,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject GetCursor() { return _cursor; }
 
-    public void SetCursorMasking(bool masking) { _cursor.GetComponent<FakeCursor>().SetCursorMasking(masking); }
+    //public void SetCursorMasking(bool masking) { _cursor.GetComponent<FakeCursor>().SetCursorMasking(masking); }
 
     public void SetCanvas(Transform transform)
     {
@@ -291,16 +294,16 @@ public class UIManager : MonoBehaviour
     {
         if (_screenStack.Count == 0)
         {
-            _cursor.SetActive(false);
+            //_cursor.SetActive(false);
             //tooltips.SetActive(true);
-            Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.lockState = CursorLockMode.Locked;
             input.SwitchCurrentActionMap("Move");
         }
         else
         {
-            Cursor.lockState = CursorLockMode.Confined;
+            //Cursor.lockState = CursorLockMode.Confined;
             //tooltips.SetActive(false);
-            _cursor.SetActive(true);
+            //_cursor.SetActive(true);
             if (IsTabletScreen())
             {
                 input.SwitchCurrentActionMap("UI");
@@ -310,7 +313,7 @@ public class UIManager : MonoBehaviour
                 input.SwitchCurrentActionMap("TankView");
             }
         }
-        Cursor.visible = false;
+        //Cursor.visible = false;
     }
 
 

@@ -48,7 +48,7 @@ public class ItemShop : ScreenView
         infoCanvasGroup.alpha = 0;
         ChangeSelectedItem(null, null);
         ChangeTab(tabs[0]);
-        UIManager.instance.SetCursorMasking(true);  // Enable cursor masking
+        //UIManager.instance.SetCursorMasking(true);  // Enable cursor masking
         UpdateContent();
         base.Open(switchTab);
     }

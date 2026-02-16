@@ -11,6 +11,7 @@ public class CameraControls : MonoBehaviour
     public float lookSenstivity;
     [SerializeField][Range(50f, 250f)] private float startingSensitivity = 100f;
     [SerializeField] private float cameraHeight = 2.3f;
+    public bool camLocked = false;
 
     private PlayerInput _playerInput;
 
@@ -32,36 +33,39 @@ public class CameraControls : MonoBehaviour
 
     private void Update()
     {
-        // If the player is in a menu that stops their movement
-        if (UIManager.instance.GetScreen())
-            _look = Vector2.zero;
-        if (GetComponent<PlayerInteraction>().radialMenu.menuOpen)
-            _look = Vector2.zero;
-
-        // If the player is not using the correct action map
-        if (_playerInput.currentActionMap.name != "Move")
-            return;
-
-        _look *= Time.deltaTime;
-
-        _rotY += _look.y * lookSenstivity;
-        _rotY = Mathf.Clamp(_rotY, -75, 45);
-        _rotX += _look.x * lookSenstivity;
-        cameraTransform.localRotation = Quaternion.Euler(-_rotY, 0, 0);
-
-        transform.rotation = Quaternion.Euler(0, _rotX, 0);
-
-        
-
-        cameraTransform.position = new Vector3(cameraTransform.position.x, cameraHeight, cameraTransform.position.z);
-        _look = Vector2.zero;
-        if(_rotX > 360)
+        if (camLocked == false)
         {
-            _rotX -= 360;
-        }
-        else if(_rotX < -360)
-        {
-            _rotX += 360;
+            // If the player is in a menu that stops their movement
+            if (UIManager.instance.GetScreen())
+                _look = Vector2.zero;
+            if (GetComponent<PlayerInteraction>().radialMenu.menuOpen)
+                _look = Vector2.zero;
+
+            // If the player is not using the correct action map
+            if (_playerInput.currentActionMap.name != "Move")
+                return;
+
+            _look *= Time.deltaTime;
+
+            _rotY += _look.y * lookSenstivity;
+            _rotY = Mathf.Clamp(_rotY, -75, 45);
+            _rotX += _look.x * lookSenstivity;
+            cameraTransform.localRotation = Quaternion.Euler(-_rotY, 0, 0);
+
+            transform.rotation = Quaternion.Euler(0, _rotX, 0);
+
+
+
+            cameraTransform.position = new Vector3(cameraTransform.position.x, cameraHeight, cameraTransform.position.z);
+            _look = Vector2.zero;
+            if (_rotX > 360)
+            {
+                _rotX -= 360;
+            }
+            else if (_rotX < -360)
+            {
+                _rotX += 360;
+            }
         }
     }
 

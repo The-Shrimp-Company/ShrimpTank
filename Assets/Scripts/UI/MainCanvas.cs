@@ -32,7 +32,7 @@ public class MainCanvas : MonoBehaviour
         RaiseTablet();
         lastCreated = Instantiate(screen, transform);
         UIManager.instance.OpenScreen(lastCreated.GetComponent<ScreenView>());
-        UIManager.instance.SetCursorMasking(true);
+        //UIManager.instance.SetCursorMasking(true);
         return lastCreated;
     }
 
@@ -40,7 +40,7 @@ public class MainCanvas : MonoBehaviour
     {
         LowerTablet();
         Destroy(lastCreated);
-        UIManager.instance.SetCursorMasking(false);
+        //UIManager.instance.SetCursorMasking(false);
         UIManager.instance.CloseScreen();
     }
 
