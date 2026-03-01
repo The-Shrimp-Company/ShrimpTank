@@ -10,8 +10,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e841915c3e70d904dbb6595468869a0f,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e841915c3e70d904dbb6595468869a0f,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e841915c3e70d904dbb6595468869a0f,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e841915c3e70d904dbb6595468869a0f,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: -117.188
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e841915c3e70d904dbb6595468869a0f,
         type: 3}
@@ -21,17 +36,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e841915c3e70d904dbb6595468869a0f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -97.257
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e841915c3e70d904dbb6595468869a0f,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071067
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e841915c3e70d904dbb6595468869a0f,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e841915c3e70d904dbb6595468869a0f,
         type: 3}
@@ -41,7 +56,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e841915c3e70d904dbb6595468869a0f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e841915c3e70d904dbb6595468869a0f,
         type: 3}
@@ -71,5 +86,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e841915c3e70d904dbb6595468869a0f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4710843034973998692}
   m_SourcePrefab: {fileID: 100100000, guid: e841915c3e70d904dbb6595468869a0f, type: 3}
+--- !u!1 &8169274071577956136 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e841915c3e70d904dbb6595468869a0f,
+    type: 3}
+  m_PrefabInstance: {fileID: 9051811585260761721}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-4710843034973998692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8169274071577956136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14bdc4a5fa7f86b4388e3fade09e7471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgrade: {fileID: 0}
+  working: 0
+  brokenParticlesPrefab: {fileID: 0}
+  unlockReqTotalShrimp: 0
+  unlockReqShrimpInOneTank: 0

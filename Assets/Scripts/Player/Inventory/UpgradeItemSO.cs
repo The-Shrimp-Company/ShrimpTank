@@ -33,7 +33,8 @@ public enum UpgradeTypes
     MineralRegulator,
     FoodDispenser,
     Label,
-    Decorations
+    Decorations,
+    Sand
 }
 
 

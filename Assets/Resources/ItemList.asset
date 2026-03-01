@@ -25,6 +25,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b2fad02914d55cb4a92ceb19388f00e4, type: 2}
   - {fileID: 11400000, guid: a9a5a20adae17d94b85911d319cbd61e, type: 2}
   - {fileID: 11400000, guid: 1ac82020f076b3d4d8bc6d02cc1bb21f, type: 2}
+  - {fileID: 11400000, guid: 2f60c884872f6014ca963b3357e6a064, type: 2}
+  - {fileID: 11400000, guid: 6beb6952dcca8c04490069cdf507a6e4, type: 2}
+  - {fileID: 11400000, guid: 25ef39104eb10e947a2677374ffd7654, type: 2}
+  - {fileID: 11400000, guid: 4049d54531aa1ca4eb37f63a158c7840, type: 2}
+  - {fileID: 11400000, guid: b2ef06db65965a5408f7f365f3a06f8f, type: 2}
+  - {fileID: 11400000, guid: 535a32e57e64001468ed68d7c3317b42, type: 2}
+  - {fileID: 11400000, guid: 50987ec399758cb41a08ca95a33d5e1c, type: 2}
+  - {fileID: 11400000, guid: 5b6bed52b690f6a4fb73de322816bb3d, type: 2}
+  - {fileID: 11400000, guid: 85d997987b29dbd4d9554e7d08ef70f4, type: 2}
   roomDecorations:
   - {fileID: 11400000, guid: c959370a54c4aeb46b5c7661b2544009, type: 2}
   - {fileID: 11400000, guid: 528cb69190c57b14f8dfb1fe066731d9, type: 2}
