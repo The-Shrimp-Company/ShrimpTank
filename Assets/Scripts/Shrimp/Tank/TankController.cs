@@ -378,19 +378,25 @@ public class TankController : Interactable
 
 
         // Water Quality
-        if (!upgradeController.CheckForUpgrade(UpgradeTypes.Filter) ||
-            upgradeController.GetUpgrade(UpgradeTypes.Filter).upgrade.filterCapacity < shrimpInTank.Count)
+        if (EnabledFeatures.WaterQualityChangesOverTime)
         {
-            waterQuality = Mathf.Clamp(waterQuality - (((waterQualityDecreaseSpeed * ((shrimpInTank.Count + 1) / 2)) / 50) * updateTimer), 0, 100);
+            if (!upgradeController.CheckForUpgrade(UpgradeTypes.Filter) ||
+                upgradeController.GetUpgrade(UpgradeTypes.Filter).upgrade.filterCapacity < shrimpInTank.Count)
+            {
+                waterQuality = Mathf.Clamp(waterQuality - (((waterQualityDecreaseSpeed * ((shrimpInTank.Count + 1) / 2)) / 50) * updateTimer), 0, 100);
+            }
         }
 
 
-        // Water Temperature
-        waterTemperature = Mathf.Clamp(waterTemperature - tempuratureChangeSpeed * updateTimer, 20, 80);
+        // Water Stats
+        if (EnabledFeatures.TemperatureChangesOverTime)
+            waterTemperature = Mathf.Clamp(waterTemperature - tempuratureChangeSpeed * updateTimer, 20, 80);
 
-        waterSalt = Mathf.Clamp(waterSalt - 0.01f * updateTimer * shrimpInTank.Count, 0, 100);
-        
-        waterAmmonium = Mathf.Clamp(waterAmmonium - 0.01f * updateTimer * shrimpInTank.Count * UnityEngine.Random.value, 0, 100);
+        if (EnabledFeatures.SaltChangesOverTime)
+            waterSalt = Mathf.Clamp(waterSalt - 0.01f * updateTimer * shrimpInTank.Count, 0, 100);
+
+        if (EnabledFeatures.AmmoniumChangesOverTime)
+            waterAmmonium = Mathf.Clamp(waterAmmonium - 0.01f * updateTimer * shrimpInTank.Count * UnityEngine.Random.value, 0, 100);
 
 
 
