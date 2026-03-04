@@ -259,9 +259,9 @@ public class TankViewScript : ScreenView
         screen.GetComponentInChildren<InventoryContent>().UpgradeAssignment(tank.upgradeController, UpgradeTypes.Decorations, this, screen.gameObject);
     }
 
-    public void AddSalt()
+    public void AddSalt(int s = 10)
     {
-        tank.waterSalt = Mathf.Clamp(tank.waterSalt + 10, 0, 100);
+        tank.waterSalt = Mathf.Clamp(tank.waterSalt + s, 0, 100);
     }
 
     public void ChangePh(int dir)
@@ -269,9 +269,9 @@ public class TankViewScript : ScreenView
         tank.waterPh = Mathf.Clamp(tank.waterPh + dir, 1, 14);
     }
 
-    public void AddAmmonium()
+    public void AddAmmonium(int a = 10)
     {
-        tank.waterAmmonium = Mathf.Clamp(tank.waterAmmonium + 10, 0, 100);
+        tank.waterAmmonium = Mathf.Clamp(tank.waterAmmonium + a, 0, 100);
     }
 
     public void SelectAll()

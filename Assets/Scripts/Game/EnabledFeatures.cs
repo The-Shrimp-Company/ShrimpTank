@@ -6,6 +6,9 @@ public class EnabledFeatures
 {
     public static bool TanksStartWithWater = true;
     public static int TanksStartWithShrimp = 0;
+    public static int TanksStartWithAmmonium = 50;
+    public static int TanksStartWithSalt = 50;
+
 
     public static bool IllnessEnabled = false;
     public static bool WaterQualityChangesOverTime = false;

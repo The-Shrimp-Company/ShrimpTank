@@ -175,6 +175,9 @@ public class TankController : Interactable
                     SpawnShrimp();
                 }
             }
+
+            if (EnabledFeatures.TanksStartWithSalt != 0) waterSalt = Mathf.Clamp(EnabledFeatures.TanksStartWithSalt, 0, 100);
+            if (EnabledFeatures.TanksStartWithAmmonium != 0) waterAmmonium = Mathf.Clamp(EnabledFeatures.TanksStartWithAmmonium, 0, 100);
         }
 
         SwitchLODLevel(LODLevel.Low);
