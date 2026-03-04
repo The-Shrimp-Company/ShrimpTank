@@ -83,6 +83,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: sand red
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7502a3da5a52eb145858c8edf63beaf9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -91,6 +96,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: -8882490663162947455}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7502a3da5a52eb145858c8edf63beaf9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6774472813950443030}
   m_SourcePrefab: {fileID: 100100000, guid: 7502a3da5a52eb145858c8edf63beaf9, type: 3}
 --- !u!1 &8729009736709251975 stripped
 GameObject:
@@ -115,3 +124,25 @@ MonoBehaviour:
   brokenParticlesPrefab: {fileID: 0}
   unlockReqTotalShrimp: 0
   unlockReqShrimpInOneTank: 0
+--- !u!64 &6774472813950443030
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8729009736709251975}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1445429886155621308, guid: 7502a3da5a52eb145858c8edf63beaf9, type: 3}

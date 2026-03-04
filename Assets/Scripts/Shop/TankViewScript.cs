@@ -475,9 +475,19 @@ public class TankViewScript : ScreenView
 
     public void AddFood()
     {
-        GameObject screen = Instantiate(inventoryScreen, UIManager.instance.GetCanvas());
-        UIManager.instance.OpenScreen(screen.GetComponent<ScreenView>());
-        screen.GetComponentInChildren<InventoryContent>().FoodAssignement(this, tank, screen);
+        //GameObject screen = Instantiate(inventoryScreen, UIManager.instance.GetCanvas());
+        //UIManager.instance.OpenScreen(screen.GetComponent<ScreenView>());
+        //screen.GetComponentInChildren<InventoryContent>().FoodAssignement(this, tank, screen);
+
+        Item food = Inventory.GetInventoryItemsWithTag(ItemTags.Food)[UnityEngine.Random.Range(0, Inventory.GetInventoryItemsWithTag(ItemTags.Food).Count)];  // Create content blocks for all items with the food tag
+
+        if (Inventory.HasItem(food) && tank.foodInTank.Count < 25)
+        {
+            Inventory.RemoveItem(food);
+            GameObject newFood = Instantiate(((FoodItemSO)Inventory.GetSOForItem(food)).foodPrefab, tank.GetRandomSurfacePosition(), Quaternion.identity);
+            newFood.GetComponent<ShrimpFood>().CreateFood(tank, food);
+        }
+
     }
 
 

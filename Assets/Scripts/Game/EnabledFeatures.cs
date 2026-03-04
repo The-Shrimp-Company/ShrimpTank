@@ -11,6 +11,7 @@ public class EnabledFeatures
 
 
     public static bool IllnessEnabled = false;
+    public static bool HungerEnabled = false;
     public static bool WaterQualityChangesOverTime = false;
     public static bool TemperatureChangesOverTime = false; 
     public static bool SaltChangesOverTime = false;
