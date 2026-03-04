@@ -50,6 +50,7 @@ public class CurrentTankContentBlock : ContentBlock
                 _tank.MoveShrimp(shrimp);
             }
         }
-        player.OnExitView();
+        UIManager.instance.CloseScreen();
+        //player.OnExitView();
     }
 }

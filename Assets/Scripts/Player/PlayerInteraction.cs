@@ -13,7 +13,7 @@ public class PlayerInteraction : MonoBehaviour
     private CameraLookCheck lookCheck;
     private Camera _camera;
     private PlayerInput _input;
-    private GameObject _tankView;
+    [HideInInspector] public GameObject _tankView;
     private Vector2 press;
     [SerializeField] public LayerMask shelfLayerMask;
     [SerializeField] public LayerMask layerMask;

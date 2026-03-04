@@ -151,7 +151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1647018595903565424
 RectTransform:
   m_ObjectHideFlags: 0
@@ -575,7 +575,6 @@ MonoBehaviour:
   backSprites: []
   text: {fileID: 7497105597400790068}
   saleSign: {fileID: 3423245697982991549}
-  destSign: {fileID: 7482377250003582554}
   warningSign: {fileID: 3241520575584643753}
 --- !u!1 &7927364527408709348
 GameObject:
@@ -594,7 +593,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5066337360503565674
 RectTransform:
   m_ObjectHideFlags: 0

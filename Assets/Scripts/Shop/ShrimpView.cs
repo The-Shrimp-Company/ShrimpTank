@@ -62,6 +62,10 @@ public class ShrimpView : ScreenView
             phMarginLabel.text = Mathf.Round(_shrimp.tank.waterPh - _shrimp.stats.PhPreference).ToString();
             hnoMarginLabel.text = Mathf.Round(_shrimp.tank.waterAmmonium - _shrimp.stats.ammoniaPreference).ToString();
         }
+        if (_shrimp == null || _shrimp.tank.gameObject != player.GetComponent<PlayerInteraction>()._tankView)
+        {
+            Exit();
+        }
     }
 
     public void Click()
@@ -139,10 +143,13 @@ public class ShrimpView : ScreenView
 
     public override void Exit()
     {
-        _shrimp.gameObject.layer = LayerMask.NameToLayer("Shrimp");
-        _shrimp.GetComponentInChildren<ShrimpCam>().Deactivate();
+        if (_shrimp != null)
+        {
+            _shrimp.gameObject.layer = LayerMask.NameToLayer("Shrimp");
+            _shrimp.GetComponentInChildren<ShrimpCam>().Deactivate();
+        }
         player.GetComponent<PlayerUIController>().UnsetShrimpCam();
-        TankController tank = _shrimp.tank.GetComponent<TankController>();
+        TankController tank = player.GetComponent<PlayerInteraction>()._tankView.GetComponent<TankController>();
         Camera.main.transform.SetPositionAndRotation(tank.GetCam().transform.position, tank.GetCam().transform.rotation);
         UIManager.instance.CloseScreen();
     }
@@ -169,9 +176,12 @@ public class ShrimpView : ScreenView
 
     public override void Close(bool switchTab)
     {
-        _shrimp.gameObject.layer = LayerMask.NameToLayer("Shrimp");
-        _shrimp.GetComponentInChildren<ShrimpCam>().Deactivate();
-        _shrimp.StopFocusingShrimp();
+        if (_shrimp != null)
+        {
+            _shrimp.gameObject.layer = LayerMask.NameToLayer("Shrimp");
+            _shrimp.GetComponentInChildren<ShrimpCam>().Deactivate();
+            _shrimp.StopFocusingShrimp();
+        }
         player.GetComponent<PlayerUIController>().UnsetShrimpCam();
         StartCoroutine(CloseTab(switchTab));
     }
