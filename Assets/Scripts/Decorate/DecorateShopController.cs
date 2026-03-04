@@ -772,7 +772,7 @@ public class DecorateShopController : MonoBehaviour
         tank.tankId = data.tankId;
         tank.AlarmIds = data.alarmIds.ToList<String>();
 
-        if (data.openTank) tank.toggleTankOpen();
+        
 
         foreach (ShrimpStats s in data.shrimp)
         {

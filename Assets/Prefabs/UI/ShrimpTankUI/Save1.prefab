@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 1291575551830350258}
   - component: {fileID: 3882861292627033526}
   - component: {fileID: 1077670569823031049}
+  - component: {fileID: 9003070990873959109}
   m_Layer: 5
   m_Name: Save1
   m_TagString: Untagged
@@ -212,6 +213,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 1
   m_PixelsPerUnitMultiplier: 10
+--- !u!114 &9003070990873959109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385036081895125788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 481b571f74270254580456af9855adef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2061206520015796374
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,7 +479,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5314501542398846820}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 9003070990873959109}
+        m_TargetAssemblyTypeName: SaveButtons, Assembly-CSharp
+        m_MethodName: LoadGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5475593414670134199
 GameObject:
   m_ObjectHideFlags: 0
@@ -721,4 +746,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8758516477904801184}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 9003070990873959109}
+        m_TargetAssemblyTypeName: SaveButtons, Assembly-CSharp
+        m_MethodName: SaveGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

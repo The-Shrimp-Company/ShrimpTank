@@ -459,7 +459,7 @@ public class DebugController : MonoBehaviour
 
         SALE_TANK = new DebugCommand("sale_tank", "Toggle this tank as a sale tank", "sale_tank", () =>
         {
-            focussedTank.SetOpenTank();
+            //focussedTank.SetOpenTank();
         });
 
         SALE_PRICE = new DebugCommand<float>("sale_price", "Change the price on this sale tank", "sale_price", (x) =>

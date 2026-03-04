@@ -356,10 +356,6 @@ public class TankController : Interactable
                     shrimpInTank.Remove(shrimpToRemove[i]);
                     ShrimpManager.instance.RemoveShrimpFromStore(shrimpToRemove[i]);
                 }
-                if (shrimpToRemove[i].saleSlotIndex != -1)
-                {
-                    CustomerManager.Instance.shrimpSaleSlots[shrimpToRemove[i].saleSlotIndex] = new();
-                }
                 Destroy(shrimpToRemove[i].gameObject);
                 shrimpToRemove.RemoveAt(i);
             }
@@ -435,151 +431,9 @@ public class TankController : Interactable
         }
         idealSalt /= shrimpInTank.Count;
 
-        // Sending stat alarms
-        CheckStatAlarm(waterTemperature, idealTemp, tempVariance, "Your tank is the wrong temperature", AlarmTypes.Temp);
-        CheckStatAlarm(waterSalt, idealSalt, saltVariance, "Your tank has the wrong salt level", AlarmTypes.Salt);
-        CheckStatAlarm(waterAmmonium, idealNitr, nitrVariance, "Your tank has the wrong Nitrate level", AlarmTypes.AmmoniumNitrate);
-        CheckStatAlarm(waterPh, idealPh, pHVariance, "Your tank has the wrong pH level", AlarmTypes.ph);
-        if(shrimpInTank.Count > 0)
-        {
-            CheckMinValueAlarm(dayLastFed, TimeManager.instance.day-2, "Shrimp Haven't been fed!", AlarmTypes.Food);
-        }
-    }
-
-    /// <summary>
-    /// When given the current value and target value, if the two are further apart than the maximum difference, an alarm of the given type, 
-    /// with the given message wll be sent.
-    /// </summary>
-    /// <param name="currentValue"></param>
-    /// <param name="targetValue"></param>
-    /// <param name="maximumDifference">Value is inclusive.</param>
-    /// <param name="alarmMessage">Message to send</param>
-    /// <param name="alarmType">Defined in the enumerator, used to identify the previous alarms of the same type.</param>
-    private void CheckStatAlarm(float currentValue, float targetValue, float maximumDifference, string alarmMessage, AlarmTypes alarmType)
-    {
-        if (Mathf.Abs(currentValue - targetValue) >= maximumDifference)
-        {
-            Email email = CreateOrFindAlarm(alarmType);
-            email.subjectLine = alarmType.ToString() + " warning in tank " + tankName;
-            email.mainText = alarmMessage;
-        }
-        else
-        {
-            Email email = FindAlarm(alarmType);
-            if (email != null)
-            {
-                AlarmIds.Remove(email.ID);
-                EmailManager.RemoveEmail(email);
-            }
-        }
-    }
-
-    /// <summary>
-    /// Alternative of the CheckStatAlarm, used when there is a value which can be arbitrarily high, but not below a certain level. Otherwise identical to Check
-    /// StatAlarm.
-    /// </summary>
-    /// <param name="currentValue"></param>
-    /// <param name="minimumValue">Value is inclusive</param>
-    /// <param name="AlarmMessage"></param>
-    /// <param name="alarmType">USed to identify previous alarms from this tank of the same type.</param>
-    private void CheckMinValueAlarm(float currentValue, float minimumValue, string AlarmMessage, AlarmTypes alarmType)
-    {
-        if(currentValue <= minimumValue)
-        {
-            Email email = CreateOrFindAlarm(alarmType);
-            email.subjectLine = alarmType.ToString() + " warning in tank " + tankName;
-            email.mainText = AlarmMessage;
-        }
-        else
-        {
-            Email email = FindAlarm(alarmType);
-            if(email != null)
-            {
-                AlarmIds.Remove(email.ID);
-                EmailManager.RemoveEmail(email);
-            }
-        }
-    }
-
-    public void ShrimpDiedAlarm(ShrimpStats shrimp, string EmailMessage = "")
-    {
-        Email email = FindAlarm(AlarmTypes.ShrimpDeath);
-        if(email != null)
-        {
-            UIManager.instance.PushNotification((shrimp.name + " has died as well"), true);
-        }
-        else
-        {
-            email = CreateAlarm(AlarmTypes.ShrimpDeath);
-            email.CreateEmailButton("Delete", true);
-        }
-
-        email.mainText += "\n" + shrimp.name + " has died";
-        if (EmailMessage != "") email.mainText += " " + EmailMessage;
-        
         
     }
 
-    private Email CreateOrFindAlarm(AlarmTypes type)
-    {
-        Email email = null;
-        if(AlarmIds.Count == 0)
-        {
-            email = CreateAlarm(type);
-        }
-        else
-        {
-            email = FindAlarm(type);
-            if (email == null)
-            {
-                email = CreateAlarm(type);
-            }
-        }
-        return email;
-    }
-
-    private Email CreateAlarm(AlarmTypes type)
-    {
-        Email email = EmailTools.CreateEmail();
-        AlarmIds.Add(email.ID);
-        email.tag = Email.EmailTags.Alarms;
-        email.title = type.ToString();
-        email.subjectLine = type.ToString() + " warning in tank: " + tankName;
-        email.CreateEmailButton("Go to tank")
-            .SetFunc(EmailFunctions.FunctionIndexes.FocusTargetTank, tankId);
-        EmailManager.SendEmailDirect(email, false);
-        return email;
-    }
-
-    private Email FindAlarm(AlarmTypes type)
-    {
-        Email[] emails = EmailManager.instance.emails.Where(x => x.tag == Email.EmailTags.Alarms && AlarmIds.Contains(x.ID)).ToArray();
-        if (emails.Length >= 1) return Array.Find(emails, (x) => { return x.title == type.ToString(); });
-        else return null;
-    }
-
-    private void ClearAlarms()
-    {
-        foreach (string alarmId in AlarmIds)
-        {
-            EmailManager.RemoveEmail(EmailManager.instance.emails.Find(x => x.ID == alarmId));
-        }
-        AlarmIds.Clear();
-    }
-
-
-    /// <summary>
-    /// Will either set tank open to the value you give it, or will toggle it if no value is given
-    /// </summary>
-    /// <param name="set"></param>
-    public bool toggleTankOpen(bool? set = null)
-    {
-        if (CustomerManager.Instance == null) return false;
-        openTank = set ?? !openTank;
-        if (openTank) CustomerManager.Instance.openTanks.Add(this);
-        else CustomerManager.Instance.openTanks.Remove(this);
-        return set == null ? false : true;
-    }
 
 
     public void SpawnShrimp(TraitSet set = TraitSet.None)  // No trait set will spawn a random shrimp
@@ -1019,7 +873,6 @@ public class TankController : Interactable
 
     private void OnDestroy()
     {
-        ClearAlarms();
     }
 }
 

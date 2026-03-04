@@ -33,11 +33,7 @@ public class Store : MonoBehaviour
             Inventory.AddShrimp(s);
             PlayerStats.stats.shrimpBought++;
 
-            Email email = EmailTools.CreateEmail();
-            email.title = "YourStore@notifSystem.store";
-            email.subjectLine = "A new shrimp has arrived in the store";
-            email.mainText = "The shrimp is in your storage";
-            EmailManager.SendEmail(email);
+            
 
             return true;
         }

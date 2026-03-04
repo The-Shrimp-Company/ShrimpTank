@@ -77,16 +77,7 @@ public class UIManager : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(null);
         }
 
-        // If the timer is up, it get's the next notification to send to the player
-        if(notifTime > notifTimer)
-        {
-            _currentText = EmailManager.instance.GetNotification();
-            notifTime = 0;
-        }
-        else
-        {
-            notifTime += Time.deltaTime;
-        }
+        
 
         // If there is a notification bar available, it sends the current notification every frame
         if (SendNotification != null)
@@ -228,7 +219,7 @@ public class UIManager : MonoBehaviour
 
     public void RefreshNotif()
     {
-        _currentText = EmailManager.instance.GetNotification();
+        
         notifTime = 0;
     }
 

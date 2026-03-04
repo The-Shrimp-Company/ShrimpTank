@@ -30,10 +30,7 @@ public class NotificationBar : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        notifCount.text = EmailManager.instance.emails.Where(x => x.tag != Email.EmailTags.Spam).Count().ToString();
-    }
+    
 
     public void Notification(string message, bool sound)
     {

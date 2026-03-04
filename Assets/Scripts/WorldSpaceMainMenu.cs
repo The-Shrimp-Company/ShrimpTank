@@ -7,11 +7,9 @@ using UnityEngine.UI;
 
 public class WorldSpaceMainMenu : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject Player;
+    public GameObject Player;
 
-    [SerializeField]
-    private SaveController SaveController;
+    public SaveController SaveController;
 
     [SerializeField]
     private GameObject MainMenu;
@@ -19,36 +17,31 @@ public class WorldSpaceMainMenu : MonoBehaviour
     private GameObject SaveMenu;
 
     [SerializeField]
-    private List<Button> saveFiles;
+    private List<SaveButtons> saveFiles;
 
 
     // Start is called before the first frame update
     void Start()
     {
         Camera cam = Player.GetComponentInChildren<Camera>();
-        foreach (Button button in saveFiles)
+        foreach (SaveButtons button in saveFiles)
         {
-            button.onClick.AddListener(() =>
-            {
-                SaveManager.currentSaveFile = button.name;
-                SaveController.LoadGame(button.name);
-            });
+            
             if (SaveManager.TryLoadGame(button.name))
             {
                 SaveManager.LoadGame(button.name);
-                button.onClick.AddListener(ContinueGame);
-                button.GetComponentInChildren<TextMeshProUGUI>().text = SaveManager.CurrentSaveData.storeName;
+                button.GetComponentInChildren<TextMeshProUGUI>().text = button.name;
                 //button.Q<Label>().text = TimeManager.DateFromTime(SaveManager.CurrentSaveData.totalTime);
             }
             else
             {
-                button.onClick.AddListener(NewGame);
                 button.GetComponentInChildren<TextMeshProUGUI>().text = "Empty File";
                 //button.Q<Label>().text = "";
             }
         }
     }
 
+    
     
 
     public void NewGame()

@@ -203,25 +203,7 @@ public class SaveController : MonoBehaviour
         d.roomDecorations = decorationsInRoom.ToArray();
         d.tanks = tanks.ToArray();
 
-        // NPCs
-        List<NPC.NPCData> npcdata = new List<NPC.NPCData>();
-        foreach(NPC npc in NPCManager.Instance.NPCs)
-        {
-            npcdata.Add(npc.Data);
-        }
-        d.npcs = npcdata.ToArray();
-
-        // Emails
-        d.emails = EmailManager.instance.emails.ToArray();
-        d.notifications = EmailManager.instance.notifications.ToArray();
-        d.alarmNotifs = EmailManager.instance.alarmNotifs.ToArray();
-
-        // NPC Shops
-        d.shops = ShopManager.instance.shops.ToArray();
-
-        // Requests
-        d.requests = CustomerManager.Instance.requests.ToArray();
-        d.numSlots = CustomerManager.Instance.numSlots;
+        
 
         // Tutorial
         d.tutorialFlags = Tutorial.instance.flags;
@@ -256,21 +238,7 @@ public class SaveController : MonoBehaviour
         // Room Decorations
         Store.decorateController.LoadDecorations(d.roomDecorations, d.tanks);
 
-        // Requests
-        CustomerManager.Instance.Initialize(d.requests);
-        CustomerManager.Instance.numSlots = d.numSlots;
-
-        // Npcs
-        NPCManager.Instance.Initialize();
-
-        // Shops
-        ShopManager.instance.Initialize(d.shops.ToList());
-
-        // Emails
-        EmailManager.instance.Initialize();
-        EmailManager.instance.notifications = d.notifications.ToList();
-        EmailManager.instance.alarmNotifs = d.alarmNotifs.ToList();
-
+        
         // Reputation
         Reputation.SetReputation(d.reputation);
 
@@ -282,18 +250,10 @@ public class SaveController : MonoBehaviour
     public void NewGame()
     {
         Inventory.instance = new Inventory();
-        CustomerManager.Instance = new CustomerManager();
-        EmailManager.instance = new EmailManager();
-        ShopManager.instance = new ShopManager();
-        NPCManager.Instance = new NPCManager();
         ShrimpManager.instance.WipeAllShrimp();
         PlayerStats.stats = new Stats();
         SaveManager.CurrentSaveData = new SaveData();
         Inventory.instance.Initialize();
-        CustomerManager.Instance.Initialize();
-        EmailManager.instance.Initialize();
-        ShopManager.instance.Initialize();
-        NPCManager.Instance.Initialize();
         Money.instance.SetStartingMoney();
         Reputation.SetReputation(0);
         SaveManager.NewGame();

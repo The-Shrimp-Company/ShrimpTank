@@ -55,8 +55,5 @@ public class PlayerDebug : MonoBehaviour
     }
     */
 
-    public void OnAddRequest()
-    {
-        CustomerManager.Instance.MakeRequest();
-    }
+    
 }

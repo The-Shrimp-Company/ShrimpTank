@@ -405,10 +405,7 @@ public class TankViewScript : ScreenView
         idealHNOLabel.text = ((int)tank.idealNitr).ToString();
     }
 
-    public void SetOpenTank()
-    {
-        tank.toggleTankOpen();
-    }
+    
 
     public void SlideMenu()
     {

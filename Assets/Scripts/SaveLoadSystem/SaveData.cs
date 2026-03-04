@@ -31,18 +31,10 @@ namespace SaveLoadSystem
 
         public GlobalGene[] globalGenes;
 
-        public NPC.NPCData[] npcs;
-
-        public Shop[] shops;
 
         public int numSlots;
 
-        public Email[] emails;
 
-        public Notification[] notifications;
-        public Notification[] alarmNotifs;
-
-        public Request[] requests;
 
         public List<string> tutorialFlags;
 

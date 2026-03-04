@@ -63,14 +63,7 @@ public class Shrimp : MonoBehaviour
         breedingTimer = ShrimpManager.instance.GetBreedingCooldown(stats, tank);
         stats.canBreed = false;
 
-        saleSlotIndex = stats.saleSlotIndex - 1;
-        assignedValue = stats.assignedValue;
-        if(saleSlotIndex != -1)
-        {
-            CustomerManager.Instance.shrimpSaleSlots[saleSlotIndex] = new();
-            CustomerManager.Instance.shrimpSaleSlots[saleSlotIndex].shrimp = this;
-            if(assignedValue != 0) CustomerManager.Instance.shrimpSaleSlots[saleSlotIndex].value = assignedValue;
-        }
+        
 
         agent.shrimpModel.localScale = Vector2.zero;
         agent.shrimpModel.DOScale(ShrimpManager.instance.GetShrimpSize(TimeManager.instance.GetShrimpAge(stats.birthTime), stats.geneticSize), 0.5f).SetEase(shrimpAppearEase);  // Make the shrimp smoothly appear
@@ -252,7 +245,7 @@ public class Shrimp : MonoBehaviour
 
         // Spawn dead body
 
-        if(!supressMessage) tank.ShrimpDiedAlarm(stats, DeathReason);
+        
 
 
         
@@ -265,17 +258,9 @@ public class Shrimp : MonoBehaviour
 
     
 
-    public void SellShrimp()
-    {
-        illnessCont.RemoveShrimp();
-        CustomerManager.Instance.PurchaseShrimpThroughRequest(this, currentValue);
-    }
+    
 
-    public void HardSellShrimp()
-    {
-        illnessCont.RemoveShrimp();
-        CustomerManager.Instance.HardPurchaseShrimp(this, currentValue);
-    }
+    
 
     public float GetValue()
     {

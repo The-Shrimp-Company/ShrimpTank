@@ -71,14 +71,7 @@ public class Heater : TankUpgrade
 
     public override void BreakUpgrade()
     {
-        if (tank.shrimpInTank.Count != 0)
-        {
-            Email email = EmailTools.CreateEmail();
-            email.title = "YourStore@notifSystem.store";
-            email.subjectLine = "Heater on " + tank.tankName + " has broken down";
-            email.mainText = "The shrimp could die if the temperature is incorrect";
-            EmailManager.SendEmail(email);
-        }
+        
 
         base.BreakUpgrade();
     }
