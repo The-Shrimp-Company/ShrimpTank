@@ -168,7 +168,7 @@ public class TankUpgradeController : MonoBehaviour
     public void LoadUpgrades(string[] ids)
     {
         tank = GetComponent<TankController>();
-
+        Debug.Log(ids[0]);
         foreach (string id in ids)
         {
             if (id != null && id != "")

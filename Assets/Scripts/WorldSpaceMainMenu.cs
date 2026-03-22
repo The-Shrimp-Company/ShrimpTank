@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class WorldSpaceMainMenu : MonoBehaviour
@@ -29,7 +30,7 @@ public class WorldSpaceMainMenu : MonoBehaviour
             
             if (SaveManager.TryLoadGame(button.name))
             {
-                SaveManager.LoadGame(button.name);
+                //SaveManager.LoadGame(button.name);
                 button.GetComponentInChildren<TextMeshProUGUI>().text = button.name;
                 //button.Q<Label>().text = TimeManager.DateFromTime(SaveManager.CurrentSaveData.totalTime);
             }
@@ -46,8 +47,10 @@ public class WorldSpaceMainMenu : MonoBehaviour
 
     public void NewGame()
     {
-        SaveController.NewGame();
-        ContinueGame();
+        SaveManager.currentSaveFile = null;
+        SaveManager.gameInitialized = false;
+        SaveManager.startNewGame = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void ContinueGame()

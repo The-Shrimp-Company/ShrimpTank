@@ -6,13 +6,18 @@ using UnityEngine;
 
 public class SaveButtons : MonoBehaviour
 {
+    private WorldSpaceMainMenu menu;
     private SaveController SaveController;
     private GameObject Player;
 
     private void Start()
     {
-        SaveController = transform.GetComponentInParent<WorldSpaceMainMenu>().SaveController;
-        Player = transform.GetComponentInParent<WorldSpaceMainMenu>().Player;
+        menu = transform.GetComponentInParent<WorldSpaceMainMenu>();
+        if (menu)
+        {
+            SaveController = menu.SaveController;
+            Player = menu.Player;
+        }
     }
 
     public void LoadGame()
@@ -21,11 +26,6 @@ public class SaveButtons : MonoBehaviour
         if (SaveManager.TryLoadGame(name))
         {
             SaveController.LoadGame(name);
-        }
-        else
-        {
-            SaveController.NewGame();
-            SaveController.SaveGame(name);
         }
         //Player.GetComponent<PlayerInteraction>().SetTankFocus(FindAnyObjectByType<TankController>());
     }

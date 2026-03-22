@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6099156fd9ecf7144bc7e5b7786f22b3, type: 3}
   m_Name: U_Sand Black
   m_EditorClassIdentifier: 
-  itemName: Sand
+  itemName: Black Sand
   itemImage: {fileID: 0}
   purchaseValue: 0
   purchaseQuantity: 1

@@ -281,7 +281,7 @@ public class TankController : Interactable
             dayLastFed = TimeManager.instance.day-1;
         }
 
-        FoodAlertSign.SetActive(shrimpInTank.Count > 0 && !FedShrimpToday());
+        if (FoodAlertSign != null) FoodAlertSign.SetActive(shrimpInTank.Count > 0 && !FedShrimpToday());
         MouseHover();
         label.text = tankName;
 

@@ -131,6 +131,7 @@ public class SaveController : MonoBehaviour
         List<TankSaveData> tanks = new List<TankSaveData>();
         foreach (Decoration decoration in Store.decorateController.decorationsInStore)
         {
+            if (decoration == null) continue;
             RoomDecorationSaveData decorationSaveData = new RoomDecorationSaveData();
             decorationSaveData.name = decoration.decorationSO.itemName;
             decorationSaveData.position = new System.Numerics.Vector3(decoration.transform.position.x, decoration.transform.position.y, decoration.transform.position.z);

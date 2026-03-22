@@ -12,6 +12,7 @@ public class CameraControls : MonoBehaviour
     [SerializeField][Range(50f, 250f)] private float startingSensitivity = 100f;
     [SerializeField] private float cameraHeight = 2.3f;
     public bool camLocked = false;
+    public bool cursorLocked = false;
 
     private PlayerInput _playerInput;
 
@@ -22,9 +23,11 @@ public class CameraControls : MonoBehaviour
 
     private void Start()
     {
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if (cursorLocked)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
         _playerInput = GetComponent<PlayerInput>();
 
         LoadSensitivity();
