@@ -14,6 +14,7 @@ public class TankGrid : MonoBehaviour
     public float pointSize;
     public float invalidPointSize;
     Vector3 startPoint;
+    public LayerMask decorationLayer;
 
     [Header("Debugging")]
     [SerializeField] bool debugGrid;
@@ -66,7 +67,7 @@ public class TankGrid : MonoBehaviour
                     grid[i][j][k].coords = new Vector3Int(i, j, k);
                     grid[i][j][k].worldPos = pos;
 
-                    CheckNodeValidity(grid[i][j][k]);
+                    CheckNodeValidity(grid[i][j][k], decorationLayer);
 
                     for (int p = -1; p <= 1; p++)
                     {
@@ -88,11 +89,10 @@ public class TankGrid : MonoBehaviour
     }
 
 
-    private void CheckNodeValidity(GridNode node)
+    private void CheckNodeValidity(GridNode node, LayerMask layer)
     {
         node.invalid = false;
 
-        LayerMask layer = LayerMask.GetMask("Decoration");
         Collider[] hit = Physics.OverlapBox(node.worldPos, Vector3.one * pointDistance / 2f, Quaternion.identity, layer, QueryTriggerInteraction.Ignore);
         if (hit != null && hit.Length != 0 && hit[0].name != "Object Preview")
         {
@@ -109,7 +109,7 @@ public class TankGrid : MonoBehaviour
     }
 
 
-    public void RebakeGrid()
+    public void RebakeGrid(LayerMask layer)
     {
         if (debugGrid && gridParent != null)
         {
@@ -126,17 +126,17 @@ public class TankGrid : MonoBehaviour
             {
                 for (int k = 0; k < gridLength; k++)
                 {
-                    CheckNodeValidity(grid[i][j][k]);
+                    CheckNodeValidity(grid[i][j][k], layer);
                 }
             }
         }
     }
 
 
-    public List<GridNode> CheckForObjectCollisions(Transform[] objects)
+    public List<GridNode> CheckForObjectCollisions(Transform[] objects, LayerMask layer)
     {
         List<GridNode> collidingNodes = new List<GridNode>();
-        LayerMask layer = LayerMask.GetMask("Decoration");
+
         RaycastHit[] hit;
 
         // Nodes
@@ -213,7 +213,7 @@ public class TankGrid : MonoBehaviour
     {
         if (node == null) return null;
         List<GameObject> collidingObjects = new List<GameObject>();
-        LayerMask layer = LayerMask.GetMask("Decoration");
+        LayerMask layer = decorationLayer;
         RaycastHit[] hit;
 
         hit = Physics.BoxCastAll(node.worldPos, Vector3.one * pointDistance / 2f, Vector3.up, Quaternion.identity, 0.01f, layer, QueryTriggerInteraction.Ignore);

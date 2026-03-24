@@ -1751,6 +1751,9 @@ MonoBehaviour:
   pointDistance: 0.025
   pointSize: 0.025
   invalidPointSize: 0.025
+  decorationLayer:
+    serializedVersion: 2
+    m_Bits: 33280
   debugGrid: 0
   gridPointPrefab: {fileID: 7075755009106335745, guid: ad8a5b4c18b743d4fb0b4a14931031d2,
     type: 3}
@@ -2987,6 +2990,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4974349919088642302, guid: e7c90b0586289f64f9df479b5204ad7b,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974349919088642302, guid: e7c90b0586289f64f9df479b5204ad7b,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 1
       objectReference: {fileID: 0}
@@ -3070,6 +3078,11 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 7510606025193393956, guid: e7c90b0586289f64f9df479b5204ad7b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8684829751410966389, guid: e7c90b0586289f64f9df479b5204ad7b,
         type: 3}
       propertyPath: m_Name
@@ -3100,7 +3113,8 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -1431554351928861505, guid: e7c90b0586289f64f9df479b5204ad7b, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8747526440545715039, guid: e7c90b0586289f64f9df479b5204ad7b, type: 3}
     m_AddedGameObjects:

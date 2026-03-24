@@ -77,7 +77,7 @@ public class DecorateTankController : MonoBehaviour
         newMenu.GetComponent<Canvas>().planeDistance = 1;
         decorateView = newMenu.GetComponent<ScreenView>() as TankDecorateViewScript;
         //UIManager.instance.SetCursorMasking(false);
-        currentGrid.RebakeGrid();
+        currentGrid.RebakeGrid(LayerMask.GetMask("Decoration"));
 
         camAngle = 0;
         ChangeCam(0);
@@ -216,7 +216,7 @@ public class DecorateTankController : MonoBehaviour
                 foreach (GameObject obj in currentGrid.CheckNodeForObject(hoveredNode))
                 {
                     Transform[] transforms = obj.GetComponentsInChildren<Transform>();
-                    foreach (GridNode n in currentGrid.CheckForObjectCollisions(transforms))
+                    foreach (GridNode n in currentGrid.CheckForObjectCollisions(transforms, LayerMask.GetMask("Decoration")))
                         if (n.worldPos != null && n.worldPos != Vector3.zero)  // If it is not a wall
                             allNodes[n].GetComponent<MeshRenderer>().material = decoratingGridHovered;
                 }
@@ -225,7 +225,7 @@ public class DecorateTankController : MonoBehaviour
             if (selectedObject != null)
             {
                 Transform[] transforms = selectedObject.GetComponentsInChildren<Transform>();
-                foreach (GridNode n in currentGrid.CheckForObjectCollisions(transforms))
+                foreach (GridNode n in currentGrid.CheckForObjectCollisions(transforms, LayerMask.GetMask("Decoration")))
                     if (n.worldPos != null && n.worldPos != Vector3.zero)  // If it is not a wall
                         allNodes[n].GetComponent<MeshRenderer>().material = decoratingGridValidMat;
             }
@@ -373,7 +373,7 @@ public class DecorateTankController : MonoBehaviour
 
         SetTransparentDecorations(transparentDecorations);
         decorateView.UpdateContent();
-        currentGrid.RebakeGrid();
+        currentGrid.RebakeGrid(LayerMask.GetMask("Decoration"));
 
         if (deselectOnPlace || movingObject || Inventory.GetItemUsingSO(decorateView.selectedItemType).quantity <= 0)
             StopPlacing();
@@ -418,7 +418,7 @@ public class DecorateTankController : MonoBehaviour
 
         //Check for colliding nodes and walls, if they are invalid then invalidate the placement
         Transform[] transforms = objectPreview.GetComponentsInChildren<Transform>();
-        List<GridNode> nodes = currentGrid.CheckForObjectCollisions(transforms);
+        List<GridNode> nodes = currentGrid.CheckForObjectCollisions(transforms, LayerMask.GetMask("Decoration"));
 
         foreach (GridNode node in nodes)
         {
@@ -515,7 +515,7 @@ public class DecorateTankController : MonoBehaviour
         obj.SetActive(false);
         Destroy(obj.gameObject);
         UpdateGridMaterials();
-        if (currentGrid) currentGrid.RebakeGrid();
+        if (currentGrid) currentGrid.RebakeGrid(LayerMask.GetMask("Decoration"));
     }
 
     public async void ClearTank(TankController tank = null)
@@ -698,7 +698,7 @@ public class DecorateTankController : MonoBehaviour
             if (floater != null) floater.WaterVolumeHelper = currentTank.waterObject.GetComponent<WaterVolumeHelper>();
         }
 
-        currentGrid.RebakeGrid();
+        currentGrid.RebakeGrid(currentGrid.decorationLayer);
         StopDecorating();
     }
 }
